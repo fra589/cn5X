@@ -29,14 +29,11 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnConnect.setText("Connecter")
 
     # on rempli la liste des ports série
+    self.ui.cmbPort.addItem("")
     if len(serialCom.comList) > 0:
       for p in serialCom.comList:
         self.ui.cmbPort.addItem(p.device + ' - ' + p.description)
-      self.ui.cmbBauds.setEnabled(True)
-      self.ui.btnConnect.setEnabled(True)
     else:
-      self.ui.cmbBauds.setEnabled(False)
-      self.ui.btnConnect.setEnabled(False)
       m = msgBox(
                   title  = "Attention !",
                   text   = "Aucun port de communication disponible !",
@@ -46,6 +43,13 @@ class winMain(QtWidgets.QMainWindow):
                   stdButton = msgButtonList.Close
                 )
       m.afficheMsg()
+
+    if self.ui.cmbPort.currentText() == "":
+      self.ui.cmbBauds.setEnabled(False)
+      self.ui.btnConnect.setEnabled(False)
+    else:
+      self.ui.cmbBauds.setEnabled(True)
+      self.ui.btnConnect.setEnabled(True)
 
     # Et la liste des vitesses
     curIndex = -1
@@ -113,6 +117,12 @@ class winMain(QtWidgets.QMainWindow):
   def on_cmbPort_changed(self):
     print(self.ui.cmbPort.currentIndex())
     print(self.ui.cmbPort.currentText())
+    if self.ui.cmbPort.currentText() == "":
+      self.ui.cmbBauds.setEnabled(False)
+      self.ui.btnConnect.setEnabled(False)
+    else:
+      self.ui.cmbBauds.setEnabled(True)
+      self.ui.btnConnect.setEnabled(True)
 
 if __name__ == '__main__':
   import sys

@@ -10,7 +10,7 @@ class serialCom:
     # Liste des ports gérés par le système
     serialCom.comList = serial.tools.list_ports.comports()
     serialCom.comList.sort()
-    serialCom.baudRates = [2400, 4800, 9600, 19200, 38400, 57600, 115200]
+    serialCom.baudRates = [1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200]
     # Le port utilisé pour la communication
     self.comPort = serial.Serial()
     dir(self.comPort)
