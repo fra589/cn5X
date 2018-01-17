@@ -194,8 +194,8 @@
           <rect>
            <x>0</x>
            <y>20</y>
-           <width>203</width>
-           <height>201</height>
+           <width>251</width>
+           <height>197</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -223,8 +223,8 @@
           <property name="spacing">
            <number>4</number>
           </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_3">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_6">
             <property name="font">
              <font>
               <family>LED Calculator</family>
@@ -232,7 +232,7 @@
              </font>
             </property>
             <property name="text">
-             <string>X</string>
+             <string>A</string>
             </property>
            </widget>
           </item>
@@ -255,6 +255,19 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <family>LED Calculator</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>X</string>
             </property>
            </widget>
           </item>
@@ -328,20 +341,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0" rowspan="2">
-           <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <family>LED Calculator</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>A</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1" rowspan="2">
+          <item row="4" column="1" rowspan="4">
            <widget class="QLabel" name="lblPosA">
             <property name="minimumSize">
              <size>
@@ -363,20 +363,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0" rowspan="2">
-           <widget class="QLabel" name="label_7">
-            <property name="font">
-             <font>
-              <family>LED Calculator</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>B</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
+          <item row="8" column="1">
            <widget class="QLabel" name="lblPosB">
             <property name="minimumSize">
              <size>
@@ -398,6 +385,19 @@
             </property>
            </widget>
           </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <family>LED Calculator</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>B</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
@@ -414,6 +414,9 @@
          <string>GroupBox</string>
         </property>
         <widget class="QPushButton" name="btnStart">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -456,7 +459,7 @@
         </widget>
         <widget class="QPushButton" name="btnStop">
          <property name="enabled">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="geometry">
           <rect>
@@ -519,6 +522,9 @@
            <height>100</height>
           </size>
          </property>
+         <property name="toolTip">
+          <string>Dévérouiller l'arrêt d'urgence</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">border-radius: 25;</string>
          </property>
@@ -566,32 +572,32 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="mnuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_Application">
+   <widget class="QMenu" name="mnuApplication">
     <property name="title">
      <string>&amp;Application</string>
     </property>
-    <addaction name="actionOuvrir_un_fichier_GCode"/>
+    <addaction name="mnuAppOuvrir"/>
     <addaction name="separator"/>
-    <addaction name="action_Quitter"/>
+    <addaction name="mnuAppQuitter"/>
    </widget>
-   <addaction name="menu_Application"/>
+   <addaction name="mnuApplication"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOuvrir_un_fichier_GCode">
+  <action name="mnuAppOuvrir">
    <property name="text">
     <string>&amp;Ouvrir un fichier GCode...</string>
    </property>
   </action>
-  <action name="action_Quitter">
+  <action name="mnuAppQuitter">
    <property name="text">
     <string>&amp;Quitter</string>
    </property>

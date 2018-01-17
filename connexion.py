@@ -19,7 +19,7 @@ class serialCom:
     self.comPort.parity = serial.PARITY_NONE
     self.comPort.bytesize = serial.EIGHTBITS
     self.comPort.stopbits = serial.STOPBITS_ONE
-    
+
   def connect(self):
     # Méthode pour connecter le port série sélectionné précédemment
     if not self.comPort.is_open:
