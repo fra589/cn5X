@@ -1,0 +1,49 @@
+[editor]
+line_wrapping=false
+line_break_column=72
+auto_continue_multiline=true
+
+[file_prefs]
+final_new_line=true
+ensure_convert_new_lines=false
+strip_trailing_spaces=true
+replace_tabs=true
+
+[indentation]
+indent_width=2
+indent_type=0
+indent_hard_tab_width=8
+detect_indent=false
+detect_indent_width=false
+indent_mode=2
+
+[project]
+name=cn5X
+base_path=.
+description=Panneau de contrôle de machine à Commande Numérique pilotée par grbl-Mega-5X
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=4
+FILE_NAME_0=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
+FILE_NAME_1=23;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
+FILE_NAME_2=23;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FQtSerial.py;0;2
+FILE_NAME_3=726;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
+FILE_NAME_4=44;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
+FILE_NAME_5=66;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fdoc%2Fcsv%2Ferror_codes_en_US.csv;0;2
+
+[VTE]
+last_dir=/home/gauthier
+
+[build-menu]
+PythonFT_01_LB=Compile Qt5 UI
+PythonFT_01_CM=for U in *.ui; do pyuic5 -di2 $U -o $(echo $U | sed -e 's/.ui$/.py/'); done
+PythonFT_01_WD=
+filetypes=Python;
+EX_00_LB=_Execute
+EX_00_CM=python cn5X.py
+EX_00_WD=

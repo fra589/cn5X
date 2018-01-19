@@ -527,7 +527,8 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Dévérouiller l'arrêt d'urgence</string>
+          <string>Double clic pour
+dévérouiller l'arrêt d'urgence</string>
          </property>
          <property name="styleSheet">
           <string notr="true">border-radius: 25;</string>
@@ -565,8 +566,11 @@
         <property name="readOnly">
          <bool>true</bool>
         </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
        </widget>
-       <widget class="QLineEdit" name="lneGCode">
+       <widget class="QLineEdit" name="txtGCode">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -574,6 +578,9 @@
           <width>531</width>
           <height>31</height>
          </rect>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QPushButton" name="btnSend">
@@ -618,7 +625,7 @@
      <x>0</x>
      <y>0</y>
      <width>1052</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">

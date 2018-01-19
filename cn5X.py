@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import sys, os
-from PyQt5 import QtWidgets, QtGui
+import sys, os, datetime
+from PyQt5 import QtCore, QtGui, QtWidgets
 import mainWindow
-from connexion import *
 from msgbox import *
+from QtSerial import QSerialComm
+from grblDecode import grblDecode
 
 defaultBaudRate = 115200
 
@@ -16,23 +17,21 @@ class winMain(QtWidgets.QMainWindow):
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
 
+    self.timerDblClic = QtCore.QTimer()
+    self.decode = grblDecode(self.ui)
+
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
+    print(pathname)
     os.chdir(pathname)
 
-    # Chargement de la police des labels de status machine
-    QtGui.QFontDatabase.addApplicationFont('fonts/LEDCalculator.ttf')
-
-    # gestion du port série
-    self.serial = serialCom()
-
-    # Label du bouton connect
-    self.ui.btnConnect.setText("Connecter")
-
-    # on rempli la liste des ports série
-    self.ui.cmbPort.addItem("")
-    if len(serialCom.comList) > 0:
-      for p in serialCom.comList:
-        self.ui.cmbPort.addItem(p.device + ' - ' + p.description)
+    """---------- Préparation de l'interface ----------"""
+    QtGui.QFontDatabase.addApplicationFont(pathname + "/fonts/LEDCalculator.ttf") # Chargement de la police des labels de status machine
+    self.ui.btnConnect.setText("Connecter")                                       # Label du bouton connect
+    self.serial = QSerialComm()                                                   # Création Objet pour communications
+    self.ui.cmbPort.addItem("")                                                   # On rempli la liste des ports série
+    if len(QSerialComm.portsList()) > 0:
+      for p in QSerialComm.portsList():
+        self.ui.cmbPort.addItem(p.portName() + ' - ' + p.description())
     else:
       m = msgBox(
                   title  = "Attention !",
@@ -43,7 +42,6 @@ class winMain(QtWidgets.QMainWindow):
                   stdButton = msgButtonList.Close
                 )
       m.afficheMsg()
-
     if self.ui.cmbPort.currentText() == "":
       self.ui.cmbBauds.setEnabled(False)
       self.ui.btnConnect.setEnabled(False)
@@ -51,28 +49,26 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setEnabled(True)
 
-    # Et la liste des vitesses
-    curIndex = -1
-    for v in serialCom.baudRates:
+    curIndex = -1                                                                  # On rempli la liste des vitesses
+    for v in QSerialComm.baudRates():
       self.ui.cmbBauds.addItem(str(v))
       curIndex += 1
       if v == defaultBaudRate:
         self.ui.cmbBauds.setCurrentIndex(curIndex)
-        print(self.ui.cmbBauds.currentIndex())
 
-    # on affiche un texte en bas de la fenêtre (status bar)
-    self.ui.statusBar.showMessage("coucou")
+    # on affiche une chaine vide texte en bas de la fenêtre (status bar)
+    self.ui.statusBar.showMessage("")
 
-    # Evenements du bouton d'arrêt d'urgence
-    self.ui.btnUrgence.pressed.connect(self.action_arretUrgence)
-    # un clic sur un élément de la liste appellera la méthode 'on_item_changed'
-    self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed)
-
-    # Connexions de routines du menu application
-    self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)
+    """---------- Connections des évennements traités ----------"""
+    self.ui.btnUrgence.pressed.connect(self.arretUrgence)                # Evenements du bouton d'arrêt d'urgence
+    self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_item_changed'
+    self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)         # Connexions des routines du menu application
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
-    # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
-    self.ui.btnConnect.clicked.connect(self.action_btnConnect)
+    self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
+    self.ui.btnSend.pressed.connect(self.sendCmd)                        # Bouton d'envoi de commandes unitaires
+    self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Même fonction par la touche entrée
+    self.serial.lePort.readyRead.connect(self.readSerial) # gestion du port série
+
 
   def on_mnuAppOuvrir(self):
     pass
@@ -82,36 +78,51 @@ class winMain(QtWidgets.QMainWindow):
     print("Bye-bye...")
     self.close()
 
-  def action_arretUrgence(self):
+  def arretUrgence(self):
     print("Arrêt d'urgence détecté !")
     if not(self.ui.btnUrgence.isChecked()):
-      print("On est en train de stoper !!!")
+      print("STOP !!!")
       self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
       self.ui.btnStart.setEnabled(False)
       self.ui.btnStop.setEnabled(False)
-      self.ui.btnUrgence.setToolTip("Dévérouiller l'arrêt d'urgence")
+      self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
     else:
-      print("On relance :-)")
-      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
-      self.ui.btnStart.setEnabled(True)
-      self.ui.btnStop.setEnabled(True)
-      self.ui.btnUrgence.setToolTip("Arrêt d'urgence")
-
+      if not self.timerDblClic.isActive():
+        # On est pas dans le timer du double click,
+        # c'est donc un simple click qui ne suffit pas à déverrouiller le bouton d'arrêt d'urgence.
+        self.timerDblClic.setSingleShot(True)
+        self.timerDblClic.start(QtWidgets.QApplication.instance().doubleClickInterval())
+        self.ui.btnUrgence.setChecked(False)
+      else:
+        print("Double click détecté,")
+        print(self.timerDblClic.remainingTime()) # Double clic détecté
+        self.timerDblClic.stop()
+        print("On relance :-)")
+        self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
+        self.ui.btnStart.setEnabled(True)
+        self.ui.btnStop.setEnabled(True)
+        self.ui.btnUrgence.setToolTip("Arrêt d'urgence")
 
   def action_btnConnect(self):
     if self.ui.btnConnect.text() == "Connecter":
       print('Appui bouton Connecter.')
-      # Recupère les éléments du port à connecter
+      # Recupère les coordonnées et paramètres du port à connecter
       serialDevice = self.ui.cmbPort.currentText()
       serialDevice = serialDevice.split("-")
       serialDevice = serialDevice[0].strip()
-      self.serial.comPort.port = serialDevice
+      self.serial.lePort.setPortName(serialDevice)
+      self.serial.lePort.setBaudRate(int(self.ui.cmbBauds.currentText()))
       self.serial.connect()
-      self.ui.ptxtDebug.appendPlainText("Coucou")
+      self.ui.lblConnectStatus.setText("Connecté à " + serialDevice)
+      self.ui.cmbPort.setEnabled(False)
+      self.ui.cmbBauds.setEnabled(False)
       self.ui.btnConnect.setText("Déconnecter") # La prochaine action du bouton sera pour déconnecter
     else:
       print('Appui bouton Déconnecter.')
       self.serial.disconnect()
+      self.ui.lblConnectStatus.setText("<Non Connecté>")
+      self.ui.cmbPort.setEnabled(True)
+      self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setText("Connecter") # La prochaine action du bouton sera pour connecter
 
   def on_cmbPort_changed(self):
@@ -123,6 +134,36 @@ class winMain(QtWidgets.QMainWindow):
     else:
       self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setEnabled(True)
+
+  def sendCmd(self):
+    if self.ui.txtGCode.text() != "":
+      buffWrite = bytes(self.ui.txtGCode.text() + "\n", sys.getdefaultencoding())
+      self.serial.lePort.write(buffWrite)
+      self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
+
+  def readSerial(self):
+    print("Lecture des données...")
+    s = ''
+    #nWait = self.serial.lePort.bytesAvailable()
+    #while nWait > 0:
+    while self.serial.lePort.canReadLine():
+      #buff = self.serial.lePort.readAll()
+      buff = self.serial.lePort.readLine()
+      s += bytes(buff).decode()
+      #print("Nouveau buffer = [", s, "]", sep='')
+      nWait = self.serial.lePort.bytesAvailable()
+    # Decoupe des lignes unitaires
+    s = s.splitlines()
+    # Envoie les chaines reçues au décodage pour mise à jour de l'interface
+    for l in s:
+      if l != "":
+        l = self.decode.setReply(l)
+      # Ajoute le texte reçu dans la console
+      self.ui.ptxtDebug.setPlainText(self.ui.ptxtDebug.toPlainText() + l + "\n")
+    # Place le curseur en fin de texte de la console
+    cursor = self.ui.ptxtDebug.textCursor();
+    cursor.movePosition(QtGui.QTextCursor.End);
+    self.ui.ptxtDebug.setTextCursor(cursor)
 
 if __name__ == '__main__':
   import sys
