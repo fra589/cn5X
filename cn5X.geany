@@ -28,13 +28,18 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=4
-FILE_NAME_0=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
+current_page=0
+FILE_NAME_0=5176;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
 FILE_NAME_1=23;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
 FILE_NAME_2=23;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FQtSerial.py;0;2
-FILE_NAME_3=726;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
-FILE_NAME_4=44;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
+FILE_NAME_3=1231;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
+FILE_NAME_4=1717;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
 FILE_NAME_5=66;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fdoc%2Fcsv%2Ferror_codes_en_US.csv;0;2
+FILE_NAME_6=22;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblAlarm.py;0;2
+FILE_NAME_7=1202;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fdoc%2Fcsv%2Falarm_codes_en_US.csv;0;2
+FILE_NAME_8=4973;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fdoc%2Fcsv%2Fsetting_codes_en_US.csv;0;2
+FILE_NAME_9=176;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
+FILE_NAME_10=12975;XML;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FmainWindow.ui;0;2
 
 [VTE]
 last_dir=/home/gauthier
