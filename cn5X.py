@@ -7,6 +7,7 @@ import mainWindow
 from msgbox import *
 from QtSerial import QSerialComm
 from grblDecode import grblDecode
+from grblQueryTimer import grblQueryThread
 
 defaultBaudRate = 115200
 
@@ -19,6 +20,7 @@ class winMain(QtWidgets.QMainWindow):
 
     self.timerDblClic = QtCore.QTimer()
     self.decode = grblDecode(self.ui)
+    self.grblQuery = grblQueryThread()
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     print(pathname)
@@ -28,26 +30,7 @@ class winMain(QtWidgets.QMainWindow):
     QtGui.QFontDatabase.addApplicationFont(pathname + "/fonts/LEDCalculator.ttf") # Chargement de la police des labels de status machine
     self.ui.btnConnect.setText("Connecter")                                       # Label du bouton connect
     self.serial = QSerialComm()                                                   # Création Objet pour communications
-    self.ui.cmbPort.addItem("")                                                   # On rempli la liste des ports série
-    if len(QSerialComm.portsList()) > 0:
-      for p in QSerialComm.portsList():
-        self.ui.cmbPort.addItem(p.portName() + ' - ' + p.description())
-    else:
-      m = msgBox(
-                  title  = "Attention !",
-                  text   = "Aucun port de communication disponible !",
-                  info   = sys.argv[0] + " n'a pas trouvé de port série permettant de communiquer avec grbl.",
-                  icon   = msgIconList.Information,
-                  detail = "\nclass serialCom:\nL'appel de \"serial.tools.list_ports.comports()\" n'a renvoyé aucun port.",
-                  stdButton = msgButtonList.Close
-                )
-      m.afficheMsg()
-    if self.ui.cmbPort.currentText() == "":
-      self.ui.cmbBauds.setEnabled(False)
-      self.ui.btnConnect.setEnabled(False)
-    else:
-      self.ui.cmbBauds.setEnabled(True)
-      self.ui.btnConnect.setEnabled(True)
+    self.populatePortList()                                                       # On rempli la liste des ports série
 
     curIndex = -1                                                                  # On rempli la liste des vitesses
     for v in QSerialComm.baudRates():
@@ -64,11 +47,43 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_item_changed'
     self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)         # Connexions des routines du menu application
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
+    self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
     self.ui.btnSend.pressed.connect(self.sendCmd)                        # Bouton d'envoi de commandes unitaires
     self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Même fonction par la touche entrée
-    self.serial.lePort.readyRead.connect(self.readSerial) # gestion du port série
+    self.ui.txtGCode.textChanged.connect(self.txtGCode_on_Change)        # Analyse du champ de saisie au fur et a mesure de son édition
+    self.serial.lePort.readyRead.connect(self.readSerial)                # gestion du port série
 
+  def populatePortList(self):
+    ''' Rempli la liste des ports série '''
+    self.ui.cmbPort.clear()
+    self.ui.cmbPort.addItem("")
+    if len(QSerialComm.portsList()) > 0:
+      for p in QSerialComm.portsList():
+        self.ui.cmbPort.addItem(p.portName() + ' - ' + p.description())
+    else:
+      m = msgBox(
+                  title  = "Attention !",
+                  text   = "Aucun port de communication disponible !",
+                  info   = sys.argv[0] + " n'a pas trouvé de port série permettant de communiquer avec grbl.",
+                  icon   = msgIconList.Information,
+                  detail = "\nclass serialCom:\nL'appel de \"serial.tools.list_ports.comports()\" n'a renvoyé aucun port.",
+                  stdButton = msgButtonList.Close
+                )
+      m.afficheMsg()
+    self.setConnectControlsStatus()
+
+  def setConnectControlsStatus(self):
+    # Active ou désactive les contrôles en fonction de l'état de sélection du port
+    if self.ui.cmbPort.currentText() == "":
+      self.ui.cmbBauds.setEnabled(False)
+      self.ui.btnConnect.setEnabled(False)
+    else:
+      self.ui.cmbBauds.setEnabled(True)
+      self.ui.btnConnect.setEnabled(True)
+
+  def keyPressEvent(self, e):
+    pass
 
   def on_mnuAppOuvrir(self):
     pass
@@ -118,6 +133,8 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.cmbPort.setEnabled(False)
       self.ui.cmbBauds.setEnabled(False)
       self.ui.btnConnect.setText("Déconnecter") # La prochaine action du bouton sera pour déconnecter
+      if not self.grblQuery.isActif():
+        self.grblQuery.run()
     else:
       print('Appui bouton Déconnecter.')
       self.serial.disconnect()
@@ -125,22 +142,23 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.cmbPort.setEnabled(True)
       self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setText("Connecter") # La prochaine action du bouton sera pour connecter
+      if self.grblQuery.isActif():
+        self.grblQuery.stop()
 
   def on_cmbPort_changed(self):
     print(self.ui.cmbPort.currentIndex())
     print(self.ui.cmbPort.currentText())
-    if self.ui.cmbPort.currentText() == "":
-      self.ui.cmbBauds.setEnabled(False)
-      self.ui.btnConnect.setEnabled(False)
-    else:
-      self.ui.cmbBauds.setEnabled(True)
-      self.ui.btnConnect.setEnabled(True)
+    self.setConnectControlsStatus()
 
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
       buffWrite = bytes(self.ui.txtGCode.text() + "\n", sys.getdefaultencoding())
       self.serial.lePort.write(buffWrite)
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
+
+  def txtGCode_on_Change(self):
+    if self.ui.txtGCode.text() == "?":
+      self.sendCmd() # Envoi direct si ?
 
   def readSerial(self):
     print("Lecture des données...")

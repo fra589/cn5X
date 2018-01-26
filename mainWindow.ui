@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>cn5X</string>
   </property>
@@ -18,71 +24,129 @@
     <normaloff>images/XYZAB-48.svg</normaloff>images/XYZAB-48.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_17">
     <property name="spacing">
      <number>2</number>
     </property>
     <property name="leftMargin">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="topMargin">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="rightMargin">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="bottomMargin">
-     <number>2</number>
+     <number>0</number>
     </property>
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
+     <widget class="QFrame" name="grpCommandes">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Tab 1</string>
-       </attribute>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>10</y>
-          <width>713</width>
-          <height>326</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Statut Machine</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>4</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="0">
-          <widget class="QFrame" name="frame_4">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QPushButton" name="btnUrgence">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Double clic pour
+dévérouiller l'arrêt d'urgence</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-radius: 25;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>images/btnUrgenceOff.svg</normaloff>images/btnUrgenceOff.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>100</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>17</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QFrame" name="frmControleVitesse">
            <property name="frameShape">
             <enum>QFrame::Box</enum>
            </property>
            <property name="frameShadow">
             <enum>QFrame::Plain</enum>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -99,709 +163,763 @@
              <number>0</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
               <property name="spacing">
-               <number>0</number>
+               <number>4</number>
               </property>
               <item>
-               <widget class="QFrame" name="frame_3">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(248, 255, 192);
-color: rgb(0, 0, 63);</string>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="spacing">
+                 <number>0</number>
                 </property>
-                <property name="frameShape">
-                 <enum>QFrame::Box</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Plain</enum>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_2">
-                 <property name="leftMargin">
-                  <number>6</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>6</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>6</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>6</number>
-                 </property>
-                 <property name="horizontalSpacing">
-                  <number>6</number>
-                 </property>
-                 <property name="verticalSpacing">
-                  <number>4</number>
-                 </property>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="label_6">
-                   <property name="maximumSize">
-                    <size>
-                     <width>25</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>A</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="lblPosX">
-                   <property name="minimumSize">
-                    <size>
-                     <width>170</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>+00000.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_5">
-                   <property name="maximumSize">
-                    <size>
-                     <width>25</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Z</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1" rowspan="2">
-                  <widget class="QLabel" name="lblPosZ">
-                   <property name="minimumSize">
-                    <size>
-                     <width>170</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>+00000.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1">
-                  <widget class="QLabel" name="lblPosB">
-                   <property name="minimumSize">
-                    <size>
-                     <width>170</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>+00000.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1" rowspan="4">
-                  <widget class="QLabel" name="lblPosA">
-                   <property name="minimumSize">
-                    <size>
-                     <width>170</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>+00000.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="label_7">
-                   <property name="maximumSize">
-                    <size>
-                     <width>25</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>B</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_3">
-                   <property name="maximumSize">
-                    <size>
-                     <width>25</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>X</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_4">
-                   <property name="maximumSize">
-                    <size>
-                     <width>25</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Y</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="lblPosY">
-                   <property name="minimumSize">
-                    <size>
-                     <width>170</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>20</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>+00000.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
+                <item>
+                 <widget class="QLabel" name="label_22">
+                  <property name="text">
+                   <string>Avance</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDial" name="dial">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="minimum">
+                   <number>10</number>
+                  </property>
+                  <property name="maximum">
+                   <number>200</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                  <property name="wrapping">
+                   <bool>false</bool>
+                  </property>
+                  <property name="notchTarget">
+                   <double>10.000000000000000</double>
+                  </property>
+                  <property name="notchesVisible">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_25">
+                  <property name="text">
+                   <string>100%</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QFrame" name="frame_10">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(248, 255, 192);
-color: rgb(0, 0, 63);</string>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <property name="spacing">
+                 <number>0</number>
                 </property>
-                <property name="frameShape">
-                 <enum>QFrame::Box</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Plain</enum>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_8">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_12">
-                   <property name="text">
-                    <string>Plan : </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="lblG55_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G17</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QLabel" name="label_17">
-                   <property name="text">
-                    <string>Broche :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="3">
-                  <widget class="QLabel" name="lblG55_7">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>M5</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_14">
-                   <property name="text">
-                    <string>Unités :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="lblG55_4">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G21</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLabel" name="label_18">
-                   <property name="text">
-                    <string>Arrosage :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="3">
-                  <widget class="QLabel" name="lblG55_8">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>M9</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>Coordonnées :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLabel" name="lblG55_5">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G90</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="2">
-                  <widget class="QLabel" name="label_19">
-                   <property name="text">
-                    <string>Outil :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="3">
-                  <widget class="QLabel" name="lblG55_10">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>T0</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_13">
-                   <property name="text">
-                    <string>Déplacement :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLabel" name="lblG55_3">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G0</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="2">
-                  <widget class="QLabel" name="label_21">
-                   <property name="text">
-                    <string>Rotation broche :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="3">
-                  <widget class="QLabel" name="lblG55_11">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>S00000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_16">
-                   <property name="text">
-                    <string>Mode vitesse :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1">
-                  <widget class="QLabel" name="lblG55_6">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G94</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="2">
-                  <widget class="QLabel" name="label_20">
-                   <property name="text">
-                    <string>Avance :</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="3">
-                  <widget class="QLabel" name="lblG55_9">
-                   <property name="minimumSize">
-                    <size>
-                     <width>91</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>F00000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
+                <item>
+                 <widget class="QLabel" name="label_23">
+                  <property name="text">
+                   <string>Broche</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDial" name="dial_2">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="minimum">
+                   <number>10</number>
+                  </property>
+                  <property name="maximum">
+                   <number>200</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                  <property name="wrapping">
+                   <bool>false</bool>
+                  </property>
+                  <property name="notchTarget">
+                   <double>10.000000000000000</double>
+                  </property>
+                  <property name="notchesVisible">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_24">
+                  <property name="text">
+                   <string>100%</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
             <item>
-             <widget class="QFrame" name="frame_11">
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="title">
+               <string>Avance Rapide</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QRadioButton" name="radioButton_10">
+                 <property name="text">
+                  <string>25%</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_11">
+                 <property name="text">
+                  <string>50%</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_12">
+                 <property name="text">
+                  <string>100%</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpJog">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Jog</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>32</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>+B</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>32</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>+A</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Z+</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QPushButton" name="pushButton_7">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>+Y</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_8">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>-X</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>C</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QPushButton" name="pushButton_10">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>+X</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="pushButton_11">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>-Y</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="pushButton_12">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>-Z</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_13">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>32</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>-A</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_14">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>32</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>-B</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="radioButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>+10.00</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>+ 1.00</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>+ 0.10</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>+ 0.01</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>+ 0.00</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_6">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>- 0.01</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_7">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>- 0.10</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_8">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>- 1.00</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_9">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>-10.00</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpConnexion">
+         <property name="title">
+          <string>Connexion</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>0</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Port :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cmbPort">
+              <property name="minimumSize">
+               <size>
+                <width>158</width>
+                <height>23</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Selectionnez le port de la machine grbl.</string>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnRefresh">
+              <property name="maximumSize">
+               <size>
+                <width>25</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Refresh list</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="view-refresh"/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_22">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Bauds :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cmbBauds">
+              <property name="minimumSize">
+               <size>
+                <width>158</width>
+                <height>23</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="lblConnectStatus">
+              <property name="minimumSize">
+               <size>
+                <width>180</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>&lt;Non Connecté&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnConnect">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>23</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>(Dé)Connecter</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>18</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frmStatus">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="grpStatus">
+         <property name="minimumSize">
+          <size>
+           <width>695</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="frmMPos">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>220</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);</string>
@@ -812,942 +930,1746 @@ color: rgb(0, 0, 63);</string>
               <property name="frameShadow">
                <enum>QFrame::Plain</enum>
               </property>
-              <layout class="QGridLayout" name="gridLayout_3">
+              <layout class="QGridLayout" name="gridLayout_2">
                <property name="leftMargin">
-                <number>0</number>
+                <number>6</number>
                </property>
                <property name="topMargin">
                 <number>0</number>
                </property>
                <property name="rightMargin">
-                <number>0</number>
+                <number>6</number>
                </property>
                <property name="bottomMargin">
                 <number>0</number>
                </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
                <item row="0" column="0">
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <widget class="QLabel" name="label_3">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>X</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="lblPosX">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_4">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Y</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="lblPosY">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Z</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="lblPosZ">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_6">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLabel" name="lblPosA">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_7">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>B</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLabel" name="lblPosB">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="label_26">
+                 <property name="maximumSize">
+                  <size>
+                   <width>25</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(224, 224, 230);</string>
+                 </property>
+                 <property name="text">
+                  <string>C</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="lblPosC">
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>20</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(224, 224, 230);</string>
+                 </property>
+                 <property name="text">
+                  <string>+00000.000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frmMStatus">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(248, 255, 192);
+color: rgb(0, 0, 63);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_4">
+               <property name="leftMargin">
+                <number>6</number>
+               </property>
+               <property name="topMargin">
+                <number>4</number>
+               </property>
+               <property name="rightMargin">
+                <number>6</number>
+               </property>
+               <property name="bottomMargin">
+                <number>4</number>
+               </property>
+               <property name="verticalSpacing">
+                <number>2</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_27">
+                 <property name="text">
+                  <string>Etat Grbl : </string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="lblEtat">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>Idle</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Plan : </string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="lblPlan">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>G17</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_17">
+                 <property name="text">
+                  <string>Broche :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLabel" name="lblBroche">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>M5</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>Unités :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="lblUnites">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>G21</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="QLabel" name="label_18">
+                 <property name="text">
+                  <string>Arrosage :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="3">
+                <widget class="QLabel" name="lblArrosage">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>M9</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Coordonnées :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLabel" name="lblCoord">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>G90</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QLabel" name="label_19">
+                 <property name="text">
+                  <string>Outil :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="3">
+                <widget class="QLabel" name="lblOutil">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>T0</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Déplacements :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLabel" name="lblDeplacements">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>G0</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="2">
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>Rotation broche :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="3">
+                <widget class="QLabel" name="lblRotation">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>S00000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="label_16">
+                 <property name="text">
+                  <string>Mode vitesse :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="lblVitesse">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>G94</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="2">
+                <widget class="QLabel" name="label_20">
+                 <property name="text">
+                  <string>Avance :</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="3">
+                <widget class="QLabel" name="lblAvance">
+                 <property name="minimumSize">
+                  <size>
+                   <width>87</width>
+                   <height>27</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>LED Calculator</family>
+                   <pointsize>16</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="text">
+                  <string>F00000</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QFrame" name="frmCoordOffsets">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(248, 255, 192);
+color: rgb(0, 0, 63);</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="frame_8">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Offset G92 :</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Mode :</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>Offset G54 :</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <property name="spacing">
                   <number>6</number>
                  </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
                  <item>
-                  <widget class="QFrame" name="frame_8">
+                  <widget class="QLabel" name="lblG92X">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
                    </property>
                    <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
+                    <enum>QFrame::Sunken</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_4">
-                    <item>
-                     <widget class="QLabel" name="label_9">
-                      <property name="text">
-                       <string>Offset G92 :</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_11">
-                      <property name="text">
-                       <string>Mode :</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_10">
-                      <property name="text">
-                       <string>Offset G54 :</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
                   </widget>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_3">
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                     <property name="spacing">
-                      <number>6</number>
-                     </property>
-                     <item>
-                      <widget class="QLabel" name="lblG92B">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG92Y">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG92X">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG92Z">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG92A">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_6">
-                     <item>
-                      <widget class="QLabel" name="lblG54">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(0, 0, 63);
+                  <widget class="QLabel" name="lblG92Y">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG92Z">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG92A">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG92B">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG92C">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(224, 224, 230);</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <property name="spacing">
+                  <number>3</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="lblG54">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(0, 0, 63);
 color: rgb(248, 255, 192);</string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="text">
-                        <string>G54</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG57">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(248, 255, 192);
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="text">
+                    <string>G54</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG55">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="text">
-                        <string>G57</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG59">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(248, 255, 192);
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="text">
+                    <string>G55</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG56">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="text">
-                        <string>G59</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG55">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(248, 255, 192);
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="text">
+                    <string>G56</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG57">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="text">
-                        <string>G55</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG58">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(248, 255, 192);
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="text">
+                    <string>G57</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG58">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="lineWidth">
-                        <number>1</number>
-                       </property>
-                       <property name="text">
-                        <string>G58</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG56">
-                       <property name="minimumSize">
-                        <size>
-                         <width>91</width>
-                         <height>27</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>16</pointsize>
-                        </font>
-                       </property>
-                       <property name="cursor">
-                        <cursorShape>PointingHandCursor</cursorShape>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(248, 255, 192);
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>1</number>
+                   </property>
+                   <property name="text">
+                    <string>G58</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG59">
+                   <property name="minimumSize">
+                    <size>
+                     <width>87</width>
+                     <height>27</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>16</pointsize>
+                    </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::Box</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Plain</enum>
-                       </property>
-                       <property name="text">
-                        <string>G56</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_5">
-                     <item>
-                      <widget class="QLabel" name="lblG5xA">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG5xB">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG5xX">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG5xY">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="lblG5xZ">
-                       <property name="minimumSize">
-                        <size>
-                         <width>105</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>LED Calculator</family>
-                         <pointsize>12</pointsize>
-                        </font>
-                       </property>
-                       <property name="frameShape">
-                        <enum>QFrame::NoFrame</enum>
-                       </property>
-                       <property name="frameShadow">
-                        <enum>QFrame::Sunken</enum>
-                       </property>
-                       <property name="text">
-                        <string>+00000.000</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="text">
+                    <string>G59</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="lblG5xX">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG5xY">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG5xZ">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG5xA">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG5xB">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblG5xC">
+                   <property name="minimumSize">
+                    <size>
+                     <width>99</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>LED Calculator</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(224, 224, 230);</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Sunken</enum>
+                   </property>
+                   <property name="text">
+                    <string>+0.000</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
               </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>291</width>
-          <height>371</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Commandes</string>
-        </property>
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>220</y>
-           <width>191</width>
-           <height>121</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>Jog</string>
-         </property>
-         <widget class="QWidget" name="">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>181</width>
-            <height>101</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_15">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_13">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="pushButton_4">
-                 <property name="text">
-                  <string>+B</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_5">
-                 <property name="text">
-                  <string>+A</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_6">
-               <property name="text">
-                <string>Z+</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_7">
-               <property name="text">
-                <string>+Y</string>
-               </property>
-              </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_16">
-             <item>
-              <widget class="QPushButton" name="pushButton_8">
-               <property name="text">
-                <string>-X</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_9">
-               <property name="text">
-                <string>C</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_10">
-               <property name="text">
-                <string>+X</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_17">
-             <item>
-              <widget class="QPushButton" name="pushButton_11">
-               <property name="text">
-                <string>-Y</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_12">
-               <property name="text">
-                <string>-Z</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_14">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="pushButton_13">
-                 <property name="text">
-                  <string>-A</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_14">
-                 <property name="text">
-                  <string>-B</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QPushButton" name="pushButton_15">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>230</y>
-           <width>71</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Broche</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_16">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>270</y>
-           <width>71</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Arrosage</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_17">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>310</y>
-           <width>71</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>M8</string>
-         </property>
-        </widget>
-        <widget class="QWidget" name="">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>271</width>
-           <height>111</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_9">
-          <property name="spacing">
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="btnUrgence">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Double clic pour
-dévérouiller l'arrêt d'urgence</string>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius: 25;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>images/btnUrgenceOff.svg</normaloff>images/btnUrgenceOff.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
            </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_22">
-              <property name="text">
-               <string>Avance</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDial" name="dial">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="minimum">
-               <number>10</number>
-              </property>
-              <property name="maximum">
-               <number>200</number>
-              </property>
-              <property name="value">
-               <number>100</number>
-              </property>
-              <property name="wrapping">
-               <bool>false</bool>
-              </property>
-              <property name="notchTarget">
-               <double>10.000000000000000</double>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_25">
-              <property name="text">
-               <string>100%</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_23">
-              <property name="text">
-               <string>Broche</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDial" name="dial_2">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="minimum">
-               <number>10</number>
-              </property>
-              <property name="maximum">
-               <number>200</number>
-              </property>
-              <property name="value">
-               <number>100</number>
-              </property>
-              <property name="wrapping">
-               <bool>false</bool>
-              </property>
-              <property name="notchTarget">
-               <double>10.000000000000000</double>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_24">
-              <property name="text">
-               <string>100%</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>140</y>
-           <width>271</width>
-           <height>78</height>
-          </rect>
+       </item>
+       <item>
+        <widget class="QFrame" name="frmBoutons">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_8">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>74</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Arrosage</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="btnFlood">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>images/btnFlood.svg</normaloff>images/btnFlood.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnFlood_2">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>images/btnFloodOff.svg</normaloff>images/btnFloodOff.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_7">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>74</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Broche</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_19">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="btnSpinCW">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>images/btnSpindleCW.svg</normaloff>images/btnSpindleCW.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnSpinOff">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>images/btnSpindleOff.svg</normaloff>images/btnSpindleOff.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnSpinCCW">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>images/btnSpindleCCW.svg</normaloff>images/btnSpindleCCW.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <widget class="QGroupBox" name="groupBox_5">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>74</height>
+             </size>
+            </property>
             <property name="title">
              <string>Programme</string>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <layout class="QHBoxLayout" name="horizontalLayout_20">
              <property name="spacing">
               <number>4</number>
              </property>
@@ -1776,8 +2698,8 @@ dévérouiller l'arrêt d'urgence</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>50</width>
-                 <height>50</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="cursor">
@@ -1814,8 +2736,8 @@ dévérouiller l'arrêt d'urgence</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>50</width>
-                 <height>50</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="cursor">
@@ -1843,321 +2765,109 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_4">
-            <property name="title">
-             <string>Avance Rapide</string>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <property name="spacing">
-              <number>4</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="text">
-                <string notr="true">25%</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_2">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="text">
-                <string notr="true">50%</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="text">
-                <string notr="true">100%</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>67</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>350</y>
-          <width>1001</width>
-          <height>156</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <property name="spacing">
-          <number>4</number>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpConsole">
+         <property name="title">
+          <string>Console</string>
          </property>
-         <item>
-          <widget class="QGroupBox" name="grpConnexion">
-           <property name="title">
-            <string>Connexion</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_6">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="verticalLayout_6">
             <property name="spacing">
              <number>4</number>
             </property>
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Port :</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="cmbPort">
-                  <property name="minimumSize">
-                   <size>
-                    <width>158</width>
-                    <height>23</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Selectionnez le port de la machine grbl.</string>
-                  </property>
-                  <property name="editable">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Bauds :</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QComboBox" name="cmbBauds">
-                  <property name="minimumSize">
-                   <size>
-                    <width>158</width>
-                    <height>23</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QLabel" name="lblConnectStatus">
-                  <property name="minimumSize">
-                   <size>
-                    <width>180</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>&lt;Non Connecté&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="btnConnect">
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>23</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>(Dé)Connecter</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
+            <item>
+             <widget class="QPlainTextEdit" name="ptxtDebug">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>91</height>
+               </size>
+              </property>
+              <property name="lineWrapMode">
+               <enum>QPlainTextEdit::NoWrap</enum>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
             </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_3">
-           <property name="title">
-            <string>Console</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_5">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
-               <widget class="QPlainTextEdit" name="ptxtDebug">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>91</height>
-                 </size>
-                </property>
-                <property name="lineWrapMode">
-                 <enum>QPlainTextEdit::NoWrap</enum>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="textInteractionFlags">
-                 <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>GCode :</string>
                 </property>
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_7">
-                <item>
-                 <widget class="QLabel" name="label_8">
-                  <property name="text">
-                   <string>GCode :</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="txtGCode">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>25</height>
-                   </size>
-                  </property>
-                  <property name="clearButtonEnabled">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="btnSend">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>23</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Envoyer</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLineEdit" name="txtGCode">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>25</height>
+                 </size>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnSend">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Envoyer</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
            </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-      </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

@@ -35,8 +35,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-width="1366"
+     inkscape:window-height="708"
      id="namedview7362"
      showgrid="false"
      units="px"
@@ -44,11 +44,11 @@
      fit-margin-left="1"
      fit-margin-right="1"
      fit-margin-bottom="1"
-     inkscape:zoom="2.0007755"
-     inkscape:cx="266.49966"
-     inkscape:cy="211.91783"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="1.0003878"
+     inkscape:cx="194.67137"
+     inkscape:cy="211.36773"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg7360" />
   <title
@@ -386,19 +386,6 @@
      font-size="29.1042"
      transform="translate(705.11369,501.09205)" />
   <g
-     style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel"
-     id="g904"
-     font-style="normal"
-     font-weight="400"
-     font-size="29.1042"
-     transform="translate(705.11369,501.09205)">
-    <path
-       style="vector-effect:non-scaling-stroke;fill-rule:evenodd"
-       inkscape:connector-curvature="0"
-       id="path902"
-       d="m 678.429,-85.9455 c 28.897,80.5449 31.302,157.4398 6.546,209.2865 l -84.853,48.99 -30,-51.962 C 498.096,161.954 386.822,115.055 298.276,5.79514 l -128.57,74.23006 169.705,97.9798 42.427,-24.495 62.116,133.842 v 97.98 L 212.132,349.469 v -48.99 L 84.8528,226.995 v 195.959 l 42.4262,24.495 -84.8526,120.715 -84.8528,48.99 -84.8526,-218.695 42.4262,-24.495 V 226.995 l -127.2792,73.484 v 48.99 l -231.822,35.863 v -97.98 l 62.116,-133.842 42.427,24.495 169.705,-97.9798 -128.57,-74.23006 C -386.822,115.055 -498.096,161.954 -570.122,120.369 l -30,51.962 -84.853,-48.99 c -24.756,-51.8467 -22.351,-128.7416 6.546,-209.2865 L -647,-67.8002 c 13.825,3.5595 29.36,3.1169 45.839,-1.3062 l -77.268,-44.6106 c -28.897,-47.178 -31.302,-121.295 -6.546,-201.728 l 30,17.32 54.853,31.67 c -24.756,80.433 -22.351,154.55 6.546,201.7276 1.235,-2.6851 2.508,-5.3599 3.819,-8.0224 26.558,-53.9512 66.929,-99.7672 109.635,-124.4232 l -30,-17.321 c 38.797,-67.199 96.535,-115.377 148.128,-123.604 19.499,-3.109 37.208,-0.332 51.872,8.134 34.648,20.004 48.892,69.648 37.647,131.21 l 60.343,9.335 v 44.842 c 48.839,-130.124 33.344,-248.125 -37.99,-289.31 -88.365,-51.018 -231.634,31.698 -320,184.752 l -30,-17.32 30,17.32 c 88.366,-153.054 231.635,-235.77 320,-184.752 l -84.853,-48.99 c -88.365,-51.018 -231.634,31.699 -320,184.752 88.366,-153.053 231.635,-235.77 320,-184.752 l 84.853,48.99 c 71.334,41.185 86.829,159.186 37.99,289.31 v 4.148 l 127.2792,73.4848 V -262.903 l -42.4262,-24.495 84.8526,-120.716 84.8528,-48.99 84.8526,218.696 -42.4262,24.494 V -66.9442 L 212.132,-140.429 v -4.148 c -48.839,-130.124 -33.344,-248.125 37.99,-289.31 88.365,-51.018 231.634,31.698 320,184.752 -88.366,-153.054 -231.635,-235.77 -320,-184.752 l 84.853,-48.99 c 88.365,-51.018 231.634,31.699 320,184.752 -88.366,-153.053 -231.635,-235.77 -320,-184.752 l -84.853,48.99 c -71.334,41.185 -86.829,159.186 -37.99,289.31 v -44.842 l 60.343,-9.335 c -11.245,-61.562 2.999,-111.206 37.647,-131.21 14.664,-8.466 32.373,-11.243 51.872,-8.134 51.593,8.227 109.331,56.405 148.128,123.604 l -30,17.321 c 42.706,24.656 83.077,70.472 109.635,124.4232 1.311,2.6625 2.584,5.3373 3.819,8.0224 28.897,-47.1776 31.302,-121.2946 6.546,-201.7276 l -30,17.32 30,-17.32 54.853,-31.67 30,-17.32 c 24.756,80.433 22.351,154.55 -6.546,201.728 l -77.268,44.6106 c 16.479,4.4231 32.014,4.8657 45.839,1.3062 l 31.429,-18.1453" />
-  </g>
-  <g
      style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      id="g906"
      font-style="normal"
@@ -629,19 +616,6 @@
      font-size="29.1042"
      transform="translate(705.11369,501.09205)" />
   <g
-     style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel"
-     id="g976"
-     font-style="normal"
-     font-weight="400"
-     font-size="29.1042"
-     transform="translate(705.11369,501.09205)">
-    <path
-       style="vector-effect:non-scaling-stroke;fill-rule:evenodd"
-       inkscape:connector-curvature="0"
-       id="path974"
-       d="m 366.001,-213.222 c -15.076,-47.406 -16.513,-92.193 -4.007,-124.876 51.593,8.227 109.331,56.405 148.128,123.604 l -30,17.321 c 42.706,24.656 83.077,70.472 109.635,124.4232 -8.179,-3.0235 -16.472,-6.9574 -24.782,-11.7553 L 493.56,-43.274 c -22.019,-12.9671 -43.682,-31.6626 -63.265,-54.5975 l 13.659,-29.4305 v -97.98 l -77.953,12.06" />
-  </g>
-  <g
      style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      id="g978"
      font-style="normal"
@@ -655,19 +629,6 @@
      font-weight="400"
      font-size="29.1042"
      transform="translate(705.11369,501.09205)" />
-  <g
-     style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel"
-     id="g984"
-     font-style="normal"
-     font-weight="400"
-     font-size="29.1042"
-     transform="translate(705.11369,501.09205)">
-    <path
-       style="vector-effect:non-scaling-stroke;fill-rule:evenodd"
-       inkscape:connector-curvature="0"
-       id="path982"
-       d="m -493.56,-43.274 c 22.019,-12.9671 43.682,-31.6626 63.265,-54.5975 l -13.659,-29.4305 v -97.98 l 77.953,12.06 c 15.076,-47.406 16.513,-92.193 4.007,-124.876 -51.593,8.227 -109.331,56.405 -148.128,123.604 l 30,17.321 c -42.706,24.656 -83.077,70.472 -109.635,124.4232 8.179,-3.0235 16.472,-6.9574 24.782,-11.7553 l 71.415,41.2311" />
-  </g>
   <g
      style="font-style:normal;font-weight:400;font-size:29.10420036px;font-family:'MS Shell Dlg 2';fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
      id="g986"

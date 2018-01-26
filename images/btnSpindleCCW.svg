@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="btnSpindleCW.svg">
+   sodipodi:docname="btnSpindleCCW.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="10.42"
-     inkscape:cx="24.904031"
+     inkscape:cx="25"
      inkscape:cy="25"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -95,14 +95,15 @@
        style="fill:none;fill-opacity:1;stroke:#001800;stroke-width:0.52916664;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path823"
        sodipodi:type="arc"
-       sodipodi:cx="4.7624998"
-       sodipodi:cy="290.38541"
+       sodipodi:cx="-4.4754038"
+       sodipodi:cy="-290.38541"
        sodipodi:rx="1.3229166"
        sodipodi:ry="1.3229166"
        sodipodi:start="0.61086524"
        sodipodi:end="5.6723201"
-       d="m 5.8461697,291.1442 a 1.3229166,1.3229166 0 0 1 -1.4814786,0.50289 1.3229166,1.3229166 0 0 1 -0.9251079,-1.26168 1.3229166,1.3229166 0 0 1 0.9251079,-1.26169 1.3229166,1.3229166 0 0 1 1.4814786,0.50289"
-       sodipodi:open="true" />
+       d="m -3.3917339,-289.62661 a 1.3229166,1.3229166 0 0 1 -1.4814786,0.50289 1.3229166,1.3229166 0 0 1 -0.9251079,-1.26169 1.3229166,1.3229166 0 0 1 0.9251079,-1.26168 1.3229166,1.3229166 0 0 1 1.4814786,0.50289"
+       sodipodi:open="true"
+       transform="scale(-1)" />
     <path
        style="fill:none;stroke:#001800;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 2.38125,288.00414 7.672917,0 0.529166,0.52917 v 3.70417 l -0.529166,0.52916 -7.672917,0"
