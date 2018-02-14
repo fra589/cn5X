@@ -50,7 +50,7 @@
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>4</number>
+        <number>2</number>
        </property>
        <property name="topMargin">
         <number>0</number>
@@ -320,7 +320,7 @@ dévérouiller l'arrêt d'urgence</string>
           </size>
          </property>
          <property name="title">
-          <string>Jog</string>
+          <string>Jogging</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_16">
           <property name="spacing">
@@ -768,7 +768,8 @@ dévérouiller l'arrêt d'urgence</string>
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="view-refresh"/>
+               <iconset theme="view-refresh">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </widget>
             </item>
@@ -1301,7 +1302,11 @@ color: rgb(248, 255, 192);</string>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(0, 0, 63);
-color: rgb(248, 255, 192);</string>
+color: rgb(248, 255, 192);
+QToolType {
+	background-color: rgb(248, 255, 192);
+	color: rgb(0, 0, 63);
+}</string>
                  </property>
                  <property name="frameShape">
                   <enum>QFrame::Box</enum>
@@ -1782,7 +1787,7 @@ color: rgb(0, 0, 63);</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_10">
+                 <widget class="QLabel" name="lblOffsetActif">
                   <property name="text">
                    <string>Offset G54 :</string>
                   </property>
@@ -2781,91 +2786,213 @@ color: rgb(0, 0, 63);
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="grpConsole">
-         <property name="title">
-          <string>Console</string>
+        <widget class="QTabWidget" name="grpConsole">
+         <property name="currentIndex">
+          <number>0</number>
          </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <property name="spacing">
-             <number>4</number>
-            </property>
-            <item>
-             <widget class="QPlainTextEdit" name="ptxtDebug">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>91</height>
-               </size>
-              </property>
-              <property name="lineWrapMode">
-               <enum>QPlainTextEdit::NoWrap</enum>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>GCode :</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="txtGCode">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btnSend">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Envoyer</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-         </layout>
+         <widget class="QWidget" name="tabConsole1">
+          <attribute name="title">
+           <string>Grbl output</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QTextEdit" name="txtGrblOutput">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>91</height>
+                </size>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="lineWrapMode">
+                <enum>QTextEdit::NoWrap</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabConsole2">
+          <attribute name="title">
+           <string>Console output</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTextEdit" name="txtConsoleOutput">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>91</height>
+              </size>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOn</enum>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QTextEdit::NoWrap</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabConsole3">
+          <attribute name="title">
+           <string>Debug</string>
+          </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTextEdit" name="txtDebugOutput">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>91</height>
+              </size>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOn</enum>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QTextEdit::NoWrap</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <item>
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>13</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnStartTimer">
+               <property name="text">
+                <string>Start timer</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnStopTimer">
+               <property name="text">
+                <string>Stop timer</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearDebug">
+               <property name="text">
+                <string>Clear debug</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>GCode :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="gcodeQLineEdit" name="txtGCode">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnSend">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Envoyer</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -2889,7 +3016,18 @@ color: rgb(0, 0, 63);
     <addaction name="separator"/>
     <addaction name="mnuAppQuitter"/>
    </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="mnu_MPos"/>
+    <addaction name="mnu_WPos"/>
+    <addaction name="separator"/>
+    <addaction name="mnuDebug_mode"/>
+   </widget>
    <addaction name="mnuApplication"/>
+   <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="mnuAppOuvrir">
@@ -2902,7 +3040,41 @@ color: rgb(0, 0, 63);
     <string>&amp;Quitter</string>
    </property>
   </action>
+  <action name="mnuDebug_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Debug mode</string>
+   </property>
+  </action>
+  <action name="mnu_MPos">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Visualiser positions machien (MPos)</string>
+   </property>
+  </action>
+  <action name="mnu_WPos">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Visualiser position de travail (WPos)</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>gcodeQLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>gcodeQLineEdit</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
