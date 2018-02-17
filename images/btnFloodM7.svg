@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="50"
+   height="50"
+   viewBox="0 0 13.229166 13.229167"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="btnFloodM7.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.3680527"
+     inkscape:cx="27.438495"
+     inkscape:cy="22.432969"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="708"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid817"
+       dotted="true"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       originx="0.13229167"
+       originy="0.13229167"
+       empspacing="0"
+       enabled="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-283.77081)">
+    <ellipse
+       style="fill:#5c5c5c;fill-opacity:1;stroke:#000000;stroke-width:0.52916666;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path819"
+       cx="6.6145835"
+       cy="290.38538"
+       rx="6.349998"
+       ry="6.3500047" />
+    <circle
+       style="fill:#0000c0;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4645"
+       cx="6.614583"
+       cy="290.38541"
+       r="5.2916665" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 6.6152344,284.60156 c -1.4814026,0 -2.9630556,0.56267 -4.0917969,1.69141 -2.25748255,2.25748 -2.25748257,5.92611 0,8.18359 l 0.3730469,-0.37304 c -2.05526227,-2.05527 -2.05526226,-5.38029 0,-7.43555 2.0552622,-2.05527 5.3802845,-2.05527 7.4355466,0 l 0.375,-0.375 c -1.1287411,-1.12874 -2.6103941,-1.69141 -4.0917966,-1.69141 z"
+       id="circle821"
+       inkscape:connector-curvature="0" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000a0;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 10.707031,286.29297 -0.375,0.375 c 1.328388,1.32839 1.847552,3.26351 1.361328,5.07812 -0.486223,1.81462 -1.9041379,3.23058 -3.7187496,3.7168 -1.8146117,0.48622 -3.749737,-0.031 -5.078125,-1.35937 l -0.3730469,0.37304 c 1.4614688,1.46147 3.591487,2.03298 5.5878906,1.49805 1.9964039,-0.53494 3.5568619,-2.09539 4.0917969,-4.0918 0.534935,-1.9964 -0.03463,-4.12837 -1.496094,-5.58984 z"
+       id="path4520"
+       inkscape:connector-curvature="0" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000c0;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 6.8126075,287.60754 h 2.976675 v 1.05664 h -2.976675 c -0.993701,0 -1.7852235,0.7936 -1.7852235,1.78711 v 0.0664 H 3.96875 v -0.0664 c 0,-1.56436 1.279354,-2.84375 2.8438575,-2.84375 z"
+       id="path834"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccssccss" />
+    <g
+       id="g2333">
+      <g
+         id="g2285">
+        <path
+           inkscape:connector-curvature="0"
+           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#101020;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           d="m 6.8104371,287.0781 c -1.8532661,0 -3.3708541,1.51974 -3.3708541,3.37293 v 0.59582 h 0.528133 v -0.52916 h 0.001 v -0.0667 c 2e-6,-1.56436 1.277244,-2.84375 2.8416891,-2.84375 h 0.861446 2.1171834 0.5291665 v -0.52917 z"
+           id="path838" />
+        <path
+           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#101020;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           d="m 9.5250003,287.60681 v 10e-4 h 0.2635499 v 1.05626 H 6.8119877 c -0.9936631,0 -1.7849037,0.7919 -1.7849037,1.78542 v 0.0682 H 3.96875 v 0.52916 h 1.5875 v -0.59738 c 0,-0.71981 0.5359986,-1.25573 1.2557377,-1.25573 h 3.5062463 v -1.58699 z"
+           id="rect823"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         id="path901"
+         transform="matrix(0.26458333,0,0,0.26458333,0,283.77081)"
+         d="M 13.5 27.5 L 13.349609 28 L 14.349609 28 L 14.5 27.5 L 13.5 27.5 z M 15.5 27.5 L 15.455078 28 L 16.455078 28 L 16.5 27.5 L 15.5 27.5 z M 17.5 27.5 L 17.544922 28 L 18.544922 28 L 18.5 27.5 L 17.5 27.5 z M 19.5 27.5 L 19.650391 28 L 20.650391 28 L 20.5 27.5 L 19.5 27.5 z M 13.050781 29 L 12.75 30 L 13.75 30 L 14.050781 29 L 13.050781 29 z M 15.363281 29 L 15.273438 30 L 16.273438 30 L 16.363281 29 L 15.363281 29 z M 17.636719 29 L 17.726562 30 L 18.726562 30 L 18.636719 29 L 17.636719 29 z M 19.949219 29 L 20.25 30 L 21.25 30 L 20.949219 29 L 19.949219 29 z M 12.449219 31 L 12.150391 32 L 13.150391 32 L 13.449219 31 L 12.449219 31 z M 15.181641 31 L 15.091797 32 L 16.091797 32 L 16.181641 31 L 15.181641 31 z M 17.818359 31 L 17.908203 32 L 18.908203 32 L 18.818359 31 L 17.818359 31 z M 20.550781 31 L 20.849609 32 L 21.849609 32 L 21.550781 31 L 20.550781 31 z M 11.849609 33 L 11.550781 34 L 12.550781 34 L 12.849609 33 L 11.849609 33 z M 15 33 L 14.908203 34 L 15.908203 34 L 16 33 L 15 33 z M 18 33 L 18.091797 34 L 19.091797 34 L 19 33 L 18 33 z M 21.150391 33 L 21.449219 34 L 22.449219 34 L 22.150391 33 L 21.150391 33 z M 11.25 35 L 10.949219 36 L 11.949219 36 L 12.25 35 L 11.25 35 z M 14.818359 35 L 14.726562 36 L 15.726562 36 L 15.818359 35 L 14.818359 35 z M 18.181641 35 L 18.273438 36 L 19.273438 36 L 19.181641 35 L 18.181641 35 z M 21.75 35 L 22.050781 36 L 23.050781 36 L 22.75 35 L 21.75 35 z M 10.650391 37 L 10.5 37.5 L 11.5 37.5 L 11.650391 37 L 10.650391 37 z M 14.636719 37 L 14.5 38.5 L 15.5 38.5 L 15.636719 37 L 14.636719 37 z M 18.363281 37 L 18.5 38.5 L 19.5 38.5 L 19.363281 37 L 18.363281 37 z M 22.349609 37 L 22.5 37.5 L 23.5 37.5 L 23.349609 37 L 22.349609 37 z "
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#101020;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+</svg>

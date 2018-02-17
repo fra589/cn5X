@@ -14,9 +14,8 @@ class grblDecode():
   '''
   def __init__(self, ui):
     self.ui = ui
-    self.validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
-    self.oldMachineStat = 'Idle'
-    self.validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
+    self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
+    self.__validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
     self.__G5actif = 54
     self.__G5x={
       28: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -29,9 +28,11 @@ class grblDecode():
       59: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       92: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     }
-    self.toolLengthOffset = 0
-    self.probeCoord = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    self.wco = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__toolLengthOffset = 0
+    self.__probeCoord = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__wco = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__etatArrosage = None
+    self.__etatMachine = None
 
   def decodeGrblStatus(self, grblOutput):
 
@@ -41,10 +42,10 @@ class grblDecode():
     tblDecode = grblOutput[1:-1].split("|")
     for D in tblDecode:
       ###print("D = {" + D + "}")
-      if D in self.validMachineState:
-        if D != self.oldMachineStat:
+      if D in self.__validMachineState:
+        if D != self.__etatMachine:
           self.ui.lblEtat.setText(D)
-          self.oldMachineStat = D
+          self.__etatMachine = D
           if D =="Hold:0":
             self.ui.lblEtat.setToolTip("Hold complete. Ready to resume.")
           elif D =="Hold:1":
@@ -62,8 +63,9 @@ class grblDecode():
 
       # Machine position MPos ($10=0 ou 2) ou WPos ($10=1 ou 3)?
       elif D[:5] == "MPos:":
-        if self.ui.mnu_WPos.isChecked():
+        if not self.ui.mnu_MPos.isChecked():
           self.ui.mnu_MPos.setChecked(True)
+        if self.ui.mnu_WPos.isChecked():
           self.ui.mnu_WPos.setChecked(False)
         tblPos = D[5:].split(",")
         self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Machine Position (MPos).")
@@ -75,9 +77,10 @@ class grblDecode():
         self.ui.lblPosC.setText('{:+0.3f}'.format(float("0")))
 
       elif D[:5] == "WPos:":
+        if not self.ui.mnu_WPos.isChecked():
+          self.ui.mnu_WPos.setChecked(True)
         if self.ui.mnu_MPos.isChecked():
           self.ui.mnu_MPos.setChecked(False)
-          self.ui.mnu_WPos.setChecked(True)
         tblPos = D[5:].split(",")
         self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Working Position (WPos).")
         self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip("Working Position (WPos).")
@@ -90,11 +93,18 @@ class grblDecode():
       elif D[:4] == "WCO:": # Work Coordinate Offset
         tblPos = D[4:].split(",")
         for I in range(len(tblPos)):
-          self.wco[I] = float(tblPos[I])
-        return str(self.wco)
+          self.__wco[I] = float(tblPos[I])
+        self.ui.lblWcoX.setText('{:+0.3f}'.format(self.__wco[0]))
+        self.ui.lblWcoY.setText('{:+0.3f}'.format(self.__wco[1]))
+        self.ui.lblWcoZ.setText('{:+0.3f}'.format(self.__wco[2]))
+        self.ui.lblWcoA.setText('{:+0.3f}'.format(self.__wco[3]))
+        self.ui.lblWcoB.setText('{:+0.3f}'.format(self.__wco[4]))
 
       elif D[:3] == "Bf:": # Buffer State (Bf:15,128)
-        return D
+        tblValue = D[3:].split(",")
+        self.ui.progressBufferState.setValue(int(tblValue[0]))
+        self.ui.progressBufferState.setMaximum(int(tblValue[1]))
+        self.ui.progressBufferState.setToolTip("Buffer stat : " + tblValue[0] + "/" + tblValue[1])
 
       elif D[:3] == "Ln:": # Line Number
         return D
@@ -124,11 +134,11 @@ class grblDecode():
 
     elif grblOutput[:6] == "error:":
       errNum = int(float(grblOutput[6:]))
-      return "Erreur grbl N° " + str(errNum) + " : " + grblError[errNum][1] + "\n>>> " + grblError[errNum][2]
+      return "Erreur grbl N° " + str(errNum) + " : " + grblError[errNum][1] + ",\n" + grblError[errNum][2]
 
     elif grblOutput[:6] == "ALARM:":
       alarmNum = int(float(grblOutput[6:]))
-      return "Alarme grbl N° " + str(alarmNum) + " : " + grblAlarm[alarmNum][1] + "\n>>> " + grblAlarm[alarmNum][2]
+      return "Alarme grbl N° " + str(alarmNum) + " : " + grblAlarm[alarmNum][1] + ",\n" + grblAlarm[alarmNum][2]
 
     else:
       return "Réponse Grbl inconnue : [" + grblOutput + "]"
@@ -145,7 +155,7 @@ class grblDecode():
 
     elif grblOutput[:1] == "[" and grblOutput[-1:] == "]":
       ''' Push Messages: '''
-      if grblOutput[1:4] in self.validG5x: # ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
+      if grblOutput[1:4] in self.__validG5x: # ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
         '''
         messages indicate the parameter data printout from a "$#" user query.
         '''
@@ -170,11 +180,11 @@ class grblDecode():
 
       elif grblOutput[1:5] == "TLO:":
         ''' Tool length offset (for the default z-axis) '''
-        self.toolLengthOffset = float(grblOutput[5:-1])
+        self.__toolLengthOffset = float(grblOutput[5:-1])
 
       elif grblOutput[1:5] == "PRB:":
         ''' Coordinates of the last probing cycle, suffix :1 => Success '''
-        self.probeCoord = grblOutput[5:-1].split(",")
+        self.__probeCoord = grblOutput[5:-1].split(",")
 
       elif grblOutput[:4] == "[GC:":
         '''
@@ -245,11 +255,32 @@ class grblDecode():
             if S == 'M3': self.ui.lblBroche.setToolTip(" Broche en sens horaire ")
             if S == 'M4': self.ui.lblBroche.setToolTip(" Broche en sens anti-horaire ")
             if S == 'M5': self.ui.lblBroche.setToolTip(" Broche arrêtée ")
-          elif S in ['M7', 'M8', 'M9']:
+          elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
-            if S == 'M7': self.ui.lblArrosage.setToolTip(" Arrosage par gouttelettes ")
-            if S == 'M8': self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
-            if S == 'M9': self.ui.lblArrosage.setToolTip(" Arrosage arrêté ")
+            if S == 'M7':
+              self.ui.lblArrosage.setToolTip(" Arrosage par gouttelettes ")
+              self.ui.btnFloodM7.setButtonStatus(True)
+              self.ui.btnFloodM8.setButtonStatus(False)
+              self.ui.btnFloodM9.setButtonStatus(False)
+              self.__etatArrosage = "M7"
+            if S == 'M8':
+              self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
+              self.ui.btnFloodM7.setButtonStatus(False)
+              self.ui.btnFloodM8.setButtonStatus(True)
+              self.ui.btnFloodM9.setButtonStatus(False)
+              self.__etatArrosage = "M8"
+            if S == 'M78':
+              self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
+              self.ui.btnFloodM7.setButtonStatus(True)
+              self.ui.btnFloodM8.setButtonStatus(True)
+              self.ui.btnFloodM9.setButtonStatus(False)
+              self.__etatArrosage = "M78"
+            if S == 'M9':
+              self.ui.lblArrosage.setToolTip(" Arrosage arrêté ")
+              self.ui.btnFloodM7.setButtonStatus(False)
+              self.ui.btnFloodM8.setButtonStatus(False)
+              self.ui.btnFloodM9.setButtonStatus(True)
+              self.__etatArrosage = "M9"
           elif S[:1] == "T":
             self.ui.lblOutil.setText(S)
             self.ui.lblOutil.setToolTip(" Outil numéro " + S[1:])
@@ -267,3 +298,9 @@ class grblDecode():
         # Autre réponse [] ?
         return grblOutput
       pass
+
+  def get_etatArrosage(self):
+    return self.__etatArrosage
+
+  def get_etatMachine(self):
+    return self.__etatMachine

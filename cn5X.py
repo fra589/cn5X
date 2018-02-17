@@ -42,9 +42,9 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_data_debug.connect(self.on_communicator_debug)  # Tous les messages de Grbl
 
     self.__connectionStatus = False
+    self.__arretUrgence = True
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
-    print(pathname)
     os.chdir(pathname)
 
     """---------- Préparation de l'interface ----------"""
@@ -64,8 +64,11 @@ class winMain(QtWidgets.QMainWindow):
     # on affiche une chaine vide texte en bas de la fenêtre (status bar)
     self.ui.statusBar.showMessage("")
 
+    # Positionne l'état d'activation des contrôles
+    self.setEnableDisableGroupes()
+
     """---------- Connections des évennements traités ----------"""
-    self.ui.btnUrgence.pressed.connect(self.arretUrgence)                # Evenements du bouton d'arrêt d'urgence
+    self.ui.btnUrgence.pressed.connect(self.on_arretUrgence)                # Evenements du bouton d'arrêt d'urgence
     self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_cmbPort_changed'
     self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)         # Connexions des routines du menu application
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
@@ -80,6 +83,9 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStartTimer.clicked.connect(self.startTimer)
     self.ui.btnStopTimer.clicked.connect(self.stopTimer)
     self.ui.btnClearDebug.clicked.connect(self.clearDebug)
+    self.ui.btnFloodM7.clicked.connect(self.on_btnFloodM7)
+    self.ui.btnFloodM8.clicked.connect(self.on_btnFloodM8)
+    self.ui.btnFloodM9.clicked.connect(self.on_btnFloodM9)
 
   def populatePortList(self):
     ''' Rempli la liste des ports série '''
@@ -102,18 +108,58 @@ class winMain(QtWidgets.QMainWindow):
     if len(QSerialPortInfo.availablePorts()) == 1:
       self.ui.cmbPort.setCurrentIndex(1)
 
-    self.setConnectControlsStatus()
+    self.setEnableDisableConnectControls()
 
-  def setConnectControlsStatus(self):
+  def setEnableDisableConnectControls(self):
     '''
-    Active ou désactive les contrôles de connexion en fonction de l'état de sélection du port
+    Active ou désactive les contrôles de connexion en fonction de
+    l'état de connection et de sélection du port
     '''
-    if self.ui.cmbPort.currentText() == "":
+    if self.__connectionStatus:
+      self.ui.cmbPort.setEnabled(False)
       self.ui.cmbBauds.setEnabled(False)
-      self.ui.btnConnect.setEnabled(False)
-    else:
-      self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setEnabled(True)
+    else:
+      self.ui.cmbPort.setEnabled(True)
+      if self.ui.cmbPort.currentText() == "":
+        self.ui.cmbBauds.setEnabled(False)
+        self.ui.btnConnect.setEnabled(False)
+      else:
+        self.ui.cmbBauds.setEnabled(True)
+        self.ui.btnConnect.setEnabled(True)
+
+  def setEnableDisableGroupes(self):
+    '''
+    Détermine l'état Enable/Disable des différents groupes de contrôles
+    en fonction de l'état de connexion et de l'état du bouton d'arrêt d'urgence.
+    '''
+    if not self.__connectionStatus:
+      # Pas connecté, tout doit être désactivé et l'arrêt d'urgence enfoncé
+      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
+      self.ui.frmArretUrgence.setEnabled(False)
+      self.ui.frmControleVitesse.setEnabled(False)
+      self.ui.grpJog.setEnabled(False)
+      self.ui.frmGcodeInput.setEnabled(False)
+      self.ui.frmBoutons.setEnabled(False)
+    elif self.__arretUrgence:
+      # Connecté mais sous arrêt d'urgence : Tout est désactivé sauf l'arrêt d'urgence
+      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
+      self.ui.frmArretUrgence.setEnabled(True)
+      self.ui.frmControleVitesse.setEnabled(False)
+      self.ui.grpJog.setEnabled(False)
+      self.ui.frmGcodeInput.setEnabled(False)
+      self.ui.frmBoutons.setEnabled(False)
+    else:
+      # Tout est en ordre, on active tout
+      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
+      self.ui.btnUrgence.setToolTip("Arrêt d'urgence")
+      self.ui.frmArretUrgence.setEnabled(True)
+      self.ui.frmControleVitesse.setEnabled(True)
+      self.ui.grpJog.setEnabled(True)
+      self.ui.frmGcodeInput.setEnabled(True)
+      self.ui.frmBoutons.setEnabled(True)
 
   @pyqtSlot()
   def on_mnuAppOuvrir(self):
@@ -133,72 +179,94 @@ class winMain(QtWidgets.QMainWindow):
     event.accept() # let the window close
 
   def on_mnu_MPos(self, check):
-    print("Le menu est : ", check)
+    if check:
+      param10 = 255 # Le bit 1 est à 1
+      self.__grblCom.sendLine("$10=" + str(param10))
     pass
 
   def on_mnu_WPos(self, check):
-    print("Le menu est : ", check)
+    if check:
+      param10 = 255 ^ 1 # Met le bit 1 à 0
+      self.__grblCom.sendLine("$10=" + str(param10))
     pass
 
-  def arretUrgence(self):
-    print("Arrêt d'urgence détecté !")
-    if not(self.ui.btnUrgence.isChecked()):
-      print("STOP !!!")
-      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
-      self.ui.btnStart.setEnabled(False)
-      self.ui.btnStop.setEnabled(False)
-      self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
-    else:
+  def on_arretUrgence(self):
+    if self.__arretUrgence:
+      # L'arrêt d'urgence est actif, on doit faire un double click pour le désactiver
       if not self.timerDblClic.isActive():
         # On est pas dans le timer du double click,
-        # c'est donc un simple click qui ne suffit pas à déverrouiller le bouton d'arrêt d'urgence.
+        # c'est donc un simple click qui ne suffit pas à déverrouiller le bouton d'arrêt d'urgence,
+        # C'est le premier click, On active le timer pour voir le le 2ème sera dans le temp imparti
         self.timerDblClic.setSingleShot(True)
         self.timerDblClic.start(QtWidgets.QApplication.instance().doubleClickInterval())
-        self.ui.btnUrgence.setChecked(False)
       else:
-        print("Double click détecté,")
-        print(self.timerDblClic.remainingTime()) # Double clic détecté
+        # self.timerDblClic.remainingTime() > 0 # Double clic détecté
         self.timerDblClic.stop()
-        print("On relance :-)")
-        self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
-        self.ui.btnStart.setEnabled(True)
-        self.ui.btnStop.setEnabled(True)
-        self.ui.btnUrgence.setToolTip("Arrêt d'urgence")
+        self.__arretUrgence = False
+    else:
+      self.__grblCom.sendData(chr(0x18)) # Envoi direct Ctrl+X.
+      self.__arretUrgence = True
+      print("Arrêt d'urgence STOP !!!")
+
+    # Actualise l'état actif/inactif des groupes de contrôles de pilotage de Grbl
+    self.setEnableDisableGroupes()
 
   def action_btnConnect(self):
     if self.ui.btnConnect.text() == "Connecter":
-      print('Appui bouton Connecter.')
       # Recupère les coordonnées et paramètres du port à connecter
       serialDevice = self.ui.cmbPort.currentText()
       serialDevice = serialDevice.split("-")
       serialDevice = serialDevice[0].strip()
       baudRate = int(self.ui.cmbBauds.currentText())
-      print("Démarrage du communicator")
+      # Démarrage du communicator
       self.__grblCom.startCommunicator(serialDevice, baudRate)
-      self.__connectionStatus = True
-
+      # Mise à jour de l'interface
       self.ui.lblConnectStatus.setText("Connecté à " + serialDevice)
-      self.ui.cmbPort.setEnabled(False)
-      self.ui.cmbBauds.setEnabled(False)
       self.ui.btnConnect.setText("Déconnecter") # La prochaine action du bouton sera pour déconnecter
+      self.setEnableDisableConnectControls()
+      self.__connectionStatus = True
+      # Active les groupes de contrôles de pilotage de Grbl
+      self.setEnableDisableGroupes()
+
     else:
-      print('Appui bouton Déconnecter.')
+      # Arret du comunicator
       self.__grblCom.stopCommunicator()
       self.__connectionStatus = False
-
-      self.ui.statusBar.showMessage("")
+      # Mise à jour de l'interface
       self.ui.lblConnectStatus.setText("<Non Connecté>")
-      self.ui.cmbPort.setEnabled(True)
-      self.ui.cmbBauds.setEnabled(True)
       self.ui.btnConnect.setText("Connecter") # La prochaine action du bouton sera pour connecter
+      self.ui.statusBar.showMessage("")
+      self.setEnableDisableConnectControls()
+      # Force la position de l'arrêt d'urgence
+      self.__arretUrgence = True
+      # Active les groupes de contrôles de pilotage de Grbl
+      self.setEnableDisableGroupes()
 
   def on_cmbPort_changed(self):
-    self.setConnectControlsStatus()
+    self.setEnableDisableConnectControls()
+
+  def on_btnFloodM7(self):
+    if self.decode.get_etatArrosage() != "M7" and self.decode.get_etatArrosage() != "M78":
+      # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M7")
+      self.__grblCom.sendData(chr(0xA1))
+
+  def on_btnFloodM8(self):
+    if self.decode.get_etatArrosage() != "M8" and self.decode.get_etatArrosage() != "M78":
+      # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M8")
+      self.__grblCom.sendData(chr(0xA0))
+
+  def on_btnFloodM9(self):
+    if self.decode.get_etatArrosage() == "M7" or self.decode.get_etatArrosage() == "M78":
+      # Envoi "Real Time Command"
+      self.__grblCom.sendData(chr(0xA1))
+    if self.decode.get_etatArrosage() == "M8" or self.decode.get_etatArrosage() == "M78":
+      # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M9")
+      self.__grblCom.sendData(chr(0xA0))
 
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
       self.logGrbl.append(self.ui.txtGCode.text().upper())
-      self.__grblCom.sendLine(self.ui.txtGCode.text())
+      self.__grblCom.enQueue(self.ui.txtGCode.text())
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
       self.ui.txtGCode.setFocus()
 
@@ -248,7 +316,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_communicator_data(self, data: str):
     retour = self.decode.decodeGrblData(data)
     if retour is not None and retour != "":
-      self.logGrbl.append(">" + retour)
+      self.logGrbl.append(retour)
 
   @pyqtSlot(str)
   def on_communicator_debug(self, data: str):

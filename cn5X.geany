@@ -29,16 +29,17 @@ long_line_column=72
 
 [files]
 current_page=3
-FILE_NAME_0=3744;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
+FILE_NAME_0=11453;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
 FILE_NAME_1=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblAlarm.py;0;2
-FILE_NAME_2=10356;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator.py;0;2
-FILE_NAME_3=4433;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
+FILE_NAME_2=7404;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator.py;0;2
+FILE_NAME_3=14135;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
 FILE_NAME_4=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
-FILE_NAME_5=38;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
+FILE_NAME_5=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
 FILE_NAME_6=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
-FILE_NAME_7=161;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEdit.py;0;2
-FILE_NAME_8=22;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEditplugin.py;0;2
-FILE_NAME_9=63459;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FmainWindow.py;0;2
+FILE_NAME_7=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEdit.py;0;2
+FILE_NAME_8=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQPushButton.py;0;2
+FILE_NAME_9=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_serial.py;0;2
+FILE_NAME_10=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_timer.py;0;2
 
 [VTE]
 last_dir=/home/gauthier

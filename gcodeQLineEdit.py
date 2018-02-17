@@ -3,7 +3,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class gcodeQLineEdit(QtWidgets.QLineEdit):
-
+  '''
+  QlineEdit avec ajout de l'évennement KeyPressed
+  '''
   keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
 
   def __init__(self, parent=None):
