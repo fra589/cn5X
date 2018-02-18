@@ -21,35 +21,39 @@ class cnQPushButton(QtWidgets.QPushButton):
     self.__mouseIsDown = False
 
     # Chemin des images
-    appPath = os.path.abspath(os.path.dirname(sys.argv[0]))
-    self.__imagePath = appPath + "/images/"
+    ###appPath = os.path.abspath(os.path.dirname(sys.argv[0]))
+    ###self.__imagePath = appPath + "/images/"
+    self.__imagePath = ":/cn5X/images/"
     self.__buttonStatus = False
 
     self.icon = QtGui.QIcon()
     self.iconDown = QtGui.QIcon()
     self.iconLight = QtGui.QIcon()
+    self.__imagesOk = False
 
   def eventFilter(self, object, event):
+    '''
+    On utilise eventFilter() pour "trapper" un évennement unique au plus tôt après la création
+    du contrôle car le nom n'est pas définit lors de l'appel d'__init() et je n'ai pas réussi
+    à récupérer le signal objectNameChanged.
+    '''
     if event.type() == QtCore.QEvent.DynamicPropertyChange:
       pictureBaseName = self.__imagePath + object.objectName()
 
-      f = Path(pictureBaseName + ".svg")
-      if f.is_file():
-        self.icon.addPixmap(QtGui.QPixmap(pictureBaseName + ".svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-      else:
-        print ("Image du bouton {} non trouvée.".format(pictureBaseName + ".svg"))
+      self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + "_down.svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      self.__imagesOk = True
 
-      f = Path(pictureBaseName + "_down.svg")
-      if f.is_file():
-        self.iconDown.addPixmap(QtGui.QPixmap(pictureBaseName + "_down.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-      else:
-        print ("Image du bouton {} non trouvée.".format(pictureBaseName + "_down.svg"))
-
-      f = Path(pictureBaseName + "_light.svg")
-      if f.is_file():
-        self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-      else:
-        print ("Image du bouton {} non trouvée.".format(pictureBaseName + "_light.svg"))
+    if event.type() == QtCore.QEvent.EnabledChange:
+      if self.__imagesOk:
+        if self.isEnabled():
+          if self.__buttonStatus:
+            self.setIcon(self.iconLight)
+          else:
+            self.setIcon(self.icon)
+        else:
+          self.setIcon(self.icon)
 
     return False
 
@@ -63,7 +67,7 @@ class cnQPushButton(QtWidgets.QPushButton):
     self.__mouseIsDown = False
     super(cnQPushButton, self).mouseReleaseEvent(e)
     self.__buttonStatus = True
-    if self.__buttonStatus:
+    if self.isEnabled():
       self.setIcon(self.iconLight)
     else:
       self.setIcon(self.icon)
@@ -72,8 +76,11 @@ class cnQPushButton(QtWidgets.QPushButton):
   def setButtonStatus(self, value: bool):
     self.__buttonStatus = value
     if not self.__mouseIsDown:
-      if self.__buttonStatus:
-        self.setIcon(self.iconLight)
+      if self.isEnabled():
+        if self.__buttonStatus:
+          self.setIcon(self.iconLight)
+        else:
+          self.setIcon(self.icon)
       else:
         self.setIcon(self.icon)
 

@@ -1,0 +1,37 @@
+<RCC>
+  <qresource prefix="cn5X">
+    <file>images/btnJogPlusX.svg</file>
+    <file>images/btnJogStop.svg</file>
+    <file>images/btnFloodM7_down.svg</file>
+    <file>images/btnFloodM7_light.svg</file>
+    <file>images/btnFloodM7.svg</file>
+    <file>images/btnFloodM8_down.svg</file>
+    <file>images/btnFloodM8_light.svg</file>
+    <file>images/btnFloodM8.svg</file>
+    <file>images/btnFloodM9_down.svg</file>
+    <file>images/btnFloodM9_light.svg</file>
+    <file>images/btnFloodM9.svg</file>
+    <file>images/btnRefresh.svg</file>
+    <file>images/btnSpinM3_down.svg</file>
+    <file>images/btnSpinM3_light.svg</file>
+    <file>images/btnSpinM3.svg</file>
+    <file>images/btnSpinM4_down.svg</file>
+    <file>images/btnSpinM4_light.svg</file>
+    <file>images/btnSpinM4.svg</file>
+    <file>images/btnSpinM5_down.svg</file>
+    <file>images/btnSpinM5_light.svg</file>
+    <file>images/btnSpinM5.svg</file>
+    <file>images/btnStart_down.svg</file>
+    <file>images/btnStart_light.svg</file>
+    <file>images/btnStart.svg</file>
+    <file>images/btnStop_down.svg</file>
+    <file>images/btnStop_light.svg</file>
+    <file>images/btnStop.svg</file>
+    <file>images/btnUrgence_old.svg</file>
+    <file>images/btnUrgence.svg</file>
+    <file>images/btnUrgenceOff.svg</file>
+    <file>images/XYZAB-48.svg</file>
+    <file>images/XYZAB.svg</file>
+    <file>fonts/LEDCalculator.ttf</file>
+  </qresource>
+</RCC>

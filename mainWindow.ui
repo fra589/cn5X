@@ -466,7 +466,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QPushButton" name="pushButton_9">
+             <widget class="QPushButton" name="btnJogStop">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -480,7 +480,17 @@ dévérouiller l'arrêt d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>C</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="cn5X.qrc">
+                <normaloff>:/cn5X/images/btnJogStop.svg</normaloff>:/cn5X/images/btnJogStop.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>55</width>
+                <height>55</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -499,7 +509,17 @@ dévérouiller l'arrêt d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>+X</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="cn5X.qrc">
+                <normaloff>:/cn5X/images/btnJogPlusX.svg</normaloff>:/cn5X/images/btnJogPlusX.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -807,8 +827,8 @@ dévérouiller l'arrêt d'urgence</string>
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="view-refresh">
-                <normaloff>.</normaloff>.</iconset>
+               <iconset>
+                <normaloff>images/btnRefresh.svg</normaloff>images/btnRefresh.svg</iconset>
               </property>
              </widget>
             </item>
@@ -916,9 +936,6 @@ dévérouiller l'arrêt d'urgence</string>
        </property>
        <item>
         <widget class="QFrame" name="grpStatus">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
          <property name="minimumSize">
           <size>
            <width>695</width>
@@ -2704,8 +2721,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnFloodM7.svg</normaloff>images/btnFloodM7.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnFloodM7.svg</normaloff>:/cn5X/images/btnFloodM7.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2733,8 +2750,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnFloodM8.svg</normaloff>images/btnFloodM8.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnFloodM8.svg</normaloff>:/cn5X/images/btnFloodM8.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2762,8 +2779,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnFloodM9.svg</normaloff>images/btnFloodM9.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnFloodM9.svg</normaloff>:/cn5X/images/btnFloodM9.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2807,8 +2824,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnSpinM3.svg</normaloff>images/btnSpinM3.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnSpinM3.svg</normaloff>:/cn5X/images/btnSpinM3.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2839,8 +2856,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnSpinM4.svg</normaloff>images/btnSpinM4.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnSpinM4.svg</normaloff>:/cn5X/images/btnSpinM4.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2871,8 +2888,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnSpinM5.svg</normaloff>images/btnSpinM5.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnSpinM5.svg</normaloff>:/cn5X/images/btnSpinM5.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2922,8 +2939,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnStart.svg</normaloff>images/btnStart.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnStart.svg</normaloff>:/cn5X/images/btnStart.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -2960,8 +2977,8 @@ color: rgb(0, 0, 63);
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>images/btnStop.svg</normaloff>images/btnStop.svg</iconset>
+             <iconset resource="cn5X.qrc">
+              <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -3212,7 +3229,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1040</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -3287,6 +3304,8 @@ color: rgb(0, 0, 63);
    <header>cnQPushButton</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="cn5X.qrc"/>
+ </resources>
  <connections/>
 </ui>

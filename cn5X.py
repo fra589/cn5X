@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
 import sys, os, datetime
@@ -48,7 +48,8 @@ class winMain(QtWidgets.QMainWindow):
     os.chdir(pathname)
 
     """---------- Préparation de l'interface ----------"""
-    QtGui.QFontDatabase.addApplicationFont(pathname + "/fonts/LEDCalculator.ttf") # Chargement de la police des labels de status machine
+    ###QtGui.QFontDatabase.addApplicationFont(pathname + "/fonts/LEDCalculator.ttf") # Chargement de la police des labels de status machine
+    QtGui.QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")
     self.ui.btnConnect.setText("Connecter")                                       # Label du bouton connect
     self.populatePortList()                                                       # On rempli la liste des ports série
 
