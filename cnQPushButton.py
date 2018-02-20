@@ -1,8 +1,26 @@
 # -*- coding: UTF-8 -*-
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+'                                                                         '
+' This file is part of cn5X                                               '
+'                                                                         '
+' cn5X is free software: you can redistribute it and/or modify it         '
+'  under the terms of the GNU General Public License as published by      '
+' the Free Software Foundation, either version 3 of the License, or       '
+' (at your option) any later version.                                     '
+'                                                                         '
+' cn5X is distributed in the hope that it will be useful, but             '
+' WITHOUT ANY WARRANTY; without even the implied warranty of              '
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
+' GNU General Public License for more details.                            '
+'                                                                         '
+' You should have received a copy of the GNU General Public License       '
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pathlib import Path
 
 class cnQPushButton(QtWidgets.QPushButton):
   '''
@@ -20,9 +38,7 @@ class cnQPushButton(QtWidgets.QPushButton):
 
     self.__mouseIsDown = False
 
-    # Chemin des images
-    ###appPath = os.path.abspath(os.path.dirname(sys.argv[0]))
-    ###self.__imagePath = appPath + "/images/"
+    # Chemin des images dans le fichier de resources
     self.__imagePath = ":/cn5X/images/"
     self.__buttonStatus = False
 
@@ -88,7 +104,6 @@ class cnQPushButton(QtWidgets.QPushButton):
     return self.__buttonStatus
 
   def mouseDoubleClickEvent(self, e):
-    print("mouseDoubleClickEvent")
     super(cnQPushButton, self).mouseDoubleClickEvent(e)
     self.mouseDoubleClick.emit(e)
 

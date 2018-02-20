@@ -1,5 +1,18 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/btnPause.svg</file>
+    <file>images/btnPause_down.svg</file>
+    <file>images/btnPause_light.svg</file>
+    <file>images/btnJogPlusB.svg</file>
+    <file>images/btnJogMoinsB.svg</file>
+    <file>images/btnJogMoinsA.svg</file>
+    <file>images/btnJogPlusA.svg</file>
+    <file>images/btnJogMoinsX.svg</file>
+    <file>images/btnJogMoinsY.svg</file>
+    <file>images/btnJogMoinsZ.svg</file>
+    <file>images/btnJogPlusX.svg</file>
+    <file>images/btnJogPlusY.svg</file>
+    <file>images/btnJogPlusZ.svg</file>
     <file>images/btnJogPlusX.svg</file>
     <file>images/btnJogStop.svg</file>
     <file>images/btnFloodM7_down.svg</file>

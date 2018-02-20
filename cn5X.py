@@ -1,10 +1,29 @@
 # !/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+'                                                                         '
+' This file is part of cn5X                                               '
+'                                                                         '
+' cn5X is free software: you can redistribute it and/or modify it         '
+'  under the terms of the GNU General Public License as published by      '
+' the Free Software Foundation, either version 3 of the License, or       '
+' (at your option) any later version.                                     '
+'                                                                         '
+' cn5X is distributed in the hope that it will be useful, but             '
+' WITHOUT ANY WARRANTY; without even the implied warranty of              '
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
+' GNU General Public License for more details.                            '
+'                                                                         '
+' You should have received a copy of the GNU General Public License       '
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import sys, os, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
+from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtSerialPort import QSerialPortInfo
 import mainWindow
 from msgbox import *
@@ -28,6 +47,8 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
+
+    self.gcodeFileContent = QStandardItemModel(self.ui.listGCodeFile)
 
     self.timerDblClic = QtCore.QTimer()
     self.decode = grblDecode(self.ui)
@@ -69,7 +90,7 @@ class winMain(QtWidgets.QMainWindow):
     self.setEnableDisableGroupes()
 
     """---------- Connections des évennements traités ----------"""
-    self.ui.btnUrgence.pressed.connect(self.on_arretUrgence)                # Evenements du bouton d'arrêt d'urgence
+    self.ui.btnUrgence.pressed.connect(self.on_arretUrgence)             # Evenements du bouton d'arrêt d'urgence
     self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_cmbPort_changed'
     self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)         # Connexions des routines du menu application
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
@@ -84,9 +105,18 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStartTimer.clicked.connect(self.startTimer)
     self.ui.btnStopTimer.clicked.connect(self.stopTimer)
     self.ui.btnClearDebug.clicked.connect(self.clearDebug)
+    self.ui.btnSpinM3.clicked.connect(self.on_btnSpinM3)
+    self.ui.btnSpinM4.clicked.connect(self.on_btnSpinM4)
+    self.ui.btnSpinM5.clicked.connect(self.on_btnSpinM5)
     self.ui.btnFloodM7.clicked.connect(self.on_btnFloodM7)
     self.ui.btnFloodM8.clicked.connect(self.on_btnFloodM8)
     self.ui.btnFloodM9.clicked.connect(self.on_btnFloodM9)
+    self.ui.lblG54.clicked.connect(self.on_lblG5xClick)
+    self.ui.lblG55.clicked.connect(self.on_lblG5xClick)
+    self.ui.lblG56.clicked.connect(self.on_lblG5xClick)
+    self.ui.lblG57.clicked.connect(self.on_lblG5xClick)
+    self.ui.lblG58.clicked.connect(self.on_lblG5xClick)
+    self.ui.lblG59.clicked.connect(self.on_lblG5xClick)
 
   def populatePortList(self):
     ''' Rempli la liste des ports série '''
@@ -143,6 +173,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(False)
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
+      self.ui.frmCoordOffsets.setEnabled(False)
     elif self.__arretUrgence:
       # Connecté mais sous arrêt d'urgence : Tout est désactivé sauf l'arrêt d'urgence
       self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
@@ -152,6 +183,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(False)
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
+      self.ui.frmCoordOffsets.setEnabled(False)
     else:
       # Tout est en ordre, on active tout
       self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
@@ -161,10 +193,47 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(True)
       self.ui.frmGcodeInput.setEnabled(True)
       self.ui.frmBoutons.setEnabled(True)
+      self.ui.frmCoordOffsets.setEnabled(True)
 
   @pyqtSlot()
   def on_mnuAppOuvrir(self):
-    pass
+    # Affiche la boite de dialogue
+    opt = QtWidgets.QFileDialog.Options()
+    opt |= QtWidgets.QFileDialog.DontUseNativeDialog
+    fileName = QtWidgets.QFileDialog.getOpenFileName(self, "Ouvrir un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
+    if fileName[0] != "":
+      # Lecture du fichier
+      self.logCn5X.append("Lecture du fichier : " + fileName[0])
+      try:
+        f = open(fileName[0],'r')
+        lignes  = f.readlines()
+        f.close()
+        # Envoi du contenu dans la liste
+        self.gcodeFileContent.clear()
+        for l in lignes:
+          #print("["+l.strip()+"]")
+          item = QStandardItem(l.strip())
+          #item.setCheckable(True)
+          self.gcodeFileContent.appendRow(item)
+        self.ui.listGCodeFile.setModel(self.gcodeFileContent)
+        # Sélectionne la premiere ligne du fichier dans la liste
+        self.selectGCodeFileLine(0)
+        # Sélectionne l'onglet du fichier
+        self.ui.grpConsole.setCurrentIndex(1)
+      except Exception as e:
+        self.logCn5X.append("Erreur lecture du fichier : " + fileName[0])
+        self.logCn5X.append(str(e))
+        # Sélectionne l'onglet de la console pour que le message s'affiche
+        self.ui.grpConsole.setCurrentIndex(2)
+
+  def selectGCodeFileLine(self, num: int):
+    # Selectionne un élément de la liste du fichier GCode
+    idx = self.gcodeFileContent.index(num, 0, QModelIndex())
+    self.ui.listGCodeFile.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
+
+  def getGCodeSelectedLine(self):
+    indexes = self.ui.listGCodeFile.selectionModel().selectedIndexes()
+    return self.gcodeFileContent.data(indexes[0])
 
   @pyqtSlot()
   def on_mnuAppQuitter(self):
@@ -246,6 +315,22 @@ class winMain(QtWidgets.QMainWindow):
   def on_cmbPort_changed(self):
     self.setEnableDisableConnectControls()
 
+  def on_btnSpinM3(self):
+    #self.logGrbl.append("M3")
+    self.__grblCom.sendLine("M3", True)
+    self.ui.btnSpinM4.setEnabled(False) # Interdit un changement de sens de rotation direct
+
+  def on_btnSpinM4(self):
+    #self.logGrbl.append("M4")
+    self.__grblCom.sendLine("M4", True)
+    self.ui.btnSpinM3.setEnabled(False) # Interdit un changement de sens de rotation direct
+
+  def on_btnSpinM5(self):
+    #self.logGrbl.append("M5")
+    self.__grblCom.sendLine("M5", True)
+    self.ui.btnSpinM3.setEnabled(True)
+    self.ui.btnSpinM4.setEnabled(True)
+
   def on_btnFloodM7(self):
     if self.decode.get_etatArrosage() != "M7" and self.decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M7")
@@ -263,6 +348,11 @@ class winMain(QtWidgets.QMainWindow):
     if self.decode.get_etatArrosage() == "M8" or self.decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M9")
       self.__grblCom.sendData(chr(0xA0))
+
+  @pyqtSlot(str, QtGui.QMouseEvent)
+  def on_lblG5xClick(self, lblText, e):
+    #self.logGrbl.append(lblText)
+    self.__grblCom.sendLine(lblText, True)
 
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":

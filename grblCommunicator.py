@@ -1,5 +1,24 @@
 # -*- coding: UTF-8 -*-
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+'                                                                         '
+' This file is part of cn5X                                               '
+'                                                                         '
+' cn5X is free software: you can redistribute it and/or modify it         '
+'  under the terms of the GNU General Public License as published by      '
+' the Free Software Foundation, either version 3 of the License, or       '
+' (at your option) any later version.                                     '
+'                                                                         '
+' cn5X is distributed in the hope that it will be useful, but             '
+' WITHOUT ANY WARRANTY; without even the implied warranty of              '
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
+' GNU General Public License for more details.                            '
+'                                                                         '
+' You should have received a copy of the GNU General Public License       '
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import sys, time
 from math import *
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
@@ -171,7 +190,7 @@ class grblCommunicator(QObject):
       self.sendData(buff + '\n', trapOk)
     else:
       self.sendData(buff, trapOk)
-    # On doit recevoir ok à chaque ligne envoyée
+    # On doit recevoir 1 ok à chaque ligne envoyée
     self.__okCount -= 1
 
   @pyqtSlot(str, bool)

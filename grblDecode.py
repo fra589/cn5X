@@ -1,5 +1,24 @@
 # -*- coding: UTF-8 -*-
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+'                                                                         '
+' This file is part of cn5X                                               '
+'                                                                         '
+' cn5X is free software: you can redistribute it and/or modify it         '
+'  under the terms of the GNU General Public License as published by      '
+' the Free Software Foundation, either version 3 of the License, or       '
+' (at your option) any later version.                                     '
+'                                                                         '
+' cn5X is distributed in the hope that it will be useful, but             '
+' WITHOUT ANY WARRANTY; without even the implied warranty of              '
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
+' GNU General Public License for more details.                            '
+'                                                                         '
+' You should have received a copy of the GNU General Public License       '
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 from PyQt5 import QtGui
 from grblError import grblError
 from grblAlarm import grblAlarm
@@ -252,9 +271,21 @@ class grblDecode():
             if S == 'G94': self.ui.lblVitesse.setToolTip(" Mode vitesse en unités par minute ")
           elif S in ['M3', 'M4', 'M5']:
             self.ui.lblBroche.setText(S)
-            if S == 'M3': self.ui.lblBroche.setToolTip(" Broche en sens horaire ")
-            if S == 'M4': self.ui.lblBroche.setToolTip(" Broche en sens anti-horaire ")
-            if S == 'M5': self.ui.lblBroche.setToolTip(" Broche arrêtée ")
+            if S == 'M3':
+              self.ui.lblBroche.setToolTip(" Broche en sens horaire ")
+              self.ui.btnSpinM3.setButtonStatus(True)
+              self.ui.btnSpinM4.setButtonStatus(False)
+              self.ui.btnSpinM5.setButtonStatus(False)
+            if S == 'M4':
+              self.ui.lblBroche.setToolTip(" Broche en sens anti-horaire ")
+              self.ui.btnSpinM3.setButtonStatus(False)
+              self.ui.btnSpinM4.setButtonStatus(True)
+              self.ui.btnSpinM5.setButtonStatus(False)
+            if S == 'M5':
+              self.ui.lblBroche.setToolTip(" Broche arrêtée ")
+              self.ui.btnSpinM3.setButtonStatus(False)
+              self.ui.btnSpinM4.setButtonStatus(False)
+              self.ui.btnSpinM5.setButtonStatus(True)
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
