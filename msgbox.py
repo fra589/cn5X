@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,6 +20,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from PyQt5.QtWidgets import QMessageBox
 
 class msgIconList:

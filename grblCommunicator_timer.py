@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,6 +20,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import sys, time
 from math import *
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice

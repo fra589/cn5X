@@ -21,17 +21,51 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-class gcodeQLineEdit(QtWidgets.QLineEdit):
+class grblSerialStack():
   '''
-  QlineEdit avec ajout de l'évennement KeyPressed
+  Gestionnaire de file d'attente du port série
   '''
-  keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
+  def __init__(self):
+    self.__data = []
 
-  def __init__(self, parent=None):
-    QtWidgets.QLineEdit.__init__(self, parent)
+  def isEmpty(self):
+    return len(self.__data) == 0
 
-  def keyPressEvent(self, event):
-    super(gcodeQLineEdit, self).keyPressEvent(event)
-    self.keyPressed.emit(event)
+  def count(self):
+    return len(self.__data)
+
+  def addFiFo(self, item):
+    '''
+    Ajoute un élément en mode FiFO, l'élément ajouté sera le dernier à sortir
+    '''
+    self.__data.append(item)
+
+  def addLiFo(self, item):
+    '''
+    Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
+    '''
+    self.__data.insert(0, item)
+
+  def nextValue(self):
+    '''
+    Renvoie le prochain élément de la Queue sans dépiler (le supprimer) ou None si la liste est vide.
+    '''
+    if len(self.__data) > 0:
+      return self.__data[0]
+    else:
+      return None
+
+  def deQueue(self):
+    '''
+    Dépile et renvoie le premier élément de la liste ou None si la liste est vide.
+    '''
+    if len(self.__data) > 0:
+      return self.__data.pop(0)
+    else:
+      return None
+
+  def clear(self):
+    '''
+    Vide toute la pile
+    '''
+    self.__data.clear()

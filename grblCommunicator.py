@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,12 +20,14 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import sys, time
 from math import *
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
 from grblCommunicator_serial import serialCommunicator
+from grblCommunicator_stack import grblSerialStack
 from grblCommunicator_timer import serialTimer
 
 class grblCommunicator(QObject):
@@ -60,8 +63,8 @@ class grblCommunicator(QObject):
     self.__threads = None
     self.__timer1Delay = 40 # Millisecondes
     self.__Com = None
-    self.__okCount = 0
     self.__timeOutEnQueue = 60 # Timeout sur l'envoi d'une nouvelle ligne si Grbl n'a pas répondu OK en 1 minute.
+    self.__serialStack = grblSerialStack()
 
   def startCommunicator(self, comPort: str, baudRate: int):
     '''
@@ -70,7 +73,7 @@ class grblCommunicator(QObject):
     self.__threads = []
     # Lance le serialCommunicator dans un thread distinct
     self.sig_msg.emit('grblCommunicator: Starting serialCommunicator thread.')
-    communicator = serialCommunicator(comPort, baudRate)
+    communicator = serialCommunicator(comPort, baudRate, self.__serialStack)
     thread = QThread()
     thread.setObjectName('serialCommunicator')
     self.__threads.append((thread, communicator))  # need to store worker too otherwise will be gc'd
@@ -147,17 +150,14 @@ class grblCommunicator(QObject):
 
   @pyqtSlot(str)
   def on_sig_init(self, buff: str):
-    self.__okCount = 1
     self.sig_init.emit(buff)
 
   @pyqtSlot()
   def on_ok(self):
-    self.__okCount += 1
     self.sig_grblOk.emit()
 
   @pyqtSlot()
   def on_error(self):
-    self.__okCount += 1 # la reception d'un message d'erreur fait l'acquitement de la commande qui à provoqué l'erreur.
     self.sig_grblError.emit()
 
   @pyqtSlot()
@@ -165,34 +165,17 @@ class grblCommunicator(QObject):
     self.sig_grblAlarm.emit()
 
   @pyqtSlot(str)
-  def enQueue(self, buff: str):
-    ###print("self.__okCount = ", self.__okCount)
-    # On attend que Grbl ai traité les éléments précédents
-    tDebut = time.time()
-    ###print("tDebut      = ", tDebut)
-    while self.__okCount < 1:
-      # Process events to receive signals;
-      QCoreApplication.processEvents()
-      if time.time() > tDebut + self.__timeOutEnQueue:
-        # Timeout
-        ###print("time.time() = ", time.time())
-        ###print("grblCommunicator: enQueue({}) timeout !".format(buff))
-        self.sig_msg.emit("grblCommunicator: enQueue({}) timeout ! Utilisez ^X (Ctrl + X) pour réinitialiser Grbl".format(buff))
-        return
-    # C'est bon, on envoie
-    self.sendLine(buff, False)
-    ###print("tFin        = ", time.time())
+  def addFiFo(self, buff: str):
+    self.__serialStack.addFiFo(buff)
 
-  @pyqtSlot(str, bool)
-  def sendLine(self, buff: str, trapOk: bool = False):
-    # Force la fin de ligne et envoie
-    if buff[-1:] != '\n':
-      self.sendData(buff + '\n', trapOk)
-    else:
-      self.sendData(buff, trapOk)
-    # On doit recevoir 1 ok à chaque ligne envoyée
-    self.__okCount -= 1
+  @pyqtSlot(str)
+  def addLiFo(self, buff: str):
+    self.__serialStack.addLiFo(buff)
 
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):
+    '''
+    Ne doit être utilisé que par les timers ou par les commandes temps réel
+    qui ne génèrent pas de message OK de la part de Grbl.
+    '''
     self.sig_serial_send.emit(buff, trapOk)

@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,6 +20,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 grblAlarm = [
   [0, "No Alarm."],
   [1 ,"Hard limit","Hard limit has been triggered. Machine position is likely lost due to sudden halt. Re-homing is highly recommended."],

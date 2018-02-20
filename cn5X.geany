@@ -28,21 +28,22 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=2
-FILE_NAME_0=17035;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
-FILE_NAME_1=1545;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblAlarm.py;0;2
-FILE_NAME_2=8508;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator.py;0;2
-FILE_NAME_3=1545;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
-FILE_NAME_4=1543;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
-FILE_NAME_5=1543;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
-FILE_NAME_6=1545;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
-FILE_NAME_7=1545;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEdit.py;0;2
-FILE_NAME_8=4309;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQPushButton.py;0;2
-FILE_NAME_9=6780;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_serial.py;0;2
-FILE_NAME_10=1545;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_timer.py;0;2
+current_page=9
+FILE_NAME_0=16118;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
+FILE_NAME_1=1546;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblAlarm.py;0;2
+FILE_NAME_2=7629;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator.py;0;2
+FILE_NAME_3=14212;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
+FILE_NAME_4=22;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
+FILE_NAME_5=1544;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
+FILE_NAME_6=1546;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
+FILE_NAME_7=1546;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEdit.py;0;2
+FILE_NAME_8=1546;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQPushButton.py;0;2
+FILE_NAME_9=5397;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_serial.py;0;2
+FILE_NAME_10=4078;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_timer.py;0;2
 FILE_NAME_11=0;Conf;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.qrc;0;2
 FILE_NAME_12=402;XML;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FmainWindow.ui;0;2
-FILE_NAME_13=2050;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQLabel.py;0;2
+FILE_NAME_13=24;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQLabel.py;0;2
+FILE_NAME_14=2621;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCommunicator_stack.py;0;2
 
 [VTE]
 last_dir=/home/gauthier

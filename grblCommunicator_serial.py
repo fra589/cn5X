@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,10 +20,12 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import sys, time
 from math import *
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
+from grblCommunicator_stack import grblSerialStack
 
 class serialCommunicator(QObject):
   """
@@ -42,14 +45,16 @@ class serialCommunicator(QObject):
   sig_send_ok    = pyqtSignal()    # Emis à chaque ligne envoyée
   sig_done       = pyqtSignal()    # Emis à la fin du thread
 
-  def __init__(self, comPort: str, baudRate: int):
+  def __init__(self, comPort: str, baudRate: int, stack: grblSerialStack):
     super().__init__()
-    self.__abort      = False
-    self.__portName   = comPort
-    self.__baudRate   = baudRate
-    self.__okToSend   = False
-    self.__grblStatus = ""
-    self.__okTrap     = 0
+    self.__abort       = False
+    self.__portName    = comPort
+    self.__baudRate    = baudRate
+    self.__okToSend    = False
+    self.__grblStatus  = ""
+    self.__okTrap      = 0
+    self.__serialStack = stack
+    self.__okCount = 0
 
   @pyqtSlot()
   def run(self):
@@ -111,6 +116,9 @@ class serialCommunicator(QObject):
         self.sig_msg.emit("serialCommunicator : aborting...")
         break
 
+      ICI, Traiter le vidage de la pile
+      print(self.__serialStack.count())
+
     # Sortie de la boucle de lecture
     self.sig_msg.emit("serialCommunicator : Fermeture du port série.")
     self.__comPort.close()
@@ -127,6 +135,8 @@ class serialCommunicator(QObject):
       self.sig_msg.emit("serialCommunicator : Grbl prêt pour recevoir des données")
       self.sig_init.emit(l)
       self.sig_grbl_ok.emit()
+      self.__okCount = 1
+
     elif l[:1] == "<" and l[-1:] == ">": # Real-time Status Reports
       if self.__grblStatus != l[1:-1].split("|")[0]:
         self.__grblStatus = l[1:-1].split("|")[0]
@@ -136,9 +146,12 @@ class serialCommunicator(QObject):
         self.__okTrap -= 1
       else:
         self.sig_ok.emit()
+        self.__okCount += 1
+
     elif l[:6] == "error:": # "error:X"
       self.sig_response.emit(l)
       self.sig_error.emit()
+      self.__okCount = +1 # la reception d'un message d'erreur fait l'acquitement de la commande qui à provoqué l'erreur.
     elif l[:6] == "ALARM:": # "ALARM:X"
       self.sig_response.emit(l)
       self.sig_alarm.emit()
@@ -152,6 +165,46 @@ class serialCommunicator(QObject):
   @pyqtSlot()
   def grblStatus(self):
     return self.__grblStatus
+
+  @pyqtSlot()
+  def deQueue(self):
+    ###print("self.__okCount = ", self.__okCount)
+    # On récupère le prochain élément de la queue
+    buff = self.__serialStack.deQueue()
+    if buff == None:
+      elf.sig_msg.emit("grblCommunicator: deQueue() la file d'attente est vide !")
+      return
+
+    # On attend que Grbl ai traité les éléments précédents
+    tDebut = time.time()
+    ###print("tDebut      = ", tDebut)
+    while self.__okCount < 1:
+      # Process events to receive signals;
+      QCoreApplication.processEvents()
+      if time.time() > tDebut + self.__timeOutEnQueue:
+        # Timeout
+        ###print("time.time() = ", time.time())
+        ###print("grblCommunicator: enQueue({}) timeout !".format(buff))
+        self.sig_msg.emit("grblCommunicator: deQueue({}) timeout ! Utilisez ^X (Ctrl + X) pour réinitialiser Grbl".format(buff))
+        self.__serialStack.clear()
+        return
+
+    # C'est bon, on envoie
+    self.__sendLine(buff, False)
+    ###print("tFin        = ", time.time())
+
+  @pyqtSlot(str, bool)
+  def __sendLine(self, buff: str, trapOk: bool = False):
+    '''
+    Ne doit jamais être appelé directement, sauf par deQueue() ou par les timers
+    '''
+    # Force la fin de ligne et envoie
+    if buff[-1:] != '\n':
+      self.sendData(buff + '\n', trapOk)
+    else:
+      self.sendData(buff, trapOk)
+    # On doit recevoir 1 ok à chaque ligne envoyée
+    self.__okCount -= 1
 
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):

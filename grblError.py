@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,6 +20,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 grblError = [
   [0, "No error."],
   [1, "Expected command letter","G-code words consist of a letter and a value. Letter was not found."],

@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -19,6 +20,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from PyQt5 import QtGui
 from grblError import grblError
 from grblAlarm import grblAlarm
@@ -284,7 +286,9 @@ class grblDecode():
             if S == 'M5':
               self.ui.lblBroche.setToolTip(" Broche arrêtée ")
               self.ui.btnSpinM3.setButtonStatus(False)
+              self.ui.btnSpinM3.setEnabled(True)
               self.ui.btnSpinM4.setButtonStatus(False)
+              self.ui.btnSpinM4.setEnabled(True)
               self.ui.btnSpinM5.setButtonStatus(True)
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)

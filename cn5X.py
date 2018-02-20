@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
@@ -20,6 +21,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import sys, os, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
@@ -251,15 +253,16 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnu_MPos(self, check):
     if check:
       param10 = 255 # Le bit 1 est à 1
-      self.__grblCom.sendLine("$10=" + str(param10))
+      self.__grblCom.addLiFo("$10=" + str(param10))
     pass
 
   def on_mnu_WPos(self, check):
     if check:
       param10 = 255 ^ 1 # Met le bit 1 à 0
-      self.__grblCom.sendLine("$10=" + str(param10))
+      self.__grblCom.addLiFo("$10=" + str(param10))
     pass
 
+  @pyqtSlot()
   def on_arretUrgence(self):
     if self.__arretUrgence:
       # L'arrêt d'urgence est actif, on doit faire un double click pour le désactiver
@@ -281,6 +284,7 @@ class winMain(QtWidgets.QMainWindow):
     # Actualise l'état actif/inactif des groupes de contrôles de pilotage de Grbl
     self.setEnableDisableGroupes()
 
+  @pyqtSlot()
   def action_btnConnect(self):
     if self.ui.btnConnect.text() == "Connecter":
       # Recupère les coordonnées et paramètres du port à connecter
@@ -312,35 +316,42 @@ class winMain(QtWidgets.QMainWindow):
       # Active les groupes de contrôles de pilotage de Grbl
       self.setEnableDisableGroupes()
 
+  @pyqtSlot()
   def on_cmbPort_changed(self):
     self.setEnableDisableConnectControls()
 
+  @pyqtSlot()
   def on_btnSpinM3(self):
     #self.logGrbl.append("M3")
-    self.__grblCom.sendLine("M3", True)
+    self.__grblCom.addLiFo("M3")
     self.ui.btnSpinM4.setEnabled(False) # Interdit un changement de sens de rotation direct
 
+  @pyqtSlot()
   def on_btnSpinM4(self):
     #self.logGrbl.append("M4")
-    self.__grblCom.sendLine("M4", True)
+    self.__grblCom.addLiFo("M4")
     self.ui.btnSpinM3.setEnabled(False) # Interdit un changement de sens de rotation direct
 
+  @pyqtSlot()
   def on_btnSpinM5(self):
     #self.logGrbl.append("M5")
-    self.__grblCom.sendLine("M5", True)
+    self.__grblCom.addLiFo("M5")
     self.ui.btnSpinM3.setEnabled(True)
     self.ui.btnSpinM4.setEnabled(True)
 
+  @pyqtSlot()
   def on_btnFloodM7(self):
     if self.decode.get_etatArrosage() != "M7" and self.decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M7")
       self.__grblCom.sendData(chr(0xA1))
 
+  @pyqtSlot()
   def on_btnFloodM8(self):
     if self.decode.get_etatArrosage() != "M8" and self.decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M8")
       self.__grblCom.sendData(chr(0xA0))
 
+  @pyqtSlot()
   def on_btnFloodM9(self):
     if self.decode.get_etatArrosage() == "M7" or self.decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command"
@@ -352,15 +363,17 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
     #self.logGrbl.append(lblText)
-    self.__grblCom.sendLine(lblText, True)
+    self.__grblCom.addLiFo(lblText)
 
+  @pyqtSlot()
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
       self.logGrbl.append(self.ui.txtGCode.text().upper())
-      self.__grblCom.enQueue(self.ui.txtGCode.text())
+      self.__grblCom.addFiFo(self.ui.txtGCode.text())
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
       self.ui.txtGCode.setFocus()
 
+  @pyqtSlot()
   def txtGCode_on_Change(self):
     if self.ui.txtGCode.text() == "?":
       self.logGrbl.append("?")
@@ -374,8 +387,6 @@ class winMain(QtWidgets.QMainWindow):
     elif QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+X"):
       self.logGrbl.append("Ctrl+X")
       self.__grblCom.sendData(chr(0x18)) # Envoi direct Ctrl+X.
-
-    pass
 
   @pyqtSlot(str)
   def on_communicator_msg(self, data: str):
@@ -414,12 +425,15 @@ class winMain(QtWidgets.QMainWindow):
     if self.ui.mnuDebug_mode.isChecked():
       self.logDebug.append(data)
 
+  @pyqtSlot()
   def stopTimer(self):
     self.__grblCom.stopTimer()
 
+  @pyqtSlot()
   def startTimer(self):
     self.__grblCom.startTimer()
 
+  @pyqtSlot()
   def clearDebug(self):
     self.logDebug.clear()
 
