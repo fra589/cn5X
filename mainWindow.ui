@@ -401,7 +401,7 @@ dévérouiller l'arrêt d'urgence</string>
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btnJogPlusA">
+               <widget class="cnQPushButton" name="btnJogPlusA">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -433,7 +433,7 @@ dévérouiller l'arrêt d'urgence</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnJogPlusB">
+               <widget class="cnQPushButton" name="btnJogPlusB">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -467,7 +467,7 @@ dévérouiller l'arrêt d'urgence</string>
              </layout>
             </item>
             <item row="0" column="1">
-             <widget class="QPushButton" name="btnJogPlusZ">
+             <widget class="cnQPushButton" name="btnJogPlusZ">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -499,7 +499,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QPushButton" name="btnJogPlusY">
+             <widget class="cnQPushButton" name="btnJogPlusY">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -531,7 +531,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QPushButton" name="btnJogMoinsX">
+             <widget class="cnQPushButton" name="btnJogMoinsX">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -563,7 +563,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QPushButton" name="btnJogStop">
+             <widget class="cnQPushButton" name="btnJogStop">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -595,7 +595,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QPushButton" name="btnJogPlusX">
+             <widget class="cnQPushButton" name="btnJogPlusX">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -627,7 +627,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QPushButton" name="btnJogMoinsY">
+             <widget class="cnQPushButton" name="btnJogMoinsY">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -659,7 +659,7 @@ dévérouiller l'arrêt d'urgence</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QPushButton" name="btnJogMoinsZ">
+             <widget class="cnQPushButton" name="btnJogMoinsZ">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -696,7 +696,7 @@ dévérouiller l'arrêt d'urgence</string>
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btnJogMoinsA">
+               <widget class="cnQPushButton" name="btnJogMoinsA">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -728,7 +728,7 @@ dévérouiller l'arrêt d'urgence</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnJogMoinsB">
+               <widget class="cnQPushButton" name="btnJogMoinsB">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -3381,7 +3381,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1040</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">

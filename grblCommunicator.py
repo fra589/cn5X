@@ -172,6 +172,10 @@ class grblCommunicator(QObject):
   def addLiFo(self, buff: str):
     self.__serialStack.addLiFo(buff)
 
+  @pyqtSlot()
+  def grblStatus(self):
+    return self.__Com.grblStatus()
+
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):
     '''

@@ -24,7 +24,7 @@
 
 import sys, os, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
+from PyQt5.QtCore import QCoreApplication, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtSerialPort import QSerialPortInfo
 import mainWindow
@@ -32,6 +32,8 @@ from msgbox import *
 from grblCommunicator import grblCommunicator
 from grblDecode import grblDecode
 from gcodeQLineEdit import gcodeQLineEdit
+from cnQPushButton import cnQPushButton
+from grblJog import grblJog
 
 defaultBaudRate = 115200
 
@@ -63,6 +65,8 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_grblStatus.connect(self.on_communicator_status) # Ligne de status entre < et >
     self.__grblCom.sig_data_recived.connect(self.on_communicator_data) # Autres données de Grbl
     self.__grblCom.sig_data_debug.connect(self.on_communicator_debug)  # Tous les messages de Grbl
+
+    self.__jog = grblJog(self.__grblCom)
 
     self.__connectionStatus = False
     self.__arretUrgence = True
@@ -119,6 +123,17 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblG57.clicked.connect(self.on_lblG5xClick)
     self.ui.lblG58.clicked.connect(self.on_lblG5xClick)
     self.ui.lblG59.clicked.connect(self.on_lblG5xClick)
+    self.ui.btnJogMoinsX.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusX.mousePress.connect(self.on_jog)
+    self.ui.btnJogMoinsY.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusY.mousePress.connect(self.on_jog)
+    self.ui.btnJogMoinsZ.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusZ.mousePress.connect(self.on_jog)
+    self.ui.btnJogMoinsA.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusA.mousePress.connect(self.on_jog)
+    self.ui.btnJogMoinsB.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusB.mousePress.connect(self.on_jog)
+    self.ui.btnJogStop.mousePress.connect(self.on_jogCancel)
 
   def populatePortList(self):
     ''' Rempli la liste des ports série '''
@@ -387,6 +402,33 @@ class winMain(QtWidgets.QMainWindow):
     elif QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+X"):
       self.logGrbl.append("Ctrl+X")
       self.__grblCom.sendData(chr(0x18)) # Envoi direct Ctrl+X.
+
+
+
+
+  @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
+  def on_jog(self, cnButton, e):
+    print("on_jog({}), mouseDown = {}".format(cnButton.name(), cnButton.isMouseDown()))
+    if cnButton.name() == "btnJogPlusX":
+      if self.ui.rbtJog0000.isChecked:
+        # On envoie des petits mouvements tant que le bouton est enfoncé
+        while cnButton.isMouseDown():
+          self.__jog.jogX(0.1)
+          self.logGrbl.append("jogX(0.1)")
+          QCoreApplication.processEvents()
+        print("MouseUp")
+        self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+    elif cnButton.name() == "btnJogMoinsX":
+      if self.ui.rbtJog0000.isChecked:
+        # On envoie des petits mouvements tant que le bouton est enfoncé
+        while cnButton.isMouseDown():
+          self.__jog.jogX(-0.1)
+          QCoreApplication.processEvents()
+        self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+
+  def on_jogCancel(self):
+    self.__grblCom.sendData(chr(0x85)) # Envoi direct Jog Cancel
+
 
   @pyqtSlot(str)
   def on_communicator_msg(self, data: str):

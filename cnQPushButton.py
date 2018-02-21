@@ -23,6 +23,7 @@
 
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QObject
 
 class cnQPushButton(QtWidgets.QPushButton):
   '''
@@ -30,14 +31,14 @@ class cnQPushButton(QtWidgets.QPushButton):
   '''
 
   keyPressed       = QtCore.pyqtSignal(QtGui.QKeyEvent)
-  mousePress       = QtCore.pyqtSignal(QtGui.QMouseEvent)
-  mouseRelease     = QtCore.pyqtSignal(QtGui.QMouseEvent)
+  mousePress       = QtCore.pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
+  mouseRelease     = QtCore.pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
   mouseDoubleClick = QtCore.pyqtSignal(QtGui.QMouseEvent)
 
   def __init__(self, parent=None):
     super(cnQPushButton, self).__init__(parent=parent)
     self.installEventFilter(self)
-
+    self.__myName = ""
     self.__mouseIsDown = False
 
     # Chemin des images dans le fichier de resources
@@ -56,11 +57,21 @@ class cnQPushButton(QtWidgets.QPushButton):
     à récupérer le signal objectNameChanged.
     '''
     if event.type() == QtCore.QEvent.DynamicPropertyChange:
-      pictureBaseName = self.__imagePath + object.objectName()
+      self.__myName = object.objectName()
+      pictureBaseName = self.__imagePath + self.__myName
 
-      self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Normal, QtGui.QIcon.Off)
-      self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + "_down.svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
-      self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      if QtCore.QResource(pictureBaseName + ".svg").isValid():
+        self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        if QtCore.QResource(pictureBaseName + "_down.svg").isValid():
+          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + "_down.svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        else:
+          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        if QtCore.QResource(pictureBaseName + "_light.svg").isValid():
+          self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        else:
+          self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      else:
+        print("Resource image du bouton ({}) non trouvée".format(pictureBaseName + ".svg"))
       self.__imagesOk = True
 
     if event.type() == QtCore.QEvent.EnabledChange:
@@ -76,20 +87,23 @@ class cnQPushButton(QtWidgets.QPushButton):
     return False
 
   def mousePressEvent(self, e):
-    self.__mouseIsDown = True
     super(cnQPushButton, self).mousePressEvent(e)
-    self.setIcon(self.iconDown)
-    self.mousePress.emit(e)
+    if e.button() == QtCore.Qt.LeftButton:
+      self.__mouseIsDown = True
+      self.setIcon(self.iconDown)
+      self.mousePress.emit(self, e)
 
   def mouseReleaseEvent(self, e):
-    self.__mouseIsDown = False
     super(cnQPushButton, self).mouseReleaseEvent(e)
-    self.__buttonStatus = True
-    if self.isEnabled():
-      self.setIcon(self.iconLight)
-    else:
-      self.setIcon(self.icon)
-    self.mouseRelease.emit(e)
+    if e.button() == QtCore.Qt.LeftButton:
+      self.__mouseIsDown = False
+      if self.isCheckable():
+        self.__buttonStatus = True
+      if self.isEnabled():
+        self.setIcon(self.iconLight)
+      else:
+        self.setIcon(self.icon)
+      self.mouseRelease.emit(self, e)
 
   def setButtonStatus(self, value: bool):
     self.__buttonStatus = value
@@ -102,8 +116,14 @@ class cnQPushButton(QtWidgets.QPushButton):
       else:
         self.setIcon(self.icon)
 
+  def isMouseDown(self):
+    return self.__mouseIsDown
+
   def getButtonStatus(self):
     return self.__buttonStatus
+
+  def name(self):
+    return self.__myName
 
   def mouseDoubleClickEvent(self, e):
     super(cnQPushButton, self).mouseDoubleClickEvent(e)

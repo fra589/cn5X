@@ -197,8 +197,6 @@ class serialCommunicator(QObject):
       self.sendData(buff + '\n', trapOk)
     else:
       self.sendData(buff, trapOk)
-    # On doit recevoir 1 ok à chaque ligne envoyée
-    self.__okToSend = False
 
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):
@@ -219,6 +217,10 @@ class serialCommunicator(QObject):
       self.sig_send_ok.emit()
     else:
       self.sig_msg.emit("serialCommunicator : Erreur envoi des données : timeout")
+
+    if buff[-1:] == '\n':
+      # On doit recevoir 1 ok à chaque ligne envoyée, sauf pour les commandes temps réel qui n'ont pas de retour chariot
+      self.__okToSend = False
 
   @pyqtSlot()
   def abort(self):
