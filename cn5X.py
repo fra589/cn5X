@@ -322,19 +322,19 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_btnSpinM3(self):
-    #self.logGrbl.append("M3")
+    self.logGrbl.append("M3")
     self.__grblCom.addLiFo("M3")
     self.ui.btnSpinM4.setEnabled(False) # Interdit un changement de sens de rotation direct
 
   @pyqtSlot()
   def on_btnSpinM4(self):
-    #self.logGrbl.append("M4")
+    self.logGrbl.append("M4")
     self.__grblCom.addLiFo("M4")
     self.ui.btnSpinM3.setEnabled(False) # Interdit un changement de sens de rotation direct
 
   @pyqtSlot()
   def on_btnSpinM5(self):
-    #self.logGrbl.append("M5")
+    self.logGrbl.append("M5")
     self.__grblCom.addLiFo("M5")
     self.ui.btnSpinM3.setEnabled(True)
     self.ui.btnSpinM4.setEnabled(True)
@@ -362,7 +362,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
-    #self.logGrbl.append(lblText)
+    self.logGrbl.append(lblText)
     self.__grblCom.addLiFo(lblText)
 
   @pyqtSlot()

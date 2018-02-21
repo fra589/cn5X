@@ -47,14 +47,15 @@ class serialCommunicator(QObject):
 
   def __init__(self, comPort: str, baudRate: int, stack: grblSerialStack):
     super().__init__()
-    self.__abort       = False
-    self.__portName    = comPort
-    self.__baudRate    = baudRate
-    self.__okToSend    = False
-    self.__grblStatus  = ""
-    self.__okTrap      = 0
-    self.__serialStack = stack
-    self.__okCount = 0
+    self.__abort          = False
+    self.__portName       = comPort
+    self.__baudRate       = baudRate
+    self.__okToSend       = False
+    self.__grblStatus     = ""
+    self.__okTrap         = 0
+    self.__serialStack    = stack
+    self.__tDernierEnvoi  = 0
+    self.__timeOutEnQueue = 60 # Timeout sur l'envoi d'une nouvelle ligne si Grbl n'a pas répondu OK en 1 minute.
 
   @pyqtSlot()
   def run(self):
@@ -93,22 +94,22 @@ class serialCommunicator(QObject):
         try:
           s += buff.data().decode()
           # Découpe les données reçues en lignes pour les envoyer une par une
-          t = s.splitlines()
+          tblLines = s.splitlines()
         except:
           self.sig_msg.emit("serialCommunicator : Erreur décodage : {}".format(sys.exc_info()[0]))
           s = ''
         if s != '':
           if s[-1] == "\n":
             # La dernière ligne est complette, on envoi tout
-            for l in t:
+            for l in tblLines:
               self.traileLaLigne(l)
             s=''
           else:
             # La dernière ligne est incomplette, on envoi jusqu'à l'avant dernière.
-            for l in t[:-1]:
+            for l in tblLines[:-1]:
               self.traileLaLigne(l)
             # On laisse la derniere ligne dans le buffer pour qu'elle soit complettée.
-            s = t[-1]
+            s = tblLines[-1]
 
       # Process events to receive signals;
       QCoreApplication.processEvents()
@@ -116,8 +117,9 @@ class serialCommunicator(QObject):
         self.sig_msg.emit("serialCommunicator : aborting...")
         break
 
-      ICI, Traiter le vidage de la pile
-      print(self.__serialStack.count())
+      # ICI, Traiter le vidage de la pile
+      if self.__serialStack.count() > 0:
+        self.deQueue()
 
     # Sortie de la boucle de lecture
     self.sig_msg.emit("serialCommunicator : Fermeture du port série.")
@@ -135,23 +137,22 @@ class serialCommunicator(QObject):
       self.sig_msg.emit("serialCommunicator : Grbl prêt pour recevoir des données")
       self.sig_init.emit(l)
       self.sig_grbl_ok.emit()
-      self.__okCount = 1
 
     elif l[:1] == "<" and l[-1:] == ">": # Real-time Status Reports
       if self.__grblStatus != l[1:-1].split("|")[0]:
         self.__grblStatus = l[1:-1].split("|")[0]
       self.sig_status.emit(l)
     elif l == "ok": # Reponses "ok"
+      self.__okToSend = True
       if self.__okTrap > 0:
         self.__okTrap -= 1
       else:
         self.sig_ok.emit()
-        self.__okCount += 1
 
     elif l[:6] == "error:": # "error:X"
       self.sig_response.emit(l)
       self.sig_error.emit()
-      self.__okCount = +1 # la reception d'un message d'erreur fait l'acquitement de la commande qui à provoqué l'erreur.
+      self.__okToSend = True # la reception d'un message d'erreur fait l'acquitement de la commande qui à provoqué l'erreur.
     elif l[:6] == "ALARM:": # "ALARM:X"
       self.sig_response.emit(l)
       self.sig_alarm.emit()
@@ -168,30 +169,23 @@ class serialCommunicator(QObject):
 
   @pyqtSlot()
   def deQueue(self):
-    ###print("self.__okCount = ", self.__okCount)
     # On récupère le prochain élément de la queue
     buff = self.__serialStack.deQueue()
     if buff == None:
       elf.sig_msg.emit("grblCommunicator: deQueue() la file d'attente est vide !")
       return
 
-    # On attend que Grbl ai traité les éléments précédents
-    tDebut = time.time()
-    ###print("tDebut      = ", tDebut)
-    while self.__okCount < 1:
-      # Process events to receive signals;
-      QCoreApplication.processEvents()
-      if time.time() > tDebut + self.__timeOutEnQueue:
-        # Timeout
-        ###print("time.time() = ", time.time())
-        ###print("grblCommunicator: enQueue({}) timeout !".format(buff))
+    # On vérifie si Grbl a traité les éléments précédents
+    if not self.__okToSend:
+      # l'élément précédent n'est pas encore traité
+      if time.time() > self.__tDernierEnvoi + self.__timeOutEnQueue:
         self.sig_msg.emit("grblCommunicator: deQueue({}) timeout ! Utilisez ^X (Ctrl + X) pour réinitialiser Grbl".format(buff))
         self.__serialStack.clear()
         return
-
-    # C'est bon, on envoie
-    self.__sendLine(buff, False)
-    ###print("tFin        = ", time.time())
+    else:
+      # C'est bon, on envoie
+      self.__sendLine(buff, False)
+      self.__tDernierEnvoi = time.time()
 
   @pyqtSlot(str, bool)
   def __sendLine(self, buff: str, trapOk: bool = False):
@@ -204,7 +198,7 @@ class serialCommunicator(QObject):
     else:
       self.sendData(buff, trapOk)
     # On doit recevoir 1 ok à chaque ligne envoyée
-    self.__okCount -= 1
+    self.__okToSend = False
 
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):

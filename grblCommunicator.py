@@ -61,7 +61,7 @@ class grblCommunicator(QObject):
   def __init__(self):
     super().__init__()
     self.__threads = None
-    self.__timer1Delay = 40 # Millisecondes
+    self.__timer1Delay = 100 # Millisecondes
     self.__Com = None
     self.__timeOutEnQueue = 60 # Timeout sur l'envoi d'une nouvelle ligne si Grbl n'a pas répondu OK en 1 minute.
     self.__serialStack = grblSerialStack()
