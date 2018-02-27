@@ -21,9 +21,10 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-class grblSerialStack():
-  '''
-  Gestionnaire de file d'attente du port série
+from PyQt5.QtCore import QObject, QThread, QEventLoop, pyqtSignal, pyqtSlot
+
+class grblSerialStack(QObject):
+  ''' Gestionnaire de file d'attente du port série
   '''
   def __init__(self):
     self.__data = []
@@ -41,14 +42,12 @@ class grblSerialStack():
     self.__data.append(item)
 
   def addLiFo(self, item):
-    '''
-    Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
+    ''' Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
     '''
     self.__data.insert(0, item)
 
   def nextValue(self):
-    '''
-    Renvoie le prochain élément de la Queue sans dépiler (le supprimer) ou None si la liste est vide.
+    ''' Renvoie le prochain élément de la Queue sans dépiler (le supprimer) ou None si la liste est vide.
     '''
     if len(self.__data) > 0:
       return self.__data[0]
@@ -56,8 +55,7 @@ class grblSerialStack():
       return None
 
   def deQueue(self):
-    '''
-    Dépile et renvoie le premier élément de la liste ou None si la liste est vide.
+    ''' Dépile et renvoie le premier élément de la liste ou None si la liste est vide.
     '''
     if len(self.__data) > 0:
       return self.__data.pop(0)
@@ -65,7 +63,6 @@ class grblSerialStack():
       return None
 
   def clear(self):
-    '''
-    Vide toute la pile
+    ''' Vide toute la pile
     '''
     self.__data.clear()

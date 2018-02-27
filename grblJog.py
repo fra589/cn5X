@@ -79,7 +79,11 @@ class grblJog():
     else:
       print("Jogging impossible, status non compatible.")
 
-
+  def jogCancel(self):
+    print("self.__grblCom.clearStack()")
+    self.__grblCom.clearStack()
+    print("self.__grblCom.sendData(chr(0x85))")
+    self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
 
 
 

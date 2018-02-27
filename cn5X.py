@@ -413,18 +413,24 @@ class winMain(QtWidgets.QMainWindow):
       if self.ui.rbtJog0000.isChecked:
         # On envoie des petits mouvements tant que le bouton est enfoncé
         while cnButton.isMouseDown():
-          self.__jog.jogX(0.1)
-          self.logGrbl.append("jogX(0.1)")
+          if self.__grblCom.stackEmpty():
+            self.__jog.jogX(0.05)
+            self.logGrbl.append("jogX(0.05)")
           QCoreApplication.processEvents()
         print("MouseUp")
-        self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+        self.__jog.jogCancel()
+        ##self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
     elif cnButton.name() == "btnJogMoinsX":
       if self.ui.rbtJog0000.isChecked:
         # On envoie des petits mouvements tant que le bouton est enfoncé
         while cnButton.isMouseDown():
-          self.__jog.jogX(-0.1)
+          if self.__grblCom.stackEmpty():
+            self.__jog.jogX(-0.05)
+            self.logGrbl.append("jogX(0.05)")
           QCoreApplication.processEvents()
-        self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+        print("MouseUp")
+        self.__jog.jogCancel()
+        ##self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
 
   def on_jogCancel(self):
     self.__grblCom.sendData(chr(0x85)) # Envoi direct Jog Cancel

@@ -332,7 +332,11 @@ class grblDecode():
       else:
         # Autre réponse [] ?
         return grblOutput
-      pass
+    else:
+      # Autre réponse ?
+      print(grblOutput)
+      return grblOutput
+    pass
 
   def get_etatArrosage(self):
     return self.__etatArrosage

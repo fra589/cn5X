@@ -129,7 +129,7 @@ class serialCommunicator(QObject):
 
   def traileLaLigne(self, l):
     # Envoi de toutes les lignes dans le debug
-    self.sig_data_debug.emit(l)
+    self.sig_data_debug.emit("<<< " + l)
     # Grbl 1.1f ['$' for help] (Init string)
     if l[:5] == "Grbl " and l[-5:] == "help]":
       self.__okToSend = True
@@ -200,18 +200,31 @@ class serialCommunicator(QObject):
 
   @pyqtSlot(str, bool)
   def sendData(self, buff: str, trapOk: bool = False):
-    if not self.__okToSend:
-      self.sig_msg.emit("serialCommunicator : Erreur : Grbl pas prêt pour recevoir des données")
-      return
+
+    # Envoi de toutes les lignes dans le debug
+    if buff[-1:] == "\n":
+      self.sig_data_debug.emit("<<< " + buff[:-1] + "\\n")
+    elif buff[-2:] == "\r\n":
+      self.sig_data_debug.emit("<<< " + buff[:-2] + "\\r\\n")
+    else:
+      self.sig_data_debug.emit("<<< " + buff)
+
+    if buff not in [chr(0x18), chr(0xA0), chr(0xA1), chr(0x85)]:
+      # Les commandes "real-time" n'on pas besoin d'attendre okToSend...
+      if not self.__okToSend:
+        self.sig_msg.emit("serialCommunicator : Erreur : Grbl pas prêt pour recevoir des données")
+        return
 
     if trapOk:
       self.__okTrap = 1 # La prochaine réponse "ok" de Grbl ne sera pas transmise
 
-    ###print("Sending [{}]".format(buff))
+    if buff == chr(0x85):
+      print("sendData(), envoi du Jog cancel...")
+
+    # Formatage du buffer à envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
-    # Temps nécessaire pour la com (millisecondes)
-    t_calcul = ceil(1000 * len(buffWrite) * 8 / self.__baudRate) # Arrondi à l'entier supérieur
-    timeout = 10 + (2 * t_calcul) # 2 fois le temps nécessaire + 10 millisecondes
+    tempNecessaire = ceil(1000 * len(buffWrite) * 8 / self.__baudRate) # Temps nécessaire pour la com (millisecondes), arrondi à l'entier supérieur
+    timeout = 10 + (2 * tempNecessaire) # 2 fois le temps nécessaire + 10 millisecondes
     self.__comPort.write(buffWrite)
     if self.__comPort.waitForBytesWritten(timeout):
       self.sig_send_ok.emit()
