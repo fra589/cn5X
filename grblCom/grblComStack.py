@@ -23,9 +23,11 @@
 
 from PyQt5.QtCore import QObject, QThread, QEventLoop, pyqtSignal, pyqtSlot
 
-class gcodeStack():
-  ''' Gestionnaire de file d'attente du port série
+class grblStack():
+  ''' 
+  Gestionnaire de file d'attente du port série
   '''
+  
   def __init__(self):
     self.__data = []
 
