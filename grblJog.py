@@ -22,68 +22,77 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
-from grblCommunicator import grblCommunicator
+####from grblCommunicator import grblCommunicator
+from grblCom import grblCom
 
 class grblJog():
   '''
   Envoie les ordres de mouvements de Jogging
   A jog command will only be accepted when Grbl is in either the 'Idle' or 'Jog' states.
   '''
-  def __init__(self, comm: grblCommunicator):
+  ####def __init__(self, comm: grblCommunicator):
+  def __init__(self, comm: grblCom):
     super().__init__()
     self.__grblCom  = comm
-    self.__jogSpeed = 500
+    self.__jogSpeed = 50
 
   @pyqtSlot(float)
   def jogX(self, value):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur X '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = "$J=G91G21F{}X{}".format(self.__jogSpeed, value)
-      self.__grblCom.addFiFo(cmdJog)
+      ####self.__grblCom.addFiFo(cmdJog)
+      self.__grblCom.gcodePush(cmdJog)
     else:
-      print("Jogging impossible, status non compatible.")
+      print("Jogging impossible, status Grbl non compatible.")
 
   @pyqtSlot(float)
   def jogY(self, value):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur Y '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = "$J=G91G21F{}Y{}".format(self.__jogSpeed, value)
-      self.__grblCom.addFiFo(cmdJog)
+      ####self.__grblCom.addFiFo(cmdJog)
+      self.__grblCom.gcodePush(cmdJog)
     else:
-      print("Jogging impossible, status non compatible.")
+      print("Jogging impossible, status Grbl non compatible.")
 
   @pyqtSlot(float)
   def jogZ(self, value):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur Z '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = "$J=G91G21F{}Z{}".format(self.__jogSpeed, value)
-      self.__grblCom.addFiFo(cmdJog)
+      ####self.__grblCom.addFiFo(cmdJog)
+      self.__grblCom.gcodePush(cmdJog)
     else:
-      print("Jogging impossible, status non compatible.")
+      print("Jogging impossible, status Grbl non compatible.")
 
   @pyqtSlot(float)
   def jogA(self, value):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur A '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = "$J=G91G21F{}A{}".format(self.__jogSpeed, value)
-      self.__grblCom.addFiFo(cmdJog)
+      ####self.__grblCom.addFiFo(cmdJog)
+      self.__grblCom.gcodePush(cmdJog)
     else:
-      print("Jogging impossible, status non compatible.")
+      print("Jogging impossible, status Grbl non compatible.")
 
   @pyqtSlot(float)
   def jogB(self, value):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur B '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = "$J=G91G21F{}B{}".format(self.__jogSpeed, value)
-      self.__grblCom.addFiFo(cmdJog)
+      ####self.__grblCom.addFiFo(cmdJog)
+      self.__grblCom.gcodePush(cmdJog)
     else:
-      print("Jogging impossible, status non compatible.")
+      print("Jogging impossible, status Grbl non compatible.")
 
   def jogCancel(self):
-    print("self.__grblCom.clearStack()")
-    self.__grblCom.clearStack()
-    print("self.__grblCom.sendData(chr(0x85))")
-    self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+    print("self.__grblCom.clearCom()")
+    ####self.__grblCom.clearStack()
+    self.__grblCom.clearCom()
+    print("self.__grblCom.realTimePush(chr(0x85))")
+    ####self.__grblCom.sendData(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
+    self.__grblCom.realTimePush(chr(0x85)) # Le bouton n'est plus enfoncé, envoi direct Jog Cancel
 
 
 

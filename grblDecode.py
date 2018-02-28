@@ -54,6 +54,10 @@ class grblDecode():
     self.__wco = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__etatArrosage = None
     self.__etatMachine = None
+    self.__getNextStatusOutput = False
+
+  def getNextStatus(self):
+    self.__getNextStatusOutput = True
 
   def decodeGrblStatus(self, grblOutput):
 
@@ -127,6 +131,7 @@ class grblDecode():
         self.ui.progressBufferState.setMaximum(int(tblValue[1]))
         self.ui.progressBufferState.setToolTip("Buffer stat : " + tblValue[0] + "/" + tblValue[1])
 
+      '''
       elif D[:3] == "Ln:": # Line Number
         return D
 
@@ -144,9 +149,13 @@ class grblDecode():
 
       elif D[2:] == "A:": # OverrideAccessory State
         return D
+      '''
 
-
-    return ""
+    if self.__getNextStatusOutput:
+      self.__getNextStatusOutput = False
+      return "decodeGrblStatus({})".format(grblOutput)
+    else:
+      return ""
 
   def decodeGrblResponse(self, grblOutput):
 
@@ -163,6 +172,15 @@ class grblDecode():
 
     else:
       return "Réponse Grbl inconnue : [" + grblOutput + "]"
+
+
+  def errorMessage(self, errNum: int):
+    return "error:" + str(errNum) + " : " + grblError[errNum][1] + ",\n" + grblError[errNum][2]
+
+
+  def alarmMessage(self, alarmNum: int):
+      return "ALARM:" + str(alarmNum) + " : " + grblAlarm[alarmNum][1] + ",\n" + grblAlarm[alarmNum][2]
+
 
   def decodeGrblData(self, grblOutput):
 
