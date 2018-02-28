@@ -48,6 +48,7 @@ class grblCom(QObject):
   sig_status = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
   sig_data   = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
   sig_emit   = pyqtSignal(str)      # Emis à l'envoi des données sur le port série 
+  sig_recu   = pyqtSignal(str)      # Emis à la réception des données sur le port série 
   sig_debug  = pyqtSignal(str)      # Emis à chaque envoi ou réception
 
   # Signaux de pilotage a envoyer au thread
@@ -62,6 +63,7 @@ class grblCom(QObject):
     super().__init__()
     self.__threads = None
     self.__Com = None
+    self.__connectStatus = False
 
 
   def startCom(self, comPort: str, baudRate: int):
@@ -76,6 +78,60 @@ class grblCom(QObject):
     thread.setObjectName('grblComSerial')
     self.__threads.append((thread, self.__Com))  # need to store worker too otherwise will be gc'd
     self.__Com.moveToThread(thread)
+    
     # Connecte les signaux provenant du grblComSerial
-    self.__Com.sig_log.connect( ******* A SUIVRE ! *******
+    self.__Com.sig_connect.connect(self.on_sig_connect)
+    self.__Com.sig_log.connect(self.sig_log.emit)
+    self.__Com.sig_init.connect(self.sig_init.emit)
+    self.__Com.sig_ok.connect(self.sig_ok.emit)
+    self.__Com.sig_error.connect(self.sig_error.emit)
+    self.__Com.sig_alarm.connect(self.sig_alarm.emit)
+    self.__Com.sig_status.connect(self.sig_status.emit)
+    self.__Com.sig_data.connect(self.sig_data.emit)
+    self.__Com.sig_emit.connect(self.sig_emit.emit)
+    self.__Com.sig_recu.connect(self.sig_recu.emit)
+    self.__Com.sig_debug.connect(self.sig_debug.emit)
+    
+    # Signaux de pilotage a envoyer au thread
+    self.sig_abort.connect(self.__Com.abort)
+    self.sig_gcodeInsert.connect(self.__Com.gcodeInsert)
+    self.sig_gcodePush.connect(self.__Com.gcodePush)
+    self.sig_realTimePush.connect(self.__Com.realTimePush)
+    self.sig_clearCom.connect(self.__Com.clearCom)
+
+    # Start the thread...
+    thread.started.connect(self.__Com.run)
+    thread.start()  # this will emit 'started' and start thread's event loop
+
+  @pyqtSlot(bool)
+  def on_sig_connect(self, value: bool):
+    ''' Maintien l'état de connexion '''
+    self.__connectStatus = value
+
+  def stopCom(self):
+    ''' Stop le thread des communications série '''
+    self.sig_log.emit("Envoi signal sig_abort au thread de communications série...")
+    self.sig_abort.emit()
+    # Attente de la fin du (des) thread(s)
+    for thread, worker in self.__threads:
+        thread.quit()  # this will quit **as soon as thread event loop unblocks**
+        thread.wait()  # <- so you need to wait for it to *actually* quit
+    self.sig_log.emit("Thread(s) enfant(s) terminé(s).")
+
+  def gcodeInsert(self)
+  def gcodePush(self)
+  def realTimePush(self)
+  def clearCom(self)
+
+
+
+
+
+
+
+
+
+
+
+
 

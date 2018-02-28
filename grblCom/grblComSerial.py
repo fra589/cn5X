@@ -41,15 +41,17 @@ class grblComSerial(QObject):
   bidirectionnelle entre cn5X et grbl.
   '''
 
-  sig_log    = pyqtSignal(int, str) # Message de fonctionnement du composant grblComSerial, renvoie : logSeverity, message string
-  sig_init   = pyqtSignal(str)      # Emis à la réception de la chaine d'initialisation de Grbl, renvoie la chaine complète
-  sig_ok     = pyqtSignal()         # Emis à la réception de la chaine "ok"
-  sig_error  = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
-  sig_alarm  = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
-  sig_status = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
-  sig_data   = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
-  sig_emit   = pyqtSignal(str)      # Emis à l'envoi des données sur le port série 
-  sig_debug  = pyqtSignal(str)      # Emis à chaque envoi ou réception
+  sig_connect = pyqtSignal(bool)     # Message emis à la connexion (valeur = True) et à la déconnexion ou en cas d'erreur de connexion (valeur = False)
+  sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant grblComSerial, renvoie : logSeverity, message string
+  sig_init    = pyqtSignal(str)      # Emis à la réception de la chaine d'initialisation de Grbl, renvoie la chaine complète
+  sig_ok      = pyqtSignal()         # Emis à la réception de la chaine "ok"
+  sig_error   = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
+  sig_alarm   = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
+  sig_status  = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
+  sig_data    = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
+  sig_emit    = pyqtSignal(str)      # Emis à l'envoi des données sur le port série 
+  sig_recu    = pyqtSignal(str)      # Emis à la réception des données sur le port série 
+  sig_debug   = pyqtSignal(str)      # Emis à chaque envoi ou réception
 
 
   def __init__(self, comPort: str, baudRate: int):
@@ -80,34 +82,39 @@ class grblComSerial(QObject):
       RC = self.__comPort.open(QIODevice.ReadWrite)
     except OSError as err:
       self.sig_log.emit(logSeverity.error, "grblComSerial : Erreur ouverture du port : {0}".format(err))
+      self.sig_connect(False)
       return False
     except:
       self.sig_log.emit(logSeverity.error, "grblComSerial : Unexpected error : {}".format(sys.exc_info()[0]))
+      self.sig_connect(False)
       return False
     if not RC:
       self.sig_log.emit(logSeverity.error, "grblComSerial : Erreur à l'ouverture du port série : err# = {0}".format(self.__comPort.error()))
+      self.sig_connect(False)
       return False
 
+    self.sig_connect(True)
     self.sig_log.emit(logSeverity.info, "grblComSerial : comPort {} ouvert".format(self.__comPort.portName()))
 
     # Boucle principale du composant
     while 1:
-      # On commence par vider la file d'attente des commandes temps réel
+      # On commence par vider la file d'attente et envoyer les commandes temps réel
       while not self.__realTimeStack.isEmpty():
         toSend = self.__realTimeStack.pop()
-        __sendData(toSend)
+        self.__sendData(toSend)
       # Ensuite, on envoie une ligne gcode en attente
       if not self.__mainStack.isEmpty():
         toSend = self.__mainStack.pop()
         if toSend[-1:] != '\n':
           toSend += '\n'
-          __sendData(toSend)
+          self.__sendData(toSend)
           # Boucle de lecture du port série
           serialData   = ''
           foundErrorOk = False
           while 1:
             if self.__comPort.waitForReadyRead(50):
               buff = self.__comPort.readAll()
+              self.sig_recu.emit(buff)
               try:
                 serialData += buff.data().decode()
               except:
@@ -140,7 +147,7 @@ class grblComSerial(QObject):
             # On a pas fini d'attendre la réponse de Grbl, on traite le temps réel s'il y en a en attente
             while not self.__realTimeStack.isEmpty():
               toSend = self.__realTimeStack.pop()
-              __sendData(toSend)
+              self.__sendData(toSend)
 
       if self.__abort:
         self.sig_log.emit(logSeverity.info, "grblComSerial : quitting...")
