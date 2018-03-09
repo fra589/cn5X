@@ -24,20 +24,19 @@
 
 import sys, os, time #, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QCoreApplication, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
+from PyQt5.QtCore import QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtSerialPort import QSerialPortInfo
 import mainWindow
 from cn5X_config import *
 from msgbox import *
-####from grblCommunicator import grblCommunicator
+from speedOverrides import *
 from grblCom import grblCom
 from grblDecode import grblDecode
 from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
-
-defaultBaudRate = 115200
+from cn5X_gcodeFile import gcodeFile
 
 class winMain(QtWidgets.QMainWindow):
 
@@ -54,21 +53,15 @@ class winMain(QtWidgets.QMainWindow):
     self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
 
-    self.gcodeFileContent = QStandardItemModel(self.ui.listGCodeFile)
+    ####self.__gcodeFileContent = QStandardItemModel(self.ui.listGCodeFile)
+    self.__gcodeFile = gcodeFile(self.ui.listGCodeFile) ####, self.__gcodeFileContent)
+    self.__gcodeFile.sig_log.connect(self.on_sig_log)
 
     self.timerDblClic = QtCore.QTimer()
-    self.decode = grblDecode(self.ui)
 
-    ####self.__grblCom = grblCommunicator()
-    ####self.__grblCom.sig_msg.connect(self.on_communicator_msg)           # Messages de fonctionnements du communicator
-    ####self.__grblCom.sig_init.connect(self.on_communicator_init)         # Grbl initialisé
-    ####self.__grblCom.sig_grblOk.connect(self.on_ok)                      # Reponse : ok
-    ####self.__grblCom.sig_grblResponse.connect(self.on_communicator_rep)  # Reponse : error:X ou ALARM:X
-    ####self.__grblCom.sig_grblStatus.connect(self.on_communicator_status) # Ligne de status entre < et >
-    ####self.__grblCom.sig_data_recived.connect(self.on_communicator_data) # Autres données de Grbl
-    ####self.__grblCom.sig_data_debug.connect(self.on_communicator_debug)  # Tous les messages de Grbl
     self.__grblCom = grblCom()
     self.__grblCom.sig_log.connect(self.on_sig_log)
+    self.__grblCom.sig_connect.connect(self.on_sig_connect)
     self.__grblCom.sig_init.connect(self.on_sig_init)
     self.__grblCom.sig_ok.connect(self.on_sig_ok)
     self.__grblCom.sig_error.connect(self.on_sig_error)
@@ -78,6 +71,8 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_emit.connect(self.on_sig_emit)
     self.__grblCom.sig_recu.connect(self.on_sig_recu)
     self.__grblCom.sig_debug.connect(self.on_sig_debug)
+
+    self.decode = grblDecode(self.ui, self.__grblCom)
 
     self.__jog = grblJog(self.__grblCom)
 
@@ -98,7 +93,7 @@ class winMain(QtWidgets.QMainWindow):
     for v in QSerialPortInfo.standardBaudRates():
       self.ui.cmbBauds.addItem(str(v))
       curIndex += 1
-      if v == defaultBaudRate:
+      if v == COM_DEFAULT_BAUD_RATE:
         self.ui.cmbBauds.setCurrentIndex(curIndex)
 
     # on affiche une chaine vide texte en bas de la fenêtre (status bar)
@@ -110,7 +105,12 @@ class winMain(QtWidgets.QMainWindow):
     """---------- Connections des évennements de l'interface graphique ----------"""
     self.ui.btnUrgence.pressed.connect(self.on_arretUrgence)             # Evenements du bouton d'arrêt d'urgence
     self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_cmbPort_changed'
-    self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)         # Connexions des routines du menu application
+    self.ui.mnuBar.hovered.connect(self.on_mnuBar)     # Connexions des routines du menu application
+    self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)
+    #### ICI ####
+    ####self.__gcodeFileContent.itemChanged.connect(self.on_gcodeChanged)
+    self.ui.mnuAppFermerGCode.triggered.connect(self.on_mnuAppFermerGCode)
+
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
     self.ui.mnu_MPos.triggered.connect(self.on_mnu_MPos)
     self.ui.mnu_WPos.triggered.connect(self.on_mnu_WPos)
@@ -145,7 +145,18 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnJogPlusA.mousePress.connect(self.on_jog)
     self.ui.btnJogMoinsB.mousePress.connect(self.on_jog)
     self.ui.btnJogPlusB.mousePress.connect(self.on_jog)
-    self.ui.btnJogStop.mousePress.connect(self.on_jogCancel)
+    self.ui.btnJogStop.mousePress.connect(self.__jog.jogCancel)
+    self.ui.rbRapid025.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_25_POURCENT))
+    self.ui.rbRapid050.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_50_POURCENT))
+    self.ui.rbRapid100.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_100_POURCENT))
+    self.ui.dialAvance.valueChanged.connect(self.on_feedOverride)
+    self.ui.dialBroche.valueChanged.connect(self.on_spindleOverride)
+    self.ui.btnLinkOverride.clicked.connect(self.on_btnLinkOverride)
+    self.ui.btnResetAvance.clicked.connect(self.on_btnResetAvance)
+    self.ui.btnResetBroche.clicked.connect(self.on_btnResetBroche)
+    self.ui.btnKillAlarm.clicked.connect(self.on_btnKillAlarm)
+    self.ui.btnHomeCycle.clicked.connect(self.on_btnHomeCycle)
+    self.ui.btnStart.clicked.connect(self.startCycle)
 
   def populatePortList(self):
     ''' Rempli la liste des ports série '''
@@ -203,6 +214,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
       self.ui.frmCoordOffsets.setEnabled(False)
+      self.ui.frmHomeAlarm.setEnabled(False)
     elif self.__arretUrgence:
       # Connecté mais sous arrêt d'urgence : Tout est désactivé sauf l'arrêt d'urgence
       self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
@@ -213,6 +225,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
       self.ui.frmCoordOffsets.setEnabled(False)
+      self.ui.frmHomeAlarm.setEnabled(False)
     else:
       # Tout est en ordre, on active tout
       self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
@@ -223,72 +236,72 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmGcodeInput.setEnabled(True)
       self.ui.frmBoutons.setEnabled(True)
       self.ui.frmCoordOffsets.setEnabled(True)
+      self.ui.frmHomeAlarm.setEnabled(True)
+      #### ICI ####
+      ####if self.__gcodeFileContent.hasChildren():
+      if self.__gcodeFile.isFileLoaded():
+        self.ui.frmCycle.setEnabled(True)
+      else:
+        self.ui.frmCycle.setEnabled(False)
+
+  @pyqtSlot()
+  def on_mnuBar(self):
+    #### ICI ####
+    ####if self.__gcodeFileContent.hasChildren():
+    if self.__gcodeFile.isFileLoaded():
+      self.ui.mnuAppEnregistrerSous.setEnabled(True)
+      self.ui.mnuAppFermerGCode.setEnabled(True)
+      if self.__gcodeFile.gcodeChanged():
+        self.ui.mnuAppEnregistrer.setEnabled(True)
+      else:
+        self.ui.mnuAppEnregistrer.setEnabled(False)
+    else:
+      self.ui.mnuAppEnregistrer.setEnabled(False)
+      self.ui.mnuAppEnregistrerSous.setEnabled(False)
+      self.ui.mnuAppFermerGCode.setEnabled(False)
 
   @pyqtSlot()
   def on_mnuAppOuvrir(self):
-    # Affiche la boite de dialogue
-    opt = QtWidgets.QFileDialog.Options()
-    opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fileName = QtWidgets.QFileDialog.getOpenFileName(self, "Ouvrir un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
+    # Affiche la boite de dialogue d'ouverture
+    fileName = self.__gcodeFile.showFileOpen()
     if fileName[0] != "":
       # Lecture du fichier
-      self.logCn5X.append("Lecture du fichier : " + fileName[0])
-      try:
-        f = open(fileName[0],'r')
-        lignes  = f.readlines()
-        f.close()
-        # Envoi du contenu dans la liste
-        self.gcodeFileContent.clear()
-        for l in lignes:
-          #print("["+l.strip()+"]")
-          item = QStandardItem(l.strip())
-          #item.setCheckable(True)
-          self.gcodeFileContent.appendRow(item)
-        self.ui.listGCodeFile.setModel(self.gcodeFileContent)
-        # Sélectionne la premiere ligne du fichier dans la liste
-        self.selectGCodeFileLine(0)
+      RC = self.__gcodeFile.readFile(fileName[0])
+      print(RC)
+      if RC:
         # Sélectionne l'onglet du fichier
         self.ui.grpConsole.setCurrentIndex(1)
-      except Exception as e:
-        self.logCn5X.append("Erreur lecture du fichier : " + fileName[0])
-        self.logCn5X.append(str(e))
-        # Sélectionne l'onglet de la console pour que le message s'affiche
+      else:
+        # Sélectionne l'onglet de la console pour que le message d'erreur s'affiche
         self.ui.grpConsole.setCurrentIndex(2)
+    # Active ou désactive les boutons de cycle
+    self.setEnableDisableGroupes()
 
-  def selectGCodeFileLine(self, num: int):
-    # Selectionne un élément de la liste du fichier GCode
-    idx = self.gcodeFileContent.index(num, 0, QModelIndex())
-    self.ui.listGCodeFile.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
-
-  def getGCodeSelectedLine(self):
-    indexes = self.ui.listGCodeFile.selectionModel().selectedIndexes()
-    return self.gcodeFileContent.data(indexes[0])
+  def on_mnuAppFermerGCode(self):
+    self.__gcodeFile.closeFile()
 
   @pyqtSlot()
   def on_mnuAppQuitter(self):
     if self.__connectionStatus:
-      self.__grblCom.stopCommunicator()
-    self.ui.statusBar.showMessage("Bye-bye...")
+      self.__grblCom.stopCom()
     self.close()
 
   def closeEvent(self, event):
     if self.__connectionStatus:
-      ####self.__grblCom.stopCommunicator()
       self.__grblCom.stopCom()
     self.ui.statusBar.showMessage("Bye-bye...")
     event.accept() # let the window close
+    ###event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
 
   def on_mnu_MPos(self, check):
     if check:
       param10 = 255 # Le bit 1 est à 1
-      ####self.__grblCom.addLiFo("$10=" + str(param10))
       self.__grblCom.gcodeInsert("$10=" + str(param10))
 
 
   def on_mnu_WPos(self, check):
     if check:
       param10 = 255 ^ 1 # Met le bit 1 à 0
-      ####self.__grblCom.addLiFo("$10=" + str(param10))
       self.__grblCom.gcodeInsert("$10=" + str(param10))
 
 
@@ -308,7 +321,7 @@ class winMain(QtWidgets.QMainWindow):
         self.__arretUrgence = False
     else:
       self.__grblCom.clearCom() # Vide la file d'attente de communication
-      self.__grblCom.realTimePush(chr(0x18)) # Envoi Ctrl+X.
+      self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
       self.__arretUrgence = True
       print("Arrêt d'urgence STOP !!!")
 
@@ -324,21 +337,22 @@ class winMain(QtWidgets.QMainWindow):
       serialDevice = serialDevice[0].strip()
       baudRate = int(self.ui.cmbBauds.currentText())
       # Démarrage du communicator
-      ####self.__grblCom.startCommunicator(serialDevice, baudRate)
       self.__grblCom.startCom(serialDevice, baudRate)
-      # Mise à jour de l'interface
-      self.ui.lblConnectStatus.setText("Connecté à " + serialDevice)
-      self.ui.btnConnect.setText("Déconnecter") # La prochaine action du bouton sera pour déconnecter
-      self.setEnableDisableConnectControls()
-      self.__connectionStatus = True
-      # Active les groupes de contrôles de pilotage de Grbl
-      self.setEnableDisableGroupes()
-
     else:
       # Arret du comunicator
-      ####self.__grblCom.stopCommunicator()
       self.__grblCom.stopCom()
-      self.__connectionStatus = False
+
+  @pyqtSlot()
+  def on_sig_connect(self):
+    self.__connectionStatus = self.__grblCom.isOpen()
+    if self.__connectionStatus:
+      # Mise à jour de l'interface
+      self.ui.lblConnectStatus.setText("Connecté à " + self.ui.cmbPort.currentText().split("-")[0].strip())
+      self.ui.btnConnect.setText("Déconnecter") # La prochaine action du bouton sera pour déconnecter
+      self.setEnableDisableConnectControls()
+      # Active les groupes de contrôles de pilotage de Grbl
+      self.setEnableDisableGroupes()
+    else:
       # Mise à jour de l'interface
       self.ui.lblConnectStatus.setText("<Non Connecté>")
       self.ui.btnConnect.setText("Connecter") # La prochaine action du bouton sera pour connecter
@@ -349,28 +363,64 @@ class winMain(QtWidgets.QMainWindow):
       # Active les groupes de contrôles de pilotage de Grbl
       self.setEnableDisableGroupes()
 
+  @pyqtSlot(int)
+  def on_feedOverride(self, value: int):
+    adjustFeedOverride(int(self.ui.lblAvancePourcent.text()[:-1]), value, self.__grblCom)
+    self.ui.lblAvancePourcent.setText("{}%".format(value))
+    if self.ui.btnLinkOverride.isChecked() and (value != self.ui.dialBroche.value()):
+      self.ui.dialBroche.setValue(value)
+
+  @pyqtSlot(int)
+  def on_spindleOverride(self, value: int):
+    adjustSpindleOverride(int(self.ui.lblBrochePourcent.text()[:-1]), value, self.__grblCom)
+    self.ui.lblBrochePourcent.setText("{}%".format(value))
+    if self.ui.btnLinkOverride.isChecked() and (value != self.ui.dialAvance.value()):
+      self.ui.dialAvance.setValue(value)
+
+  @pyqtSlot()
+  def on_btnLinkOverride(self):
+    if self.ui.btnLinkOverride.isChecked() and (self.ui.dialAvance.value() != self.ui.dialBroche.value()):
+      newValue = (self.ui.dialAvance.value() + self.ui.dialBroche.value()) / 2
+      self.ui.dialBroche.setValue(newValue)
+      self.ui.dialAvance.setValue(newValue)
+
+  @pyqtSlot()
+  def on_btnResetAvance(self):
+    self.ui.dialAvance.setValue(100)
+
+  @pyqtSlot()
+  def on_btnResetBroche(self):
+    self.ui.dialBroche.setValue(100)
+
   @pyqtSlot()
   def on_cmbPort_changed(self):
     self.setEnableDisableConnectControls()
 
+  @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
+  def on_jog(self, cnButton, e):
+    jogDistance = 0
+    for qrb in [self.ui.rbtJog0000, self.ui.rbtJog0001, self.ui.rbtJog0010, self.ui.rbtJog0100, self.ui.rbtJog1000]:
+      if qrb.isChecked():
+        jogDistance = float(qrb.text().replace(' ', ''))
+        print(qrb.text(), "***", jogDistance)
+    self.__jog.on_jog(cnButton, e, jogDistance)
+
+
   @pyqtSlot()
   def on_btnSpinM3(self):
     self.logGrbl.append("M3")
-    ####self.__grblCom.addLiFo("M3")
     self.__grblCom.gcodeInsert("M3")
     self.ui.btnSpinM4.setEnabled(False) # Interdit un changement de sens de rotation direct
 
   @pyqtSlot()
   def on_btnSpinM4(self):
     self.logGrbl.append("M4")
-    ####self.__grblCom.addLiFo("M4")
     self.__grblCom.gcodeInsert("M4")
     self.ui.btnSpinM3.setEnabled(False) # Interdit un changement de sens de rotation direct
 
   @pyqtSlot()
   def on_btnSpinM5(self):
     self.logGrbl.append("M5")
-    ####self.__grblCom.addLiFo("M5")
     self.__grblCom.gcodeInsert("M5")
     self.ui.btnSpinM3.setEnabled(True)
     self.ui.btnSpinM4.setEnabled(True)
@@ -379,38 +429,43 @@ class winMain(QtWidgets.QMainWindow):
   def on_btnFloodM7(self):
     if self.decode.get_etatArrosage() != "M7" and self.decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M7")
-      ####self.__grblCom.sendData(chr(0xA1))
-      self.__grblCom.realTimePush(chr(0xA1))
+      self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
 
   @pyqtSlot()
   def on_btnFloodM8(self):
     if self.decode.get_etatArrosage() != "M8" and self.decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M8")
-      ####self.__grblCom.sendData(chr(0xA0))
-      self.__grblCom.realTimePush(chr(0xA0))
+      self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
   @pyqtSlot()
   def on_btnFloodM9(self):
     if self.decode.get_etatArrosage() == "M7" or self.decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command"
-      ####self.__grblCom.sendData(chr(0xA1))
-      self.__grblCom.realTimePush(chr(0xA1))
+      self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
     if self.decode.get_etatArrosage() == "M8" or self.decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command" plutôt que self.__grblCom.enQueue("M9")
-      ####self.__grblCom.sendData(chr(0xA0))
-      self.__grblCom.realTimePush(chr(0xA0))
+      self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
     self.logGrbl.append(lblText)
-    ####self.__grblCom.addLiFo(lblText)
     self.__grblCom.gcodeInsert(lblText)
+
+  @pyqtSlot()
+  def on_btnKillAlarm(self):
+    self.logGrbl.append(CMD_GRBL_KILL_ALARM_LOCK)
+    self.__grblCom.gcodeInsert(CMD_GRBL_KILL_ALARM_LOCK)
+
+  @pyqtSlot()
+  def on_btnHomeCycle(self):
+    self.logGrbl.append(CMD_GRBL_RUN_HOME_CYCLE)
+    self.__grblCom.gcodeInsert(CMD_GRBL_RUN_HOME_CYCLE)
 
   @pyqtSlot()
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
       self.logGrbl.append(self.ui.txtGCode.text().upper())
-      if self.ui.txtGCode.text() == "?":
+      if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
         self.decode.getNextStatus()
     self.__grblCom.gcodePush(self.ui.txtGCode.text())
     self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
@@ -418,11 +473,10 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def txtGCode_on_Change(self):
-    if self.ui.txtGCode.text() == "?":
-      self.logGrbl.append("?")
+    if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
+      self.logGrbl.append(REAL_TIME_REPORT_QUERY)
       self.decode.getNextStatus()
-      ####self.__grblCom.sendData("?") # Envoi direct si ? sans attendre le retour chariot.
-      self.__grblCom.realTimePush("?") # Envoi direct si ? sans attendre le retour chariot.
+      self.__grblCom.realTimePush(REAL_TIME_REPORT_QUERY) # Envoi direct ? sans attendre le retour chariot.
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
 
   @pyqtSlot(QtGui.QKeyEvent)
@@ -431,55 +485,29 @@ class winMain(QtWidgets.QMainWindow):
       print("Ctrl+C")
     elif QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+X"):
       self.logGrbl.append("Ctrl+X")
-      ####self.__grblCom.sendData(chr(0x18)) # Envoi direct Ctrl+X.
-      self.__grblCom.realTimePush(chr(0x18)) # Envoi direct Ctrl+X.
-
-
-  @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
-  def on_jog(self, cnButton, e):
-    print("on_jog({}), mouseDown = {}".format(cnButton.name(), cnButton.isMouseDown()))
-    if cnButton.name() == "btnJogPlusX":
-      if self.ui.rbtJog0000.isChecked:
-        # On envoie des petits mouvements tant que le bouton est enfoncé
-        while cnButton.isMouseDown():
-          time.sleep(50 / 1000)
-          self.__jog.jogX(0.0125) # 1 pas à 80 pas par mm
-          self.logGrbl.append("jogX(0.05)")
-          QCoreApplication.processEvents()
-          time.sleep(50 / 1000)
-        print("MouseUp")
-        self.__jog.jogCancel()
-    elif cnButton.name() == "btnJogMoinsX":
-      if self.ui.rbtJog0000.isChecked:
-        # On envoie des petits mouvements tant que le bouton est enfoncé
-        while cnButton.isMouseDown():
-          time.sleep(50 / 1000)
-          self.__jog.jogX(-0.0125)
-          self.logGrbl.append("jogX(0.05)")
-          QCoreApplication.processEvents()
-          time.sleep(50 / 1000)
-        print("MouseUp")
-        self.__jog.jogCancel()
-
-  def on_jogCancel(self):
-    ####self.__grblCom.sendData(chr(0x85)) # Envoi direct Jog Cancel
-    self.__grblCom.clearCom()
-    self.__grblCom.realTimePush(chr(0x85)) # Envoi direct Jog Cancel
+      self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
 
   @pyqtSlot(int, str)
   def on_sig_log(self, severity: int, data: str):
-    ####def on_communicator_msg(self, data: str):
-    self.logCn5X.append("[{}] ".format(severity) + data)
+    if severity == logSeverity.info.value:
+      self.logCn5X.setTextColor(TXT_COLOR_GREEN)
+      self.logCn5X.append("Info    : " + data)
+    elif severity == logSeverity.warning.value:
+      self.logCn5X.setTextColor(TXT_COLOR_ORANGE)
+      self.logCn5X.append("Warning : " + data)
+      self.ui.grpConsole.setCurrentIndex(3)
+    elif severity == logSeverity.error.value:
+      self.logCn5X.setTextColor(TXT_COLOR_RED)
+      self.logCn5X.append("Error   : " + data)
+      self.ui.grpConsole.setCurrentIndex(3)
 
   @pyqtSlot(str)
   def on_sig_init(self, data: str):
-    ####def on_communicator_init(self, data: str):
     self.logGrbl.append(data)
     self.ui.statusBar.showMessage(data.split("[")[0])
 
   @pyqtSlot()
   def on_sig_ok(self):
-    ####def on_ok(self):
     self.logGrbl.append("ok")
 
   @pyqtSlot(int)
@@ -490,25 +518,14 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_alarm(self, alarmNum: int):
     self.logGrbl.append(self.decode.alarmMessage(alarmNum))
 
-
-  '''
-  @pyqtSlot(str)
-  def on_communicator_rep(self, data: str):
-    retour = self.decode.decodeGrblResponse(data)
-    if retour != "":
-      self.logGrbl.append(retour)
-  '''
-
   @pyqtSlot(str)
   def on_sig_status(self, data: str):
-    ####def on_communicator_status(self, data: str):
     retour = self.decode.decodeGrblStatus(data)
     if retour != "":
       self.logGrbl.append(retour)
 
   @pyqtSlot(str)
   def on_sig_data(self, data: str):
-    ####def on_communicator_data(self, data: str):
     retour = self.decode.decodeGrblData(data)
     if retour is not None and retour != "":
       self.logGrbl.append(retour)
@@ -523,7 +540,6 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_debug(self, data: str):
-    ####def on_communicator_debug(self, data: str):
     if self.ui.mnuDebug_mode.isChecked():
       self.logDebug.append(data)
 
@@ -538,6 +554,9 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def clearDebug(self):
     self.logDebug.clear()
+
+  def startCycle(self):
+    print(self.__gcodeFile.getGCodeSelectedLine())
 
 if __name__ == '__main__':
   import sys

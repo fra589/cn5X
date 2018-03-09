@@ -22,9 +22,13 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 from PyQt5 import QtGui
+from PyQt5 import QtWidgets #QtCore, QtGui,
 from grblError import grblError
 from grblAlarm import grblAlarm
 from grblSettings import grblSetting
+from speedOverrides import *
+from grblCom import grblCom
+
 
 class grblDecode():
   '''
@@ -33,8 +37,9 @@ class grblDecode():
   - Met à jour l'interface graphique.
   - Stocke des valeurs des paramètres décodés.
   '''
-  def __init__(self, ui):
+  def __init__(self, ui, grbl: grblCom):
     self.ui = ui
+    self.__grblCom = grbl
     self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
     self.__validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
     self.__G5actif = 54
@@ -131,6 +136,24 @@ class grblDecode():
         self.ui.progressBufferState.setMaximum(int(tblValue[1]))
         self.ui.progressBufferState.setToolTip("Buffer stat : " + tblValue[0] + "/" + tblValue[1])
 
+      elif D[:3] == "Ov:": # Override Values for feed, rapids, and spindle
+        values = D.split(':')[1].split(',')
+        # Avance de travail
+        if int(self.ui.lblAvancePourcent.text()[:-1]) != int(values[0]):
+          adjustFeedOverride(int(values[0]), int(self.ui.lblAvancePourcent.text()[:-1]), self.__grblCom)
+        # Avance rapide
+        if values[1] == 25:
+          self.ui.rbRapid025.setChecked(True)
+        if values[1] == 50:
+          self.ui.rbRapid050.setChecked(True)
+        if values[1] == 25:
+          self.ui.rbRapid100.setChecked(True)
+        # Vitesse de broche
+        if int(self.ui.lblBrochePourcent.text()[:-1]) != int(values[2]):
+          adjustSpindleOverride(int(values[2]), int(self.ui.lblBrochePourcent.text()[:-1]), self.__grblCom)
+        ###return D
+
+
       '''
       elif D[:3] == "Ln:": # Line Number
         return D
@@ -142,9 +165,6 @@ class grblDecode():
         return D
 
       elif D[3:] == "Pn:": # Input Pin State
-        return D
-
-      elif D[3:] == "Ov:": # Override Values
         return D
 
       elif D[2:] == "A:": # OverrideAccessory State

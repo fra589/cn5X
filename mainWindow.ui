@@ -29,8 +29,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1040</width>
-    <height>607</height>
+    <width>1024</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -98,6 +98,21 @@
             <bool>false</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>6</number>
+            </property>
+            <property name="topMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>4</number>
+            </property>
             <item>
              <widget class="QPushButton" name="btnUrgence">
               <property name="minimumSize">
@@ -151,10 +166,70 @@ dévérouiller l'arrêt d'urgence</string>
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>0</height>
+                <height>40</height>
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <widget class="QFrame" name="frmHomeAlarm">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <property name="lineWidth">
+               <number>0</number>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_15">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="btnKillAlarm">
+                 <property name="toolTip">
+                  <string>Supprimer le verrou d'alarme Grbl</string>
+                 </property>
+                 <property name="text">
+                  <string>Alarm lock</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="cn5X.qrc">
+                   <normaloff>:/cn5X/images/btnKillAlarm.svg</normaloff>:/cn5X/images/btnKillAlarm.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>19</width>
+                   <height>19</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnHomeCycle">
+                 <property name="toolTip">
+                  <string>Cycle d'origine machine</string>
+                 </property>
+                 <property name="text">
+                  <string>Home cycle</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -178,7 +253,7 @@ dévérouiller l'arrêt d'urgence</string>
             <bool>false</bool>
            </property>
            <property name="frameShape">
-            <enum>QFrame::Box</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="frameShadow">
             <enum>QFrame::Plain</enum>
@@ -191,7 +266,7 @@ dévérouiller l'arrêt d'urgence</string>
              <number>0</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>4</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
@@ -200,124 +275,279 @@ dévérouiller l'arrêt d'urgence</string>
              <number>0</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9">
-              <property name="spacing">
-               <number>4</number>
-              </property>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_7">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_22">
-                  <property name="text">
-                   <string>Avance</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QDial" name="dialAvance">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="minimum">
-                   <number>10</number>
-                  </property>
-                  <property name="maximum">
-                   <number>200</number>
-                  </property>
-                  <property name="value">
-                   <number>100</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>false</bool>
-                  </property>
-                  <property name="notchTarget">
-                   <double>10.000000000000000</double>
-                  </property>
-                  <property name="notchesVisible">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="lblAvancePourcent">
-                  <property name="text">
-                   <string>100%</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_8">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_23">
-                  <property name="text">
-                   <string>Broche</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QDial" name="dialBroche">
-                  <property name="cursor">
-                   <cursorShape>PointingHandCursor</cursorShape>
-                  </property>
-                  <property name="minimum">
-                   <number>10</number>
-                  </property>
-                  <property name="maximum">
-                   <number>200</number>
-                  </property>
-                  <property name="value">
-                   <number>100</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>false</bool>
-                  </property>
-                  <property name="notchTarget">
-                   <double>10.000000000000000</double>
-                  </property>
-                  <property name="notchesVisible">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="lblBrochePourcent">
-                  <property name="text">
-                   <string>100%</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
+             <widget class="QFrame" name="frmVitesseTravail">
+              <layout class="QVBoxLayout" name="verticalLayout_14">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_22">
+                   <property name="text">
+                    <string>Avance</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btnLinkOverride">
+                   <property name="maximumSize">
+                    <size>
+                     <width>48</width>
+                     <height>17</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Liaison des vitesses d'avance et de broche</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="cn5X.qrc">
+                     <normaloff>:/cn5X/images/btnLinkOff.svg</normaloff>
+                     <normalon>:/cn5X/images/btnLink.svg</normalon>:/cn5X/images/btnLinkOff.svg</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>48</width>
+                     <height>17</height>
+                    </size>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                   <property name="flat">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_23">
+                   <property name="text">
+                    <string>Broche</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_20">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>4</number>
+                 </property>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_7">
+                   <item>
+                    <widget class="QDial" name="dialAvance">
+                     <property name="maximumSize">
+                      <size>
+                       <width>95</width>
+                       <height>95</height>
+                      </size>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="minimum">
+                      <number>10</number>
+                     </property>
+                     <property name="maximum">
+                      <number>200</number>
+                     </property>
+                     <property name="value">
+                      <number>100</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>false</bool>
+                     </property>
+                     <property name="notchTarget">
+                      <double>10.000000000000000</double>
+                     </property>
+                     <property name="notchesVisible">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <item>
+                      <widget class="QLabel" name="lblAvancePourcent">
+                       <property name="text">
+                        <string>100%</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btnResetAvance">
+                       <property name="maximumSize">
+                        <size>
+                         <width>24</width>
+                         <height>17</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Réinitialiser la vitesse d'avance</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="cn5X.qrc">
+                         <normaloff>:/cn5X/images/btnResetSpeed.svg</normaloff>:/cn5X/images/btnResetSpeed.svg</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>24</width>
+                         <height>17</height>
+                        </size>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_8">
+                   <item>
+                    <widget class="QDial" name="dialBroche">
+                     <property name="maximumSize">
+                      <size>
+                       <width>95</width>
+                       <height>95</height>
+                      </size>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="minimum">
+                      <number>10</number>
+                     </property>
+                     <property name="maximum">
+                      <number>200</number>
+                     </property>
+                     <property name="value">
+                      <number>100</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>false</bool>
+                     </property>
+                     <property name="notchTarget">
+                      <double>10.000000000000000</double>
+                     </property>
+                     <property name="notchesVisible">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_19">
+                     <item>
+                      <widget class="QLabel" name="lblBrochePourcent">
+                       <property name="text">
+                        <string>100%</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btnResetBroche">
+                       <property name="maximumSize">
+                        <size>
+                         <width>24</width>
+                         <height>17</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Réinitialiser la vitesse de broche</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="cn5X.qrc">
+                         <normaloff>:/cn5X/images/btnResetSpeed.svg</normaloff>:/cn5X/images/btnResetSpeed.svg</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>24</width>
+                         <height>17</height>
+                        </size>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="groupBox_4">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="grpVitesseRapide">
               <property name="title">
                <string>Avance Rapide</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <property name="topMargin">
+                <number>2</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item>
-                <widget class="QRadioButton" name="radioButton_10">
+                <widget class="QRadioButton" name="rbRapid025">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -327,7 +557,7 @@ dévérouiller l'arrêt d'urgence</string>
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_11">
+                <widget class="QRadioButton" name="rbRapid050">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -337,7 +567,7 @@ dévérouiller l'arrêt d'urgence</string>
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_12">
+                <widget class="QRadioButton" name="rbRapid100">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -373,7 +603,7 @@ dévérouiller l'arrêt d'urgence</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_16">
           <property name="spacing">
-           <number>2</number>
+           <number>1</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -393,7 +623,7 @@ dévérouiller l'arrêt d'urgence</string>
              <number>0</number>
             </property>
             <property name="spacing">
-             <number>4</number>
+             <number>3</number>
             </property>
             <item row="0" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -828,7 +1058,7 @@ dévérouiller l'arrêt d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+ 0.01</string>
+               <string>+ 0.05</string>
               </property>
              </widget>
             </item>
@@ -2998,117 +3228,144 @@ color: rgb(0, 0, 63);
            </spacer>
           </item>
           <item>
-           <widget class="cnQPushButton" name="btnStart">
+           <widget class="QFrame" name="frmCycle">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius: 25;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="cn5X.qrc">
-              <normaloff>:/cn5X/images/btnStart.svg</normaloff>:/cn5X/images/btnStart.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="cnQPushButton" name="btnPause">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius: 25;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="cn5X.qrc">
-              <normaloff>:/cn5X/images/btnPause.svg</normaloff>:/cn5X/images/btnPause.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="cnQPushButton" name="btnStop">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius: 25;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="cn5X.qrc">
-              <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_21">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="cnQPushButton" name="btnStop">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="cn5X.qrc">
+                 <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="cnQPushButton" name="btnPause">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="cn5X.qrc">
+                 <normaloff>:/cn5X/images/btnPause.svg</normaloff>:/cn5X/images/btnPause.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="cnQPushButton" name="btnStart">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius: 25;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="cn5X.qrc">
+                 <normaloff>:/cn5X/images/btnStart.svg</normaloff>:/cn5X/images/btnStart.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>50</width>
+                 <height>50</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
@@ -3165,6 +3422,11 @@ color: rgb(0, 0, 63);
                  <height>91</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Monospace</family>
+                </font>
+               </property>
                <property name="verticalScrollBarPolicy">
                 <enum>Qt::ScrollBarAlwaysOn</enum>
                </property>
@@ -3199,6 +3461,11 @@ color: rgb(0, 0, 63);
            </property>
            <item row="0" column="0">
             <widget class="QListView" name="listGCodeFile">
+             <property name="font">
+              <font>
+               <family>Monospace</family>
+              </font>
+             </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOn</enum>
              </property>
@@ -3233,6 +3500,11 @@ color: rgb(0, 0, 63);
                <width>0</width>
                <height>91</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Monospace</family>
+              </font>
              </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -3271,6 +3543,11 @@ color: rgb(0, 0, 63);
                <width>0</width>
                <height>91</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Monospace</family>
+              </font>
              </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -3331,6 +3608,18 @@ color: rgb(0, 0, 63);
           <bool>false</bool>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_8">
             <property name="text">
@@ -3380,8 +3669,8 @@ color: rgb(0, 0, 63);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1040</width>
-     <height>20</height>
+     <width>1024</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -3389,6 +3678,9 @@ color: rgb(0, 0, 63);
      <string>&amp;Application</string>
     </property>
     <addaction name="mnuAppOuvrir"/>
+    <addaction name="mnuAppEnregistrer"/>
+    <addaction name="mnuAppEnregistrerSous"/>
+    <addaction name="mnuAppFermerGCode"/>
     <addaction name="separator"/>
     <addaction name="mnuAppQuitter"/>
    </widget>
@@ -3441,6 +3733,21 @@ color: rgb(0, 0, 63);
    </property>
    <property name="text">
     <string>Visualiser position de travail (WPos)</string>
+   </property>
+  </action>
+  <action name="mnuAppFermerGCode">
+   <property name="text">
+    <string>&amp;Fermer le fichier GCode</string>
+   </property>
+  </action>
+  <action name="mnuAppEnregistrer">
+   <property name="text">
+    <string>&amp;Enregistrer</string>
+   </property>
+  </action>
+  <action name="mnuAppEnregistrerSous">
+   <property name="text">
+    <string>Enregistrer &amp;sous...</string>
    </property>
   </action>
  </widget>

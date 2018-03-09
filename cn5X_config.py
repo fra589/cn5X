@@ -22,10 +22,74 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 from enum import Enum
+from PyQt5 import QtGui
+
+COM_DEFAULT_BAUD_RATE = 115200
+
+GRBL_QUERY_DELAY =  50      # ms
+
+JOG_REPEAT_DELAY = 250/1000 # s
+JOG_REPEAT_SPEED =  20/1000 # s
+JOG_SPEED        = 100
+
 
 class logSeverity(Enum):
   info    = 0
   warning = 1
   error =   2
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Définition des commandes de GRBL                                        '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+''' Grbl '$' Commands '''
+CMD_GRBL_HELP                  = "$"
+CMD_GRBL_GET_SETTINGS          = "$$"
+CMD_GRBL_GET_GCODE_PARAMATERS  = "$#"
+CMD_GRBL_GET_GCODE_STATE       = "$G"
+CMD_GRBL_GET_BUILD_INFO        = "$I"
+CMD_GRBL_GET_STARTUP_BLOCKS    = "$N"
+CMD_GRBL_SET_STARTUP_BLOCK0    = "$N0="
+CMD_GRBL_SET_STARTUP_BLOCK1    = "$N1="
+CMD_GRBL_TOGGLE_CHECK_MODE     = "$C"
+CMD_GRBL_KILL_ALARM_LOCK       = "$X"
+CMD_GRBL_RUN_HOME_CYCLE        = "$H"
+CMD_GRBL_JOG                   = "$J="
+CMD_GRBL_RESET_SETTINGS        = "$RST=$"
+CMD_GRBL_RESET_OFFSETS         = "$RST=#"
+CMD_GRBL_RESET_ALL_EEPROM      = "$RST=*"
+CMD_GRBL_SLEEP                 = "$SLP"
+
+''' Grbl v1.1 Realtime commands '''
+REAL_TIME_SOFT_RESET           = chr(0x18) # Ctrl+X
+REAL_TIME_REPORT_QUERY         = '?'
+REAL_TIME_CYCLE_START_RESUME   = '~'
+REAL_TIME_FEED_HOLD            = '!'
+
+''' Extended-ASCII Realtime Commands '''
+REAL_TIME_SAFETY_DOOR          = chr(0x84)
+REAL_TIME_JOG_CANCEL           = chr(0x85)
+REAL_TIME_FEED_100_POURCENT    = chr(0x90)
+REAL_TIME_FEED_PLUS_10         = chr(0x91)
+REAL_TIME_FEED_MOINS_10        = chr(0x92)
+REAL_TIME_FEED_PLUS_1          = chr(0x93)
+REAL_TIME_FEED_MOINS_1         = chr(0x94)
+REAL_TIME_RAPID_100_POURCENT   = chr(0x95)
+REAL_TIME_RAPID_50_POURCENT    = chr(0x96)
+REAL_TIME_RAPID_25_POURCENT    = chr(0x97)
+REAL_TIME_SPINDLE_100_POURCENT = chr(0x99)
+REAL_TIME_SPINDLE_PLUS_10      = chr(0x9A)
+REAL_TIME_SPINDLE_MOINS_10     = chr(0x9B)
+REAL_TIME_SPINDLE_PLUS_1       = chr(0x9C)
+REAL_TIME_SPINDLE_MOINS_1      = chr(0x9D)
+REAL_TIME_TOGGLE_SPINDLE_STOP  = chr(0x9E)
+REAL_TIME_TOGGLE_FLOOD_COOLANT = chr(0xA0)
+REAL_TIME_TOGGLE_MIST_COOLANT  = chr(0xA1)
+
+TXT_COLOR_GREEN  = QtGui.QColor(0, 92, 0)
+TXT_COLOR_ORANGE = QtGui.QColor(255, 127, 0)
+TXT_COLOR_RED    = QtGui.QColor(92, 0, 0)
+TXT_COLOR_BLUE   = QtGui.QColor(0, 0, 92)
 

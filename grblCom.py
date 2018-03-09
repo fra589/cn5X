@@ -35,22 +35,23 @@ class grblCom(QObject):
   '''
 
   # Reprise des signaux venant du thread de Com à faire suivre
-  sig_log    = pyqtSignal(int, str) # Message de fonctionnement du composant grblComSerial, renvoie : logSeverity, message string
-  sig_init   = pyqtSignal(str)      # Emis à la réception de la chaine d'initialisation de Grbl, renvoie la chaine complète
-  sig_ok     = pyqtSignal()         # Emis à la réception de la chaine "ok"
-  sig_error  = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
-  sig_alarm  = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
-  sig_status = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
-  sig_data   = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
-  sig_emit   = pyqtSignal(str)      # Emis à l'envoi des données sur le port série
-  sig_recu   = pyqtSignal(str)      # Emis à la réception des données sur le port série
-  sig_debug  = pyqtSignal(str)      # Emis à chaque envoi ou réception
+  sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant grblComSerial, renvoie : logSeverity, message string
+  sig_connect = pyqtSignal()         # Emis à la réception de la connexion
+  sig_init    = pyqtSignal(str)      # Emis à la réception de la chaine d'initialisation de Grbl, renvoie la chaine complète
+  sig_ok      = pyqtSignal()         # Emis à la réception de la chaine "ok"
+  sig_error   = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
+  sig_alarm   = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
+  sig_status  = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
+  sig_data    = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
+  sig_emit    = pyqtSignal(str)      # Emis à l'envoi des données sur le port série
+  sig_recu    = pyqtSignal(str)      # Emis à la réception des données sur le port série
+  sig_debug   = pyqtSignal(str)      # Emis à chaque envoi ou réception
 
   # Signaux de pilotage a envoyer au thread
   sig_abort        = pyqtSignal()
-  sig_gcodeInsert  = pyqtSignal(str)
-  sig_gcodePush    = pyqtSignal(str)
-  sig_realTimePush = pyqtSignal(str)
+  sig_gcodeInsert  = pyqtSignal(str, object)
+  sig_gcodePush    = pyqtSignal(str, object)
+  sig_realTimePush = pyqtSignal(str, object)
   sig_clearCom     = pyqtSignal()
 
 
@@ -108,6 +109,7 @@ class grblCom(QObject):
   def on_sig_connect(self, value: bool):
     ''' Maintien l'état de connexion '''
     self.__connectStatus = value
+    self.sig_connect.emit()
 
 
   @pyqtSlot(str)
@@ -140,23 +142,24 @@ class grblCom(QObject):
     self.__grblInit = False
 
 
-  def gcodeInsert(self, buff: str):
+  def gcodeInsert(self, buff: str, flag=None):
     if self.__connectStatus and self.__grblInit:
-      self.sig_gcodeInsert.emit(buff)
+      self.sig_gcodeInsert.emit(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
 
 
-  def gcodePush(self, buff: str):
+  def gcodePush(self, buff: str, flag=None):
+    print("gcodePush({})".format(buff))
     if self.__connectStatus and self.__grblInit:
-      self.sig_gcodePush.emit(buff)
+      self.sig_gcodePush.emit(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
 
 
-  def realTimePush(self, buff: str):
+  def realTimePush(self, buff: str, flag=None):
     if self.__connectStatus and self.__grblInit:
-      self.sig_realTimePush.emit(buff)
+      self.sig_realTimePush.emit(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
 
@@ -174,7 +177,8 @@ class grblCom(QObject):
   def stopTimer(self):
     pass
 
-
+  def isOpen(self):
+    return self.__connectStatus
 
 
 

@@ -51,16 +51,27 @@ class grblComSerial(QObject):
 
   def __init__(self, comPort: str, baudRate: int):
     super().__init__()
-    self.__abort = False
-    self.__portName = comPort
-    self.__baudRate = baudRate
 
-    self.__realTimeStack = grblStack()
-    self.__mainStack     = grblStack()
+    self.__abort            = False
+    self.__portName         = comPort
+    self.__baudRate         = baudRate
 
-    self.__initOK = False
-    self.__timeBetweenQueryStatus = 50 # 50 millisecondes entre 2 envois de "?"
-    self.__lastStatusQueryTime    = time.time()
+    self.__realTimeStack    = grblStack()
+    self.__mainStack        = grblStack()
+
+    self.__initOK           = False
+    self.__grblStatus       = ""
+
+    self.__queryCounter     = 0
+    self.__querySequence    = [
+      REAL_TIME_REPORT_QUERY,
+      REAL_TIME_REPORT_QUERY,
+      CMD_GRBL_GET_GCODE_PARAMATERS + '\n',
+      REAL_TIME_REPORT_QUERY,
+      REAL_TIME_REPORT_QUERY,
+      CMD_GRBL_GET_GCODE_STATE + '\n'
+    ]
+    self.__lastQueryTime    = time.time()
 
   def run(self):
 
@@ -97,32 +108,37 @@ class grblComSerial(QObject):
     self.sig_log.emit(logSeverity.info.value, "grblComSerial : comPort {} ouvert, RC = {}".format(self.__comPort.portName(), RC))
 
     # Boucle principale du composant
+    flag = None
     while 1:
       # On commence par vider la file d'attente et envoyer les commandes temps réel
       ###print("self.__realTimeStack contient {} éléments".format(self.__realTimeStack.count()))
       while not self.__realTimeStack.isEmpty():
-        toSend = self.__realTimeStack.pop()
+        toSend, flag = self.__realTimeStack.pop()
         self.__sendData(toSend)
       # Ensuite, on envoie une ligne gcode en attente
       ###print("self.__mainStack contient {} éléments".format(self.__mainStack.count()))
       if not self.__mainStack.isEmpty():
         # Si la pile n'est pas vide, on envoi la prochaine commande et on attend la réponse
-        toSend = self.__mainStack.pop()
+        toSend, flag = self.__mainStack.pop()
+        if toSend[:3] == CMD_GRBL_JOG:
+          print("Envoi JOG ({})".format(toSend))
         if toSend[-1:] != '\n':
           toSend += '\n'
         self.__sendData(toSend)
-        print("GCode envoyé [{}]".format(toSend))
+        ###print("GCode envoyé [{}]".format(toSend))
         # Boucle 1 de lecture du port série
-        serialData   = ''
+        serialData = ''
+        newData    = ''
         foundErrorOk = False
         while 1:
           if self.__comPort.waitForReadyRead(25):
             buff = self.__comPort.readAll()
             try:
-              serialData += buff.data().decode()
+              newData = buff.data().decode()
             except:
               self.sig_log.emit(logSeverity.error.value, "grblComSerial : Erreur décodage : {}".format(sys.exc_info()[0]))
-              serialData = ''
+            serialData = serialData + newData
+
             if serialData != '':
               self.sig_recu.emit(serialData)
               # Découpe les données reçues en lignes pour les envoyer une par une
@@ -131,14 +147,18 @@ class grblComSerial(QObject):
                 # La dernière ligne est incomplette, on envoi jusqu'à l'avant dernière.
                 for l in tblLines[:-1]:
                   if l.find('ok') >= 0 or l.find('error') >= 0: foundErrorOk = True
-                  self.__traileLaLigne(l)
+                  if l !='':
+                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 1 ({})".format(l))
+                  self.__traileLaLigne(l, flag)
                 # On laisse la derniere ligne dans le buffer pour qu'elle soit complettée.
                 serialData = tblLines[-1]
               else:
                 # La dernière ligne est complette, on envoi tout
                 for l in tblLines:
                   if l.find('ok') >= 0 or l.find('error') >= 0: foundErrorOk = True
-                  self.__traileLaLigne(l)
+                  if l !='':
+                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 2 ({})".format(l))
+                  self.__traileLaLigne(l, flag)
                 serialData=''
                 if foundErrorOk:
                   # On à eu la réponse de Grbl, on peux passer au prochain envoi.
@@ -151,25 +171,35 @@ class grblComSerial(QObject):
 
           # On a pas fini d'attendre la réponse de Grbl, on traite le temps réel s'il y en a en attente
           while not self.__realTimeStack.isEmpty():
-            toSend = self.__realTimeStack.pop()
+            toSend, flag = self.__realTimeStack.pop()
             self.__sendData(toSend)
 
-          # Intérrogations de Grbl à interval régulier
-          if (time.time() - self.__lastStatusQueryTime) * 1000 > self.__timeBetweenQueryStatus and self.__initOK:
-            self.realTimePush("?")
-            self.__lastStatusQueryTime    = time.time()
+          # Intérrogations de Grbl à interval régulier selon la séquence définie par self.__querySequence
+          if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
+            if len(self.__querySequence[self.__queryCounter]) == 1:
+              self.realTimePush(self.__querySequence[self.__queryCounter])
+            else:
+              if self.__grblStatus == "Idle":
+                self.gcodeInsert(self.__querySequence[self.__queryCounter], "NO_OK")
+            self.__lastQueryTime    = time.time()
+            self.__queryCounter += 1
+            if self.__queryCounter >= len(self.__querySequence):
+              self.__queryCounter = 0
 
       else:
         # La file d'attente est vide, on regarde quand même si Grbl nous envoie des infos
-        serialData   = ''
+        # Boucle 2 de lecture du port série
+        serialData = ''
+        newData    = ''
         while 1:
           if self.__comPort.waitForReadyRead(25):
             buff = self.__comPort.readAll()
             try:
-              serialData += buff.data().decode()
+              newData = buff.data().decode()
             except:
               self.sig_log.emit(logSeverity.error.value, "grblComSerial : Erreur décodage : {}".format(sys.exc_info()[0]))
-              serialData = ''
+            serialData = serialData + newData
+
             if serialData != '':
               self.sig_recu.emit(serialData)
               # Découpe les données reçues en lignes pour les envoyer une par une
@@ -177,13 +207,21 @@ class grblComSerial(QObject):
               if serialData[-1] != "\n":
                 # La dernière ligne est incomplette, on envoi jusqu'à l'avant dernière.
                 for l in tblLines[:-1]:
-                  self.__traileLaLigne(l)
+                  if l !='':
+                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 3 ({})".format(l))
+                  self.__traileLaLigne(l, flag)
                 # On laisse la derniere ligne dans le buffer pour qu'elle soit complettée.
                 serialData = tblLines[-1]
+                ###print("Données restantes ***{}***".format(serialData))
               else:
                 # La dernière ligne est complette, on envoi tout
                 for l in tblLines:
-                  self.__traileLaLigne(l)
+                  if l !='':
+                     if l[0] != '<' and l[-1] == ">":
+                       print("Erreur de découpage en position 4 ({})".format(l))
+                       print(serialData)
+                       print("--------------------------------------------")
+                  self.__traileLaLigne(l, flag)
                 serialData=''
                 # On à eu une ou plusieurs lignes complettes de Grbl, on peux passer au prochain envoi.
                 break
@@ -193,13 +231,20 @@ class grblComSerial(QObject):
             self.sig_log.emit(logSeverity.warning.value, "grblComSerial : aborting while waiting for Grbl response...")
             break # Sortie de la boucle de lecture
 
-          # Intérrogations de Grbl à interval régulier
-          if (time.time() - self.__lastStatusQueryTime) * 1000 > self.__timeBetweenQueryStatus and self.__initOK:
-            self.realTimePush("?")
-            self.__lastStatusQueryTime    = time.time()
+          # Intérrogations de Grbl à interval régulier selon la séquence définie par self.__querySequence
+          if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
+            if len(self.__querySequence[self.__queryCounter]) == 1:
+              self.realTimePush(self.__querySequence[self.__queryCounter])
+            else:
+              if self.__grblStatus == "Idle":
+                self.gcodeInsert(self.__querySequence[self.__queryCounter], "NO_OK")
+            self.__lastQueryTime    = time.time()
+            self.__queryCounter += 1
+            if self.__queryCounter >= len(self.__querySequence):
+              self.__queryCounter = 0
 
           # Si une des 2 file d'attente n'est pas vide, on repart dans la boucle 1
-          if not self.__mainStack.isEmpty() or not self.__realTimeStack.isEmpty():
+          if (not self.__mainStack.isEmpty() or not self.__realTimeStack.isEmpty()) and serialData == '':
             break
 
       if self.__abort:
@@ -238,7 +283,7 @@ class grblComSerial(QObject):
       self.sig_log.emit(logSeverity.error.value, "grblComSerial : Erreur envoi des données : timeout, err# = {0}".format(self.__comPort.error()))
 
 
-  def __traileLaLigne(self, l):
+  def __traileLaLigne(self, l, flag = None):
     ''' Emmet les signaux ad-hoc pour toutes les lignes reçues  '''
 
     # Envoi de toutes les lignes dans le debug
@@ -253,7 +298,8 @@ class grblComSerial(QObject):
       self.sig_init.emit(l)
       self.__initOK = True
     elif l == "ok":                            # Reponses "ok"
-      self.sig_ok.emit()
+      if flag != "NO_OK":
+        self.sig_ok.emit()
     elif l[:6] == "error:":                    # "error:X" => Renvoie X
       errNum = int(l.split(':')[1])
       self.sig_error.emit(errNum)
@@ -261,6 +307,7 @@ class grblComSerial(QObject):
       alarmNum = int(l.split(':')[1])
       self.sig_alarm.emit(alarmNum)
     elif l[:1] == "<" and l[-1:] == ">":       # Real-time Status Reports
+      self.__grblStatus = l[1:].split('|')[0]
       self.sig_status.emit(l)
     else:
       self.sig_data.emit(l)
@@ -273,21 +320,24 @@ class grblComSerial(QObject):
 
 
   @pyqtSlot(str)
-  def gcodeInsert(self, buff: str):
-    ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
-    self.__mainStack.addLiFo(buff)
-
-
-  @pyqtSlot(str)
-  def gcodePush(self, buff: str):
+  @pyqtSlot(str, object)
+  def gcodePush(self, buff: str, flag = None):
     ''' Ajout d'une commande GCode dans la pile en mode FiFo (fonctionnement normal de la pile d'un programe GCode) '''
-    self.__mainStack.addFiFo(buff)
+    self.__mainStack.addFiFo(buff, flag)
 
 
   @pyqtSlot(str)
-  def realTimePush(self, buff: str):
+  @pyqtSlot(str, object)
+  def gcodeInsert(self, buff: str, flag = None):
+    ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
+    self.__mainStack.addLiFo(buff, flag)
+
+
+  @pyqtSlot(str)
+  @pyqtSlot(str, object)
+  def realTimePush(self, buff: str, flag = None):
     ''' Ajout d'une commande GCode dans la pile en mode FiFo '''
-    self.__realTimeStack.addFiFo(buff)
+    self.__realTimeStack.addFiFo(buff, flag)
 
 
   @pyqtSlot()
@@ -295,7 +345,6 @@ class grblComSerial(QObject):
     ''' Vide les files d'attente '''
     self.__realTimeStack.clear()
     self.__mainStack.clear()
-
 
 
 

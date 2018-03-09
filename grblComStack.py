@@ -24,10 +24,12 @@
 from PyQt5.QtCore import QObject, QThread, QEventLoop, pyqtSignal, pyqtSlot
 
 class grblStack():
-  ''' 
-  Gestionnaire de file d'attente du port série
   '''
-  
+  Gestionnaire de file d'attente du port série.
+  Stocke des couples (CommandeGrbl, flag), soit en mode FiFo (addFiFo()), soit en mode LiFo (addLiFo())
+  et les renvoie dans l'ordre choisi avec la fonction pop().
+  '''
+
   def __init__(self):
     self.__data = []
 
@@ -37,15 +39,15 @@ class grblStack():
   def count(self):
     return len(self.__data)
 
-  def addFiFo(self, item):
+  def addFiFo(self, item, flag = None):
     ''' Ajoute un élément en mode FiFO, l'élément ajouté sera le dernier à sortir
     '''
-    self.__data.append(item)
+    self.__data.append((item, flag))
 
-  def addLiFo(self, item):
+  def addLiFo(self, item, flag = None):
     ''' Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
     '''
-    self.__data.insert(0, item)
+    self.__data.insert(0, (item, flag))
 
   def next(self):
     ''' Renvoie le prochain élément de la Queue sans dépiler (le supprimer) ou None si la liste est vide.

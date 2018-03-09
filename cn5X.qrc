@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/btnKillAlarm.svg</file>
+    <file>images/btnLink.svg</file>
+    <file>images/btnLinkOff.svg</file>
+    <file>images/btnResetSpeed.svg</file>
     <file>images/btnPause.svg</file>
     <file>images/btnPause_down.svg</file>
     <file>images/btnPause_light.svg</file>
