@@ -70,6 +70,7 @@ class gcodeFile(QObject):
       f = open(filePath,'r')
       lignes  = f.readlines()
       f.close()
+      self.sig_log.emit(logSeverity.info.value, "{} lignes dans le fichier".format(len(lignes)))
       # Envoi du contenu dans la liste
       self.__gcodeFileUiModel.clear()
       for l in lignes:
@@ -96,6 +97,9 @@ class gcodeFile(QObject):
   def isFileLoaded(self):
     return self.__gcodeCharge
 
+  def filePath():
+    return self.__filePath
+
   def __selectGCodeFileLine(self, num: int):
     # Selectionne un élément de la liste du fichier GCode
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
@@ -106,23 +110,40 @@ class gcodeFile(QObject):
     idx = self.__gcodeFileUi.selectionModel().selectedIndexes()
     return [idx[0].row(), self.__gcodeFileUiModel.data(idx[0])]
 
-  def saveFile(self, filePath: str):
+  def saveFile(self, filePath: str = ""):
+
+    if filePath == "":
+      if self.__filePath == "":
+        # Le nom du fichier n'est pas définit, il n'y à pas de fichier chargé, donc, rien à sauvegarder !
+        return()
+      else:
+        filePath = self.__filePath
     self.sig_log.emit(logSeverity.info.value, "Enregistrement du fichier : {}".format(filePath))
     try:
-      tbl = []
+      f = open(filePath, 'w')
       for I in range(self.__gcodeFileUiModel.rowCount()):
         idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
-        tbl.append(self.__gcodeFileUiModel.data(idx))
-        print(self.__gcodeFileUiModel.data(idx))
-      print("*****************************************************************************")
-      f = open(filePath, 'w')
-      for l in tbl:
-        f.write(l + '\n')
-        print(l)
-        f.close()
+        if self.__gcodeFileUiModel.data(idx) != "":
+          f.write(self.__gcodeFileUiModel.data(idx) + '\n')
+      f.close()
     except Exception as e:
       self.sig_log.emit(logSeverity.error.value, "Erreur Enregistrement du fichier : {}".format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
+    # Supprime les lignes vides
+    self.delEmptyRow()
+    # Reinit du flag fichier changé
+    self.__gcodeChanged = False
+
+
+  def delEmptyRow(self):
+    """ Elimination des lignes GCode vides """
+    for I in reversed(range(self.__gcodeFileUiModel.rowCount())):
+      # On commence par la fin pour pouvoir supprimer sans tout décaler pour la suite
+      idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
+      if self.__gcodeFileUiModel.data(idx) == "":
+        print("Suppression de la ligne N° {}".format(I+1))
+        self.__gcodeFileUiModel.removeRow(I)
+
 
   def showConfirmChangeLost(self):
     m = msgBox(
@@ -136,6 +157,7 @@ class gcodeFile(QObject):
     )
     return(m.afficheMsg())
 
+
   def closeFile(self):
     if self.__gcodeChanged:
       # GCode modifié, on demande confirmation
@@ -145,24 +167,27 @@ class gcodeFile(QObject):
           filePath = self.showFileSave()
           if filePath == "":
             # Annulation de la boite de dialogue
-            return
+            return False
           else:
             self.__filePath = filePath
         self.saveFile(self.__filePath)
-        print("Sauvegarde demandée")
+        return True
       elif Ret == msgButtonList.Discard:
         # Fermer le fichier consiste en vider la fenêtre GCode
         self.__gcodeFileUiModel.clear()
         self.__gcodeChanged = False
         self.__gcodeCharge  =False
+        return True
       else: # Ret == msgButtonList.Cancel:
-        return
+        return False
     else:
       # GCode non modifié, on ferme sans confirmation
       # Fermer le fichier consiste en vider la fenêtre GCode
+      # et à supprimer le status GCode chargé.
       self.__gcodeFileUiModel.clear()
       self.__gcodeChanged = False
       self.__gcodeCharge  =False
+      return True
 
   @pyqtSlot("QStandardItem*")
   def on_gcodeChanged(self, item):
@@ -174,12 +199,6 @@ class gcodeFile(QObject):
 
   def setGcodeChanged(self, value:bool):
     self.__gcodeChanged = value
-
-  def getGCodeSelectedLine(self):
-    ''' Renvoie le N° (0 base) de la ligne sélectionnée dans la liste GCode et les données de cette ligne. '''
-    indexes = self.__gcodeFileUi.selectionModel().selectedIndexes()
-    return [indexes[0].row(), self.__gcodeFileUiModel.data(indexes[0])]
-
 
 
 

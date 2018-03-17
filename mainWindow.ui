@@ -3252,7 +3252,7 @@ color: rgb(0, 0, 63);
               <number>0</number>
              </property>
              <item>
-              <widget class="cnQPushButton" name="btnStop">
+              <widget class="cnQPushButton" name="btnStart">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -3279,7 +3279,7 @@ color: rgb(0, 0, 63);
                </property>
                <property name="icon">
                 <iconset resource="cn5X.qrc">
-                 <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
+                 <normaloff>:/cn5X/images/btnStart.svg</normaloff>:/cn5X/images/btnStart.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -3328,7 +3328,7 @@ color: rgb(0, 0, 63);
               </widget>
              </item>
              <item>
-              <widget class="cnQPushButton" name="btnStart">
+              <widget class="cnQPushButton" name="btnStop">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -3355,7 +3355,7 @@ color: rgb(0, 0, 63);
                </property>
                <property name="icon">
                 <iconset resource="cn5X.qrc">
-                 <normaloff>:/cn5X/images/btnStart.svg</normaloff>:/cn5X/images/btnStart.svg</iconset>
+                 <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -3460,15 +3460,42 @@ color: rgb(0, 0, 63);
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <widget class="QListView" name="listGCodeFile">
+            <widget class="QTableView" name="listGCodeFile">
              <property name="font">
               <font>
                <family>Monospace</family>
               </font>
              </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOn</enum>
              </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="showGrid">
+              <bool>false</bool>
+             </property>
+             <property name="gridStyle">
+              <enum>Qt::NoPen</enum>
+             </property>
+             <attribute name="horizontalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>15</number>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -3670,7 +3697,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">

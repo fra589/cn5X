@@ -24,7 +24,7 @@
 
 import sys, os, time #, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtSerialPort import QSerialPortInfo
 import mainWindow
@@ -53,8 +53,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
 
-    ####self.__gcodeFileContent = QStandardItemModel(self.ui.listGCodeFile)
-    self.__gcodeFile = gcodeFile(self.ui.listGCodeFile) ####, self.__gcodeFileContent)
+    self.__gcodeFile = gcodeFile(self.ui.listGCodeFile)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
 
     self.timerDblClic = QtCore.QTimer()
@@ -107,6 +106,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.cmbPort.currentIndexChanged.connect(self.on_cmbPort_changed) # un clic sur un élément de la liste appellera la méthode 'on_cmbPort_changed'
     self.ui.mnuBar.hovered.connect(self.on_mnuBar)     # Connexions des routines du menu application
     self.ui.mnuAppOuvrir.triggered.connect(self.on_mnuAppOuvrir)
+    self.ui.mnuAppEnregistrer.triggered.connect(self.on_mnuAppEnregistrer)
     #### ICI ####
     ####self.__gcodeFileContent.itemChanged.connect(self.on_gcodeChanged)
     self.ui.mnuAppFermerGCode.triggered.connect(self.on_mnuAppFermerGCode)
@@ -266,8 +266,9 @@ class winMain(QtWidgets.QMainWindow):
     fileName = self.__gcodeFile.showFileOpen()
     if fileName[0] != "":
       # Lecture du fichier
+      # Curseur sablier
+      self.setCursor(Qt.WaitCursor)
       RC = self.__gcodeFile.readFile(fileName[0])
-      print(RC)
       if RC:
         # Sélectionne l'onglet du fichier
         self.ui.grpConsole.setCurrentIndex(1)
@@ -276,21 +277,30 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.grpConsole.setCurrentIndex(2)
     # Active ou désactive les boutons de cycle
     self.setEnableDisableGroupes()
+    # Restore le curseur de souris
+    self.setCursor(Qt.ArrowCursor)
+
+  def on_mnuAppEnregistrer(self):
+    if self.__gcodeFile.filePath != "":
+      self.__gcodeFile.saveFile()
 
   def on_mnuAppFermerGCode(self):
     self.__gcodeFile.closeFile()
 
   @pyqtSlot()
   def on_mnuAppQuitter(self):
-    if self.__connectionStatus:
-      self.__grblCom.stopCom()
     self.close()
 
   def closeEvent(self, event):
+    print("Close event...")
     if self.__connectionStatus:
       self.__grblCom.stopCom()
-    self.ui.statusBar.showMessage("Bye-bye...")
-    event.accept() # let the window close
+    if not self.__gcodeFile.closeFile():
+      print("Fermeture du fichier annulée")
+      event.setAccepted(False)
+    else:
+      self.ui.statusBar.showMessage("Bye-bye...")
+      event.accept() # let the window close
     ###event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
 
   def on_mnu_MPos(self, check):
