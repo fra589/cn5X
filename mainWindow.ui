@@ -33,10 +33,22 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>1024</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -67,6 +79,18 @@
      <widget class="QFrame" name="grpCommandes">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>337</width>
+        <height>16777215</height>
+       </size>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -166,7 +190,7 @@ dévérouiller l'arrêt d'urgence</string>
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>40</height>
+                <height>0</height>
                </size>
               </property>
              </spacer>
@@ -199,12 +223,22 @@ dévérouiller l'arrêt d'urgence</string>
                 <number>0</number>
                </property>
                <item>
+                <widget class="QPushButton" name="btnHomeCycle">
+                 <property name="toolTip">
+                  <string>Cycle d'origine machine</string>
+                 </property>
+                 <property name="text">
+                  <string>Home cycle</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QPushButton" name="btnKillAlarm">
                  <property name="toolTip">
                   <string>Supprimer le verrou d'alarme Grbl</string>
                  </property>
                  <property name="text">
-                  <string>Alarm lock</string>
+                  <string>Unlock Alarm</string>
                  </property>
                  <property name="icon">
                   <iconset resource="cn5X.qrc">
@@ -219,12 +253,9 @@ dévérouiller l'arrêt d'urgence</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="btnHomeCycle">
-                 <property name="toolTip">
-                  <string>Cycle d'origine machine</string>
-                 </property>
+                <widget class="QPushButton" name="btnReset">
                  <property name="text">
-                  <string>Home cycle</string>
+                  <string>Soft Reset (^X)</string>
                  </property>
                 </widget>
                </item>
@@ -241,7 +272,7 @@ dévérouiller l'arrêt d'urgence</string>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>17</width>
+             <width>0</width>
              <height>20</height>
             </size>
            </property>
@@ -272,7 +303,7 @@ dévérouiller l'arrêt d'urgence</string>
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>4</number>
             </property>
             <item>
              <widget class="QFrame" name="frmVitesseTravail">
@@ -376,6 +407,9 @@ dévérouiller l'arrêt d'urgence</string>
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
+                     <property name="contextMenuPolicy">
+                      <enum>Qt::CustomContextMenu</enum>
+                     </property>
                      <property name="minimum">
                       <number>10</number>
                      </property>
@@ -453,6 +487,9 @@ dévérouiller l'arrêt d'urgence</string>
                      </property>
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="contextMenuPolicy">
+                      <enum>Qt::CustomContextMenu</enum>
                      </property>
                      <property name="minimum">
                       <number>10</number>
@@ -540,6 +577,9 @@ dévérouiller l'arrêt d'urgence</string>
                <property name="spacing">
                 <number>2</number>
                </property>
+               <property name="leftMargin">
+                <number>9</number>
+               </property>
                <property name="topMargin">
                 <number>2</number>
                </property>
@@ -581,6 +621,19 @@ dévérouiller l'arrêt d'urgence</string>
                </item>
               </layout>
              </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>0</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>
@@ -1139,6 +1192,12 @@ dévérouiller l'arrêt d'urgence</string>
                 <height>0</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Port :</string>
               </property>
@@ -1148,8 +1207,8 @@ dévérouiller l'arrêt d'urgence</string>
              <widget class="QComboBox" name="cmbPort">
               <property name="minimumSize">
                <size>
-                <width>158</width>
-                <height>23</height>
+                <width>0</width>
+                <height>0</height>
                </size>
               </property>
               <property name="toolTip">
@@ -1184,12 +1243,21 @@ dévérouiller l'arrêt d'urgence</string>
           </item>
           <item row="1" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_22">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_2">
               <property name="minimumSize">
                <size>
                 <width>0</width>
                 <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="text">
@@ -1201,8 +1269,8 @@ dévérouiller l'arrêt d'urgence</string>
              <widget class="QComboBox" name="cmbBauds">
               <property name="minimumSize">
                <size>
-                <width>158</width>
-                <height>23</height>
+                <width>0</width>
+                <height>0</height>
                </size>
               </property>
              </widget>
@@ -1211,11 +1279,14 @@ dévérouiller l'arrêt d'urgence</string>
           </item>
           <item row="2" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QLabel" name="lblConnectStatus">
               <property name="minimumSize">
                <size>
-                <width>180</width>
+                <width>0</width>
                 <height>0</height>
                </size>
               </property>
@@ -1229,7 +1300,13 @@ dévérouiller l'arrêt d'urgence</string>
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>23</height>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>110</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="text">
@@ -1286,7 +1363,7 @@ dévérouiller l'arrêt d'urgence</string>
         <widget class="QFrame" name="grpStatus">
          <property name="minimumSize">
           <size>
-           <width>695</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
@@ -1325,7 +1402,7 @@ dévérouiller l'arrêt d'urgence</string>
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>220</height>
+                <height>0</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -1355,10 +1432,10 @@ color: rgb(0, 0, 63);</string>
                 <number>0</number>
                </property>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
+                <widget class="QLabel" name="lblLblPosX">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1367,6 +1444,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>X</string>
@@ -1377,7 +1457,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosX">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1386,6 +1466,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>+00000.000</string>
@@ -1396,10 +1479,10 @@ color: rgb(0, 0, 63);</string>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="label_4">
+                <widget class="QLabel" name="lblLblPosY">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1408,6 +1491,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>Y</string>
@@ -1418,7 +1504,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosY">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1427,6 +1513,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>+00000.000</string>
@@ -1437,10 +1526,10 @@ color: rgb(0, 0, 63);</string>
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_5">
+                <widget class="QLabel" name="lblLblPosZ">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1449,6 +1538,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>Z</string>
@@ -1459,7 +1551,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosZ">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1468,6 +1560,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>+00000.000</string>
@@ -1478,10 +1573,10 @@ color: rgb(0, 0, 63);</string>
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QLabel" name="label_6">
+                <widget class="QLabel" name="lblLblPosA">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1490,6 +1585,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>A</string>
@@ -1500,7 +1598,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosA">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1509,6 +1607,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>+00000.000</string>
@@ -1519,10 +1620,10 @@ color: rgb(0, 0, 63);</string>
                 </widget>
                </item>
                <item row="4" column="0">
-                <widget class="QLabel" name="label_7">
+                <widget class="QLabel" name="lblLblPosB">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1531,6 +1632,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>B</string>
@@ -1541,7 +1645,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosB">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1550,6 +1654,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
                   <string>+00000.000</string>
@@ -1560,10 +1667,10 @@ color: rgb(0, 0, 63);</string>
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QLabel" name="label_26">
+                <widget class="QLabel" name="lblLblPosC">
                  <property name="maximumSize">
                   <size>
-                   <width>25</width>
+                   <width>20</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -1572,6 +1679,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">color: rgb(224, 224, 230);</string>
@@ -1585,7 +1695,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblPosC">
                  <property name="minimumSize">
                   <size>
-                   <width>170</width>
+                   <width>0</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1594,6 +1704,9 @@ color: rgb(0, 0, 63);</string>
                    <family>LED Calculator</family>
                    <pointsize>20</pointsize>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">color: rgb(224, 224, 230);</string>
@@ -1648,7 +1761,7 @@ color: rgb(0, 0, 63);</string>
                 <widget class="QLabel" name="lblEtat">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
+                   <width>95</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -1689,8 +1802,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblPlan">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1700,6 +1813,9 @@ color: rgb(248, 255, 192);</string>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(0, 0, 63);
@@ -1734,8 +1850,8 @@ QToolType {
                 <widget class="QLabel" name="lblBroche">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1775,8 +1891,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblUnites">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1786,6 +1902,9 @@ color: rgb(248, 255, 192);</string>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(0, 0, 63);
@@ -1816,8 +1935,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblArrosage">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1857,8 +1976,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblCoord">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1868,6 +1987,9 @@ color: rgb(248, 255, 192);</string>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(0, 0, 63);
@@ -1898,8 +2020,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblOutil">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1939,8 +2061,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblDeplacements">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1980,8 +2102,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblRotation">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -2021,8 +2143,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblVitesse">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -2062,8 +2184,8 @@ color: rgb(248, 255, 192);</string>
                 <widget class="QLabel" name="lblAvance">
                  <property name="minimumSize">
                   <size>
-                   <width>87</width>
-                   <height>27</height>
+                   <width>95</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="font">
@@ -2129,7 +2251,13 @@ color: rgb(0, 0, 63);</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="frame_8">
+              <widget class="QFrame" name="frmCoordOffsetsLabels">
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -2157,7 +2285,7 @@ color: rgb(0, 0, 63);</string>
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>27</height>
+                    <height>0</height>
                    </size>
                   </property>
                   <property name="cursor">
@@ -2196,784 +2324,804 @@ color: rgb(0, 0, 63);</string>
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_3">
-               <property name="spacing">
-                <number>0</number>
+              <widget class="QFrame" name="frmCoordOffsetsValues">
+               <property name="minimumSize">
+                <size>
+                 <width>587</width>
+                 <height>0</height>
+                </size>
                </property>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_6">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <widget class="cnQLabel" name="lblG54">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(0, 0, 63);
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>4</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="cnQLabel" name="lblG54">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(0, 0, 63);
 color: rgb(248, 255, 192);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G54</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="cnQLabel" name="lblG55">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(248, 255, 192);
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="text">
+                     <string>G54</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="cnQLabel" name="lblG55">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G55</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="cnQLabel" name="lblG56">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(248, 255, 192);
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="text">
+                     <string>G55</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="cnQLabel" name="lblG56">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G56</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="cnQLabel" name="lblG57">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(248, 255, 192);
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="text">
+                     <string>G56</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="cnQLabel" name="lblG57">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G57</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="cnQLabel" name="lblG58">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(248, 255, 192);
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="text">
+                     <string>G57</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="cnQLabel" name="lblG58">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="lineWidth">
-                    <number>1</number>
-                   </property>
-                   <property name="text">
-                    <string>G58</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="cnQLabel" name="lblG59">
-                   <property name="minimumSize">
-                    <size>
-                     <width>87</width>
-                     <height>27</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>16</pointsize>
-                    </font>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(248, 255, 192);
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>1</number>
+                    </property>
+                    <property name="text">
+                     <string>G58</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="cnQLabel" name="lblG59">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
 </string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="text">
-                    <string>G59</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="lblG5xX">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG5xY">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG5xZ">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG5xA">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG5xB">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG5xC">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(224, 224, 230);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="lblG92X">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG92Y">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG92Z">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG92A">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG92B">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblG92C">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(224, 224, 230);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_23">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="lblWcoX">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblWcoY">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblWcoZ">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblWcoA">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblWcoB">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="lblWcoC">
-                   <property name="minimumSize">
-                    <size>
-                     <width>99</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>LED Calculator</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(224, 224, 230);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Sunken</enum>
-                   </property>
-                   <property name="text">
-                    <string>+0.000</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="text">
+                     <string>G59</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="lblG5xX">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG5xY">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG5xZ">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG5xA">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG5xB">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG5xC">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(224, 224, 230);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="lblG92X">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG92Y">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG92Z">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG92A">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG92B">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblG92C">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(224, 224, 230);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_23">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="lblWcoX">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblWcoY">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblWcoZ">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblWcoA">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblWcoB">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblWcoC">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>LED Calculator</family>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(224, 224, 230);</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="text">
+                     <string>+0.000</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -3387,7 +3535,7 @@ color: rgb(0, 0, 63);
        <item>
         <widget class="QTabWidget" name="grpConsole">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
@@ -3419,7 +3567,7 @@ color: rgb(0, 0, 63);
                <property name="minimumSize">
                 <size>
                  <width>0</width>
-                 <height>91</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="font">
@@ -3460,11 +3608,14 @@ color: rgb(0, 0, 63);
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <widget class="QTableView" name="listGCodeFile">
+            <widget class="QTableView" name="gcodeTable">
              <property name="font">
               <font>
                <family>Monospace</family>
               </font>
+             </property>
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
              </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
@@ -3525,7 +3676,7 @@ color: rgb(0, 0, 63);
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>91</height>
+               <height>0</height>
               </size>
              </property>
              <property name="font">
@@ -3549,7 +3700,7 @@ color: rgb(0, 0, 63);
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_18">
            <property name="spacing">
-            <number>4</number>
+            <number>2</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -3568,7 +3719,7 @@ color: rgb(0, 0, 63);
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>91</height>
+               <height>0</height>
               </size>
              </property>
              <property name="font">
@@ -3659,7 +3810,7 @@ color: rgb(0, 0, 63);
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>25</height>
+              <height>0</height>
              </size>
             </property>
             <property name="focusPolicy">
@@ -3675,7 +3826,7 @@ color: rgb(0, 0, 63);
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>23</height>
+              <height>0</height>
              </size>
             </property>
             <property name="text">
@@ -3697,7 +3848,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -3769,7 +3920,7 @@ color: rgb(0, 0, 63);
   </action>
   <action name="mnuAppEnregistrer">
    <property name="text">
-    <string>&amp;Enregistrer</string>
+    <string>&amp;Enregistrer le fichier GCode</string>
    </property>
   </action>
   <action name="mnuAppEnregistrerSous">

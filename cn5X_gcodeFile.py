@@ -27,6 +27,7 @@ from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QListView
 from cn5X_config import *
 from msgbox import *
+from grblCom import grblCom
 
 
 class gcodeFile(QObject):
@@ -61,9 +62,6 @@ class gcodeFile(QObject):
     fileName = QtWidgets.QFileDialog.getOpenFileName(None, "Ouvrir un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
     return fileName
 
-  def showFileSave(self):
-    pass
-
   def readFile(self, filePath: str):
     self.sig_log.emit(logSeverity.info.value, "Lecture du fichier : {}".format(filePath))
     try:
@@ -78,7 +76,7 @@ class gcodeFile(QObject):
         self.__gcodeFileUiModel.appendRow(item)
       self.__gcodeFileUi.setModel(self.__gcodeFileUiModel)
       # Sélectionne la premiere ligne du fichier dans la liste
-      self.__selectGCodeFileLine(0)
+      self.selectGCodeFileLine(0)
       # Sélectionne l'onglet du fichier
     except Exception as e:
       self.sig_log.emit(logSeverity.error.value, "Erreur lecture du fichier : {}".format(filePath))
@@ -97,25 +95,46 @@ class gcodeFile(QObject):
   def isFileLoaded(self):
     return self.__gcodeCharge
 
-  def filePath():
+
+  def filePath(self):
     return self.__filePath
 
-  def __selectGCodeFileLine(self, num: int):
+
+  def selectGCodeFileLine(self, num: int):
     # Selectionne un élément de la liste du fichier GCode
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
+    self.__gcodeFileUi.selectionModel().reset()
     self.__gcodeFileUi.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
+
 
   def getGCodeSelectedLine(self):
     ''' Renvoie le N° (0 base) de la ligne sélectionnée dans la liste GCode et les données de cette ligne. '''
     idx = self.__gcodeFileUi.selectionModel().selectedIndexes()
     return [idx[0].row(), self.__gcodeFileUiModel.data(idx[0])]
 
+
+  def saveAs(self):
+    fileName = self.showFileSave()
+    if fileName[0] != "":
+      print("saveAs({})".format(fileName[0]))
+      self.saveFile(fileName[0])
+    else:
+      print("saveAs() annulé !")
+
+
+  def showFileSave(self):
+    # Affiche la boite de dialogue Save as
+    opt = QtWidgets.QFileDialog.Options()
+    opt |= QtWidgets.QFileDialog.DontUseNativeDialog
+    fileName = QtWidgets.QFileDialog.getSaveFileName(None, "Enregistrer un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
+    return fileName
+
   def saveFile(self, filePath: str = ""):
 
     if filePath == "":
       if self.__filePath == "":
         # Le nom du fichier n'est pas définit, il n'y à pas de fichier chargé, donc, rien à sauvegarder !
-        return()
+        return
       else:
         filePath = self.__filePath
     self.sig_log.emit(logSeverity.info.value, "Enregistrement du fichier : {}".format(filePath))
@@ -126,13 +145,26 @@ class gcodeFile(QObject):
         if self.__gcodeFileUiModel.data(idx) != "":
           f.write(self.__gcodeFileUiModel.data(idx) + '\n')
       f.close()
+      self.__filePath = filePath
     except Exception as e:
       self.sig_log.emit(logSeverity.error.value, "Erreur Enregistrement du fichier : {}".format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
-    # Supprime les lignes vides
+    # Supprime les lignes vides dans la grille d'affichage
     self.delEmptyRow()
     # Reinit du flag fichier changé
     self.__gcodeChanged = False
+
+
+  def enQueue(self, com: grblCom, startLine: int = 0, endLine: int = -1):
+    """ Envoi des lignes de startLine à endLine dans la file d'attente du grblCom """
+    if endLine == -1:
+      endLine = self.__gcodeFileUiModel.rowCount()
+    for I in range(startLine, endLine + 1):
+      idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
+      if self.__gcodeFileUiModel.data(idx) != "":
+        print(self.__gcodeFileUiModel.data(idx))
+        com.gcodePush(self.__gcodeFileUiModel.data(idx))
+        com.gcodePush(CMD_GRBL_GET_GCODE_STATE, "NO_OK")
 
 
   def delEmptyRow(self):
@@ -143,6 +175,21 @@ class gcodeFile(QObject):
       if self.__gcodeFileUiModel.data(idx) == "":
         print("Suppression de la ligne N° {}".format(I+1))
         self.__gcodeFileUiModel.removeRow(I)
+
+
+  def deleteGCodeFileLine(self, num: int):
+    self.__gcodeFileUiModel.removeRow(num)
+    self.__gcodeChanged = True
+
+
+  def insertGCodeFileLine(self, num: int):
+    item = QStandardItem("")
+    self.__gcodeFileUiModel.insertRow(num, item)
+
+
+  def addGCodeFileLine(self, num: int):
+    item = QStandardItem("")
+    self.__gcodeFileUiModel.insertRow(num+1, item)
 
 
   def showConfirmChangeLost(self):

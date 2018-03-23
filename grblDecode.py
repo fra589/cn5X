@@ -301,10 +301,12 @@ class grblDecode():
             self.ui.lblCoord.setText(S)
             if S == 'G90': self.ui.lblCoord.setToolTip(" Déplacement en coordonnées absolues ")
             if S == 'G91': self.ui.lblCoord.setToolTip(" Déplacement en coordonnées relatives ")
-          elif S in ['G0', 'G1']:
+          elif S in ['G0', 'G1', 'G2', 'G3']:
             self.ui.lblDeplacements.setText(S)
             if S == 'G0': self.ui.lblDeplacements.setToolTip(" Déplacement en vitesse rapide ")
             if S == 'G1': self.ui.lblDeplacements.setToolTip(" Déplacement en vitesse travail ")
+            if S == 'G2': self.ui.lblDeplacements.setToolTip(" Interpolation circulaire sens horaire en vitesse travail ")
+            if S == 'G3': self.ui.lblDeplacements.setToolTip(" Interpolation circulaire sens anti-horaire en vitesse travail ")
           elif S in ['G93', 'G94']:
             self.ui.lblVitesse.setText(S)
             if S == 'G93': self.ui.lblVitesse.setToolTip(" Mode vitesse inverse du temps ")
@@ -364,7 +366,7 @@ class grblDecode():
             self.ui.lblAvance.setText(S)
             self.ui.lblAvance.setToolTip(" Vitesse d'avance = " + S[1:])
           else:
-            return("Status G-code Parser non reconnu : " + S)
+            return("Status G-code Parser non reconnu dans {} : {}".format(grblOutput, S))
 
         #return(str(tblGcodeParser))
       else:

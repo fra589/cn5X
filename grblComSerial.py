@@ -111,21 +111,21 @@ class grblComSerial(QObject):
     flag = None
     while 1:
       # On commence par vider la file d'attente et envoyer les commandes temps réel
-      ###print("self.__realTimeStack contient {} éléments".format(self.__realTimeStack.count()))
       while not self.__realTimeStack.isEmpty():
         toSend, flag = self.__realTimeStack.pop()
         self.__sendData(toSend)
       # Ensuite, on envoie une ligne gcode en attente
-      ###print("self.__mainStack contient {} éléments".format(self.__mainStack.count()))
       if not self.__mainStack.isEmpty():
         # Si la pile n'est pas vide, on envoi la prochaine commande et on attend la réponse
         toSend, flag = self.__mainStack.pop()
-        if toSend[:3] == CMD_GRBL_JOG:
-          print("Envoi JOG ({})".format(toSend))
         if toSend[-1:] != '\n':
           toSend += '\n'
+        if flag != "NO_OK":
+          if toSend[-2:] == '\c\n':
+            self.sig_emit.emit(toSend[:-2])
+          else:
+            self.sig_emit.emit(toSend[:-1])
         self.__sendData(toSend)
-        ###print("GCode envoyé [{}]".format(toSend))
         # Boucle 1 de lecture du port série
         serialData = ''
         newData    = ''
@@ -278,7 +278,8 @@ class grblComSerial(QObject):
     # Ecriture sur le port série
     self.__comPort.write(buffWrite)
     if self.__comPort.waitForBytesWritten(timeout):
-      self.sig_emit.emit(buff)
+      ### remonté en amon dans la boucle principale self.sig_emit.emit(buff)
+      pass
     else:
       self.sig_log.emit(logSeverity.error.value, "grblComSerial : Erreur envoi des données : timeout, err# = {0}".format(self.__comPort.error()))
 
