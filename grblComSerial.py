@@ -148,7 +148,7 @@ class grblComSerial(QObject):
                 for l in tblLines[:-1]:
                   if l.find('ok') >= 0 or l.find('error') >= 0: foundErrorOk = True
                   if l !='':
-                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 1 ({})".format(l))
+                    if l[0] != '<' and l[-1] == ">": self.sig_log.emit(logSeverity.error.value, "Erreur de découpage en position 1 ({})".format(l))
                   self.__traileLaLigne(l, flag)
                 # On laisse la derniere ligne dans le buffer pour qu'elle soit complettée.
                 serialData = tblLines[-1]
@@ -157,7 +157,7 @@ class grblComSerial(QObject):
                 for l in tblLines:
                   if l.find('ok') >= 0 or l.find('error') >= 0: foundErrorOk = True
                   if l !='':
-                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 2 ({})".format(l))
+                    if l[0] != '<' and l[-1] == ">": self.sig_log.emit(logSeverity.error.value, "Erreur de découpage en position 2 ({})".format(l))
                   self.__traileLaLigne(l, flag)
                 serialData=''
                 if foundErrorOk:
@@ -208,7 +208,7 @@ class grblComSerial(QObject):
                 # La dernière ligne est incomplette, on envoi jusqu'à l'avant dernière.
                 for l in tblLines[:-1]:
                   if l !='':
-                    if l[0] != '<' and l[-1] == ">": print("Erreur de découpage en position 3 ({})".format(l))
+                    if l[0] != '<' and l[-1] == ">": self.sig_log.emit(logSeverity.error.value, "Erreur de découpage en position 3 ({})".format(l))
                   self.__traileLaLigne(l, flag)
                 # On laisse la derniere ligne dans le buffer pour qu'elle soit complettée.
                 serialData = tblLines[-1]
@@ -218,9 +218,7 @@ class grblComSerial(QObject):
                 for l in tblLines:
                   if l !='':
                      if l[0] != '<' and l[-1] == ">":
-                       print("Erreur de découpage en position 4 ({})".format(l))
-                       print(serialData)
-                       print("--------------------------------------------")
+                       self.sig_log.emit(logSeverity.error.value, "Erreur de découpage en position 4 ({})".format(l))
                   self.__traileLaLigne(l, flag)
                 serialData=''
                 # On à eu une ou plusieurs lignes complettes de Grbl, on peux passer au prochain envoi.

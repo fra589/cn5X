@@ -40,10 +40,10 @@ class cnQPushButton(QtWidgets.QPushButton):
     self.installEventFilter(self)
     self.__myName = ""
     self.__mouseIsDown = False
+    self.__buttonStatus = False
 
     # Chemin des images dans le fichier de resources
     self.__imagePath = ":/cn5X/images/"
-    self.__buttonStatus = False
 
     self.icon = QtGui.QIcon()
     self.iconDown = QtGui.QIcon()
@@ -100,7 +100,10 @@ class cnQPushButton(QtWidgets.QPushButton):
       if self.isCheckable():
         self.__buttonStatus = True
       if self.isEnabled():
-        self.setIcon(self.iconLight)
+        if self.__buttonStatus:
+          self.setIcon(self.iconLight)
+        else:
+          self.setIcon(self.icon)
       else:
         self.setIcon(self.icon)
       self.mouseRelease.emit(self, e)

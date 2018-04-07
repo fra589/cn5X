@@ -3867,6 +3867,8 @@ color: rgb(0, 0, 63);
      <string>Options</string>
     </property>
     <addaction name="separator"/>
+    <addaction name="mnu_GrblConfig"/>
+    <addaction name="separator"/>
     <addaction name="mnu_MPos"/>
     <addaction name="mnu_WPos"/>
     <addaction name="separator"/>
@@ -3926,6 +3928,11 @@ color: rgb(0, 0, 63);
   <action name="mnuAppEnregistrerSous">
    <property name="text">
     <string>Enregistrer &amp;sous...</string>
+   </property>
+  </action>
+  <action name="mnu_GrblConfig">
+   <property name="text">
+    <string>Configuration de Grbl...</string>
    </property>
   </action>
  </widget>

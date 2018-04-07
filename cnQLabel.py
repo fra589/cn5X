@@ -40,6 +40,5 @@ class cnQLabel(QtWidgets.QLabel):
     self.clicked.emit(self.text(), e)
 
   def mouseDoubleClickEvent(self, e):
-    ###print("mouseDoubleClickEvent")
     super(cnQLabel, self).mouseDoubleClickEvent(e)
     self.doubleClick.emit(self.text(), e)

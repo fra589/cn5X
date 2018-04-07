@@ -37,8 +37,9 @@ class grblDecode():
   - Met à jour l'interface graphique.
   - Stocke des valeurs des paramètres décodés.
   '''
-  def __init__(self, ui, grbl: grblCom):
+  def __init__(self, ui, log, grbl: grblCom):
     self.ui = ui
+    self.log = log
     self.__grblCom = grbl
     self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
     self.__validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
@@ -76,7 +77,11 @@ class grblDecode():
         if D != self.__etatMachine:
           self.ui.lblEtat.setText(D)
           self.__etatMachine = D
-          if D =="Hold:0":
+          if D == "Idle":
+            if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
+            if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
+            if not self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(True)
+          elif D =="Hold:0":
             self.ui.lblEtat.setToolTip("Hold complete. Ready to resume.")
           elif D =="Hold:1":
             self.ui.lblEtat.setToolTip("Hold in-progress. Reset will throw an alarm.")
@@ -315,46 +320,46 @@ class grblDecode():
             self.ui.lblBroche.setText(S)
             if S == 'M3':
               self.ui.lblBroche.setToolTip(" Broche en sens horaire ")
-              self.ui.btnSpinM3.setButtonStatus(True)
-              self.ui.btnSpinM4.setButtonStatus(False)
-              self.ui.btnSpinM5.setButtonStatus(False)
+              if not self.ui.btnSpinM3.getButtonStatus(): self.ui.btnSpinM3.setButtonStatus(True)
+              if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
+              if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
             if S == 'M4':
               self.ui.lblBroche.setToolTip(" Broche en sens anti-horaire ")
-              self.ui.btnSpinM3.setButtonStatus(False)
-              self.ui.btnSpinM4.setButtonStatus(True)
-              self.ui.btnSpinM5.setButtonStatus(False)
+              if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
+              if not self.ui.btnSpinM4.getButtonStatus(): self.ui.btnSpinM4.setButtonStatus(True)
+              if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
             if S == 'M5':
               self.ui.lblBroche.setToolTip(" Broche arrêtée ")
-              self.ui.btnSpinM3.setButtonStatus(False)
+              if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               self.ui.btnSpinM3.setEnabled(True)
-              self.ui.btnSpinM4.setButtonStatus(False)
+              if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
               self.ui.btnSpinM4.setEnabled(True)
-              self.ui.btnSpinM5.setButtonStatus(True)
+              if not self.ui.btnSpinM5.getButtonStatus(): self.ui.btnSpinM5.setButtonStatus(True)
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
               self.ui.lblArrosage.setToolTip(" Arrosage par gouttelettes ")
-              self.ui.btnFloodM7.setButtonStatus(True)
-              self.ui.btnFloodM8.setButtonStatus(False)
-              self.ui.btnFloodM9.setButtonStatus(False)
+              if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
+              if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
+              if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M7"
             if S == 'M8':
               self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
-              self.ui.btnFloodM7.setButtonStatus(False)
-              self.ui.btnFloodM8.setButtonStatus(True)
-              self.ui.btnFloodM9.setButtonStatus(False)
+              if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
+              if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
+              if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M8"
             if S == 'M78':
               self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
-              self.ui.btnFloodM7.setButtonStatus(True)
-              self.ui.btnFloodM8.setButtonStatus(True)
-              self.ui.btnFloodM9.setButtonStatus(False)
+              if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
+              if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
+              if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M78"
             if S == 'M9':
               self.ui.lblArrosage.setToolTip(" Arrosage arrêté ")
-              self.ui.btnFloodM7.setButtonStatus(False)
-              self.ui.btnFloodM8.setButtonStatus(False)
-              self.ui.btnFloodM9.setButtonStatus(True)
+              if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
+              if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
+              if not self.ui.btnFloodM9.getButtonStatus(): self.ui.btnFloodM9.setButtonStatus(True)
               self.__etatArrosage = "M9"
           elif S[:1] == "T":
             self.ui.lblOutil.setText(S)
@@ -374,12 +379,13 @@ class grblDecode():
         return grblOutput
     else:
       # Autre réponse ?
-      print(grblOutput)
+      if grblOutput != "": self.log(logSeverity.info.value, "Réponse Grbl non décodée : [{}]".format(grblOutput))
       return grblOutput
-    pass
+
 
   def get_etatArrosage(self):
     return self.__etatArrosage
+
 
   def get_etatMachine(self):
     return self.__etatMachine

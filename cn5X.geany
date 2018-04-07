@@ -28,23 +28,23 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=27230;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
+current_page=15
+FILE_NAME_0=17508;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
 FILE_NAME_1=1779;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X_config.py;0;2
-FILE_NAME_2=7475;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X_gcodeFile.py;0;2
+FILE_NAME_2=5432;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X_gcodeFile.py;0;2
 FILE_NAME_3=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQLabel.py;0;2
-FILE_NAME_4=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQPushButton.py;0;2
+FILE_NAME_4=4795;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FcnQPushButton.py;0;2
 FILE_NAME_5=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgcodeQLineEdit.py;0;2
 FILE_NAME_6=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblAlarm.py;0;2
-FILE_NAME_7=7096;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCom.py;0;2
-FILE_NAME_8=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblComSerial.py;0;2
-FILE_NAME_9=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblComStack.py;0;2
-FILE_NAME_10=2209;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
+FILE_NAME_7=1913;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblCom.py;0;2
+FILE_NAME_8=8097;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblComSerial.py;0;2
+FILE_NAME_9=2805;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblComStack.py;0;2
+FILE_NAME_10=19427;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblDecode.py;0;2
 FILE_NAME_11=24;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblError.py;0;2
 FILE_NAME_12=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblJog.py;0;2
 FILE_NAME_13=24;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FgrblSettings.py;0;2
 FILE_NAME_14=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fmsgbox.py;0;2
-FILE_NAME_15=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FspeedOverrides.py;0;2
+FILE_NAME_15=1867;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2FspeedOverrides.py;0;2
 
 [VTE]
 last_dir=/home/gauthier

@@ -150,7 +150,6 @@ class grblCom(QObject):
 
 
   def gcodePush(self, buff: str, flag=None):
-    print("gcodePush({})".format(buff))
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodePush.emit(buff, flag)
     else:

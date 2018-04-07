@@ -162,7 +162,7 @@ class gcodeFile(QObject):
     for I in range(startLine, endLine + 1):
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) != "":
-        print(self.__gcodeFileUiModel.data(idx))
+        ###print(self.__gcodeFileUiModel.data(idx))
         com.gcodePush(self.__gcodeFileUiModel.data(idx))
         com.gcodePush(CMD_GRBL_GET_GCODE_STATE, "NO_OK")
 
@@ -173,7 +173,6 @@ class gcodeFile(QObject):
       # On commence par la fin pour pouvoir supprimer sans tout décaler pour la suite
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) == "":
-        print("Suppression de la ligne N° {}".format(I+1))
         self.__gcodeFileUiModel.removeRow(I)
 
 
@@ -238,7 +237,6 @@ class gcodeFile(QObject):
 
   @pyqtSlot("QStandardItem*")
   def on_gcodeChanged(self, item):
-    print("on_gcodeChanged()")
     self.__gcodeChanged = True
 
   def gcodeChanged(self):

@@ -25,6 +25,7 @@ import sys, os, time #, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtSerialPort import QSerialPortInfo
 import mainWindow
 from cn5X_config import *
@@ -36,6 +37,7 @@ from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
 from cn5X_gcodeFile import gcodeFile
+from dlgConfig import *
 
 class winMain(QtWidgets.QMainWindow):
 
@@ -51,6 +53,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
+    self.ui.grpConsole.setCurrentIndex(2) # Active l'index de la log cn5X
 
     self.__gcodeFile = gcodeFile(self.ui.gcodeTable)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
@@ -70,13 +73,14 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_recu.connect(self.on_sig_recu)
     self.__grblCom.sig_debug.connect(self.on_sig_debug)
 
-    self.decode = grblDecode(self.ui, self.__grblCom)
+    self.decode = grblDecode(self.ui, self.log, self.__grblCom)
 
     self.__jog = grblJog(self.__grblCom)
 
     self.__connectionStatus = False
     self.__arretUrgence = True
     self.__cycleRun = False
+    self.__cyclePause = False
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(pathname)
@@ -114,6 +118,7 @@ class winMain(QtWidgets.QMainWindow):
 
     self.ui.mnu_MPos.triggered.connect(self.on_mnu_MPos)
     self.ui.mnu_WPos.triggered.connect(self.on_mnu_WPos)
+    self.ui.mnu_GrblConfig.triggered.connect(self.on_mnu_GrblConfig)
 
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
@@ -330,11 +335,11 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def closeEvent(self, event):
-    print("Close event...")
+    self.log(logSeverity.info.value, "Close event...")
     if self.__connectionStatus:
       self.__grblCom.stopCom()
     if not self.__gcodeFile.closeFile():
-      print("Fermeture du fichier annulée")
+      self.log(logSeverity.info.value, "Fermeture du fichier annulée")
       event.setAccepted(False)
     else:
       self.ui.statusBar.showMessage("Bye-bye...")
@@ -356,6 +361,16 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.gcodeInsert("$10=" + str(param10))
 
 
+  def on_mnu_GrblConfig(self):
+    dlgConfig = QDialog()
+    di = Ui_dlgConfig()
+    di.setupUi(dlgConfig)
+    reply = dlgConfig.exec_()
+    print(reply)
+
+
+
+
   @pyqtSlot()
   def on_arretUrgence(self):
     if self.__arretUrgence:
@@ -370,11 +385,12 @@ class winMain(QtWidgets.QMainWindow):
         # self.timerDblClic.remainingTime() > 0 # Double clic détecté
         self.timerDblClic.stop()
         self.__arretUrgence = False
+        self.log(logSeverity.info.value, "Déverouillage de l'arrêt d'urgence.")
     else:
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
       self.__arretUrgence = True
-      print("Arrêt d'urgence STOP !!!")
+      self.log(logSeverity.warning.value, "Arrêt d'urgence STOP !!!")
 
     # Actualise l'état actif/inactif des groupes de contrôles de pilotage de Grbl
     self.setEnableDisableGroupes()
@@ -464,7 +480,6 @@ class winMain(QtWidgets.QMainWindow):
     for qrb in [self.ui.rbtJog0000, self.ui.rbtJog0001, self.ui.rbtJog0010, self.ui.rbtJog0100, self.ui.rbtJog1000]:
       if qrb.isChecked():
         jogDistance = float(qrb.text().replace(' ', ''))
-        print(qrb.text(), "***", jogDistance)
     self.__jog.on_jog(cnButton, e, jogDistance)
 
 
@@ -560,7 +575,6 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(QtGui.QKeyEvent)
   def on_keyPressed(self, e):
     if QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+C"):
-      ###print("Ctrl+C")
       pass
     elif QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+X"):
       self.logGrbl.append("Ctrl+X")
@@ -571,16 +585,16 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_log(self, severity: int, data: str):
     if severity == logSeverity.info.value:
       self.logCn5X.setTextColor(TXT_COLOR_GREEN)
-      self.logCn5X.append("Info    : " + data)
+      self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Info    : " + data)
     elif severity == logSeverity.warning.value:
       self.logCn5X.setTextColor(TXT_COLOR_ORANGE)
-      self.logCn5X.append("Warning : " + data)
+      self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Warning : " + data)
       self.ui.grpConsole.setCurrentIndex(2)
     elif severity == logSeverity.error.value:
       self.logCn5X.setTextColor(TXT_COLOR_RED)
-      self.logCn5X.append("Error   : " + data)
+      self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Error   : " + data)
       self.ui.grpConsole.setCurrentIndex(2)
-  def consoleLog(self, severity: int, data: str):
+  def log(self, severity: int, data: str):
     self.on_sig_log(severity, data)
 
   @pyqtSlot(str)
@@ -650,24 +664,66 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def startCycle(self):
+    self.log(logSeverity.info.value, "Démarrage du cycle...")
     self.__cycleRun = True
+    self.__cyclePause = False
     self.__gcodeFile.enQueue(self.__grblCom)
+    self.ui.btnStart.setButtonStatus(True)
+    self.ui.btnPause.setButtonStatus(False)
+    self.ui.btnStop.setButtonStatus(False)
 
 
   def pauseCycle(self):
     if self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
-      self.consoleLog(logSeverity.warning.value, "Hold en cours, impossible de repartir maintenant.")
-      pass
+      self.log(logSeverity.warning.value, "Hold en cours, impossible de repartir maintenant.")
     if self.ui.lblEtat.text() == GRBL_STATUS_HOLD0:
-      self.consoleLog(logSeverity.info.value, "Reprise du cycle.")
+      self.log(logSeverity.info.value, "Reprise du cycle...")
       self.__grblCom.realTimePush(REAL_TIME_CYCLE_START_RESUME)
+      self.__cyclePause = False
+      self.ui.btnStart.setButtonStatus(True)
+      self.ui.btnPause.setButtonStatus(False)
+      self.ui.btnStop.setButtonStatus(False)
     else:
-      self.consoleLog(logSeverity.info.value, "Pause du cycle demandée.")
+      self.log(logSeverity.info.value, "Pause du cycle...")
       self.__grblCom.realTimePush(REAL_TIME_FEED_HOLD)
+      self.__cyclePause = True
+      self.ui.btnStart.setButtonStatus(False)
+      self.ui.btnPause.setButtonStatus(True)
+      self.ui.btnStop.setButtonStatus(False)
 
 
   def stopCycle(self):
-    pass
+    if self.ui.lblEtat.text() == GRBL_STATUS_HOLD0:
+      # Déja en pause, on vide la file d'attente et on envoie un SoftReset
+      self.log(logSeverity.info.value, "Arrêt du cycle...")
+      self.__grblCom.clearCom() # Vide la file d'attente de communication
+      self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
+    elif self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
+      # Attente que le Hold soit terminé
+      self.log(logSeverity.info.value, "Pause en cours avant arrêt du cycle...")
+      while self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
+        QCoreApplication.processEvents()
+      # Puis, vide la file d'attente et envoie un SoftReset
+      self.log(logSeverity.info.value, "Arrêt du cycle...")
+      self.__grblCom.clearCom() # Vide la file d'attente de communication
+      self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
+    else:
+      # Envoie une pause
+      self.log(logSeverity.info.value, "Pause avant arrêt du cycle...")
+      self.__grblCom.realTimePush(REAL_TIME_FEED_HOLD)
+      # Attente que le Hold soit terminé
+      while self.ui.lblEtat.text() != GRBL_STATUS_HOLD0:
+        QCoreApplication.processEvents()
+      # Puis, vide la file d'attente et envoie un SoftReset
+      self.log(logSeverity.info.value, "Arrêt du cycle...")
+      self.__grblCom.clearCom() # Vide la file d'attente de communication
+      self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
+    self.__cycleRun = False
+    self.__cyclePause = False
+    self.ui.btnStart.setButtonStatus(False)
+    self.ui.btnPause.setButtonStatus(False)
+    self.ui.btnStop.setButtonStatus(True)
+    self.log(logSeverity.info.value, "Cycle terminé.")
 
 
   def on_gcodeTableContextMenu(self, event):

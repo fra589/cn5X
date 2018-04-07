@@ -1542,12 +1542,16 @@ class Ui_mainWindow(object):
     self.mnuAppEnregistrer.setObjectName("mnuAppEnregistrer")
     self.mnuAppEnregistrerSous = QtWidgets.QAction(mainWindow)
     self.mnuAppEnregistrerSous.setObjectName("mnuAppEnregistrerSous")
+    self.mnu_GrblConfig = QtWidgets.QAction(mainWindow)
+    self.mnu_GrblConfig.setObjectName("mnu_GrblConfig")
     self.mnuApplication.addAction(self.mnuAppOuvrir)
     self.mnuApplication.addAction(self.mnuAppEnregistrer)
     self.mnuApplication.addAction(self.mnuAppEnregistrerSous)
     self.mnuApplication.addAction(self.mnuAppFermerGCode)
     self.mnuApplication.addSeparator()
     self.mnuApplication.addAction(self.mnuAppQuitter)
+    self.menuOptions.addSeparator()
+    self.menuOptions.addAction(self.mnu_GrblConfig)
     self.menuOptions.addSeparator()
     self.menuOptions.addAction(self.mnu_MPos)
     self.menuOptions.addAction(self.mnu_WPos)
@@ -1557,7 +1561,7 @@ class Ui_mainWindow(object):
     self.mnuBar.addAction(self.menuOptions.menuAction())
 
     self.retranslateUi(mainWindow)
-    self.grpConsole.setCurrentIndex(3)
+    self.grpConsole.setCurrentIndex(2)
     QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
   def retranslateUi(self, mainWindow):
@@ -1676,6 +1680,7 @@ class Ui_mainWindow(object):
     self.mnuAppFermerGCode.setText(_translate("mainWindow", "&Fermer le fichier GCode"))
     self.mnuAppEnregistrer.setText(_translate("mainWindow", "&Enregistrer le fichier GCode"))
     self.mnuAppEnregistrerSous.setText(_translate("mainWindow", "Enregistrer &sous..."))
+    self.mnu_GrblConfig.setText(_translate("mainWindow", "Configuration de Grbl..."))
 
 from cnQLabel import cnQLabel
 from cnQPushButton import cnQPushButton

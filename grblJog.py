@@ -40,7 +40,6 @@ class grblJog():
 
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent, float)
   def on_jog(self, cnButton, e, jogDistance):
-    print("on_jog({}), mouseDown = {}".format(cnButton.name(), cnButton.isMouseDown()))
 
     axis = cnButton.name()[-1]           # L'axe est définit par le dernier caractère du nom du Bouton
     if cnButton.name()[-5:-1] == "Plus": #
@@ -62,7 +61,6 @@ class grblJog():
         QCoreApplication.processEvents()
         time.sleep(jogDelay)
         if jogDelay == JOG_REPEAT_DELAY: jogDelay = JOG_REPEAT_SPEED
-      print("MouseUp")
       self.jogCancel()
     else:
       self.doJog(axis, value)
@@ -74,7 +72,8 @@ class grblJog():
       cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(JOG_SPEED, axis, value)
       self.__grblCom.gcodePush(cmdJog, "NO_OK")
     else:
-      print("Jogging impossible, status Grbl non compatible.")
+      #print("Jogging impossible, status Grbl non compatible.")
+      pass
 
 
   def jogCancel(self):
