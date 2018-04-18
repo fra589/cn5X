@@ -70,7 +70,7 @@ class grblJog():
     ''' Déplacement relatif (G91) de "value" mm (G21) sur axe axis '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(JOG_SPEED, axis, value)
-      self.__grblCom.gcodePush(cmdJog, "NO_OK")
+      self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
     else:
       #print("Jogging impossible, status Grbl non compatible.")
       pass

@@ -109,3 +109,6 @@ TXT_COLOR_ORANGE = QtGui.QColor(255, 127, 0)
 TXT_COLOR_RED    = QtGui.QColor(92, 0, 0)
 TXT_COLOR_BLUE   = QtGui.QColor(0, 0, 92)
 
+COM_FLAG_NO_FLAG         = 0
+COM_FLAG_NO_OK           = 1
+COM_FLAG_SEND_TO_DLGCONF = 2

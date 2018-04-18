@@ -164,7 +164,7 @@ class gcodeFile(QObject):
       if self.__gcodeFileUiModel.data(idx) != "":
         ###print(self.__gcodeFileUiModel.data(idx))
         com.gcodePush(self.__gcodeFileUiModel.data(idx))
-        com.gcodePush(CMD_GRBL_GET_GCODE_STATE, "NO_OK")
+        com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
 
 
   def delEmptyRow(self):

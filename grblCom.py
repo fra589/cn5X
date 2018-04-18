@@ -42,6 +42,7 @@ class grblCom(QObject):
   sig_error   = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
   sig_alarm   = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
   sig_status  = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
+  sig_config  = pyqtSignal(str)      # Emis à la réception d'une valeur de config ($XXX)
   sig_data    = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
   sig_emit    = pyqtSignal(str)      # Emis à l'envoi des données sur le port série
   sig_recu    = pyqtSignal(str)      # Emis à la réception des données sur le port série
@@ -85,6 +86,7 @@ class grblCom(QObject):
     newComSerial.sig_error.connect(self.sig_error.emit)
     newComSerial.sig_alarm.connect(self.sig_alarm.emit)
     newComSerial.sig_status.connect(self.on_sig_status)
+    newComSerial.sig_config.connect(self.sig_config.emit)
     newComSerial.sig_data.connect(self.sig_data.emit)
     newComSerial.sig_emit.connect(self.sig_emit.emit)
     newComSerial.sig_recu.connect(self.sig_recu.emit)
@@ -142,21 +144,21 @@ class grblCom(QObject):
     self.__grblInit = False
 
 
-  def gcodeInsert(self, buff: str, flag=None):
+  def gcodeInsert(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodeInsert.emit(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
 
 
-  def gcodePush(self, buff: str, flag=None):
+  def gcodePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodePush.emit(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
 
 
-  def realTimePush(self, buff: str, flag=None):
+  def realTimePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_realTimePush.emit(buff, flag)
     else:

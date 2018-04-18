@@ -3862,9 +3862,9 @@ color: rgb(0, 0, 63);
     <addaction name="separator"/>
     <addaction name="mnuAppQuitter"/>
    </widget>
-   <widget class="QMenu" name="menuOptions">
+   <widget class="QMenu" name="menuMachine">
     <property name="title">
-     <string>Options</string>
+     <string>&amp;Machine</string>
     </property>
     <addaction name="separator"/>
     <addaction name="mnu_GrblConfig"/>
@@ -3875,7 +3875,7 @@ color: rgb(0, 0, 63);
     <addaction name="mnuDebug_mode"/>
    </widget>
    <addaction name="mnuApplication"/>
-   <addaction name="menuOptions"/>
+   <addaction name="menuMachine"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="mnuAppOuvrir">

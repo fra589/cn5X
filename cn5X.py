@@ -27,7 +27,6 @@ from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyq
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtSerialPort import QSerialPortInfo
-import mainWindow
 from cn5X_config import *
 from msgbox import *
 from speedOverrides import *
@@ -37,7 +36,8 @@ from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
 from cn5X_gcodeFile import gcodeFile
-from dlgConfig import *
+from grblConfig import grblConfig
+import mainWindow
 
 class winMain(QtWidgets.QMainWindow):
 
@@ -68,6 +68,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_error.connect(self.on_sig_error)
     self.__grblCom.sig_alarm.connect(self.on_sig_alarm)
     self.__grblCom.sig_status.connect(self.on_sig_status)
+    self.__grblCom.sig_config.connect(self.on_sig_config)
     self.__grblCom.sig_data.connect(self.on_sig_data)
     self.__grblCom.sig_emit.connect(self.on_sig_emit)
     self.__grblCom.sig_recu.connect(self.on_sig_recu)
@@ -81,6 +82,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__arretUrgence = True
     self.__cycleRun = False
     self.__cyclePause = False
+    self.__grblConfigLoaded = False
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(pathname)
@@ -289,6 +291,12 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.mnuAppEnregistrer.setEnabled(False)
       self.ui.mnuAppEnregistrerSous.setEnabled(False)
       self.ui.mnuAppFermerGCode.setEnabled(False)
+    if self.__connectionStatus:
+      self.ui.mnu_MPos.setEnabled(True)
+      self.ui.mnu_WPos.setEnabled(True)
+    else:
+      self.ui.mnu_MPos.setEnabled(False)
+      self.ui.mnu_WPos.setEnabled(False)
 
 
   @pyqtSlot()
@@ -361,13 +369,19 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.gcodeInsert("$10=" + str(param10))
 
 
+  @pyqtSlot()
   def on_mnu_GrblConfig(self):
+    '''
     dlgConfig = QDialog()
     di = Ui_dlgConfig()
     di.setupUi(dlgConfig)
     reply = dlgConfig.exec_()
     print(reply)
-
+    '''
+    self.__grblConfigLoaded = True
+    dlgConfig = grblConfig(self.__grblCom)
+    dlgConfig.showDialog()
+    self.__grblConfigLoaded = False
 
 
 
@@ -599,8 +613,11 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_init(self, data: str):
+    self.log(logSeverity.info.value, "cn5X : Grbl initialisé.")
     self.logGrbl.append(data)
     self.ui.statusBar.showMessage(data.split("[")[0])
+    self.__grblCom.gcodeInsert("\n")
+
 
 
   @pyqtSlot()
@@ -633,8 +650,15 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot(str)
+  def on_sig_config(self, data: str):
+    if not self.__grblConfigLoaded:
+      self.logGrbl.append(data)
+
+
+  @pyqtSlot(str)
   def on_sig_emit(self, data: str):
-    self.logGrbl.append(data)
+    if data != "":
+      self.logGrbl.append(data)
 
 
   @pyqtSlot(str)
