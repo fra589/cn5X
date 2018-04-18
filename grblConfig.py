@@ -27,23 +27,36 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from cn5X_config import *
 from grblCom import grblCom
 from dlgConfig import *
+from msgbox import *
 from compilOptions import grblCompilOptions
 
 class grblConfig(QObject):
   ''' Classe assurant la gestion de la boite de dialogue de configuration de Grbl '''
+
+  # Liste des contrôles éditables
+  #---------------------------------------------------------
+  # txtEEPROM txtN0 txtN1
+  # spinStepPulse spinStepIdleDelay emStepPortInvert emDirectionPortInvert chkStepEnableInvert chkLimitPinsInvert chkProbePinInvert
+  # lneStatusReport dsbJunctionDeviation dsbArcTolerance chkReportInches
+  # chkSoftLimits chkHardLimits chkHomingCycle emHomeDirInvert dsbHomingFeed dsbHomingSeek spinHomingDebounce dsbHomingPullOff
+  # spinMaxSpindle spinMinSpindle chkLaserMode
+  # dsbStepsX dsbStepsY dsbStepsZ dsbStepsA dsbStepsB dsbStepsC dsbTravelX dsbTravelY dsbTravelZ dsbTravelA dsbTravelB dsbTravelC
+  # dsbMaxRateX dsbMaxRateY dsbMaxRateZ dsbMaxRateA dsbMaxRateB dsbMaxRateC dsbAccelX dsbAccelY dsbAccelZ dsbAccelA dsbAccelB dsbAccelC
 
   def __init__(self, grbl: grblCom):
     super().__init__()
     self.__dlgConfig = QDialog()
     self.__di = Ui_dlgConfig()
     self.__di.setupUi(self.__dlgConfig)
+    self.__configChanged     = False
 
-    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Discard)
     self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.Apply)
+    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Discard)
     self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
     self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ActionRole)
 
-    self.__buttonFactory.pressed.connect(self.on_Apply)
+    self.__buttonApply.pressed.connect(self.on_Apply)
+    self.__buttonDiscard.pressed.connect(self.on_Discard)
     self.__buttonReset.pressed.connect(self.on_Reset)
     self.__buttonFactory.pressed.connect(self.on_ResetFactory)
 
@@ -247,7 +260,12 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_Apply(self):
-    pass
+    self.__dlgConfig.done(QDialog.Accepted)
+
+
+  @pyqtSlot()
+  def on_Discard(self):
+    self.__dlgConfig.reject()
 
 
   @pyqtSlot()
@@ -257,9 +275,19 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_ResetFactory(self):
-    #boite de confirmation à faire
-    self.__grblCom.gcodePush(CMD_GRBL_RESET_ALL_EEPROM)       # $RST=*
-    self.__getGrblParams()
+    m = msgBox(
+        title     = "Restorer la configuration usine",
+        text      = "Etes vous sûrs ? Restorer la configuration usine restore tous les paramètres tels qu'ils étaient lors de la génération du microcode Grbl.",
+        info      = "Toutes les modifications et réglages effectués seront définitevement perdus !",
+        icon      = msgIconList.Question,
+        stdButton = msgButtonList.Yes | msgButtonList.Cancel,
+        defButton = msgButtonList.Cancel,
+        escButton = msgButtonList.Cancel
+    )
+    if m.afficheMsg() == msgButtonList.Yes:
+      self.__grblCom.gcodePush(CMD_GRBL_RESET_ALL_EEPROM)       # $RST=*
+      self.__getGrblParams()
+    self.__configChanged     = False
 
 
   @pyqtSlot(int)
@@ -268,6 +296,7 @@ class grblConfig(QObject):
       self.__di.chkStepEnableInvert.setText("True")
     else:
       self.__di.chkStepEnableInvert.setText("False")
+    self.__configChanged     = True
 
 
   @pyqtSlot(int)
@@ -276,6 +305,7 @@ class grblConfig(QObject):
       self.__di.chkLimitPinsInvert.setText("True")
     else:
       self.__di.chkLimitPinsInvert.setText("False")
+    self.__configChanged     = True
 
 
   @pyqtSlot(int)
@@ -284,6 +314,7 @@ class grblConfig(QObject):
       self.__di.chkProbePinInvert.setText("True")
     else:
       self.__di.chkProbePinInvert.setText("False")
+    self.__configChanged     = True
 
 
   @pyqtSlot(int)
@@ -292,6 +323,7 @@ class grblConfig(QObject):
       self.__di.chkReportInches.setText("True")
     else:
       self.__di.chkReportInches.setText("False")
+    self.__configChanged     = True
 
 
 
