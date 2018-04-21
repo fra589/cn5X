@@ -1566,7 +1566,7 @@ class Ui_mainWindow(object):
 
   def retranslateUi(self, mainWindow):
     _translate = QtCore.QCoreApplication.translate
-    mainWindow.setWindowTitle(_translate("mainWindow", "cn5X"))
+    mainWindow.setWindowTitle(_translate("mainWindow", "cn5X++"))
     self.btnUrgence.setToolTip(_translate("mainWindow", "Double clic pour\n"
 "dévérouiller l\'arrêt d\'urgence"))
     self.btnHomeCycle.setToolTip(_translate("mainWindow", "Cycle d\'origine machine"))

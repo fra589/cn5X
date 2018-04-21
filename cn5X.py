@@ -5,14 +5,14 @@
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
 '                                                                         '
-' This file is part of cn5X                                               '
+' This file is part of cn5X++                                               '
 '                                                                         '
-' cn5X is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it         '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
-' cn5X is distributed in the hope that it will be useful, but             '
+' cn5X++ is distributed in the hope that it will be useful, but           '
 ' WITHOUT ANY WARRANTY; without even the implied warranty of              '
 ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
 ' GNU General Public License for more details.                            '
@@ -53,7 +53,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs à 2000 lignes
-    self.ui.grpConsole.setCurrentIndex(2) # Active l'index de la log cn5X
+    self.ui.grpConsole.setCurrentIndex(2) # Active l'index de la log cn5X++
 
     self.__gcodeFile = gcodeFile(self.ui.gcodeTable)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
@@ -294,9 +294,14 @@ class winMain(QtWidgets.QMainWindow):
     if self.__connectionStatus:
       self.ui.mnu_MPos.setEnabled(True)
       self.ui.mnu_WPos.setEnabled(True)
+      if self.__arretUrgence:
+        self.ui.mnu_GrblConfig.setEnabled(True)
+      else:
+        self.ui.mnu_GrblConfig.setEnabled(False)
     else:
       self.ui.mnu_MPos.setEnabled(False)
       self.ui.mnu_WPos.setEnabled(False)
+      self.ui.mnu_GrblConfig.setEnabled(False)
 
 
   @pyqtSlot()
@@ -371,18 +376,12 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_mnu_GrblConfig(self):
-    '''
-    dlgConfig = QDialog()
-    di = Ui_dlgConfig()
-    di.setupUi(dlgConfig)
-    reply = dlgConfig.exec_()
-    print(reply)
+    ''' Appel de la boite de dialogue de configuration
     '''
     self.__grblConfigLoaded = True
     dlgConfig = grblConfig(self.__grblCom)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
-
 
 
   @pyqtSlot()
@@ -569,7 +568,6 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
-      ###self.logGrbl.append(self.ui.txtGCode.text().upper())
       if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
         self.decode.getNextStatus()
     self.__grblCom.gcodePush(self.ui.txtGCode.text())
@@ -613,7 +611,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_init(self, data: str):
-    self.log(logSeverity.info.value, "cn5X : Grbl initialisé.")
+    self.log(logSeverity.info.value, "cn5X++ : Grbl initialisé.")
     self.logGrbl.append(data)
     self.ui.statusBar.showMessage(data.split("[")[0])
     self.__grblCom.gcodeInsert("\n")

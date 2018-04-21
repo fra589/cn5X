@@ -6,14 +6,14 @@
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
 '                                                                         '
-' This file is part of cn5X                                               '
+' This file is part of cn5X++                                               '
 '                                                                         '
-' cn5X is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it         '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
-' cn5X is distributed in the hope that it will be useful, but             '
+' cn5X++ is distributed in the hope that it will be useful, but           '
 ' WITHOUT ANY WARRANTY; without even the implied warranty of              '
 ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
 ' GNU General Public License for more details.                            '
@@ -33,7 +33,7 @@ NOMCLASSEWIDGET = "qwEditMask"
 # nom (str) de l'instance dans Designer
 NOMWIDGET = "qwEditMask"
 # groupe (str) de widgets pour affichage dans Designer
-GROUPEWIDGET = "cn5X widgets"
+GROUPEWIDGET = "cn5X++ widgets"
 # texte (str) pour le toolTip dans Designer
 TEXTETOOLTIP = "Editeur de masque 6 axes"
 # texte (str) pour le whatsThis dans Designer

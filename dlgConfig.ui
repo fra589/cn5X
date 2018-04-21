@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Configuration Grbl</string>
+   <string>cn5X++ - Configuration de Grbl</string>
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
@@ -249,7 +249,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="txtEEPROM">
+              <widget class="QLineEdit" name="lneEEPROM">
                <property name="minimumSize">
                 <size>
                  <width>131</width>
@@ -395,7 +395,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="txtN0">
+            <widget class="QLineEdit" name="lneN0">
              <property name="minimumSize">
               <size>
                <width>131</width>
@@ -417,7 +417,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="txtN1">
+            <widget class="QLineEdit" name="lneN1">
              <property name="minimumSize">
               <size>
                <width>131</width>

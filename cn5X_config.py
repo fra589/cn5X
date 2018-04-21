@@ -4,14 +4,14 @@
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
 '                                                                         '
-' This file is part of cn5X                                               '
+' This file is part of cn5X++                                               '
 '                                                                         '
-' cn5X is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it         '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
-' cn5X is distributed in the hope that it will be useful, but             '
+' cn5X++ is distributed in the hope that it will be useful, but           '
 ' WITHOUT ANY WARRANTY; without even the implied warranty of              '
 ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
 ' GNU General Public License for more details.                            '
@@ -24,11 +24,11 @@
 from enum import Enum
 from PyQt5 import QtGui
 
-APP_NAME = "cn5X"
+APP_NAME = "cn5X++"
 
 COM_DEFAULT_BAUD_RATE = 115200
 
-GRBL_QUERY_DELAY =  50      # ms
+GRBL_QUERY_DELAY =  75      # ms
 
 JOG_REPEAT_DELAY = 250/1000 # s
 JOG_REPEAT_SPEED =  20/1000 # s
