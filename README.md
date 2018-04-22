@@ -1,5 +1,7 @@
 # cn5X++
-![GitHub Logo](https://github.com/fra589/cn5X/blob/master/images/XYZAB.svg)
+<p align="center">
+  <img src="https://github.com/fra589/cn5X/blob/master/images/XYZAB.svg" alt="5X++ Logo" />
+</p>  
 Nouveau panneau de contrôle Grbl 5/6 axes avec pour but d'implémenter toutes les fonctionalités de grbl-Mega-5X...
 New 5/6 axis Grbl control panel to implement all the grbl-Mega-5X capabilities...
 
