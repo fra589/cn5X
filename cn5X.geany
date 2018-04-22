@@ -28,7 +28,7 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=28
+current_page=63
 FILE_NAME_0=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X.py;0;2
 FILE_NAME_1=1673;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X_config.py;0;2
 FILE_NAME_2=868;Python;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2Fcn5X_gcodeFile.py;0;2
@@ -91,9 +91,8 @@ FILE_NAME_58=0;C;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fgrbl%2
 FILE_NAME_59=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fgrbl%2Fstepper.h;0;2
 FILE_NAME_60=6901;C;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fgrbl%2Fsystem.c;0;2
 FILE_NAME_61=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2Fgrbl%2Fsystem.h;0;2
-FILE_NAME_62=0;Conf;0;EUTF-8;0;1;0;%2Fusr%2Flocal%2Fshare%2Fapplications%2FHeeksCAD.desktop;0;2
-FILE_NAME_63=0;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2F.gitignore;0;2
-FILE_NAME_64=0;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2F.gitignore;0;2
+FILE_NAME_62=0;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fgrbl-Mega-5X%2F.gitignore;0;2
+FILE_NAME_63=0;None;0;EUTF-8;0;1;0;%2Fhome%2Fgauthier%2Fsrc%2Fcn5X%2F.gitignore;0;2
 
 [VTE]
 last_dir=/home/gauthier
