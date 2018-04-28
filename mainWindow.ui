@@ -702,7 +702,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite X min</string>
+             <string>Limite X</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -744,7 +744,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite X max</string>
+             <string>Limite Y</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -786,7 +786,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Y min</string>
+             <string>Limite Z</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -828,7 +828,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Y max</string>
+             <string>Limite A</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -873,7 +873,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Z min</string>
+             <string>Limite B</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -915,7 +915,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Z max</string>
+             <string>Limite C</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -957,7 +957,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite A min</string>
+             <string>Probe</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -999,7 +999,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite A max</string>
+             <string>Door</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1041,7 +1041,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite B min</string>
+             <string>Hold</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1083,7 +1083,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite B max</string>
+             <string>soft Reset</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1125,7 +1125,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite C min</string>
+             <string>cycle Start</string>
             </property>
             <property name="text">
              <string notr="true"/>
