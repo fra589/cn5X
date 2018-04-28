@@ -25,7 +25,7 @@ import sys, os, time #, datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QAbstractItemView
 from PyQt5.QtSerialPort import QSerialPortInfo
 from cn5X_config import *
 from msgbox import *
@@ -657,6 +657,16 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_emit(self, data: str):
     if data != "":
       self.logGrbl.append(data)
+      if self.__cycleRun:
+        # Recherche la ligne dans la liste du fichier GCode
+        ligne = self.__gcodeFile.getGCodeSelectedLine()[0]
+        while ligne < self.ui.gcodeTable.model().rowCount():
+          idx = self.ui.gcodeTable.model().index(ligne, 0, QModelIndex())
+          if self.ui.gcodeTable.model().data(idx) == data:
+            self.__gcodeFile.selectGCodeFileLine(ligne)
+            break
+          else:
+            ligne += 1
 
 
   @pyqtSlot(str)
@@ -687,6 +697,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def startCycle(self):
     self.log(logSeverity.info.value, "Démarrage du cycle...")
+    self.__gcodeFile.selectGCodeFileLine(0)
     self.__cycleRun = True
     self.__cyclePause = False
     self.__gcodeFile.enQueue(self.__grblCom)

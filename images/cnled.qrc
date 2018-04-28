@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>ledRougeAlumee.svg</file>
+    <file>ledRougeEteinte.svg</file>
+  </qresource>
+</RCC>

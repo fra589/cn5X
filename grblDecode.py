@@ -153,7 +153,7 @@ class grblDecode():
           self.ui.rbRapid050.setChecked(True)
         if values[1] == 25:
           self.ui.rbRapid100.setChecked(True)
-        # Vitesse de broche
+        # Ajuste la vitesse de broche
         if int(self.ui.lblBrochePourcent.text()[:-1]) != int(values[2]):
           adjustSpindleOverride(int(values[2]), int(self.ui.lblBrochePourcent.text()[:-1]), self.__grblCom)
         ###return D
@@ -168,10 +168,15 @@ class grblDecode():
 
       elif D[3:] == "FS:": # Current Feed and Speed
         return D
+      '''
 
-      elif D[3:] == "Pn:": # Input Pin State
+      elif D[:3] == "Pn:": # Input Pin State
+        print(D)
+        for L in D[3:]:
+          print(L)
         return D
 
+      '''
       elif D[2:] == "A:": # OverrideAccessory State
         return D
       '''

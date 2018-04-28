@@ -101,9 +101,9 @@ class gcodeFile(QObject):
 
 
   def selectGCodeFileLine(self, num: int):
-    # Selectionne un élément de la liste du fichier GCode
+    ''' Selectionne un élément de la liste du fichier GCode '''
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
-    self.__gcodeFileUi.selectionModel().reset()
+    self.__gcodeFileUi.selectionModel().clearSelection()
     self.__gcodeFileUi.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
 
 

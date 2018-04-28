@@ -22,6 +22,7 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 from PyQt5.QtCore import QObject, QThread, QEventLoop, pyqtSignal, pyqtSlot
+from cn5X_config import *
 
 class grblStack():
   '''
@@ -39,12 +40,12 @@ class grblStack():
   def count(self):
     return len(self.__data)
 
-  def addFiFo(self, item, flag = None):
+  def addFiFo(self, item, flag = COM_FLAG_NO_FLAG):
     ''' Ajoute un élément en mode FiFO, l'élément ajouté sera le dernier à sortir
     '''
     self.__data.append((item, flag))
 
-  def addLiFo(self, item, flag = None):
+  def addLiFo(self, item, flag = COM_FLAG_NO_FLAG):
     ''' Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
     '''
     self.__data.insert(0, (item, flag))

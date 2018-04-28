@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/ledRougeAlumee.svg</file>
+    <file>images/ledRougeEteinte.svg</file>
     <file>images/btnKillAlarm.svg</file>
     <file>images/btnLink.svg</file>
     <file>images/btnLinkOff.svg</file>

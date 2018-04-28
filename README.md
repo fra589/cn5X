@@ -1,4 +1,4 @@
-# cn5X
+# cn5X++
 New 5/6 axis Grbl control panel to implement all the grbl-Mega-5X capabilities...
 ## Attention !
 Ce dépot est une version pre-alpha en cours de développement. Il n'est pas prévu pour une utilisation en production.

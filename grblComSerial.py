@@ -91,21 +91,21 @@ class grblComSerial(QObject):
 
   @pyqtSlot(str)
   @pyqtSlot(str, object)
-  def realTimePush(self, buff: str, flag = None):
+  def realTimePush(self, buff: str, flag = COM_FLAG_NO_FLAG):
     ''' Ajout d'une commande GCode dans la pile en mode FiFo '''
     self.__realTimeStack.addFiFo(buff, flag)
 
 
   @pyqtSlot(str)
   @pyqtSlot(str, object)
-  def gcodePush(self, buff: str, flag = None):
+  def gcodePush(self, buff: str, flag = COM_FLAG_NO_FLAG):
     ''' Ajout d'une commande GCode dans la pile en mode FiFo (fonctionnement normal de la pile d'un programe GCode) '''
     self.__mainStack.addFiFo(buff, flag)
 
 
   @pyqtSlot(str)
   @pyqtSlot(str, object)
-  def gcodeInsert(self, buff: str, flag = None):
+  def gcodeInsert(self, buff: str, flag = COM_FLAG_NO_FLAG):
     ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
     self.__mainStack.addLiFo(buff, flag)
 
@@ -133,7 +133,7 @@ class grblComSerial(QObject):
       self.sig_log.emit(logSeverity.error.value, "grblComSerial : Erreur envoi des données : timeout, err# = {0}".format(self.__comPort.error()))
 
 
-  def __traileLaLigne(self, l, flag = None):
+  def __traileLaLigne(self, l, flag = COM_FLAG_NO_FLAG):
     ''' Emmet les signaux ad-hoc pour toutes les lignes reçues  '''
     # Envoi de toutes les lignes dans le debug
     if l[-1:] == "\n":
@@ -146,11 +146,12 @@ class grblComSerial(QObject):
     if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
       self.sig_init.emit(l)
     elif l == "ok":                            # Reponses "ok"
-      if flag != COM_FLAG_NO_OK:
+      if not flag & COM_FLAG_NO_OK:
         self.sig_ok.emit()
     elif l[:6] == "error:":                    # "error:X" => Renvoie X
-      errNum = int(l.split(':')[1])
-      self.sig_error.emit(errNum)
+      if not flag & COM_FLAG_NO_ERROR:
+        errNum = int(l.split(':')[1])
+        self.sig_error.emit(errNum)
     elif l[:6] == "ALARM:":                    # "ALARM:X" => Renvoie X
       alarmNum = int(l.split(':')[1])
       self.sig_alarm.emit(alarmNum)
@@ -214,7 +215,7 @@ class grblComSerial(QObject):
           self.sig_log.emit(logSeverity.error.value, "grblComSerial : Initialisation de Grbl : Timeout !")
           self.__comPort.close()
           return False
-      # On garde la dernière ligne du buffer
+      # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
           self.sig_init.emit(l)
@@ -239,7 +240,7 @@ class grblComSerial(QObject):
           toSend, flag = self.__mainStack.pop()
           if toSend[-1:] != '\n':
             toSend += '\n'
-          if flag != COM_FLAG_NO_OK:
+          if not flag & COM_FLAG_NO_OK:
             if toSend[-2:] == '\r\n':
               self.sig_emit.emit(toSend[:-2])
             else:
@@ -282,7 +283,7 @@ class grblComSerial(QObject):
           self.realTimePush(self.__querySequence[self.__queryCounter])
         else:
           if self.__grblStatus == "Idle":
-            self.gcodeInsert(self.__querySequence[self.__queryCounter], COM_FLAG_NO_OK)
+            self.gcodeInsert(self.__querySequence[self.__queryCounter], COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
         self.__lastQueryTime    = time.time()
         self.__queryCounter += 1
         if self.__queryCounter >= len(self.__querySequence):
