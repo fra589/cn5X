@@ -142,8 +142,8 @@ class grblConfig(QObject):
 
   def showDialog(self):
     self.__getGrblParams()
-    reply = self.__dlgConfig.exec_()
-    print("Reponse de la boite de dialogue = {}".format(reply))
+    RC = self.__dlgConfig.exec_()
+    return(RC)
 
 
   def __getGrblParams(self):
@@ -163,7 +163,6 @@ class grblConfig(QObject):
   def on_sig_config(self, data: str):
     #print("on_sig_config({})".format(data))
     if   data[:1] == "$":
-      print(data)
       # Onglet matériel
       if data[:3] == '$0=':
         self.__di.spinStepPulse.setValue(int(data.split("=")[1]))
@@ -308,7 +307,6 @@ class grblConfig(QObject):
       elif data[:3] == "$N1":
         self.__di.lneN1.setText(data.split("=")[1])
     elif data[:5] == "[VER:":
-      print(data)
       decodeVer=data.split(":")[1].split(".")
       self.__di.lblGrblDate.setText(decodeVer[2])
       self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
@@ -334,7 +332,7 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_Apply(self):
-    print(self.__changedParams)
+    print("Sauvegarde des paramètres modifiés : {}".format(self.__changedParams))
     # Applique les éléments modifiés
     # Onglet 1 Initialisation
     if self.__di.lneEEPROM.objectName() in self.__changedParams:

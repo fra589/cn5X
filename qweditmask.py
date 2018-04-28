@@ -49,7 +49,6 @@ class qwEditMask(QtWidgets.QWidget):
     # création des 6 checkBoxes
     self.chk = []
     for i in range(6):
-      print(i)
       self.chk.append(QtWidgets.QCheckBox(self.frame))
       self.chk[i].setLayoutDirection(QtCore.Qt.RightToLeft)
       self.chk[i].setText("")

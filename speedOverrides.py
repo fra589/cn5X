@@ -29,19 +29,15 @@ def adjustFeedOverride(valeurDepart: int, valeurArrivee: int, grbl: grblCom):
   while valeurCourante != valeurArrivee:
     if valeurCourante <= valeurArrivee - 10:
       grbl.realTimePush(REAL_TIME_FEED_PLUS_10, COM_FLAG_NO_OK)
-      #print("{} => {} = Plus 10".format(valeurCourante, valeurArrivee))
       valeurCourante += 10
     elif valeurCourante < valeurArrivee:
       grbl.realTimePush(REAL_TIME_FEED_PLUS_1, COM_FLAG_NO_OK)
-      #print("{} => {} = Plus 1".format(valeurCourante, valeurArrivee))
       valeurCourante += 1
     elif valeurCourante >= valeurArrivee + 10:
       grbl.realTimePush(REAL_TIME_FEED_MOINS_10, COM_FLAG_NO_OK)
-      #print("{} => {} = Moins 10".format(valeurCourante, valeurArrivee))
       valeurCourante -= 10
     elif valeurCourante > valeurArrivee:
       grbl.realTimePush(REAL_TIME_FEED_MOINS_1, COM_FLAG_NO_OK)
-      #print("{} => {} = Moins 1".format(valeurCourante, valeurArrivee))
       valeurCourante -= 1
 
 
@@ -50,18 +46,14 @@ def adjustSpindleOverride(valeurDepart: int, valeurArrivee: int, grbl: grblCom):
   while valeurCourante != valeurArrivee:
     if valeurCourante <= valeurArrivee - 10:
       grbl.realTimePush(REAL_TIME_SPINDLE_PLUS_10, COM_FLAG_NO_OK)
-      #print("{} => {} = Plus 10".format(valeurCourante, valeurArrivee))
       valeurCourante += 10
     elif valeurCourante < valeurArrivee:
       grbl.realTimePush(REAL_TIME_SPINDLE_PLUS_1, COM_FLAG_NO_OK)
-      #print("{} => {} = Plus 1".format(valeurCourante, valeurArrivee))
       valeurCourante += 1
     elif valeurCourante >= valeurArrivee + 10:
       grbl.realTimePush(REAL_TIME_SPINDLE_MOINS_10, COM_FLAG_NO_OK)
-      #print("{} => {} = Moins 10".format(valeurCourante, valeurArrivee))
       valeurCourante -= 10
     elif valeurCourante > valeurArrivee:
       grbl.realTimePush(REAL_TIME_SPINDLE_MOINS_1, COM_FLAG_NO_OK)
-      #print("{} => {} = Moins 1".format(valeurCourante, valeurArrivee))
       valeurCourante -= 1
 

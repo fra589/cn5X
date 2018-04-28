@@ -60,7 +60,6 @@ class cnLed(QtWidgets.QLabel):
   @pyqtSlot(bool)
   def setLedStatus(self, s: bool):
     ''' Allume (s=True) ou éteind (s=False) la Led '''
-    print(s)
     if self.__ledStatus != s:
       if s:
         self.setPixmap(self.iconOn)

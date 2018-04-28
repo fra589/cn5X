@@ -678,28 +678,6 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_0">
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Limite X min</string>
-            </property>
-            <property name="text">
-             <string notr="true"/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="cn5X.qrc">:/cn5X/images/ledRougeEteinte.svg</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QLabel" name="lblLedX">
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
@@ -716,7 +694,7 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_1">
+           <widget class="cnLed" name="cnLedX">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -724,7 +702,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite X max</string>
+             <string>Limite X min</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -751,7 +729,56 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_2">
+           <widget class="QLabel" name="lblLedY">
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedY">
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Limite X max</string>
+            </property>
+            <property name="text">
+             <string notr="true"/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="cn5X.qrc">:/cn5X/images/ledRougeEteinte.svg</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblLedZ">
+            <property name="text">
+             <string>Z</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedZ">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -773,14 +800,27 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lblLedY">
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblLedA">
             <property name="text">
-             <string>Y</string>
+             <string>A</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_3">
+           <widget class="cnLed" name="cnLedA">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -799,13 +839,13 @@ dévérouiller l'arrêt d'urgence</string>
             <property name="scaledContents">
              <bool>true</bool>
             </property>
-            <property name="ledStatus">
+            <property name="ledStatus" stdset="0">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_10">
+           <spacer name="horizontalSpacer_12">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -818,7 +858,14 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_4">
+           <widget class="QLabel" name="lblLedB">
+            <property name="text">
+             <string>B</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedB">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -840,36 +887,7 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lblLedZ">
-            <property name="text">
-             <string>Z</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="cnLed" name="cnLed_5">
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Limite Z max</string>
-            </property>
-            <property name="text">
-             <string notr="true"/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="cn5X.qrc">:/cn5X/images/ledRougeEteinte.svg</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_12">
+           <spacer name="horizontalSpacer_13">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -882,7 +900,14 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_6">
+           <widget class="QLabel" name="lblLedC">
+            <property name="text">
+             <string>C</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedC">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -890,36 +915,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite A min</string>
-            </property>
-            <property name="text">
-             <string notr="true"/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="cn5X.qrc">:/cn5X/images/ledRougeEteinte.svg</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="lblLedA">
-            <property name="text">
-             <string>A</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="cnLed" name="cnLed_7">
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Limite A max</string>
+             <string>Limite Z max</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -946,7 +942,14 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_8">
+           <widget class="QLabel" name="lblLedP">
+            <property name="text">
+             <string>P</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedP">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -954,7 +957,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite B min</string>
+             <string>Limite A min</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -968,14 +971,27 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lblLedB">
+           <spacer name="horizontalSpacer_15">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblLedD">
             <property name="text">
-             <string>B</string>
+             <string>D</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_9">
+           <widget class="cnLed" name="cnLedD">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -983,7 +999,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite B max</string>
+             <string>Limite A max</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1010,7 +1026,14 @@ dévérouiller l'arrêt d'urgence</string>
            </spacer>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_10">
+           <widget class="QLabel" name="lblLedH">
+            <property name="text">
+             <string>H</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedH">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -1018,7 +1041,7 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite C min</string>
+             <string>Limite B min</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1032,14 +1055,27 @@ dévérouiller l'arrêt d'urgence</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lblLedC">
+           <spacer name="horizontalSpacer_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblLedR">
             <property name="text">
-             <string>C</string>
+             <string>R</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="cnLed" name="cnLed_11">
+           <widget class="cnLed" name="cnLedR">
             <property name="maximumSize">
              <size>
               <width>20</width>
@@ -1047,7 +1083,49 @@ dévérouiller l'arrêt d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite C max</string>
+             <string>Limite B max</string>
+            </property>
+            <property name="text">
+             <string notr="true"/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="cn5X.qrc">:/cn5X/images/ledRougeEteinte.svg</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_18">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblLedS">
+            <property name="text">
+             <string>S</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cnLed" name="cnLedS">
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Limite C min</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -4284,7 +4362,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">

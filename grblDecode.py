@@ -70,6 +70,7 @@ class grblDecode():
     if grblOutput[0] != "<" or grblOutput[-1] != ">":
       return "decodeGrblStatus : erreur ! \n" + "[" + grblOutput + "] Status incorrect."
 
+    flagPn = False
     tblDecode = grblOutput[1:-1].split("|")
     for D in tblDecode:
       ###print("D = {" + D + "}")
@@ -156,8 +157,15 @@ class grblDecode():
         # Ajuste la vitesse de broche
         if int(self.ui.lblBrochePourcent.text()[:-1]) != int(values[2]):
           adjustSpindleOverride(int(values[2]), int(self.ui.lblBrochePourcent.text()[:-1]), self.__grblCom)
-        ###return D
 
+      elif D[:3] == "Pn:": # Input Pin State
+        flagPn = True
+        triggered = D[3:]
+        for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
+          if L in triggered:
+            exec("self.ui.cnLed" + L + ".setLedStatus(True)")
+          else:
+            exec("self.ui.cnLed" + L + ".setLedStatus(False)")
 
       '''
       elif D[:3] == "Ln:": # Line Number
@@ -169,17 +177,15 @@ class grblDecode():
       elif D[3:] == "FS:": # Current Feed and Speed
         return D
       '''
-
-      elif D[:3] == "Pn:": # Input Pin State
-        print(D)
-        for L in D[3:]:
-          print(L)
-        return D
-
       '''
       elif D[2:] == "A:": # OverrideAccessory State
         return D
       '''
+    if not flagPn:
+      # Eteint toute les leds. Si on à pas trouvé la chaine Pn:, c'est que toute les leds sont éteintes.
+      for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
+        exec("self.ui.cnLed" + L + ".setLedStatus(False)")
+
 
     if self.__getNextStatusOutput:
       self.__getNextStatusOutput = False

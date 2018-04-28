@@ -71,9 +71,6 @@ class grblJog():
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(JOG_SPEED, axis, value)
       self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
-    else:
-      #print("Jogging impossible, status Grbl non compatible.")
-      pass
 
 
   def jogCancel(self):
