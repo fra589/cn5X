@@ -238,7 +238,7 @@ class winMain(QtWidgets.QMainWindow):
     '''
     if not self.__connectionStatus:
       # Pas connecté, tout doit être désactivé et l'arrêt d'urgence enfoncé
-      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgenceOff.svg'))
       self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
       self.ui.frmArretUrgence.setEnabled(False)
       self.ui.frmControleVitesse.setEnabled(False)
@@ -250,7 +250,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmHomeAlarm.setEnabled(False)
     elif self.__arretUrgence:
       # Connecté mais sous arrêt d'urgence : Tout est désactivé sauf l'arrêt d'urgence
-      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgenceOff.svg'))
       self.ui.btnUrgence.setToolTip("Double clic pour\ndévérouiller l'arrêt d'urgence")
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(False)
@@ -262,7 +262,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmHomeAlarm.setEnabled(False)
     else:
       # Tout est en ordre, on active tout
-      self.ui.btnUrgence.setIcon(QtGui.QIcon('images/btnUrgence.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgence.svg'))
       self.ui.btnUrgence.setToolTip("Arrêt d'urgence")
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(True)
