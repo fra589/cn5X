@@ -205,6 +205,7 @@ class grblComSerial(QObject):
       while serialData == "" or serialData[-1] != '\n':
         if self.__comPort.waitForReadyRead(25):
           buff = self.__comPort.readAll()
+          self.sig_debug.emit("Buffer recu : " + str(buff))
           try:
             newData = buff.data().decode()
             serialData += newData
