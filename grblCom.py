@@ -62,6 +62,7 @@ class grblCom(QObject):
     self.__Com           = None
     self.__connectStatus = False
     self.__grblInit      = False
+    self.__grblVersion   = ""
     self.__grblStatus    = ""
     self.__threads = []
 
@@ -102,7 +103,6 @@ class grblCom(QObject):
     # Start the thread...
     thread.started.connect(newComSerial.run)
     thread.start()  # this will emit 'started' and start thread's event loop
-    print("thread started")
 
     # Memorise le communicateur
     self.__Com = newComSerial
@@ -118,7 +118,13 @@ class grblCom(QObject):
   @pyqtSlot(str)
   def  on_sig_init(self, buff: str):
     self.__grblInit = True
+    self.__grblVersion = buff.split("[")[0]
     self.sig_init.emit(buff)
+
+
+  def grblVersion(self):
+    ''' Renvoi la chaine Grbl vXXX '''
+    return self.__grblVersion
 
 
   @pyqtSlot(str)

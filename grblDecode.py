@@ -70,6 +70,9 @@ class grblDecode():
     if grblOutput[0] != "<" or grblOutput[-1] != ">":
       return "decodeGrblStatus : erreur ! \n" + "[" + grblOutput + "] Status incorrect."
 
+    # Affiche la chaine complette dans la barrs de status self.__statusText
+    self.ui.statusBar.showMessage("{} + {}".format(self.__grblCom.grblVersion(), grblOutput))
+
     flagPn = False
     tblDecode = grblOutput[1:-1].split("|")
     for D in tblDecode:

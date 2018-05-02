@@ -110,7 +110,8 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.cmbBauds.setCurrentIndex(curIndex)
 
     # on affiche une chaine vide texte en bas de la fenêtre (status bar)
-    self.ui.statusBar.showMessage("")
+    self.__statusText = ""
+    self.ui.statusBar.showMessage(self.__statusText)
 
     # Positionne l'état d'activation des contrôles
     self.setEnableDisableGroupes()
@@ -398,7 +399,8 @@ class winMain(QtWidgets.QMainWindow):
       self.log(logSeverity.info.value, "Fermeture du fichier annulée")
       event.setAccepted(False)
     else:
-      self.ui.statusBar.showMessage("Bye-bye...")
+      self.__statusText = "Bye-bye..."
+      self.ui.statusBar.showMessage(self.__statusText)
       event.accept() # let the window close
     ###event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
 
@@ -484,7 +486,8 @@ class winMain(QtWidgets.QMainWindow):
       # Mise à jour de l'interface
       self.ui.lblConnectStatus.setText("<Non Connecté>")
       self.ui.btnConnect.setText("Connecter") # La prochaine action du bouton sera pour connecter
-      self.ui.statusBar.showMessage("")
+      self.__statusText = ""
+      self.ui.statusBar.showMessage(self.__statusText)
       self.setEnableDisableConnectControls()
       # Force la position de l'arrêt d'urgence
       self.__arretUrgence = True
@@ -657,7 +660,8 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_init(self, data: str):
     self.log(logSeverity.info.value, "cn5X++ : Grbl initialisé.")
     self.logGrbl.append(data)
-    self.ui.statusBar.showMessage(data.split("[")[0])
+    self.__statusText = data.split("[")[0]
+    self.ui.statusBar.showMessage(self.__statusText)
     self.__grblCom.gcodeInsert("\n")
 
 

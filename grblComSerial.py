@@ -144,6 +144,7 @@ class grblComSerial(QObject):
       self.sig_debug.emit("<<< " + l)
     # Premier décodage pour envoyer le signal ah-hoc
     if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
+      self.__sendData(CMD_GRBL_GET_BUILD_INFO)
       self.sig_init.emit(l)
     elif l == "ok":                            # Reponses "ok"
       if not flag & COM_FLAG_NO_OK:
