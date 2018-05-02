@@ -127,9 +127,10 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuAppFermerGCode.triggered.connect(self.on_mnuAppFermerGCode)
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
 
+    self.ui.mnu_GrblConfig.triggered.connect(self.on_mnu_GrblConfig)
     self.ui.mnu_MPos.triggered.connect(self.on_mnu_MPos)
     self.ui.mnu_WPos.triggered.connect(self.on_mnu_WPos)
-    self.ui.mnu_GrblConfig.triggered.connect(self.on_mnu_GrblConfig)
+    self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
 
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
@@ -137,8 +138,11 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Même fonction par la touche entrée
     self.ui.txtGCode.textChanged.connect(self.txtGCode_on_Change)        # Analyse du champ de saisie au fur et a mesure de son édition
     self.ui.txtGCode.keyPressed.connect(self.on_keyPressed)
-    self.ui.btnStartTimer.clicked.connect(self.startTimer)
-    self.ui.btnStopTimer.clicked.connect(self.stopTimer)
+    ###self.ui.btnStartTimer.clicked.connect(self.startTimer)
+    ###self.ui.btnStopTimer.clicked.connect(self.stopTimer)
+    self.ui.btnDebug.clicked.connect(self.on_btnDebug)
+    self.ui.btnPausePooling.clicked.connect(self.on_btnPausePooling)
+
     self.ui.btnClearDebug.clicked.connect(self.clearDebug)
     self.ui.btnSpinM3.clicked.connect(self.on_btnSpinM3)
     self.ui.btnSpinM4.clicked.connect(self.on_btnSpinM4)
@@ -728,13 +732,44 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
-  def stopTimer(self):
-    self.__grblCom.stopTimer()
+  def on_mnuDebug_mode(self):
+    ''' Set the debug button on the same status '''
+    if self.ui.mnuDebug_mode.isChecked():
+      if not self.ui.btnDebug.isChecked():
+        self.ui.btnDebug.setChecked(True)
+      self.ui.btnPausePooling.setEnabled(True)
+    else:
+      if self.ui.btnDebug.isChecked():
+        self.ui.btnDebug.setChecked(False)
+      # Ensure pooling in active when debug is off
+      self.ui.btnPausePooling.setEnabled(False)
+      self.ui.btnPausePooling.setChecked(False)
+      self.__grblCom.startPooling()
 
 
   @pyqtSlot()
-  def startTimer(self):
-    self.__grblCom.startTimer()
+  def on_btnDebug(self):
+    ''' Set the debug menu on the same status '''
+    if self.ui.btnDebug.isChecked():
+      if not self.ui.mnuDebug_mode.isChecked():
+        self.ui.mnuDebug_mode.setChecked(True)
+      self.ui.btnPausePooling.setEnabled(True)
+    else:
+      if self.ui.mnuDebug_mode.isChecked():
+        self.ui.mnuDebug_mode.setChecked(False)
+      # Ensure pooling in active when debug is off
+      self.ui.btnPausePooling.setEnabled(False)
+      self.ui.btnPausePooling.setChecked(False)
+      self.__grblCom.startPooling()
+
+
+  @pyqtSlot()
+  def on_btnPausePooling(self):
+    print("on_btnPausePooling()")
+    if self.ui.btnPausePooling.isChecked():
+      self.__grblCom.stopPooling()
+    else:
+      self.__grblCom.startPooling()
 
 
   @pyqtSlot()

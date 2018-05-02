@@ -4049,7 +4049,7 @@ color: rgb(0, 0, 63);
        <item>
         <widget class="QTabWidget" name="grpConsole">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
@@ -4268,16 +4268,28 @@ color: rgb(0, 0, 63);
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="btnStartTimer">
+              <widget class="QPushButton" name="btnDebug">
                <property name="text">
-                <string>Start timer</string>
+                <string>Debug</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btnStopTimer">
+              <widget class="QPushButton" name="btnPausePooling">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
-                <string>Stop timer</string>
+                <string>Pause pooling</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
                </property>
               </widget>
              </item>

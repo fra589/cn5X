@@ -54,6 +54,8 @@ class grblCom(QObject):
   sig_gcodePush    = pyqtSignal(str, object)
   sig_realTimePush = pyqtSignal(str, object)
   sig_clearCom     = pyqtSignal()
+  sig_startPooling = pyqtSignal()
+  sig_stopPooling  = pyqtSignal()
 
 
   def __init__(self):
@@ -99,6 +101,9 @@ class grblCom(QObject):
     self.sig_gcodePush.connect(newComSerial.gcodePush)
     self.sig_realTimePush.connect(newComSerial.realTimePush)
     self.sig_clearCom.connect(newComSerial.clearCom)
+    self.sig_startPooling.connect(newComSerial.startPooling)
+    self.sig_stopPooling.connect(newComSerial.stopPooling)
+
 
     # Start the thread...
     thread.started.connect(newComSerial.run)
@@ -178,13 +183,13 @@ class grblCom(QObject):
 
 
   @pyqtSlot()
-  def startTimer(self):
-    pass
+  def startPooling(self):
+    self.sig_startPooling.emit()
 
 
   @pyqtSlot()
-  def stopTimer(self):
-    pass
+  def stopPooling(self):
+    self.sig_stopPooling.emit()
 
   def isOpen(self):
     return self.__connectStatus

@@ -73,6 +73,17 @@ class grblComSerial(QObject):
       CMD_GRBL_GET_GCODE_STATE + '\n'
     ]
     self.__lastQueryTime    = time.time()
+    self.__pooling          = True
+
+
+  @pyqtSlot()
+  def startPooling(self):
+    self.__pooling = True
+
+
+  @pyqtSlot()
+  def stopPooling(self):
+    self.__pooling = False
 
 
   @pyqtSlot()
@@ -144,7 +155,6 @@ class grblComSerial(QObject):
       self.sig_debug.emit("<<< " + l)
     # Premier décodage pour envoyer le signal ah-hoc
     if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
-      self.__sendData(CMD_GRBL_GET_BUILD_INFO)
       self.sig_init.emit(l)
     elif l == "ok":                            # Reponses "ok"
       if not flag & COM_FLAG_NO_OK:
@@ -220,6 +230,7 @@ class grblComSerial(QObject):
       # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
+          self.__sendData(CMD_GRBL_GET_BUILD_INFO)
           self.sig_init.emit(l)
           self.__initOK = True
         elif self.__initOK:
@@ -280,16 +291,17 @@ class grblComSerial(QObject):
         break # Sortie de la boucle principale
 
       # Intérrogations de Grbl à interval régulier selon la séquence définie par self.__querySequence
-      if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
-        if len(self.__querySequence[self.__queryCounter]) == 1:
-          self.realTimePush(self.__querySequence[self.__queryCounter])
-        else:
-          if self.__grblStatus == "Idle":
-            self.gcodeInsert(self.__querySequence[self.__queryCounter], COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
-        self.__lastQueryTime    = time.time()
-        self.__queryCounter += 1
-        if self.__queryCounter >= len(self.__querySequence):
-          self.__queryCounter = 0
+      if self.__pooling:
+        if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
+          if len(self.__querySequence[self.__queryCounter]) == 1:
+            self.realTimePush(self.__querySequence[self.__queryCounter])
+          else:
+            if self.__grblStatus == "Idle":
+              self.gcodeInsert(self.__querySequence[self.__queryCounter], COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
+          self.__lastQueryTime    = time.time()
+          self.__queryCounter += 1
+          if self.__queryCounter >= len(self.__querySequence):
+            self.__queryCounter = 0
 
     # On est sorti de la boucle principale : fermeture du port.
     self.sig_log.emit(logSeverity.info.value, "grblComSerial : Fermeture du port série.")
