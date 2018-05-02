@@ -310,6 +310,8 @@ class grblComSerial(QObject):
       self.__mainLoop()
     else:
       self.sig_log.emit(logSeverity.error.value, "grblComSerial : impossible d'ouvrir le port série !")
+      # Emission du signal de fin
+      self.sig_log.emit(logSeverity.info.value, "grblComSerial : End.")
 
 
 

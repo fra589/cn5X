@@ -1,4 +1,3 @@
-# !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -24,9 +23,19 @@
 
 from cx_Freeze import setup, Executable
 
-setup(
-    name = "cn5X++",
-    version = "1",
-    description = "5/6 axis Grbl control panel for grbl-Mega-5X",
-    executables = [Executable("cn5X.py")],
-)
+# Dependencies are automatically detected, but it might need
+# fine tuning.
+buildOptions = dict(packages = [], excludes = [])
+
+import sys
+base = 'Win32GUI' if sys.platform=='win32' else None
+
+executables = [
+    Executable('cn5X.py', base=base)
+]
+
+setup(name='cn5X++',
+      version = '0.1',
+      description = '5/6 axis Grbl control panel for grbl-Mega-5X',
+      options = dict(build_exe = buildOptions),
+      executables = executables)

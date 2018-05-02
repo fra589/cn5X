@@ -63,6 +63,7 @@ class grblCom(QObject):
     self.__connectStatus = False
     self.__grblInit      = False
     self.__grblStatus    = ""
+    self.__threads = []
 
 
   def startCom(self, comPort: str, baudRate: int):
@@ -70,7 +71,6 @@ class grblCom(QObject):
     Gestion des communications série et des timers dans des threads distincts
     '''
 
-    self.__threads = []
     self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread.')
     newComSerial = grblComSerial(comPort, baudRate)
     thread = QThread()
@@ -102,6 +102,7 @@ class grblCom(QObject):
     # Start the thread...
     thread.started.connect(newComSerial.run)
     thread.start()  # this will emit 'started' and start thread's event loop
+    print("thread started")
 
     # Memorise le communicateur
     self.__Com = newComSerial
@@ -142,6 +143,7 @@ class grblCom(QObject):
         thread.wait()  # <- so you need to wait for it to *actually* quit
     self.sig_log.emit(logSeverity.info.value, "Thread(s) enfant(s) terminé(s).")
     self.__grblInit = False
+    self.__threads = []
 
 
   def gcodeInsert(self, buff: str, flag=COM_FLAG_NO_FLAG):

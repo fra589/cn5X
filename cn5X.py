@@ -5,9 +5,9 @@
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -22,6 +22,7 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import sys, os, time #, datetime
+import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
@@ -43,8 +44,15 @@ class winMain(QtWidgets.QMainWindow):
 
   def __init__(self, parent=None):
     QtWidgets.QMainWindow.__init__(self, parent)
-    self.ui = mainWindow.Ui_mainWindow()
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--port", help="sélection du port série")
+    parser.add_argument("-c", "--connect", action="store_true", help="Connecte le port série")
+    parser.add_argument("-u", "--noUrgentStop", action="store_true", help="Désactive l'arrêt d'urgence")
+    parser.add_argument("-f", "--file", help="Charge le fichier GCode")
+    self.__args = parser.parse_args()
+
+    self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
     self.logGrbl  = self.ui.txtGrblOutput    # Tous les messages de Grbl seront redirigés dans le widget txtGrblOutput
     self.logCn5X  = self.ui.txtConsoleOutput # Tous les messages applicatif seront redirigés dans le widget txtConsoleOutput
@@ -187,6 +195,37 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblUnites.customContextMenuRequested.connect(self.on_lblUnitesContextMenu)
     self.ui.lblCoord.customContextMenuRequested.connect(self.on_lblCoordContextMenu)
 
+    #--------------------------------------------------------------------------------------
+    # Traitement des arguments de la ligne de commande
+    #--------------------------------------------------------------------------------------
+    if self.__args.connect:
+      # Connection du port série
+      self.action_btnConnect()
+
+    if self.__args.file != None:
+      # Charge le fichier GCode a l'ouverture
+      # Curseur sablier
+      self.setCursor(Qt.WaitCursor)
+      RC = self.__gcodeFile.readFile(self.__args.file)
+      if RC:
+        # Sélectionne l'onglet du fichier
+        self.ui.grpConsole.setCurrentIndex(1)
+        self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.filePath())
+      else:
+        # Sélectionne l'onglet de la console pour que le message d'erreur s'affiche
+        self.ui.grpConsole.setCurrentIndex(2)
+      # Restore le curseur de souris
+      self.setCursor(Qt.ArrowCursor)
+
+    if self.__args.noUrgentStop:
+      self.__arretUrgence = False
+      self.log(logSeverity.info.value, "Arrêt d'urgence déverrouillé.")
+
+    # Initialise l'état d'activation ou non des contrôles
+    # En fonction de la sélection du port série ou non
+    self.setEnableDisableConnectControls()
+    # Active ou désactive les boutons de cycle
+    self.setEnableDisableGroupes()
 
   def populatePortList(self):
     ''' Rempli la liste des ports série '''
@@ -195,6 +234,9 @@ class winMain(QtWidgets.QMainWindow):
     if len(QSerialPortInfo.availablePorts()) > 0:
       for p in QSerialPortInfo.availablePorts():
         self.ui.cmbPort.addItem(p.portName() + ' - ' + p.description())
+        if self.__args.port != None:
+          if self.__args.port == p.portName() or self.__args.port == p.systemLocation():
+            self.ui.cmbPort.setCurrentIndex(len(self.ui.cmbPort)-1)
     else:
       m = msgBox(
                   title  = "Attention !",
@@ -205,9 +247,10 @@ class winMain(QtWidgets.QMainWindow):
                   stdButton = msgButtonList.Close
                 )
       m.afficheMsg()
-    # S'il n'y a qu'un seul port série, on le sélectionne
-    if len(QSerialPortInfo.availablePorts()) == 1:
-      self.ui.cmbPort.setCurrentIndex(1)
+    # S'il n'y a qu'un seul port série et que l'on a rien précisé comme option port, on le sélectionne
+    if self.__args.port == None:
+      if len(QSerialPortInfo.availablePorts()) == 1:
+        self.ui.cmbPort.setCurrentIndex(1)
     # Définit l'activation des contrôles en fonction de la sélection du port série ou non
     self.setEnableDisableConnectControls()
 
@@ -411,19 +454,20 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def action_btnConnect(self):
-    if self.ui.btnConnect.text() == "Connecter":
-      # Force l'onglet "Grbl output"
-      self.ui.grpConsole.setCurrentIndex(0)
-      # Recupère les coordonnées et paramètres du port à connecter
-      serialDevice = self.ui.cmbPort.currentText()
-      serialDevice = serialDevice.split("-")
-      serialDevice = serialDevice[0].strip()
-      baudRate = int(self.ui.cmbBauds.currentText())
-      # Démarrage du communicator
-      self.__grblCom.startCom(serialDevice, baudRate)
-    else:
-      # Arret du comunicator
-      self.__grblCom.stopCom()
+    if self.ui.btnConnect.text() != "":
+      if self.ui.btnConnect.text() == "Connecter":
+        # Force l'onglet "Grbl output"
+        self.ui.grpConsole.setCurrentIndex(0)
+        # Recupère les coordonnées et paramètres du port à connecter
+        serialDevice = self.ui.cmbPort.currentText()
+        serialDevice = serialDevice.split("-")
+        serialDevice = serialDevice[0].strip()
+        baudRate = int(self.ui.cmbBauds.currentText())
+        # Démarrage du communicator
+        self.__grblCom.startCom(serialDevice, baudRate)
+      else:
+        # Arret du comunicator
+        self.__grblCom.stopCom()
 
 
   @pyqtSlot()
@@ -615,7 +659,6 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.append(data)
     self.ui.statusBar.showMessage(data.split("[")[0])
     self.__grblCom.gcodeInsert("\n")
-
 
 
   @pyqtSlot()
@@ -870,6 +913,8 @@ class winMain(QtWidgets.QMainWindow):
 
 
 """******************************************************************"""
+
+
 if __name__ == '__main__':
   import sys
   app = QtWidgets.QApplication(sys.argv)
