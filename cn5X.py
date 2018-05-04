@@ -87,10 +87,12 @@ class winMain(QtWidgets.QMainWindow):
     self.__jog = grblJog(self.__grblCom)
 
     self.__connectionStatus = False
-    self.__arretUrgence = True
-    self.__cycleRun = False
-    self.__cyclePause = False
+    self.__arretUrgence     = True
+    self.__cycleRun         = False
+    self.__cyclePause       = False
     self.__grblConfigLoaded = False
+    self.__nbAxis           = 0
+    self.__axisNames        = []
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(pathname)
@@ -700,6 +702,14 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_config(self, data: str):
+    # Repère la chaine "[AXS:5:XYZAB]" pour récupérer le nombre d'axes et leurs noms
+    if data[:5] == "[AXS:":
+      print(data[1:-1])
+      self.__nbAxis           = data[1:-1].split(':')[1]
+      print(self.__nbAxis)
+      self.__axisNames        = list(data[1:-1].split(':')[2])
+      print(self.__axisNames)
+
     if not self.__grblConfigLoaded:
       self.logGrbl.append(data)
 
