@@ -74,7 +74,7 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <spacer name="horizontalSpacer_12">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -87,7 +87,7 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <layout class="QVBoxLayout" name="verticalLayout_25">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_18">
@@ -216,14 +216,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="lblInformations_5">
+              <widget class="QLabel" name="lblInformations_11">
                <property name="font">
                 <font>
                  <pointsize>14</pointsize>
                 </font>
                </property>
                <property name="text">
-                <string>Options :</string>
+                <string>Nom des axes :</string>
                </property>
               </widget>
              </item>
@@ -259,7 +259,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="lblGrblOptions">
+              <widget class="QLabel" name="lblAxisName">
                <property name="font">
                 <font>
                  <pointsize>14</pointsize>
@@ -287,6 +287,18 @@
                  <property name="spacing">
                   <number>4</number>
                  </property>
+                 <item>
+                  <widget class="QLabel" name="lblInformations_5">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Options :</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QLabel" name="lblInformations_9">
                    <property name="font">
@@ -318,6 +330,20 @@
                  <property name="spacing">
                   <number>4</number>
                  </property>
+                 <item>
+                  <widget class="QLabel" name="lblGrblOptions">
+                   <property name="font">
+                    <font>
+                     <pointsize>14</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>---</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QLabel" name="lblGrblBlockBufferSize">
                    <property name="font">
@@ -430,7 +456,7 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="2">
+       <item row="2" column="2">
         <spacer name="horizontalSpacer_13">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -443,8 +469,34 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <spacer name="verticalSpacer_12">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_16">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="1">
+        <spacer name="verticalSpacer_17">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -579,7 +631,7 @@
               <number>3</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="lblMaskX">
                <property name="text">
                 <string>X</string>
                </property>
@@ -589,7 +641,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="lblMaskY">
                <property name="text">
                 <string>Y</string>
                </property>
@@ -599,7 +651,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="lblMaskZ">
                <property name="text">
                 <string>Z</string>
                </property>
@@ -609,7 +661,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_9">
+              <widget class="QLabel" name="lblMaskA">
                <property name="text">
                 <string>A</string>
                </property>
@@ -619,7 +671,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_10">
+              <widget class="QLabel" name="lblMaskB">
                <property name="text">
                 <string>B</string>
                </property>
@@ -629,7 +681,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="lblMaskC">
                <property name="text">
                 <string>C</string>
                </property>
@@ -657,7 +709,7 @@
             </layout>
            </item>
            <item>
-            <widget class="qwEditMask" name="emStepPortInvert">
+            <widget class="qwEditMask" name="emStepPortInvert" native="true">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
@@ -667,7 +719,7 @@
             </widget>
            </item>
            <item>
-            <widget class="qwEditMask" name="emDirectionPortInvert">
+            <widget class="qwEditMask" name="emDirectionPortInvert" native="true">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
@@ -885,7 +937,7 @@
        <string>Limites</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <spacer name="horizontalSpacer_6">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -898,7 +950,7 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -999,7 +1051,7 @@
               <number>3</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_24">
+              <widget class="QLabel" name="lblMaskX_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1015,7 +1067,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_25">
+              <widget class="QLabel" name="lblMaskY_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1031,7 +1083,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_26">
+              <widget class="QLabel" name="lblMaskZ_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1047,7 +1099,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_27">
+              <widget class="QLabel" name="lblMaskA_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1063,7 +1115,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_28">
+              <widget class="QLabel" name="lblMaskB_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1079,7 +1131,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_29">
+              <widget class="QLabel" name="lblMaskC_2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -1119,7 +1171,7 @@
             </layout>
            </item>
            <item>
-            <widget class="qwEditMask" name="emHomeDirInvert">
+            <widget class="qwEditMask" name="emHomeDirInvert" native="true">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
@@ -1178,7 +1230,7 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="2">
+       <item row="1" column="2">
         <spacer name="horizontalSpacer_7">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1187,6 +1239,32 @@
           <size>
            <width>95</width>
            <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer_14">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="verticalSpacer_15">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
         </spacer>
@@ -1340,44 +1418,44 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QLabel" name="label_39">
+              <widget class="QLabel" name="lblStepsX">
                <property name="text">
                 <string>X steps/mm ($100)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_40">
+              <widget class="QLabel" name="lblStepsY">
                <property name="text">
                 <string>Y steps/mm ($101)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_41">
+              <widget class="QLabel" name="lblStepsZ">
                <property name="text">
                 <string>Z steps/mm ($102)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_42">
+              <widget class="QLabel" name="lblStepsA">
                <property name="text">
                 <string>A steps/unit ($103)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_43">
+              <widget class="QLabel" name="lblStepsB">
                <property name="text">
                 <string>B steps/unit ($104)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_44">
+              <widget class="QLabel" name="lblStepsC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>C steps/unit ($105)</string>
@@ -1516,7 +1594,7 @@
              <item>
               <widget class="QDoubleSpinBox" name="dsbStepsC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="minimumSize">
                 <size>
@@ -1550,44 +1628,44 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QLabel" name="label_51">
+              <widget class="QLabel" name="lblTravelX">
                <property name="text">
                 <string>X Max travel, mm ($130)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_52">
+              <widget class="QLabel" name="lblTravelY">
                <property name="text">
                 <string>Y Max travel, mm ($131)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_53">
+              <widget class="QLabel" name="lblTravelZ">
                <property name="text">
                 <string>Z Max travel, mm ($132)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_54">
+              <widget class="QLabel" name="lblTravelA">
                <property name="text">
                 <string>A Max travel, unit ($133)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_55">
+              <widget class="QLabel" name="lblTravelB">
                <property name="text">
                 <string>B Max travel, unit ($134)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_56">
+              <widget class="QLabel" name="lblTravelC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>C Max travel, unit ($135)</string>
@@ -1726,7 +1804,7 @@
              <item>
               <widget class="QDoubleSpinBox" name="dsbTravelC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="minimumSize">
                 <size>
@@ -1816,44 +1894,44 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QLabel" name="label_45">
+              <widget class="QLabel" name="lblRateX">
                <property name="text">
                 <string>X Max rate, mm/min ($110)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_46">
+              <widget class="QLabel" name="lblRateY">
                <property name="text">
                 <string>Y Max rate, mm/min ($111)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_47">
+              <widget class="QLabel" name="lblRateZ">
                <property name="text">
                 <string>Z Max rate, mm/min ($112)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_48">
+              <widget class="QLabel" name="lblRateA">
                <property name="text">
                 <string>A Max rate, unit/min ($113)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_49">
+              <widget class="QLabel" name="lblRateB">
                <property name="text">
                 <string>B Max rate, unit/min ($114)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_50">
+              <widget class="QLabel" name="lblRateC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>C Max rate, unit/min ($115)</string>
@@ -1995,7 +2073,7 @@
              <item>
               <widget class="QDoubleSpinBox" name="dsbMaxRateC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="minimumSize">
                 <size>
@@ -2032,44 +2110,44 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <widget class="QLabel" name="label_57">
+              <widget class="QLabel" name="lblAccelX">
                <property name="text">
                 <string>X Acceleration, mm/sec^2 ($120)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_58">
+              <widget class="QLabel" name="lblAccelY">
                <property name="text">
                 <string>Y Acceleration, mm/sec^2 ($121)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_59">
+              <widget class="QLabel" name="lblAccelZ">
                <property name="text">
                 <string>Z Acceleration, mm/sec^2 ($122)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_60">
+              <widget class="QLabel" name="lblAccelA">
                <property name="text">
                 <string>A Acceleration, unit/sec^2 ($123)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_61">
+              <widget class="QLabel" name="lblAccelB">
                <property name="text">
                 <string>B Acceleration, unit/sec^2 ($124)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_62">
+              <widget class="QLabel" name="lblAccelC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>C Acceleration, unit/sec^2 ($125)</string>
@@ -2208,7 +2286,7 @@
              <item>
               <widget class="QDoubleSpinBox" name="dsbAccelC">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="minimumSize">
                 <size>

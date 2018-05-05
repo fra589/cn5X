@@ -91,8 +91,8 @@ class winMain(QtWidgets.QMainWindow):
     self.__cycleRun         = False
     self.__cyclePause       = False
     self.__grblConfigLoaded = False
-    self.__nbAxis           = 0
-    self.__axisNames        = []
+    self.__nbAxis           = 5
+    self.__axisNames        = ['X', 'Y', 'Z', 'A', 'B']
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(pathname)
@@ -186,18 +186,18 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
     self.ui.dialAvance.customContextMenuRequested.connect(self.on_dialAvanceContextMenu)
     self.ui.dialBroche.customContextMenuRequested.connect(self.on_dialBrocheContextMenu)
-    self.ui.lblLblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("X"))
-    self.ui.lblLblPosY.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("Y"))
-    self.ui.lblLblPosZ.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("Z"))
-    self.ui.lblLblPosA.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("A"))
-    self.ui.lblLblPosB.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("B"))
-    #self.ui.lblLblPosC.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("C"))
-    self.ui.lblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("X"))
-    self.ui.lblPosY.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("Y"))
-    self.ui.lblPosZ.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("Z"))
-    self.ui.lblPosA.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("A"))
-    self.ui.lblPosB.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("B"))
-    #self.ui.lblPosC.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu("C"))
+    self.ui.lblLblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(0))
+    self.ui.lblLblPosY.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(1))
+    self.ui.lblLblPosZ.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(2))
+    self.ui.lblLblPosA.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(3))
+    self.ui.lblLblPosB.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(4))
+    self.ui.lblLblPosC.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(5))
+    self.ui.lblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(0))
+    self.ui.lblPosY.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(1))
+    self.ui.lblPosZ.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(2))
+    self.ui.lblPosA.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(3))
+    self.ui.lblPosB.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(4))
+    self.ui.lblPosC.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(5))
     self.ui.lblPlan.customContextMenuRequested.connect(self.on_lblPlanContextMenu)
     self.ui.lblUnites.customContextMenuRequested.connect(self.on_lblUnitesContextMenu)
     self.ui.lblCoord.customContextMenuRequested.connect(self.on_lblCoordContextMenu)
@@ -430,7 +430,7 @@ class winMain(QtWidgets.QMainWindow):
     ''' Appel de la boite de dialogue de configuration
     '''
     self.__grblConfigLoaded = True
-    dlgConfig = grblConfig(self.__grblCom)
+    dlgConfig = grblConfig(self.__grblCom, self.__nbAxis, self.__axisNames)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
 
@@ -705,10 +705,49 @@ class winMain(QtWidgets.QMainWindow):
     # Repère la chaine "[AXS:5:XYZAB]" pour récupérer le nombre d'axes et leurs noms
     if data[:5] == "[AXS:":
       print(data[1:-1])
-      self.__nbAxis           = data[1:-1].split(':')[1]
+      self.__nbAxis           = int(data[1:-1].split(':')[1])
       print(self.__nbAxis)
       self.__axisNames        = list(data[1:-1].split(':')[2])
       print(self.__axisNames)
+      self.ui.lblLblPosX.setText(self.__axisNames[0])
+      self.ui.lblLblPosY.setText(self.__axisNames[1])
+      self.ui.lblLblPosZ.setText(self.__axisNames[2])
+      if self.__nbAxis > 3:
+        self.ui.lblLblPosA.setText(self.__axisNames[3])
+        self.ui.lblLblPosA.setEnabled(True)
+        self.ui.lblLblPosA.setStyleSheet("")
+        self.ui.lblPosA.setEnabled(True)
+        self.ui.lblPosA.setStyleSheet("")
+      else:
+        self.ui.lblLblPosA.setText("")
+        self.ui.lblLblPosA.setEnabled(False)
+        self.ui.lblLblPosA.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblPosA.setEnabled(False)
+        self.ui.lblPosA.setStyleSheet("color: rgb(224, 224, 230);")
+      if self.__nbAxis > 4:
+        self.ui.lblLblPosB.setText(self.__axisNames[4])
+        self.ui.lblLblPosB.setEnabled(True)
+        self.ui.lblLblPosB.setStyleSheet("")
+        self.ui.lblPosB.setEnabled(True)
+        self.ui.lblPosB.setStyleSheet("")
+      else:
+        self.ui.lblLblPosB.setText("")
+        self.ui.lblLblPosB.setEnabled(False)
+        self.ui.lblLblPosB.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblPosB.setEnabled(False)
+        self.ui.lblPosB.setStyleSheet("color: rgb(224, 224, 230);")
+      if self.__nbAxis > 5:
+        self.ui.lblLblPosC.setText(self.__axisNames[5])
+        self.ui.lblLblPosC.setEnabled(True)
+        self.ui.lblLblPosC.setStyleSheet("")
+        self.ui.lblPosC.setEnabled(True)
+        self.ui.lblPosC.setStyleSheet("")
+      else:
+        self.ui.lblLblPosC.setText("")
+        self.ui.lblLblPosC.setEnabled(False)
+        self.ui.lblLblPosC.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblPosC.setEnabled(False)
+        self.ui.lblPosC.setStyleSheet("color: rgb(224, 224, 230);")
 
     if not self.__grblConfigLoaded:
       self.logGrbl.append(data)
@@ -909,18 +948,24 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction("Réinitialiser l'axe {} à zéro".format(axis), self)
-    resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 {}0".format(axis)))
+    resetX = QtWidgets.QAction("Réinitialiser l'axe {} à zéro".format(self.__axisNames[axis]), self)
+    resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
     resetAll = QtWidgets.QAction("Réinitialiser tous les axes à zéro", self)
-    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 X0 Y0 Z0 A0 B0"))
+    gcodeString = "G10 P0 L20 "
+    for N in self.__axisNames:
+      gcodeString += "{}0 ".format(N)
+    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction("Retour de {} à la position zéro".format(axis), self)
-    resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G90 G0 {}0".format(axis)))
+    resetX = QtWidgets.QAction("Retour de {} à la position zéro".format(self.__axisNames[axis]), self)
+    resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G90 G0 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
     resetAll = QtWidgets.QAction("Retour de tous les axes en position zéro", self)
-    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush("G90 G0 X0 Y0 Z0 A0 B0"))
+    gcodeString = "G90 G0 "
+    for N in self.__axisNames:
+      gcodeString += "{}0 ".format(N)
+    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.popup(QtGui.QCursor.pos())
 

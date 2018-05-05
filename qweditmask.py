@@ -21,6 +21,7 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+import sys
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QIntValidator
@@ -35,6 +36,7 @@ class qwEditMask(QtWidgets.QWidget):
     super().__init__(parent)
 
     self.__changeEnCours = False
+    self.__nbAxes = 6
 
     # Création cadre exterieur
     self.frame = QtWidgets.QFrame()
@@ -88,7 +90,13 @@ class qwEditMask(QtWidgets.QWidget):
   def lneTextChanged(self, txt: str):
     if not self.__changeEnCours:
       self.__changeEnCours = True
-      newVal = int(txt)
+      try:
+        newVal = int(txt)
+      except ValueError:
+        self.lneMask.setText("0")
+        newVal = 0
+      except:
+        print("Unexpected error:", sys.exc_info()[0])
       for i in range(6):
         if newVal & 2**i:
           self.chk[i].setCheckState(Qt.Checked)
@@ -112,5 +120,35 @@ class qwEditMask(QtWidgets.QWidget):
 
   # Définie la propriété pour permettre la configuration par Designer
   value = QtCore.pyqtProperty(int, fget=getValue, fset=setValue)
+
+
+  @pyqtSlot()
+  def getNbAxes(self):
+    ''' Renvoie le nombre d'axes gérés '''
+    return self.__nbAxes
+
+
+  @pyqtSlot(int)
+  def setNbAxes(self, val: int):
+    ''' Affecte le nombre d'axes gérés (valeur entre 3 et 6) '''
+    if val < 3 or val > 6:
+      raise RuntimeError("Le nombre d'axes doit être compris entre 3 et 6 !")
+    self.__nbAxes = val
+    for i in range(6):
+      if i < val:
+        self.chk[i].setEnabled(True)
+      else:
+        self.chk[i].setEnabled(False)
+
+
+  # Définie la propriété pour permettre la configuration par Designer
+  nbAxes = QtCore.pyqtProperty(int, fget=getNbAxes, fset=setNbAxes)
+
+
+
+
+
+
+
 
 

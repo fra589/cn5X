@@ -51,13 +51,16 @@ class grblConfig(QObject):
   # dsbMaxRateX dsbMaxRateY dsbMaxRateZ dsbMaxRateA dsbMaxRateB dsbMaxRateC dsbAccelX dsbAccelY dsbAccelZ dsbAccelA dsbAccelB dsbAccelC
 
 
-  def __init__(self, grbl: grblCom):
+  def __init__(self, grbl: grblCom, nbAxis: int, axisNames: list):
     super().__init__()
     self.__dlgConfig = QDialog()
     self.__di = Ui_dlgConfig()
     self.__di.setupUi(self.__dlgConfig)
     self.__configChanged = False
     self.__changedParams = []
+    self.__nbAxis = nbAxis
+    self.__axisNames = axisNames
+
     self.ucase = upperCaseValidator(self)
 
     # Barre de boutons de la boite de dialogue
@@ -312,6 +315,8 @@ class grblConfig(QObject):
       self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
     elif data[:5] == "[AXS:":
       self.__di.lblGrblNbAxes.setText(data[:-1].split(":")[1])
+      self.__di.lblAxisName.setText(data[:-1].split(":")[2])
+      self.__setNbAxes(int(data[:-1].split(":")[1]), data[:-1].split(":")[2])
     elif data[:5] == "[OPT:": # BLOCK_BUFFER_SIZE,RX_BUFFER_SIZE
       self.__di.lblGrblOptions.setText(data[:-1].split(":")[1])
       decodeOpt = data[:-1].split(":")[1].split(',')
@@ -328,6 +333,119 @@ class grblConfig(QObject):
     self.__buttonApply.setEnabled(False)
     self.__buttonReset.setEnabled(False)
     self.__changedParams.clear()
+
+
+  def __setNbAxes(self, nb: int, names: str):
+    '''
+    Active ou désactive les contrôles en fonction du nombre d'axes à gérer
+    renomme les labels des axes en fonction de leur noms
+    '''
+    self.__di.emStepPortInvert.setNbAxes(nb)
+    self.__di.emDirectionPortInvert.setNbAxes(nb)
+    self.__di.emHomeDirInvert.setNbAxes(nb)
+    # Contrôles d'édition de masques
+    self.__di.lblMaskX.setText(names[0])
+    self.__di.lblMaskX_2.setText(names[0])
+
+    self.__di.lblMaskY.setText(names[1])
+    self.__di.lblMaskY_2.setText(names[1])
+
+    self.__di.lblMaskZ.setText(names[2])
+    self.__di.lblMaskZ_2.setText(names[2])
+
+    if nb > 3:
+      self.__di.lblMaskA.setText(names[3])
+      self.__di.lblMaskA_2.setText(names[3])
+    else:
+      self.__di.lblMaskA.setText("")
+      self.__di.lblMaskA_2.setText("")
+
+    if nb > 4:
+      self.__di.lblMaskB.setText(names[4])
+      self.__di.lblMaskB_2.setText(names[4])
+    else:
+      self.__di.lblMaskB.setText("")
+      self.__di.lblMaskB_2.setText("")
+
+    if nb > 5:
+      self.__di.lblMaskC.setText(names[5])
+      self.__di.lblMaskC_2.setText(names[5])
+    else:
+      self.__di.lblMaskC.setText("")
+      self.__di.lblMaskC_2.setText("")
+
+    # Paramètres des axes
+    self.__di.lblStepsX.setText("{} steps/mm ($100)".format(names[0]))
+    self.__di.lblRateX.setText("{} Max rate, mm/min ($110)".format(names[0]))
+    self.__di.lblAccelX.setText("{} Acceleration, mm/sec^2 ($120)".format(names[0]))
+    self.__di.lblTravelX.setText("{} Max travel, mm ($130)".format(names[0]))
+
+    self.__di.lblStepsY.setText("{} steps/mm ($101)".format(names[1]))
+    self.__di.lblRateY.setText("{} Max rate, mm/min ($111)".format(names[1]))
+    self.__di.lblAccelY.setText("{} Acceleration, mm/sec^2 ($121)".format(names[1]))
+    self.__di.lblTravelY.setText("{} Max travel, mm ($131)".format(names[1]))
+
+    self.__di.lblStepsZ.setText("{} steps/mm ($102)".format(names[2]))
+    self.__di.lblRateZ.setText("{} Max rate, mm/min ($112)".format(names[2]))
+    self.__di.lblAccelZ.setText("{} Acceleration, mm/sec^2 ($122)".format(names[2]))
+    self.__di.lblTravelZ.setText("{} Max travel, mm ($132)".format(names[2]))
+
+    if nb > 3:
+      self.__di.lblStepsA.setText("{} steps/mm ($103)".format(names[3]))
+      self.__di.lblRateA.setText("{} Max rate, mm/min ($113)".format(names[3]))
+      self.__di.lblAccelA.setText("{} Acceleration, mm/sec^2 ($123)".format(names[3]))
+      self.__di.lblTravelA.setText("{} Max travel, mm ($133)".format(names[3]))
+    else:
+      self.__di.lblStepsA.setText("- steps/mm ($103)")
+      self.__di.lblRateA.setText("- Max rate, mm/min ($113)")
+      self.__di.lblAccelA.setText("- Acceleration, mm/sec^2 ($123)")
+      self.__di.lblTravelA.setText("- Max travel, mm ($133)")
+      self.__di.lblStepsA.setEnabled(False)
+      self.__di.lblRateA.setEnabled(False)
+      self.__di.lblAccelA.setEnabled(False)
+      self.__di.lblTravelA.setEnabled(False)
+      self.__di.dsbStepsA.setEnabled(False)
+      self.__di.dsbMaxRateA.setEnabled(False)
+      self.__di.dsbAccelA.setEnabled(False)
+      self.__di.dsbTravelA.setEnabled(False)
+
+    if nb > 4:
+      self.__di.lblStepsB.setText("{} steps/mm ($104)".format(names[4]))
+      self.__di.lblRateB.setText("{} Max rate, mm/min ($114)".format(names[4]))
+      self.__di.lblAccelB.setText("{} Acceleration, mm/sec^2 ($124)".format(names[4]))
+      self.__di.lblTravelB.setText("{} Max travel, mm ($134)".format(names[4]))
+    else:
+      self.__di.lblStepsB.setText("- steps/mm ($104)")
+      self.__di.lblRateB.setText("- Max rate, mm/min ($114)")
+      self.__di.lblAccelB.setText("- Acceleration, mm/sec^2 ($124)")
+      self.__di.lblTravelB.setText("- Max travel, mm ($134)")
+      self.__di.lblStepsB.setEnabled(False)
+      self.__di.lblRateB.setEnabled(False)
+      self.__di.lblAccelB.setEnabled(False)
+      self.__di.lblTravelB.setEnabled(False)
+      self.__di.dsbStepsB.setEnabled(False)
+      self.__di.dsbMaxRateB.setEnabled(False)
+      self.__di.dsbAccelB.setEnabled(False)
+      self.__di.dsbTravelB.setEnabled(False)
+
+    if nb > 5:
+      self.__di.lblStepsC.setText("{} steps/mm ($105)".format(names[5]))
+      self.__di.lblRateC.setText("{} Max rate, mm/min ($115)".format(names[5]))
+      self.__di.lblAccelC.setText("{} Acceleration, mm/sec^2 ($125)".format(names[5]))
+      self.__di.lblTravelC.setText("{} Max travel, mm ($135)".format(names[5]))
+    else:
+      self.__di.lblStepsC.setText("- steps/mm ($105)")
+      self.__di.lblRateC.setText("- Max rate, mm/min ($115)")
+      self.__di.lblAccelC.setText("- Acceleration, mm/sec^2 ($125)")
+      self.__di.lblTravelC.setText("- Max travel, mm ($135)")
+      self.__di.lblStepsC.setEnabled(False)
+      self.__di.lblRateC.setEnabled(False)
+      self.__di.lblAccelC.setEnabled(False)
+      self.__di.lblTravelC.setEnabled(False)
+      self.__di.dsbStepsC.setEnabled(False)
+      self.__di.dsbMaxRateC.setEnabled(False)
+      self.__di.dsbAccelC.setEnabled(False)
+      self.__di.dsbTravelC.setEnabled(False)
 
 
   @pyqtSlot()
