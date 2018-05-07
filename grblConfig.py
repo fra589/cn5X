@@ -146,6 +146,17 @@ class grblConfig(QObject):
 
 
   def showDialog(self):
+    # Centrage de la boite de dialogue sur la fenêtre principale
+    ParentX = self.parent().geometry().x()
+    ParentY = self.parent().geometry().y()
+    ParentWidth = self.parent().geometry().width()
+    ParentHeight = self.parent().geometry().height()
+    myWidth = self.__dlgConfig.geometry().width()
+    myHeight = self.__dlgConfig.geometry().height()
+    self.__dlgConfig.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
+    self.__dlgConfig.setFixedSize(self.__dlgConfig.geometry().width(),self.__dlgConfig.geometry().height())
+    self.__dlgConfig.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
+    self.__dlgConfig.setWindowFlags(Qt.Dialog | Qt.WindowStaysOnTopHint)
     self.__getGrblParams()
     RC = self.__dlgConfig.exec_()
     return(RC)

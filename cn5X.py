@@ -38,6 +38,7 @@ from cnQPushButton import cnQPushButton
 from grblJog import grblJog
 from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
+from cn5Xapropos import cn5XAPropos
 import mainWindow
 
 class winMain(QtWidgets.QMainWindow):
@@ -136,6 +137,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnu_MPos.triggered.connect(self.on_mnu_MPos)
     self.ui.mnu_WPos.triggered.connect(self.on_mnu_WPos)
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
+
+    self.ui.mnuA_propos.triggered.connect(self.on_mnuA_propos)
 
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la méthode 'action_btnConnect'
@@ -430,6 +433,7 @@ class winMain(QtWidgets.QMainWindow):
     '''
     self.__grblConfigLoaded = True
     dlgConfig = grblConfig(self.__grblCom, self.__nbAxis, self.__axisNames)
+    dlgConfig.setParent(self)
     dlgConfig.sig_config_changed.connect(self.on_sig_config_changed)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
@@ -841,6 +845,15 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.btnPausePooling.setEnabled(False)
       self.ui.btnPausePooling.setChecked(False)
       self.__grblCom.startPooling()
+
+
+  @pyqtSlot()
+  def on_mnuA_propos(self):
+    ''' Appel de la boite de dialogue A Propos
+    '''
+    dlgApropos = cn5XAPropos(APP_VERSION_STRING)
+    dlgApropos.setParent(self)
+    dlgApropos.showDialog()
 
 
   @pyqtSlot()

@@ -56,7 +56,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/XYZAB-48.svg</normaloff>:/cn5X/images/XYZAB-48.svg</iconset>
+    <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_17">
@@ -4508,7 +4508,7 @@ color: rgb(0, 0, 63);
    </property>
    <widget class="QMenu" name="mnuApplication">
     <property name="title">
-     <string>&amp;Application</string>
+     <string>&amp;Fichier</string>
     </property>
     <addaction name="mnuAppOuvrir"/>
     <addaction name="mnuAppEnregistrer"/>
@@ -4529,8 +4529,15 @@ color: rgb(0, 0, 63);
     <addaction name="separator"/>
     <addaction name="mnuDebug_mode"/>
    </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>&amp;Aide</string>
+    </property>
+    <addaction name="mnuA_propos"/>
+   </widget>
    <addaction name="mnuApplication"/>
    <addaction name="menuMachine"/>
+   <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="mnuAppOuvrir">
@@ -4590,6 +4597,11 @@ color: rgb(0, 0, 63);
     <string>Configuration de Grbl...</string>
    </property>
   </action>
+  <action name="mnuA_propos">
+   <property name="text">
+    <string>A propos de cn5X++</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -4615,7 +4627,6 @@ color: rgb(0, 0, 63);
  </customwidgets>
  <resources>
   <include location="cn5X.qrc"/>
-  <include location="../../.designer/backup/cn5X.qrc"/>
  </resources>
  <connections/>
 </ui>

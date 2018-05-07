@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_dlgConfig(object):
   def setupUi(self, dlgConfig):
     dlgConfig.setObjectName("dlgConfig")
+    dlgConfig.setWindowModality(QtCore.Qt.ApplicationModal)
     dlgConfig.resize(624, 318)
     dlgConfig.setMinimumSize(QtCore.QSize(624, 318))
     dlgConfig.setMaximumSize(QtCore.QSize(624, 318))
