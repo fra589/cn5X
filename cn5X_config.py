@@ -26,13 +26,16 @@ from PyQt5 import QtGui
 
 APP_NAME = "cn5X++"
 
+DEFAULT_NB_AXIS  = 3 # Laisser 3 permet de gérer un Grbl original à 3 axes
+DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']
+
 COM_DEFAULT_BAUD_RATE = 115200
 
 GRBL_QUERY_DELAY =  75      # ms
 
-JOG_REPEAT_DELAY = 250/1000 # s
-JOG_REPEAT_SPEED =  20/1000 # s
-JOG_SPEED        = 100
+JOG_REPEAT_DELAY  = 250/1000 # s
+JOG_REPEAT_SPEED  =  20/1000 # s
+DEFAULT_JOG_SPEED = 100
 
 
 class logSeverity(Enum):

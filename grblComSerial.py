@@ -230,6 +230,7 @@ class grblComSerial(QObject):
       # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
+          # Appel de CMD_GRBL_GET_BUILD_INFO pour que l'interface récupère le nombre d'axes et leurs noms
           self.__sendData(CMD_GRBL_GET_BUILD_INFO)
           self.sig_init.emit(l)
           self.__initOK = True
@@ -325,8 +326,4 @@ class grblComSerial(QObject):
       self.sig_log.emit(logSeverity.error.value, "grblComSerial : impossible d'ouvrir le port série !")
       # Emission du signal de fin
       self.sig_log.emit(logSeverity.info.value, "grblComSerial : End.")
-
-
-
-
 

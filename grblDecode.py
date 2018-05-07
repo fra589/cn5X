@@ -41,6 +41,7 @@ class grblDecode():
     self.ui = ui
     self.log = log
     self.__grblCom = grbl
+    self.__nbAxis = DEFAULT_NB_AXIS
     self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
     self.__validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
     self.__G5actif = 54
@@ -62,8 +63,16 @@ class grblDecode():
     self.__etatMachine = None
     self.__getNextStatusOutput = False
 
+
+  def setNbAxis(self, val: int):
+    if val < 3 or val > 6:
+      raise RuntimeError("Le nombre d'axes doit être compris entre 3 et 6 !")
+    self.__nbAxis = val
+
+
   def getNextStatus(self):
     self.__getNextStatusOutput = True
+
 
   def decodeGrblStatus(self, grblOutput):
 
@@ -110,10 +119,18 @@ class grblDecode():
         self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Machine Position (MPos).")
         self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip("Machine Position (MPos).")
         self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip("Machine Position (MPos).")
-        self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Machine Position (MPos).")
-        self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Machine Position (MPos).")
-        # TODO: 6ème axe.
-        self.ui.lblPosC.setText('{:+0.3f}'.format(float("0")))
+        if self.__nbAxis > 3:
+          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Machine Position (MPos).")
+        else:
+          self.ui.lblPosA.setText("-")
+        if self.__nbAxis > 4:
+          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Machine Position (MPos).")
+        else:
+          self.ui.lblPosB.setText("-")
+        if self.__nbAxis > 5:
+          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip("Machine Position (MPos).")
+        else:
+          self.ui.lblPosC.setText("-")
 
       elif D[:5] == "WPos:":
         if not self.ui.mnu_WPos.isChecked():
@@ -124,10 +141,18 @@ class grblDecode():
         self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Working Position (WPos).")
         self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip("Working Position (WPos).")
         self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip("Working Position (WPos).")
-        self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Working Position (WPos).")
-        self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Working Position (WPos).")
-        # TODO: 6ème axe.
-        self.ui.lblPosC.setText('{:+0.3f}'.format(float("0")))
+        if self.__nbAxis > 3:
+          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Working Position (WPos).")
+        else:
+          self.ui.lblPosA.setText("-")
+        if self.__nbAxis > 4:
+          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Working Position (WPos).")
+        else:
+          self.ui.lblPosB.setText("-")
+        if self.__nbAxis > 5:
+          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip("Working Position (WPos).")
+        else:
+          self.ui.lblPosC.setText("-")
 
       elif D[:4] == "WCO:": # Work Coordinate Offset
         tblPos = D[4:].split(",")
@@ -136,8 +161,18 @@ class grblDecode():
         self.ui.lblWcoX.setText('{:+0.3f}'.format(self.__wco[0]))
         self.ui.lblWcoY.setText('{:+0.3f}'.format(self.__wco[1]))
         self.ui.lblWcoZ.setText('{:+0.3f}'.format(self.__wco[2]))
-        self.ui.lblWcoA.setText('{:+0.3f}'.format(self.__wco[3]))
-        self.ui.lblWcoB.setText('{:+0.3f}'.format(self.__wco[4]))
+        if self.__nbAxis > 3:
+          self.ui.lblWcoA.setText('{:+0.3f}'.format(self.__wco[3]))
+        else:
+          self.ui.lblWcoA.setText("-")
+        if self.__nbAxis > 4:
+          self.ui.lblWcoB.setText('{:+0.3f}'.format(self.__wco[4]))
+        else:
+          self.ui.lblWcoB.setText("-")
+        if self.__nbAxis > 5:
+          self.ui.lblWcoC.setText('{:+0.3f}'.format(self.__wco[5]))
+        else:
+          self.ui.lblWcoC.setText("-")
 
       elif D[:3] == "Bf:": # Buffer State (Bf:15,128)
         tblValue = D[3:].split(",")
@@ -239,22 +274,43 @@ class grblDecode():
         '''
         num=int(grblOutput[2:4])
         values=grblOutput[5:-1].split(",")
-        for I in range(5): # TODO: Traiter un nombre d'axes différent de 5
-          self.__G5x[num][I] = float(values[I])
+        for I in range(6):
+          if I < self.__nbAxis:
+            self.__G5x[num][I] = float(values[I])
+          else:
+            self.__G5x[num][I] = float("0")
         if num == self.__G5actif:
           self.ui.lblG5xX.setText('{:+0.3f}'.format(self.__G5x[num][0]))
           self.ui.lblG5xY.setText('{:+0.3f}'.format(self.__G5x[num][1]))
           self.ui.lblG5xZ.setText('{:+0.3f}'.format(self.__G5x[num][2]))
-          self.ui.lblG5xA.setText('{:+0.3f}'.format(self.__G5x[num][3]))
-          self.ui.lblG5xB.setText('{:+0.3f}'.format(self.__G5x[num][4]))
-          # TODO: 6ème axe
+          if self.__nbAxis > 3:
+            self.ui.lblG5xA.setText('{:+0.3f}'.format(self.__G5x[num][3]))
+          else:
+            self.ui.lblG5xA.setText("-")
+          if self.__nbAxis > 4:
+            self.ui.lblG5xB.setText('{:+0.3f}'.format(self.__G5x[num][4]))
+          else:
+            self.ui.lblG5xB.setText("-")
+          if self.__nbAxis > 5:
+            self.ui.lblG5xC.setText('{:+0.3f}'.format(self.__G5x[num][5]))
+          else:
+            self.ui.lblG5xC.setText("-")
         if num == 92:
           self.ui.lblG92X.setText('{:+0.3f}'.format(self.__G5x[num][0]))
           self.ui.lblG92Y.setText('{:+0.3f}'.format(self.__G5x[num][1]))
           self.ui.lblG92Z.setText('{:+0.3f}'.format(self.__G5x[num][2]))
-          self.ui.lblG92A.setText('{:+0.3f}'.format(self.__G5x[num][3]))
-          self.ui.lblG92B.setText('{:+0.3f}'.format(self.__G5x[num][4]))
-          # TODO: 6ème axe
+          if self.__nbAxis > 3:
+            self.ui.lblG92A.setText('{:+0.3f}'.format(self.__G5x[num][3]))
+          else:
+            self.ui.lblG92A.setText("-")
+          if self.__nbAxis > 4:
+            self.ui.lblG92B.setText('{:+0.3f}'.format(self.__G5x[num][4]))
+          else:
+            self.ui.lblG92B.setText("-")
+          if self.__nbAxis > 5:
+            self.ui.lblG92C.setText('{:+0.3f}'.format(self.__G5x[num][5]))
+          else:
+            self.ui.lblG92C.setText("-")
 
       elif grblOutput[1:5] == "TLO:":
         ''' Tool length offset (for the default z-axis) '''
@@ -281,16 +337,6 @@ class grblDecode():
             num=int(S[1:])
             if num != self.__G5actif:
               self.__G5actif = num
-            if self.ui.lblG5xX.text() != '{:+0.3f}'.format(self.__G5x[num][0]):
-              self.ui.lblG5xX.setText('{:+0.3f}'.format(self.__G5x[num][0]))
-            if self.ui.lblG5xY.text() != '{:+0.3f}'.format(self.__G5x[num][1]):
-              self.ui.lblG5xY.setText('{:+0.3f}'.format(self.__G5x[num][1]))
-            if self.ui.lblG5xZ.text() != '{:+0.3f}'.format(self.__G5x[num][2]):
-              self.ui.lblG5xZ.setText('{:+0.3f}'.format(self.__G5x[num][2]))
-            if self.ui.lblG5xA.text() != '{:+0.3f}'.format(self.__G5x[num][3]):
-              self.ui.lblG5xA.setText('{:+0.3f}'.format(self.__G5x[num][3]))
-            if self.ui.lblG5xB.text() != '{:+0.3f}'.format(self.__G5x[num][4]):
-              self.ui.lblG5xB.setText('{:+0.3f}'.format(self.__G5x[num][4]))
             for N, lbl in [
               [54, self.ui.lblG54],
               [55, self.ui.lblG55],

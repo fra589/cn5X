@@ -116,21 +116,21 @@ class gcodeFile(QObject):
   def saveAs(self):
     fileName = self.showFileSave()
     if fileName[0] != "":
-      print("saveAs({})".format(fileName[0]))
+      self.sig_log.emit(logSeverity.info.value, "saveAs({})".format(fileName[0]))
       self.saveFile(fileName[0])
     else:
-      print("saveAs() annulé !")
+      self.sig_log.emit(logSeverity.info.value, "saveAs() annulé !")
 
 
   def showFileSave(self):
-    # Affiche la boite de dialogue Save as
+    ''' Affiche la boite de dialogue "Save as" '''
     opt = QtWidgets.QFileDialog.Options()
     opt |= QtWidgets.QFileDialog.DontUseNativeDialog
     fileName = QtWidgets.QFileDialog.getSaveFileName(None, "Enregistrer un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
     return fileName
 
-  def saveFile(self, filePath: str = ""):
 
+  def saveFile(self, filePath: str = ""):
     if filePath == "":
       if self.__filePath == "":
         # Le nom du fichier n'est pas définit, il n'y à pas de fichier chargé, donc, rien à sauvegarder !
@@ -162,7 +162,6 @@ class gcodeFile(QObject):
     for I in range(startLine, endLine + 1):
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) != "":
-        ###print(self.__gcodeFileUiModel.data(idx))
         com.gcodePush(self.__gcodeFileUiModel.data(idx))
         com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
 
@@ -235,16 +234,16 @@ class gcodeFile(QObject):
       self.__gcodeCharge  =False
       return True
 
+
   @pyqtSlot("QStandardItem*")
   def on_gcodeChanged(self, item):
     self.__gcodeChanged = True
 
+
   def gcodeChanged(self):
     return self.__gcodeChanged
 
+
   def setGcodeChanged(self, value:bool):
     self.__gcodeChanged = value
-
-
-
 

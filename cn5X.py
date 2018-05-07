@@ -85,14 +85,17 @@ class winMain(QtWidgets.QMainWindow):
     self.decode = grblDecode(self.ui, self.log, self.__grblCom)
 
     self.__jog = grblJog(self.__grblCom)
+    self.ui.dsbJogSpeed.setValue(DEFAULT_JOG_SPEED)
+    self.ui.dsbJogSpeed.valueChanged.connect(self.on_dsbJogSpeed_valueChanged)
 
     self.__connectionStatus = False
     self.__arretUrgence     = True
     self.__cycleRun         = False
     self.__cyclePause       = False
     self.__grblConfigLoaded = False
-    self.__nbAxis           = 5
-    self.__axisNames        = ['X', 'Y', 'Z', 'A', 'B']
+    self.__nbAxis           = DEFAULT_NB_AXIS
+    self.__axisNames        = DEFAULT_AXIS_NAMES
+    self.updateAxisNumber()
 
     pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(pathname)
@@ -140,8 +143,6 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Même fonction par la touche entrée
     self.ui.txtGCode.textChanged.connect(self.txtGCode_on_Change)        # Analyse du champ de saisie au fur et a mesure de son édition
     self.ui.txtGCode.keyPressed.connect(self.on_keyPressed)
-    ###self.ui.btnStartTimer.clicked.connect(self.startTimer)
-    ###self.ui.btnStopTimer.clicked.connect(self.stopTimer)
     self.ui.btnDebug.clicked.connect(self.on_btnDebug)
     self.ui.btnPausePooling.clicked.connect(self.on_btnPausePooling)
 
@@ -168,6 +169,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnJogPlusA.mousePress.connect(self.on_jog)
     self.ui.btnJogMoinsB.mousePress.connect(self.on_jog)
     self.ui.btnJogPlusB.mousePress.connect(self.on_jog)
+    self.ui.btnJogMoinsC.mousePress.connect(self.on_jog)
+    self.ui.btnJogPlusC.mousePress.connect(self.on_jog)
     self.ui.btnJogStop.mousePress.connect(self.__jog.jogCancel)
     self.ui.rbRapid025.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_25_POURCENT))
     self.ui.rbRapid050.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_50_POURCENT))
@@ -295,7 +298,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(False)
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
-      ###self.ui.frmCoordOffsets.setEnabled(False)
       self.ui.grpStatus.setEnabled(False)
       self.ui.frmHomeAlarm.setEnabled(False)
     elif self.__arretUrgence:
@@ -307,7 +309,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(False)
       self.ui.frmGcodeInput.setEnabled(False)
       self.ui.frmBoutons.setEnabled(False)
-      ###self.ui.frmCoordOffsets.setEnabled(False)
       self.ui.grpStatus.setEnabled(False)
       self.ui.frmHomeAlarm.setEnabled(False)
     else:
@@ -319,7 +320,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.grpJog.setEnabled(True)
       self.ui.frmGcodeInput.setEnabled(True)
       self.ui.frmBoutons.setEnabled(True)
-      ###self.ui.frmCoordOffsets.setEnabled(True)
       self.ui.grpStatus.setEnabled(True)
       self.ui.frmHomeAlarm.setEnabled(True)
       if self.__gcodeFile.isFileLoaded():
@@ -403,12 +403,11 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.stopCom()
     if not self.__gcodeFile.closeFile():
       self.log(logSeverity.info.value, "Fermeture du fichier annulée")
-      event.setAccepted(False)
+      event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
     else:
       self.__statusText = "Bye-bye..."
       self.ui.statusBar.showMessage(self.__statusText)
       event.accept() # let the window close
-    ###event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
 
 
   @pyqtSlot()
@@ -431,9 +430,14 @@ class winMain(QtWidgets.QMainWindow):
     '''
     self.__grblConfigLoaded = True
     dlgConfig = grblConfig(self.__grblCom, self.__nbAxis, self.__axisNames)
+    dlgConfig.sig_config_changed.connect(self.on_sig_config_changed)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
 
+
+  @pyqtSlot(str)
+  def on_sig_config_changed(self, data: str):
+    self.log(logSeverity.info.value, "Configuration de Grbl changée : {}".format(data))
 
   @pyqtSlot()
   def on_arretUrgence(self):
@@ -549,23 +553,25 @@ class winMain(QtWidgets.QMainWindow):
     self.__jog.on_jog(cnButton, e, jogDistance)
 
 
+  @pyqtSlot(float)
+  def on_dsbJogSpeed_valueChanged(self, val: float):
+    self.__jog.setJogSpeed(val)
+
+
   @pyqtSlot()
   def on_btnSpinM3(self):
-    ###self.logGrbl.append("M3")
     self.__grblCom.gcodeInsert("M3")
     self.ui.btnSpinM4.setEnabled(False) # Interdit un changement de sens de rotation direct
 
 
   @pyqtSlot()
   def on_btnSpinM4(self):
-    ###self.logGrbl.append("M4")
     self.__grblCom.gcodeInsert("M4")
     self.ui.btnSpinM3.setEnabled(False) # Interdit un changement de sens de rotation direct
 
 
   @pyqtSlot()
   def on_btnSpinM5(self):
-    ###self.logGrbl.append("M5")
     self.__grblCom.gcodeInsert("M5")
     self.ui.btnSpinM3.setEnabled(True)
     self.ui.btnSpinM4.setEnabled(True)
@@ -597,19 +603,16 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
-    ###self.logGrbl.append(lblText)
     self.__grblCom.gcodeInsert(lblText)
 
 
   @pyqtSlot()
   def on_btnKillAlarm(self):
-    ###self.logGrbl.append(CMD_GRBL_KILL_ALARM_LOCK)
     self.__grblCom.gcodeInsert(CMD_GRBL_KILL_ALARM_LOCK)
 
 
   @pyqtSlot()
   def on_btnHomeCycle(self):
-    ###self.logGrbl.append(CMD_GRBL_RUN_HOME_CYCLE)
     self.__grblCom.gcodeInsert(CMD_GRBL_RUN_HOME_CYCLE)
 
 
@@ -704,53 +707,97 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_config(self, data: str):
     # Repère la chaine "[AXS:5:XYZAB]" pour récupérer le nombre d'axes et leurs noms
     if data[:5] == "[AXS:":
-      print(data[1:-1])
       self.__nbAxis           = int(data[1:-1].split(':')[1])
-      print(self.__nbAxis)
+      self.decode.setNbAxis(self.__nbAxis)
       self.__axisNames        = list(data[1:-1].split(':')[2])
-      print(self.__axisNames)
+      self.updateAxisNumber()
+
+    if not self.__grblConfigLoaded:
+      self.logGrbl.append(data)
+
+
+  def updateAxisNumber(self):
       self.ui.lblLblPosX.setText(self.__axisNames[0])
       self.ui.lblLblPosY.setText(self.__axisNames[1])
       self.ui.lblLblPosZ.setText(self.__axisNames[2])
+
       if self.__nbAxis > 3:
         self.ui.lblLblPosA.setText(self.__axisNames[3])
         self.ui.lblLblPosA.setEnabled(True)
         self.ui.lblLblPosA.setStyleSheet("")
         self.ui.lblPosA.setEnabled(True)
         self.ui.lblPosA.setStyleSheet("")
+        self.ui.lblG5xA.setStyleSheet("")
+        self.ui.lblG92A.setStyleSheet("")
+        self.ui.lblWcoA.setStyleSheet("")
       else:
         self.ui.lblLblPosA.setText("")
         self.ui.lblLblPosA.setEnabled(False)
         self.ui.lblLblPosA.setStyleSheet("color: rgb(224, 224, 230);")
         self.ui.lblPosA.setEnabled(False)
         self.ui.lblPosA.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG5xA.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG92A.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblWcoA.setStyleSheet("color: rgb(224, 224, 230);")
+
       if self.__nbAxis > 4:
         self.ui.lblLblPosB.setText(self.__axisNames[4])
         self.ui.lblLblPosB.setEnabled(True)
         self.ui.lblLblPosB.setStyleSheet("")
         self.ui.lblPosB.setEnabled(True)
         self.ui.lblPosB.setStyleSheet("")
+        self.ui.lblG5xB.setStyleSheet("")
+        self.ui.lblG92B.setStyleSheet("")
+        self.ui.lblWcoB.setStyleSheet("")
       else:
         self.ui.lblLblPosB.setText("")
         self.ui.lblLblPosB.setEnabled(False)
         self.ui.lblLblPosB.setStyleSheet("color: rgb(224, 224, 230);")
         self.ui.lblPosB.setEnabled(False)
         self.ui.lblPosB.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG5xB.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG92B.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblWcoB.setStyleSheet("color: rgb(224, 224, 230);")
+
       if self.__nbAxis > 5:
         self.ui.lblLblPosC.setText(self.__axisNames[5])
         self.ui.lblLblPosC.setEnabled(True)
         self.ui.lblLblPosC.setStyleSheet("")
         self.ui.lblPosC.setEnabled(True)
         self.ui.lblPosC.setStyleSheet("")
+        self.ui.lblG5xC.setStyleSheet("")
+        self.ui.lblG92C.setStyleSheet("")
+        self.ui.lblWcoC.setStyleSheet("")
       else:
         self.ui.lblLblPosC.setText("")
         self.ui.lblLblPosC.setEnabled(False)
         self.ui.lblLblPosC.setStyleSheet("color: rgb(224, 224, 230);")
         self.ui.lblPosC.setEnabled(False)
         self.ui.lblPosC.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG5xC.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblG92C.setStyleSheet("color: rgb(224, 224, 230);")
+        self.ui.lblWcoC.setStyleSheet("color: rgb(224, 224, 230);")
 
-    if not self.__grblConfigLoaded:
-      self.logGrbl.append(data)
+      if 'A' in self.__axisNames:
+        self.ui.btnJogMoinsA.setEnabled(True)
+        self.ui.btnJogPlusA.setEnabled(True)
+      else:
+        self.ui.btnJogMoinsA.setEnabled(False)
+        self.ui.btnJogPlusA.setEnabled(False)
+
+      if 'B' in self.__axisNames:
+        self.ui.btnJogMoinsB.setEnabled(True)
+        self.ui.btnJogPlusB.setEnabled(True)
+      else:
+        self.ui.btnJogMoinsB.setEnabled(False)
+        self.ui.btnJogPlusB.setEnabled(False)
+
+      if 'C' in self.__axisNames:
+        self.ui.btnJogMoinsC.setEnabled(True)
+        self.ui.btnJogPlusC.setEnabled(True)
+      else:
+        self.ui.btnJogMoinsC.setEnabled(False)
+        self.ui.btnJogPlusC.setEnabled(False)
 
 
   @pyqtSlot(str)
@@ -814,7 +861,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_btnPausePooling(self):
-    print("on_btnPausePooling()")
+    self.log(logSeverity.info.value, "on_btnPausePooling({})".format(self.ui.btnPausePooling.isChecked()))
     if self.ui.btnPausePooling.isChecked():
       self.__grblCom.stopPooling()
     else:

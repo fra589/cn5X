@@ -36,6 +36,7 @@ class grblJog():
   def __init__(self, comm: grblCom):
     super().__init__()
     self.__grblCom  = comm
+    self.__jogSpeed = DEFAULT_JOG_SPEED
 
 
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent, float)
@@ -60,7 +61,8 @@ class grblJog():
         self.doJog(axis, value)
         QCoreApplication.processEvents()
         time.sleep(jogDelay)
-        if jogDelay == JOG_REPEAT_DELAY: jogDelay = JOG_REPEAT_SPEED
+        if jogDelay == JOG_REPEAT_DELAY:
+          jogDelay = JOG_REPEAT_SPEED
       self.jogCancel()
     else:
       self.doJog(axis, value)
@@ -69,7 +71,7 @@ class grblJog():
   def doJog(self, axis: str, value: float):
     ''' Déplacement relatif (G91) de "value" mm (G21) sur axe axis '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
-      cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(JOG_SPEED, axis, value)
+      cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(self.__jogSpeed, axis, value)
       self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
 
 
@@ -78,10 +80,9 @@ class grblJog():
     self.__grblCom.realTimePush(REAL_TIME_JOG_CANCEL) # Commande realtime Jog Cancel
 
 
-
-
-
-
-
-
+  def setJogSpeed(self, speed: float):
+    if speed > 0:
+      self.__jogSpeed = speed
+    else:
+      self.__jogSpeed = DEFAULT_JOG_SPEED
 

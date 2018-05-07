@@ -194,12 +194,3 @@ class grblCom(QObject):
   def isOpen(self):
     return self.__connectStatus
 
-
-
-
-
-
-
-
-
-

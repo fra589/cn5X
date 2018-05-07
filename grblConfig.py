@@ -50,6 +50,7 @@ class grblConfig(QObject):
   # dsbStepsX dsbStepsY dsbStepsZ dsbStepsA dsbStepsB dsbStepsC dsbTravelX dsbTravelY dsbTravelZ dsbTravelA dsbTravelB dsbTravelC
   # dsbMaxRateX dsbMaxRateY dsbMaxRateZ dsbMaxRateA dsbMaxRateB dsbMaxRateC dsbAccelX dsbAccelY dsbAccelZ dsbAccelA dsbAccelB dsbAccelC
 
+  sig_config_changed  = pyqtSignal(str)
 
   def __init__(self, grbl: grblCom, nbAxis: int, axisNames: list):
     super().__init__()
@@ -60,14 +61,15 @@ class grblConfig(QObject):
     self.__changedParams = []
     self.__nbAxis = nbAxis
     self.__axisNames = axisNames
+    self.__setNbAxes(self.__nbAxis, self.__axisNames)
 
     self.ucase = upperCaseValidator(self)
 
     # Barre de boutons de la boite de dialogue
     self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.Apply)
-    self.__buttonApply.setToolTip("Applique les modifications et ferme la boîte de dialogue.")
+    self.__buttonApply.setToolTip("Applique les modifications.")
     self.__buttonApply.setEnabled(False)
-    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Discard)
+    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Close)
     self.__buttonDiscard.setToolTip("Ferme la boîte de dialogue sans valider les modifications.")
     self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
     self.__buttonReset.setEnabled(False)
@@ -157,14 +159,12 @@ class grblConfig(QObject):
 
 
   def on_sig_init(self, data: str):
-    #print("on_sig_init({})".format(data))
     decodeInit = data.split(" ")
     self.__di.lblGrblName.setText(decodeInit[0])
     self.__di.lblGrblVersion.setText(decodeInit[1])
 
 
   def on_sig_config(self, data: str):
-    #print("on_sig_config({})".format(data))
     if   data[:1] == "$":
       # Onglet matériel
       if data[:3] == '$0=':
@@ -450,103 +450,203 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_Apply(self):
-    print("Sauvegarde des paramètres modifiés : {}".format(self.__changedParams))
-    # Applique les éléments modifiés
+    """ Applique les éléments modifiés """
+    self.sig_config_changed.emit("Sauvegarde des paramètres modifiés : {}".format(self.__changedParams))
+
     # Onglet 1 Initialisation
     if self.__di.lneEEPROM.objectName() in self.__changedParams:
-      print("$I={}".format(str(self.__di.lneEEPROM.text())))
+      self.sig_config_changed.emit("$I={}".format(str(self.__di.lneEEPROM.text())))
       self.__grblCom.gcodePush("$I={}\0".format(str(self.__di.lneEEPROM.text())))
     if self.__di.lneN0.objectName() in self.__changedParams:
-      print("$N0={}".format(str(self.__di.lneN0.text())))
+      self.sig_config_changed.emit("$N0={}".format(str(self.__di.lneN0.text())))
       self.__grblCom.gcodePush("$N0={}\0".format(str(self.__di.lneN0.text())))
     if self.__di.lneN1.objectName() in self.__changedParams:
-      print("$N1={}".format(str(self.__di.lneN1.text())))
+      self.sig_config_changed.emit("$N1={}".format(str(self.__di.lneN1.text())))
       self.__grblCom.gcodePush("$N1={}\0".format(str(self.__di.lneN1.text())))
+
     # Onglet 2 Matériel
-    if self.__di.spinStepPulse.objectName() in self.__changedParams: self.__grblCom.gcodePush("$0={}".format(self.__di.spinStepPulse.value()))
-    if self.__di.spinStepIdleDelay.objectName() in self.__changedParams: self.__grblCom.gcodePush("$1={}".format(self.__di.spinStepIdleDelay.value()))
-    if self.__di.emStepPortInvert.objectName() in self.__changedParams: self.__grblCom.gcodePush("$2={}".format(self.__di.emStepPortInvert.value()))
-    if self.__di.emDirectionPortInvert.objectName() in self.__changedParams: self.__grblCom.gcodePush("$3=".format(self.__di.emDirectionPortInvert.value()))
+    if self.__di.spinStepPulse.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$0={}".format(self.__di.spinStepPulse.value()))
+      self.__grblCom.gcodePush("$0={}".format(self.__di.spinStepPulse.value()))
+    if self.__di.spinStepIdleDelay.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$1={}".format(self.__di.spinStepIdleDelay.value()))
+      self.__grblCom.gcodePush("$1={}".format(self.__di.spinStepIdleDelay.value()))
+    if self.__di.emStepPortInvert.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$2={}".format(self.__di.emStepPortInvert.value()))
+      self.__grblCom.gcodePush("$2={}".format(self.__di.emStepPortInvert.value()))
+    if self.__di.emDirectionPortInvert.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$3=".format(self.__di.emDirectionPortInvert.value()))
+      self.__grblCom.gcodePush("$3=".format(self.__di.emDirectionPortInvert.value()))
     if self.__di.chkStepEnableInvert.objectName() in self.__changedParams:
       if self.__di.chkStepEnableInvert.isChecked():
+        self.sig_config_changed.emit("$4=1")
         self.__grblCom.gcodePush("$4=1")
       else:
+        self.sig_config_changed.emit("$4=0")
         self.__grblCom.gcodePush("$4=0")
     if self.__di.chkLimitPinsInvert.objectName() in self.__changedParams:
       if self.__di.chkLimitPinsInvert.isChecked():
+        self.sig_config_changed.emit("$5=1")
         self.__grblCom.gcodePush("$5=1")
       else:
+        self.sig_config_changed.emit("$5=0")
         self.__grblCom.gcodePush("$5=0")
     if self.__di.chkProbePinInvert.objectName() in self.__changedParams:
       if self.__di.chkProbePinInvert.isChecked():
+        self.sig_config_changed.emit("$6=1")
         self.__grblCom.gcodePush("$6=1")
       else:
+        self.sig_config_changed.emit("$6=0")
         self.__grblCom.gcodePush("$6=0")
+
     # Onglet 3 Unités
-    if self.__di.lneStatusReport in self.__changedParams: self.__grblCom.gcodePush("$10={}".format(self.__di.lneStatusReport.text()))
-    if self.__di.dsbJunctionDeviation.objectName() in self.__changedParams: self.__grblCom.gcodePush("$11={}".format(self.__di.dsbJunctionDeviation.value()))
-    if self.__di.dsbArcTolerance.objectName() in self.__changedParams: self.__grblCom.gcodePush("$12={}".format(self.__di.dsbArcTolerance.value()))
+    if self.__di.lneStatusReport in self.__changedParams:
+      self.sig_config_changed.emit("$10={}".format(self.__di.lneStatusReport.text()))
+      self.__grblCom.gcodePush("$10={}".format(self.__di.lneStatusReport.text()))
+    if self.__di.dsbJunctionDeviation.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$11={}".format(self.__di.dsbJunctionDeviation.value()))
+      self.__grblCom.gcodePush("$11={}".format(self.__di.dsbJunctionDeviation.value()))
+    if self.__di.dsbArcTolerance.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$12={}".format(self.__di.dsbArcTolerance.value()))
+      self.__grblCom.gcodePush("$12={}".format(self.__di.dsbArcTolerance.value()))
     if self.__di.chkReportInches.objectName() in self.__changedParams:
       if self.__di.chkReportInches.isChecked():
+        self.sig_config_changed.emit("$13=1")
         self.__grblCom.gcodePush("$13=1")
       else:
+        self.sig_config_changed.emit("$13=0")
         self.__grblCom.gcodePush("$13=0")
+
     # Onglet 4 Limites
     if self.__di.chkSoftLimits.objectName() in self.__changedParams:
       if self.__di.chkSoftLimits.isChecked():
+        self.sig_config_changed.emit("$20=1")
         self.__grblCom.gcodePush("$20=1")
       else:
+        self.sig_config_changed.emit("$20=0")
         self.__grblCom.gcodePush("$20=0")
     if self.__di.chkHardLimits.objectName() in self.__changedParams:
       if self.__di.chkHardLimits.isChecked():
+        self.sig_config_changed.emit("$21")
         self.__grblCom.gcodePush("$21")
       else:
+        self.sig_config_changed.emit("$21=0")
         self.__grblCom.gcodePush("$21=0")
     if self.__di.chkHomingCycle.objectName() in self.__changedParams:
       if self.__di.chkHomingCycle.isChecked():
+        self.sig_config_changed.emit("$22=1")
         self.__grblCom.gcodePush("$22=1")
       else:
+        self.sig_config_changed.emit("$22=0")
         self.__grblCom.gcodePush("$22=0")
-    if self.__di.emHomeDirInvert.objectName() in self.__changedParams: self.__grblCom.gcodePush("$23=".format(self.__di.emHomeDirInvert.value()))
-    if self.__di.dsbHomingFeed.objectName() in self.__changedParams: self.__grblCom.gcodePush("$24={}".format(self.__di.dsbHomingFeed.value()))
-    if self.__di.dsbHomingSeek.objectName() in self.__changedParams: self.__grblCom.gcodePush("$25={}".format(self.__di.dsbHomingSeek.value()))
-    if self.__di.spinHomingDebounce.objectName() in self.__changedParams: self.__grblCom.gcodePush("$26={}".format(self.__di.spinHomingDebounce.value()))
-    if self.__di.dsbHomingPullOff.objectName() in self.__changedParams: self.__grblCom.gcodePush("$27={}".format(self.__di.dsbHomingPullOff.value()))
+    if self.__di.emHomeDirInvert.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$23=".format(self.__di.emHomeDirInvert.value()))
+      self.__grblCom.gcodePush("$23=".format(self.__di.emHomeDirInvert.value()))
+    if self.__di.dsbHomingFeed.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$24={}".format(self.__di.dsbHomingFeed.value()))
+      self.__grblCom.gcodePush("$24={}".format(self.__di.dsbHomingFeed.value()))
+    if self.__di.dsbHomingSeek.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$25={}".format(self.__di.dsbHomingSeek.value()))
+      self.__grblCom.gcodePush("$25={}".format(self.__di.dsbHomingSeek.value()))
+    if self.__di.spinHomingDebounce.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$26={}".format(self.__di.spinHomingDebounce.value()))
+      self.__grblCom.gcodePush("$26={}".format(self.__di.spinHomingDebounce.value()))
+    if self.__di.dsbHomingPullOff.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$27={}".format(self.__di.dsbHomingPullOff.value()))
+      self.__grblCom.gcodePush("$27={}".format(self.__di.dsbHomingPullOff.value()))
+
     # Onglet 5 Broche
-    if self.__di.spinMaxSpindle.objectName() in self.__changedParams: self.__grblCom.gcodePush("$30={}".format(self.__di.spinMaxSpindle.value()))
-    if self.__di.spinMinSpindle.objectName() in self.__changedParams: self.__grblCom.gcodePush("$31={}".format(self.__di.spinMinSpindle.value()))
+    if self.__di.spinMaxSpindle.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$30={}".format(self.__di.spinMaxSpindle.value()))
+      self.__grblCom.gcodePush("$30={}".format(self.__di.spinMaxSpindle.value()))
+    if self.__di.spinMinSpindle.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$31={}".format(self.__di.spinMinSpindle.value()))
+      self.__grblCom.gcodePush("$31={}".format(self.__di.spinMinSpindle.value()))
     if self.__di.chkLaserMode.objectName() in self.__changedParams:
       if self.__di.chkHomingCycle.isChecked():
+        self.sig_config_changed.emit("$32=1")
         self.__grblCom.gcodePush("$32=1")
       else:
+        self.sig_config_changed.emit("$32=0")
         self.__grblCom.gcodePush("$32=0")
+
     # Onglet 6 Courses
-    if self.__di.dsbStepsX.objectName() in self.__changedParams: self.__grblCom.gcodePush("$100={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbStepsY.objectName() in self.__changedParams: self.__grblCom.gcodePush("$101={}".format(self.__di.dsbStepsY.value()))
-    if self.__di.dsbStepsZ.objectName() in self.__changedParams: self.__grblCom.gcodePush("$102={}".format(self.__di.dsbStepsZ.value()))
-    if self.__di.dsbStepsA.objectName() in self.__changedParams: self.__grblCom.gcodePush("$103={}".format(self.__di.dsbStepsA.value()))
-    if self.__di.dsbStepsB.objectName() in self.__changedParams: self.__grblCom.gcodePush("$104={}".format(self.__di.dsbStepsB.value()))
-    if self.__di.dsbStepsC.objectName() in self.__changedParams: self.__grblCom.gcodePush("$105={}".format(self.__di.dsbStepsC.value()))
-    if self.__di.dsbTravelX.objectName() in self.__changedParams: self.__grblCom.gcodePush("$130={}".format(self.__di.dsbTravelX.value()))
-    if self.__di.dsbTravelY.objectName() in self.__changedParams: self.__grblCom.gcodePush("$131={}".format(self.__di.dsbTravelY.value()))
-    if self.__di.dsbTravelZ.objectName() in self.__changedParams: self.__grblCom.gcodePush("$132={}".format(self.__di.dsbTravelZ.value()))
-    if self.__di.dsbTravelA.objectName() in self.__changedParams: self.__grblCom.gcodePush("$133={}".format(self.__di.dsbTravelA.value()))
-    if self.__di.dsbTravelB.objectName() in self.__changedParams: self.__grblCom.gcodePush("$134={}".format(self.__di.dsbTravelB.value()))
-    if self.__di.dsbTravelC.objectName() in self.__changedParams: self.__grblCom.gcodePush("$135={}".format(self.__di.dsbTravelC.value()))
+    if self.__di.dsbStepsX.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$100={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$100={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbStepsY.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$101={}".format(self.__di.dsbStepsY.value()))
+      self.__grblCom.gcodePush("$101={}".format(self.__di.dsbStepsY.value()))
+    if self.__di.dsbStepsZ.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$102={}".format(self.__di.dsbStepsZ.value()))
+      self.__grblCom.gcodePush("$102={}".format(self.__di.dsbStepsZ.value()))
+    if self.__di.dsbStepsA.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$103={}".format(self.__di.dsbStepsA.value()))
+      self.__grblCom.gcodePush("$103={}".format(self.__di.dsbStepsA.value()))
+    if self.__di.dsbStepsB.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$104={}".format(self.__di.dsbStepsB.value()))
+      self.__grblCom.gcodePush("$104={}".format(self.__di.dsbStepsB.value()))
+    if self.__di.dsbStepsC.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$105={}".format(self.__di.dsbStepsC.value()))
+      self.__grblCom.gcodePush("$105={}".format(self.__di.dsbStepsC.value()))
+    if self.__di.dsbTravelX.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$130={}".format(self.__di.dsbTravelX.value()))
+      self.__grblCom.gcodePush("$130={}".format(self.__di.dsbTravelX.value()))
+    if self.__di.dsbTravelY.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$131={}".format(self.__di.dsbTravelY.value()))
+      self.__grblCom.gcodePush("$131={}".format(self.__di.dsbTravelY.value()))
+    if self.__di.dsbTravelZ.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$132={}".format(self.__di.dsbTravelZ.value()))
+      self.__grblCom.gcodePush("$132={}".format(self.__di.dsbTravelZ.value()))
+    if self.__di.dsbTravelA.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$133={}".format(self.__di.dsbTravelA.value()))
+      self.__grblCom.gcodePush("$133={}".format(self.__di.dsbTravelA.value()))
+    if self.__di.dsbTravelB.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$134={}".format(self.__di.dsbTravelB.value()))
+      self.__grblCom.gcodePush("$134={}".format(self.__di.dsbTravelB.value()))
+    if self.__di.dsbTravelC.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$135={}".format(self.__di.dsbTravelC.value()))
+      self.__grblCom.gcodePush("$135={}".format(self.__di.dsbTravelC.value()))
+
     # Onglet 7 Vitesses
-    if self.__di.dsbMaxRateX.objectName() in self.__changedParams: self.__grblCom.gcodePush("$110={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbMaxRateY.objectName() in self.__changedParams: self.__grblCom.gcodePush("$111={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbMaxRateZ.objectName() in self.__changedParams: self.__grblCom.gcodePush("$112={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbMaxRateA.objectName() in self.__changedParams: self.__grblCom.gcodePush("$113={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbMaxRateB.objectName() in self.__changedParams: self.__grblCom.gcodePush("$114={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbMaxRateC.objectName() in self.__changedParams: self.__grblCom.gcodePush("$115={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelX.objectName() in self.__changedParams: self.__grblCom.gcodePush("$120={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelY.objectName() in self.__changedParams: self.__grblCom.gcodePush("$121={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelZ.objectName() in self.__changedParams: self.__grblCom.gcodePush("$122={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelA.objectName() in self.__changedParams: self.__grblCom.gcodePush("$123={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelB.objectName() in self.__changedParams: self.__grblCom.gcodePush("$124={}".format(self.__di.dsbStepsX.value()))
-    if self.__di.dsbAccelC.objectName() in self.__changedParams: self.__grblCom.gcodePush("$125={}".format(self.__di.dsbStepsX.value()))
-    self.__dlgConfig.done(QDialog.Accepted)
+    if self.__di.dsbMaxRateX.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$110={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$110={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbMaxRateY.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$111={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$111={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbMaxRateZ.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$112={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$112={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbMaxRateA.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$113={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$113={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbMaxRateB.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$114={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$114={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbMaxRateC.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$115={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$115={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelX.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$120={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$120={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelY.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$121={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$121={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelZ.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$122={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$122={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelA.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$123={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$123={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelB.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$124={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$124={}".format(self.__di.dsbStepsX.value()))
+    if self.__di.dsbAccelC.objectName() in self.__changedParams:
+      self.sig_config_changed.emit("$125={}".format(self.__di.dsbStepsX.value()))
+      self.__grblCom.gcodePush("$125={}".format(self.__di.dsbStepsX.value()))
+
+    #self.__dlgConfig.done(QDialog.Accepted)
 
 
   @pyqtSlot()
