@@ -24,7 +24,7 @@
 import sys, os, time #, datetime
 import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QAbstractItemView
 from PyQt5.QtSerialPort import QSerialPortInfo
@@ -52,6 +52,9 @@ class winMain(QtWidgets.QMainWindow):
     parser.add_argument("-u", "--noUrgentStop", action="store_true", help="Désactive l'arrêt d'urgence")
     parser.add_argument("-f", "--file", help="Charge le fichier GCode")
     self.__args = parser.parse_args()
+
+    f=QFileInfo(__file__)
+    self.__licenceFile = "{}/COPYING".format(QFileInfo.absolutePath(f))
 
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
@@ -851,7 +854,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuA_propos(self):
     ''' Appel de la boite de dialogue A Propos
     '''
-    dlgApropos = cn5XAPropos(APP_VERSION_STRING)
+    dlgApropos = cn5XAPropos(APP_VERSION_STRING, self.__licenceFile)
     dlgApropos.setParent(self)
     dlgApropos.showDialog()
 

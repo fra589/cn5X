@@ -34,13 +34,15 @@ class cn5XAPropos(QObject):
   ''' Classe assurant la gestion de la boite de dialogue A Propos '''
 
 
-  def __init__(self, versionString: str):
+  def __init__(self, versionString: str, licenceFile: str):
     super().__init__()
     self.__dlgApropos = QDialog()
     self.__di = Ui_dlgApropos()
     self.__di.setupUi(self.__dlgApropos)
     self.__di.lblVersion.setText(versionString)
 
+    text=open(licenceFile).read()
+    self.__di.qptLicence.setPlainText(text)
 
   def showDialog(self):
     # Centrage de la boite de dialogue sur la fenêtre principale
