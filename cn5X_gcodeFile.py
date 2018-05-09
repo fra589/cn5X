@@ -63,12 +63,12 @@ class gcodeFile(QObject):
     return fileName
 
   def readFile(self, filePath: str):
-    self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}".format(filePath)))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}").format(filePath))
     try:
       f = open(filePath,'r')
       lignes  = f.readlines()
       f.close()
-      self.sig_log.emit(logSeverity.info.value, self.tr("{} lignes dans le fichier".format(len(lignes))))
+      self.sig_log.emit(logSeverity.info.value, self.tr("{} lignes dans le fichier").format(len(lignes)))
       # Envoi du contenu dans la liste
       self.__gcodeFileUiModel.clear()
       for l in lignes:
@@ -79,7 +79,7 @@ class gcodeFile(QObject):
       self.selectGCodeFileLine(0)
       # Selectionne l'onglet du fichier
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur lecture du fichier : {}".format(filePath)))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur lecture du fichier : {}").format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
       self.__gcodeFileUiModel.clear()
       self.__filePath     = ""
@@ -116,7 +116,7 @@ class gcodeFile(QObject):
   def saveAs(self):
     fileName = self.showFileSave()
     if fileName[0] != "":
-      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})".format(fileName[0])))
+      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})").format(fileName[0]))
       self.saveFile(fileName[0])
     else:
       self.sig_log.emit(logSeverity.info.value, self.tr("saveAs() annule !"))
@@ -137,7 +137,7 @@ class gcodeFile(QObject):
         return
       else:
         filePath = self.__filePath
-    self.sig_log.emit(logSeverity.info.value, self.tr("Enregistrement du fichier : {}".format(filePath)))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Enregistrement du fichier : {}").format(filePath))
     try:
       f = open(filePath, 'w')
       for I in range(self.__gcodeFileUiModel.rowCount()):
@@ -147,7 +147,7 @@ class gcodeFile(QObject):
       f.close()
       self.__filePath = filePath
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur Enregistrement du fichier : {}".format(filePath)))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur Enregistrement du fichier : {}").format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
     # Supprime les lignes vides dans la grille d'affichage
     self.delEmptyRow()

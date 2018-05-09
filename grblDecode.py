@@ -79,7 +79,7 @@ class grblDecode(QObject):
   def decodeGrblStatus(self, grblOutput):
 
     if grblOutput[0] != "<" or grblOutput[-1] != ">":
-      return self.tr("decodeGrblStatus : erreur ! \n[{}] Status incorrect.".format(grblOutput))
+      return self.tr("decodeGrblStatus : erreur ! \n[{}] Status incorrect.").format(grblOutput)
 
     # Affiche la chaine complette dans la barrs de status self.__statusText
     self.ui.statusBar.showMessage("{} + {}".format(self.__grblCom.grblVersion(), grblOutput))
@@ -240,14 +240,14 @@ class grblDecode(QObject):
 
     elif grblOutput[:6] == "error:":
       errNum = int(float(grblOutput[6:]))
-      return self.tr("Erreur grbl N° {} : {},\n{}".format(str(errNum), grblError[errNum][1], grblError[errNum][2]))
+      return self.tr("Erreur grbl N° {} : {},\n{}").format(str(errNum), grblError[errNum][1], grblError[errNum][2])
 
     elif grblOutput[:6] == "ALARM:":
       alarmNum = int(float(grblOutput[6:]))
-      return self.tr("Alarme grbl N° {} : {},\n{}".format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2]))
+      return self.tr("Alarme grbl N° {} : {},\n{}").format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
 
     else:
-      return self.tr("Reponse Grbl inconnue : [{}]".format(grblOutput))
+      return self.tr("Reponse Grbl inconnue : [{}]").format(grblOutput)
 
 
   def errorMessage(self, errNum: int):
@@ -425,15 +425,15 @@ class grblDecode(QObject):
               self.__etatArrosage = "M9"
           elif S[:1] == "T":
             self.ui.lblOutil.setText(S)
-            self.ui.lblOutil.setToolTip(self.tr(" Outil numero {}".format(S[1:])))
+            self.ui.lblOutil.setToolTip(self.tr(" Outil numero {}").format(S[1:]))
           elif S[:1] == "S":
             self.ui.lblRotation.setText(S)
-            self.ui.lblRotation.setToolTip(self.tr(" Vitesse de broche = {} tours/mn".format(S[1:])))
+            self.ui.lblRotation.setToolTip(self.tr(" Vitesse de broche = {} tours/mn").format(S[1:]))
           elif S[:1] == "F":
             self.ui.lblAvance.setText(S)
-            self.ui.lblAvance.setToolTip(self.tr(" Vitesse d'avance = ".format(S[1:])))
+            self.ui.lblAvance.setToolTip(self.tr(" Vitesse d'avance = ").format(S[1:]))
           else:
-            return(self.tr("Status G-code Parser non reconnu dans {} : {}".format(grblOutput, S)))
+            return(self.tr("Status G-code Parser non reconnu dans {} : {}").format(grblOutput, S))
 
         #return(str(tblGcodeParser))
       else:
@@ -441,7 +441,7 @@ class grblDecode(QObject):
         return grblOutput
     else:
       # Autre reponse ?
-      if grblOutput != "": self.log(logSeverity.info.value, self.tr("Reponse Grbl non decodee : [{}]".format(grblOutput)))
+      if grblOutput != "": self.log(logSeverity.info.value, self.tr("Reponse Grbl non decodee : [{}]").format(grblOutput))
       return grblOutput
 
 

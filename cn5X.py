@@ -257,7 +257,7 @@ class winMain(QtWidgets.QMainWindow):
       m = msgBox(
                   title  = self.tr("Attention !"),
                   text   = self.tr("Aucun port de communication disponible !"),
-                  info   = self.tr("{} n'a pas trouve de port serie permettant de communiquer avec grbl.".format(sys.argv[0])),
+                  info   = self.tr("{} n'a pas trouve de port serie permettant de communiquer avec grbl.").format(sys.argv[0]),
                   icon   = msgIconList.Information,
                   detail = self.tr("\nclass serialCom:\nL'appel de \"serial.tools.list_ports.comports()\" n'a renvoye aucun port."),
                   stdButton = msgButtonList.Close
@@ -444,7 +444,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_config_changed(self, data: str):
-    self.log(logSeverity.info.value, self.tr("Configuration de Grbl changee : {}".format(data)))
+    self.log(logSeverity.info.value, self.tr("Configuration de Grbl changee : {}").format(data))
 
   @pyqtSlot()
   def on_arretUrgence(self):
@@ -494,7 +494,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__connectionStatus = self.__grblCom.isOpen()
     if self.__connectionStatus:
       # Mise a jour de l'interface
-      self.ui.lblConnectStatus.setText(self.tr("Connecte a {}".format(self.ui.cmbPort.currentText().split("-")[0].strip())))
+      self.ui.lblConnectStatus.setText(self.tr("Connecte a {}").format(self.ui.cmbPort.currentText().split("-")[0].strip()))
       self.ui.btnConnect.setText(self.tr("Deconnecter")) # La prochaine action du bouton sera pour deconnecter
       self.setEnableDisableConnectControls()
       # Active les groupes de controles de pilotage de Grbl
@@ -854,7 +854,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuA_propos(self):
     ''' Appel de la boite de dialogue A Propos
     '''
-    dlgApropos = cn5XAPropos(self.tr("Version {}".format(APP_VERSION_STRING)), self.__licenceFile)
+    dlgApropos = cn5XAPropos(self.tr("Version {}").format(APP_VERSION_STRING), self.__licenceFile)
     dlgApropos.setParent(self)
     dlgApropos.showDialog()
 
@@ -1011,7 +1011,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction(self.tr("Reinitialiser l'axe {} a zero".format(self.__axisNames[axis])), self)
+    resetX = QtWidgets.QAction(self.tr("Reinitialiser l'axe {} a zero").format(self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
     resetAll = QtWidgets.QAction(self.tr("Reinitialiser tous les axes a zero"), self)
@@ -1021,7 +1021,7 @@ class winMain(QtWidgets.QMainWindow):
     resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction(self.tr("Retour de {} a la position zero".format(self.__axisNames[axis])), self)
+    resetX = QtWidgets.QAction(self.tr("Retour de {} a la position zero").format(self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G90 G0 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
     resetAll = QtWidgets.QAction(self.tr("Retour de tous les axes en position zero"), self)

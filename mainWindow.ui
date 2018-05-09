@@ -52,7 +52,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>cn5X++</string>
+   <string notr="true">cn5X++</string>
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
@@ -228,7 +228,7 @@ deverouiller l'arret d'urgence</string>
                   <string>Cycle d'origine machine</string>
                  </property>
                  <property name="text">
-                  <string>Home cycle</string>
+                  <string notr="true">Home cycle</string>
                  </property>
                 </widget>
                </item>
@@ -238,7 +238,7 @@ deverouiller l'arret d'urgence</string>
                   <string>Supprimer le verrou d'alarme Grbl</string>
                  </property>
                  <property name="text">
-                  <string>Unlock Alarm</string>
+                  <string notr="true">Unlock Alarm</string>
                  </property>
                  <property name="icon">
                   <iconset resource="cn5X.qrc">
@@ -255,7 +255,7 @@ deverouiller l'arret d'urgence</string>
                <item>
                 <widget class="QPushButton" name="btnReset">
                  <property name="text">
-                  <string>Soft Reset (^X)</string>
+                  <string notr="true">Soft Reset (^X)</string>
                  </property>
                 </widget>
                </item>
@@ -435,7 +435,7 @@ deverouiller l'arret d'urgence</string>
                      <item>
                       <widget class="QLabel" name="lblAvancePourcent">
                        <property name="text">
-                        <string>100%</string>
+                        <string notr="true">100%</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -516,7 +516,7 @@ deverouiller l'arret d'urgence</string>
                      <item>
                       <widget class="QLabel" name="lblBrochePourcent">
                        <property name="text">
-                        <string>100%</string>
+                        <string notr="true">100%</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -592,7 +592,7 @@ deverouiller l'arret d'urgence</string>
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="text">
-                  <string>25%</string>
+                  <string notr="true">25%</string>
                  </property>
                 </widget>
                </item>
@@ -602,7 +602,7 @@ deverouiller l'arret d'urgence</string>
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="text">
-                  <string>50%</string>
+                  <string notr="true">50%</string>
                  </property>
                 </widget>
                </item>
@@ -612,7 +612,7 @@ deverouiller l'arret d'urgence</string>
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="text">
-                  <string>100%</string>
+                  <string notr="true">100%</string>
                  </property>
                  <property name="checked">
                   <bool>true</bool>
@@ -652,7 +652,7 @@ deverouiller l'arret d'urgence</string>
           </size>
          </property>
          <property name="title">
-          <string>Jogging</string>
+          <string notr="true">Jogging</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_13">
           <property name="spacing">
@@ -1149,7 +1149,7 @@ deverouiller l'arret d'urgence</string>
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>Jog Increment</string>
+               <string notr="true">Jog Increment</string>
               </property>
              </widget>
             </item>
@@ -1165,7 +1165,7 @@ deverouiller l'arret d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+10.00</string>
+               <string notr="true">+10.00</string>
               </property>
              </widget>
             </item>
@@ -1181,7 +1181,7 @@ deverouiller l'arret d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+ 1.00</string>
+               <string notr="true">+ 1.00</string>
               </property>
              </widget>
             </item>
@@ -1197,7 +1197,7 @@ deverouiller l'arret d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+ 0.10</string>
+               <string notr="true">+ 0.10</string>
               </property>
              </widget>
             </item>
@@ -1213,7 +1213,7 @@ deverouiller l'arret d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+ 0.05</string>
+               <string notr="true">+ 0.05</string>
               </property>
              </widget>
             </item>
@@ -1229,7 +1229,7 @@ deverouiller l'arret d'urgence</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
-               <string>+ 0.00</string>
+               <string notr="true">+ 0.00</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -1252,7 +1252,7 @@ deverouiller l'arret d'urgence</string>
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>Jog mm/mn</string>
+               <string notr="true">Jog mm/mn</string>
               </property>
              </widget>
             </item>
@@ -1372,7 +1372,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="toolTip">
-               <string>Refresh list</string>
+               <string notr="true">Rafraichir la liste</string>
               </property>
               <property name="text">
                <string/>
@@ -1525,7 +1525,7 @@ deverouiller l'arret d'urgence</string>
              <number>1</number>
             </property>
             <property name="text">
-             <string>X</string>
+             <string notr="true">X</string>
             </property>
            </widget>
           </item>
@@ -1567,7 +1567,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedY">
             <property name="text">
-             <string>Y</string>
+             <string notr="true">Y</string>
             </property>
            </widget>
           </item>
@@ -1609,7 +1609,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedZ">
             <property name="text">
-             <string>Z</string>
+             <string notr="true">Z</string>
             </property>
            </widget>
           </item>
@@ -1651,7 +1651,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedA">
             <property name="text">
-             <string>A</string>
+             <string notr="true">A</string>
             </property>
            </widget>
           </item>
@@ -1696,7 +1696,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedB">
             <property name="text">
-             <string>B</string>
+             <string notr="true">B</string>
             </property>
            </widget>
           </item>
@@ -1738,7 +1738,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedC">
             <property name="text">
-             <string>C</string>
+             <string notr="true">C</string>
             </property>
            </widget>
           </item>
@@ -1780,7 +1780,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedP">
             <property name="text">
-             <string>P</string>
+             <string notr="true">P</string>
             </property>
            </widget>
           </item>
@@ -1793,7 +1793,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Probe</string>
+             <string notr="true">Probe</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1822,7 +1822,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedD">
             <property name="text">
-             <string>D</string>
+             <string notr="true">D</string>
             </property>
            </widget>
           </item>
@@ -1835,7 +1835,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Door</string>
+             <string notr="true">Door</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1864,7 +1864,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedH">
             <property name="text">
-             <string>H</string>
+             <string notr="true">H</string>
             </property>
            </widget>
           </item>
@@ -1877,7 +1877,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Hold</string>
+             <string notr="true">Hold</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1906,7 +1906,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedR">
             <property name="text">
-             <string>R</string>
+             <string notr="true">R</string>
             </property>
            </widget>
           </item>
@@ -1919,7 +1919,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>soft Reset</string>
+             <string notr="true">soft Reset</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1948,7 +1948,7 @@ deverouiller l'arret d'urgence</string>
           <item>
            <widget class="QLabel" name="lblLedS">
             <property name="text">
-             <string>S</string>
+             <string notr="true">S</string>
             </property>
            </widget>
           </item>
@@ -1961,7 +1961,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>cycle Start</string>
+             <string notr="true">cycle Start</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -2107,7 +2107,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>X</string>
+                  <string notr="true">X</string>
                  </property>
                 </widget>
                </item>
@@ -2129,7 +2129,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2154,7 +2154,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>Y</string>
+                  <string notr="true">Y</string>
                  </property>
                 </widget>
                </item>
@@ -2176,7 +2176,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2201,7 +2201,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>Z</string>
+                  <string notr="true">Z</string>
                  </property>
                 </widget>
                </item>
@@ -2223,7 +2223,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2248,7 +2248,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>A</string>
+                  <string notr="true">A</string>
                  </property>
                 </widget>
                </item>
@@ -2270,7 +2270,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2295,7 +2295,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>B</string>
+                  <string notr="true">B</string>
                  </property>
                 </widget>
                </item>
@@ -2317,7 +2317,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2342,7 +2342,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>C</string>
+                  <string notr="true">C</string>
                  </property>
                 </widget>
                </item>
@@ -2364,7 +2364,7 @@ color: rgb(0, 0, 63);</string>
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
                  <property name="text">
-                  <string>+00000.000</string>
+                  <string notr="true">+00000.000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2436,7 +2436,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>Idle</string>
+                  <string notr="true">Idle</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2484,7 +2484,7 @@ QToolType {
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>G17</string>
+                  <string notr="true">G17</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2525,7 +2525,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>M5</string>
+                  <string notr="true">M5</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2569,7 +2569,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>G21</string>
+                  <string notr="true">G21</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2610,7 +2610,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>M9</string>
+                  <string notr="true">M9</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2654,7 +2654,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>G90</string>
+                  <string notr="true">G90</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2695,7 +2695,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>T0</string>
+                  <string notr="true">T0</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2736,7 +2736,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>G0</string>
+                  <string notr="true">G0</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2777,7 +2777,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>S00000</string>
+                  <string notr="true">S00000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2818,7 +2818,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>G94</string>
+                  <string notr="true">G94</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2859,7 +2859,7 @@ color: rgb(248, 255, 192);</string>
                   <enum>QFrame::Plain</enum>
                  </property>
                  <property name="text">
-                  <string>F00000</string>
+                  <string notr="true">F00000</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -2965,10 +2965,10 @@ color: rgb(0, 0, 63);</string>
                 <item>
                  <widget class="QLabel" name="lblOffsetWco">
                   <property name="toolTip">
-                   <string>Working Coordinate Offset</string>
+                   <string notr="true">Working Coordinate Offset</string>
                   </property>
                   <property name="text">
-                   <string>WCO :</string>
+                   <string notr="true">WCO :</string>
                   </property>
                  </widget>
                 </item>
@@ -3037,7 +3037,7 @@ color: rgb(248, 255, 192);</string>
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>G54</string>
+                     <string notr="true">G54</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3073,7 +3073,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>G55</string>
+                     <string notr="true">G55</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3109,7 +3109,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>G56</string>
+                     <string notr="true">G56</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3145,7 +3145,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>G57</string>
+                     <string notr="true">G57</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3184,7 +3184,7 @@ color: rgb(0, 0, 63);
                      <number>1</number>
                     </property>
                     <property name="text">
-                     <string>G58</string>
+                     <string notr="true">G58</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3220,7 +3220,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>G59</string>
+                     <string notr="true">G59</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -3258,7 +3258,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3286,7 +3286,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3314,7 +3314,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3342,7 +3342,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3370,7 +3370,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3398,7 +3398,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3436,7 +3436,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3464,7 +3464,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3492,7 +3492,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3520,7 +3520,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3548,7 +3548,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3576,7 +3576,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3614,7 +3614,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3642,7 +3642,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3670,7 +3670,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3698,7 +3698,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3726,7 +3726,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3754,7 +3754,7 @@ color: rgb(0, 0, 63);
                      <enum>QFrame::Sunken</enum>
                     </property>
                     <property name="text">
-                     <string>+0.000</string>
+                     <string notr="true">+0.000</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4182,7 +4182,7 @@ color: rgb(0, 0, 63);
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
-           <string>Grbl output</string>
+           <string>Communication Grbl</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <property name="leftMargin">
@@ -4296,7 +4296,7 @@ color: rgb(0, 0, 63);
          </widget>
          <widget class="QWidget" name="tabConsole">
           <attribute name="title">
-           <string>Console output</string>
+           <string>Messages cn5X</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <property name="spacing">
@@ -4456,7 +4456,7 @@ color: rgb(0, 0, 63);
           <item>
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>GCode :</string>
+             <string notr="true">GCode :</string>
             </property>
            </widget>
           </item>
@@ -4599,7 +4599,7 @@ color: rgb(0, 0, 63);
   </action>
   <action name="mnuA_propos">
    <property name="text">
-    <string>A propos de cn5X++</string>
+    <string>A propos de cn5X++...</string>
    </property>
   </action>
  </widget>

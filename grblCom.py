@@ -161,21 +161,21 @@ class grblCom(QObject):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodeInsert.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
 
 
   def gcodePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
 
 
   def realTimePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_realTimePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
 
 
   def clearCom(self):

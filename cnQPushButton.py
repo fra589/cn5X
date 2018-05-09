@@ -70,7 +70,7 @@ class cnQPushButton(QtWidgets.QPushButton):
         else:
           self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
       else:
-        print(self.tr("Resource image du bouton ({}) non trouvee".format(pictureBaseName + ".svg")))
+        print(self.tr("Resource image du bouton ({}) non trouvee").format(pictureBaseName + ".svg"))
       self.__imagesOk = True
 
     if event.type() == QtCore.QEvent.EnabledChange:

@@ -51,6 +51,7 @@ class Ui_dlgApropos(object):
     self.verticalLayout_3.setSpacing(4)
     self.verticalLayout_3.setObjectName("verticalLayout_3")
     self.label_2 = QtWidgets.QLabel(self.tab)
+    self.label_2.setText("<h1>cn5X++</h1>")
     self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
     self.label_2.setObjectName("label_2")
     self.verticalLayout_3.addWidget(self.label_2)
@@ -67,6 +68,7 @@ class Ui_dlgApropos(object):
     spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
     self.verticalLayout_3.addItem(spacerItem2)
     self.label_5 = QtWidgets.QLabel(self.tab)
+    self.label_5.setText("Copyright (C) Gauthier Brière - 2018")
     self.label_5.setAlignment(QtCore.Qt.AlignCenter)
     self.label_5.setObjectName("label_5")
     self.verticalLayout_3.addWidget(self.label_5)
@@ -90,6 +92,10 @@ class Ui_dlgApropos(object):
     self.horizontalLayout_2.addItem(spacerItem4)
     self.verticalLayout_3.addWidget(self.frame1)
     self.label_4 = QtWidgets.QLabel(self.tab)
+    self.label_4.setText("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
+"You should have received a copy of the GNU General Public License along with this program.\n"
+"If not, see <http://www.gnu.org/licenses/>.")
     self.label_4.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
     self.label_4.setWordWrap(True)
     self.label_4.setObjectName("label_4")
@@ -110,7 +116,7 @@ class Ui_dlgApropos(object):
     self.qptLicence.setPlainText("")
     self.qptLicence.setObjectName("qptLicence")
     self.horizontalLayout_4.addWidget(self.qptLicence)
-    self.tabWidget.addTab(self.tab_2, "")
+    self.tabWidget.addTab(self.tab_2, "Licence")
     self.verticalLayout_4.addWidget(self.tabWidget)
     self.horizontalLayout = QtWidgets.QHBoxLayout()
     self.horizontalLayout.setSpacing(0)
@@ -133,16 +139,9 @@ class Ui_dlgApropos(object):
   def retranslateUi(self, dlgApropos):
     _translate = QtCore.QCoreApplication.translate
     dlgApropos.setWindowTitle(_translate("dlgApropos", "A propos de cn5X++"))
-    self.label_2.setText(_translate("dlgApropos", "<h1>cn5X++</h1>"))
     self.lblVersion.setText(_translate("dlgApropos", "Version 0.0"))
     self.label_3.setText(_translate("dlgApropos", "CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.\n"
 "Cette application a pour but d\'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X."))
-    self.label_5.setText(_translate("dlgApropos", "Copyright (C) Gauthier Brière - 2018"))
-    self.label_4.setText(_translate("dlgApropos", "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
-"You should have received a copy of the GNU General Public License along with this program.\n"
-"If not, see <http://www.gnu.org/licenses/>."))
     self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("dlgApropos", "Infos"))
-    self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("dlgApropos", "Licence"))
 
 import cn5X_rc

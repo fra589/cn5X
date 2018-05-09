@@ -141,7 +141,7 @@ class grblComSerial(QObject):
       ### remonte en amon dans la boucle principale self.sig_emit.emit(buff)
       pass
     else:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}".format(self.__comPort.error())))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}").format(self.__comPort.error()))
 
 
   def __traileLaLigne(self, l, flag = COM_FLAG_NO_FLAG):
@@ -193,21 +193,21 @@ class grblComSerial(QObject):
     try:
       RC = self.__comPort.open(QIODevice.ReadWrite)
     except OSError as err:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur ouverture du port : {0}".format(err)))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
       self.sig_connect.emit(False)
       return False
     except:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected error : {}".format(sys.exc_info()[0])))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected error : {}").format(sys.exc_info()[0]))
       self.sig_connect.emit(False)
       return False
     if not RC:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur a l'ouverture du port serie : err# = {0}".format(self.__comPort.error())))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur a l'ouverture du port serie : err# = {0}").format(self.__comPort.error()))
       self.sig_connect.emit(False)
       return False
 
     # Ouverture du port OK
     self.sig_connect.emit(True)
-    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : comPort {} ouvert, RC = {}".format(self.__comPort.portName(), RC)))
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : comPort {} ouvert, RC = {}").format(self.__comPort.portName(), RC))
 
     # Attente initialisatoin Grbl
     tDebut = time.time() * 1000
@@ -221,7 +221,7 @@ class grblComSerial(QObject):
             newData = buff.data().decode()
             serialData += newData
           except:
-            self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur decodage : {}".format(sys.exc_info()[0])))
+            self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur decodage : {}").format(sys.exc_info()[0]))
         now = time.time() * 1000
         if now > tDebut + openMaxTime:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
@@ -270,7 +270,7 @@ class grblComSerial(QObject):
             newData = buff.data().decode()
             serialData += newData
           except:
-            self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur decodage : {}".format(sys.exc_info()[0])))
+            self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur decodage : {}").format(sys.exc_info()[0]))
           if serialData != "" and serialData[-1] == '\n':
             dataAvailable = True
             break # La derniere ligne recue est complette
@@ -318,7 +318,7 @@ class grblComSerial(QObject):
 
     thread_name = QThread.currentThread().objectName()
     thread_id = int(QThread.currentThreadId())  # cast to int() is necessary
-    self.sig_log.emit(logSeverity.info.value, self.tr('grblComSerial running "{}" from thread #{}.'.format(thread_name, hex(thread_id))))
+    self.sig_log.emit(logSeverity.info.value, self.tr('grblComSerial running "{}" from thread #{}.').format(thread_name, hex(thread_id)))
 
     if self.__openComPort():
       self.__mainLoop()

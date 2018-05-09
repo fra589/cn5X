@@ -142,7 +142,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>&lt;h1&gt;cn5X++&lt;/h1&gt;</string>
+            <string notr="true">&lt;h1&gt;cn5X++&lt;/h1&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -199,7 +199,7 @@ Cette application a pour but d'implementer toutes les fonctionalites du micropro
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Copyright (C) Gauthier Brière - 2018</string>
+            <string notr="true">Copyright (C) Gauthier Brière - 2018</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -278,7 +278,7 @@ Cette application a pour but d'implementer toutes les fonctionalites du micropro
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+            <string notr="true">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.
 If not, see &lt;http://www.gnu.org/licenses/&gt;.</string>
@@ -310,7 +310,7 @@ If not, see &lt;http://www.gnu.org/licenses/&gt;.</string>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Licence</string>
+       <string notr="true">Licence</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <property name="spacing">

@@ -462,7 +462,7 @@ class grblConfig(QObject):
   @pyqtSlot()
   def on_Apply(self):
     """ Applique les elements modifies """
-    self.sig_config_changed.emit(self.tr("Sauvegarde des parametres modifies : {}".format(self.__changedParams)))
+    self.sig_config_changed.emit(self.tr("Sauvegarde des parametres modifies : {}").format(self.__changedParams))
 
     # Onglet 1 Initialisation
     if self.__di.lneEEPROM.objectName() in self.__changedParams:
