@@ -42,7 +42,7 @@ class grblJog():
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent, float)
   def on_jog(self, cnButton, e, jogDistance):
 
-    axis = cnButton.name()[-1]           # L'axe est définit par le dernier caractère du nom du Bouton
+    axis = cnButton.name()[-1]           # L'axe est definit par le dernier caractere du nom du Bouton
     if cnButton.name()[-5:-1] == "Plus": #
       if jogDistance == 0:
         value = 0.0125
@@ -55,7 +55,7 @@ class grblJog():
         value = -jogDistance
 
     if jogDistance == 0:
-      # On envoie des petits mouvements equivalent à 1 pas moteur tant que le bouton est enfoncé
+      # On envoie des petits mouvements equivalent a 1 pas moteur tant que le bouton est enfonce
       jogDelay = JOG_REPEAT_DELAY
       while cnButton.isMouseDown():
         self.doJog(axis, value)
@@ -69,7 +69,7 @@ class grblJog():
 
 
   def doJog(self, axis: str, value: float):
-    ''' Déplacement relatif (G91) de "value" mm (G21) sur axe axis '''
+    ''' Deplacement relatif (G91) de "value" mm (G21) sur axe axis '''
     if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
       cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(self.__jogSpeed, axis, value)
       self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)

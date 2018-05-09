@@ -26,7 +26,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class cnQPushButton(QtWidgets.QPushButton):
   '''
-  QPushButton avec gestion d'images en fonction de l'état
+  QPushButton avec gestion d'images en fonction de l'etat
   '''
 
   keyPressed       = QtCore.pyqtSignal(QtGui.QKeyEvent)
@@ -51,9 +51,9 @@ class cnQPushButton(QtWidgets.QPushButton):
 
   def eventFilter(self, object, event):
     '''
-    On utilise eventFilter() pour "trapper" un évennement unique au plus tôt après la création
-    du contrôle car le nom n'est pas définit lors de l'appel d'__init() et je n'ai pas réussi
-    à récupérer le signal objectNameChanged.
+    On utilise eventFilter() pour "trapper" un evennement unique au plus tot apres la creation
+    du controle car le nom n'est pas definit lors de l'appel d'__init() et je n'ai pas reussi
+    a recuperer le signal objectNameChanged.
     '''
     if event.type() == QtCore.QEvent.DynamicPropertyChange:
       self.__myName = object.objectName()
@@ -70,7 +70,7 @@ class cnQPushButton(QtWidgets.QPushButton):
         else:
           self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
       else:
-        print("Resource image du bouton ({}) non trouvée".format(pictureBaseName + ".svg"))
+        print(self.tr("Resource image du bouton ({}) non trouvee".format(pictureBaseName + ".svg")))
       self.__imagesOk = True
 
     if event.type() == QtCore.QEvent.EnabledChange:

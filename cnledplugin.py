@@ -35,12 +35,12 @@ NOMWIDGET = "cnLed"
 # groupe (str) de widgets pour affichage dans Designer
 GROUPEWIDGET = "cn5X++ widgets"
 # texte (str) pour le toolTip dans Designer
-TEXTETOOLTIP = "Affichage d'une led éteinte ou allumée"
+TEXTETOOLTIP = "Affichage d'une led eteinte ou allumee"
 # texte (str) pour le whatsThis dans Designer
-TEXTEWHATSTHIS = "Affichage d'une led éteinte ou allumée"
+TEXTEWHATSTHIS = "Affichage d'une led eteinte ou allumee"
 # icone (rien ou un fichier image ou un QPixmap) pour afficher dans Designer
 ICONEWIDGET = QtGui.QIcon()  # sans image, l'icone est celui de Qt
-# liens symboliques à faire dans /usr/lib/x86_64-linux-gnu/qt5/plugins/designer
+# liens symboliques a faire dans /usr/lib/x86_64-linux-gnu/qt5/plugins/designer
 # ===========================================================================
 
 # importation de la classe du widget

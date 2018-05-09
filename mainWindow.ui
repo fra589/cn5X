@@ -156,7 +156,7 @@
               </property>
               <property name="toolTip">
                <string>Double clic pour
-dévérouiller l'arrêt d'urgence</string>
+deverouiller l'arret d'urgence</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-radius: 25;</string>
@@ -451,7 +451,7 @@ dévérouiller l'arrêt d'urgence</string>
                         </size>
                        </property>
                        <property name="toolTip">
-                        <string>Réinitialiser la vitesse d'avance</string>
+                        <string>Reinitialiser la vitesse d'avance</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -532,7 +532,7 @@ dévérouiller l'arrêt d'urgence</string>
                         </size>
                        </property>
                        <property name="toolTip">
-                        <string>Réinitialiser la vitesse de broche</string>
+                        <string>Reinitialiser la vitesse de broche</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1435,7 +1435,7 @@ dévérouiller l'arrêt d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>&lt;Non Connecté&gt;</string>
+               <string>&lt;Non Connecte&gt;</string>
               </property>
              </widget>
             </item>
@@ -1454,7 +1454,7 @@ dévérouiller l'arrêt d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>(Dé)Connecter</string>
+               <string>(De)Connecter</string>
               </property>
              </widget>
             </item>
@@ -2535,7 +2535,7 @@ color: rgb(248, 255, 192);</string>
                <item row="2" column="0">
                 <widget class="QLabel" name="label_14">
                  <property name="text">
-                  <string>Unités :</string>
+                  <string>Unites :</string>
                  </property>
                 </widget>
                </item>
@@ -2620,7 +2620,7 @@ color: rgb(248, 255, 192);</string>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_15">
                  <property name="text">
-                  <string>Coordonnées :</string>
+                  <string>Coordonnees :</string>
                  </property>
                 </widget>
                </item>
@@ -2705,7 +2705,7 @@ color: rgb(248, 255, 192);</string>
                <item row="4" column="0">
                 <widget class="QLabel" name="label_13">
                  <property name="text">
-                  <string>Déplacements :</string>
+                  <string>Deplacements :</string>
                  </property>
                 </widget>
                </item>

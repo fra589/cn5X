@@ -45,7 +45,7 @@ class cn5XAPropos(QObject):
     self.__di.qptLicence.setPlainText(text)
 
   def showDialog(self):
-    # Centrage de la boite de dialogue sur la fenêtre principale
+    # Centrage de la boite de dialogue sur la fenetre principale
     ParentX = self.parent().geometry().x()
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()

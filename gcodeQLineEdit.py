@@ -25,7 +25,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class gcodeQLineEdit(QtWidgets.QLineEdit):
   '''
-  QlineEdit avec ajout de l'évennement KeyPressed
+  QlineEdit avec ajout de l'evennement KeyPressed
   '''
   keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
 

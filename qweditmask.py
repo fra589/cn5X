@@ -27,10 +27,10 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QIntValidator
 
 class qwEditMask(QtWidgets.QWidget):
-  ''' Widget personalisé construisant un masque binaire (pour 6 axes) avec 6 cases à cocher
+  ''' Widget personalise construisant un masque binaire (pour 6 axes) avec 6 cases a cocher
   '''
 
-  valueChanged = pyqtSignal(int) # signal émis à chaque changement de valeur
+  valueChanged = pyqtSignal(int) # signal emis a chaque changement de valeur
 
   def __init__(self, parent=None):
     super().__init__(parent)
@@ -38,7 +38,7 @@ class qwEditMask(QtWidgets.QWidget):
     self.__changeEnCours = False
     self.__nbAxes = 6
 
-    # Création cadre exterieur
+    # Creation cadre exterieur
     self.frame = QtWidgets.QFrame()
     self.frame.setMinimumSize(QtCore.QSize(127, 19))
     self.frame.setMaximumSize(QtCore.QSize(127, 19))
@@ -48,7 +48,7 @@ class qwEditMask(QtWidgets.QWidget):
     self.horizontalLayout.setSpacing(2)
     self.horizontalLayout.setObjectName("horizontalLayout")
 
-    # création des 6 checkBoxes
+    # creation des 6 checkBoxes
     self.chk = []
     for i in range(6):
       self.chk.append(QtWidgets.QCheckBox(self.frame))
@@ -58,7 +58,7 @@ class qwEditMask(QtWidgets.QWidget):
       self.horizontalLayout.addWidget(self.chk[i])
       self.chk[i].stateChanged.connect(self.chkStateChange)
 
-    # Création zone de texte
+    # Creation zone de texte
     self.lneMask = QtWidgets.QLineEdit(self.frame)
     self.lneMask.setMinimumSize(QtCore.QSize(31, 19))
     self.lneMask.setMaximumSize(QtCore.QSize(31, 19))
@@ -118,21 +118,21 @@ class qwEditMask(QtWidgets.QWidget):
     self.lneMask.setText(format(val))
 
 
-  # Définie la propriété pour permettre la configuration par Designer
+  # Definie la propriete pour permettre la configuration par Designer
   value = QtCore.pyqtProperty(int, fget=getValue, fset=setValue)
 
 
   @pyqtSlot()
   def getNbAxes(self):
-    ''' Renvoie le nombre d'axes gérés '''
+    ''' Renvoie le nombre d'axes geres '''
     return self.__nbAxes
 
 
   @pyqtSlot(int)
   def setNbAxes(self, val: int):
-    ''' Affecte le nombre d'axes gérés (valeur entre 3 et 6) '''
+    ''' Affecte le nombre d'axes geres (valeur entre 3 et 6) '''
     if val < 3 or val > 6:
-      raise RuntimeError("Le nombre d'axes doit être compris entre 3 et 6 !")
+      raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))
     self.__nbAxes = val
     for i in range(6):
       if i < val:
@@ -141,7 +141,7 @@ class qwEditMask(QtWidgets.QWidget):
         self.chk[i].setEnabled(False)
 
 
-  # Définie la propriété pour permettre la configuration par Designer
+  # Definie la propriete pour permettre la configuration par Designer
   nbAxes = QtCore.pyqtProperty(int, fget=getNbAxes, fset=setNbAxes)
 
 

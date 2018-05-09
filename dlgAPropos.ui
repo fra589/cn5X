@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <comment>
+
+ Copyright 2018 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+
+ This file is part of cn5X
+
+ cn5X is free software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ cn5X is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see http://www.gnu.org/licenses/.
+
+ </comment>
  <class>dlgApropos</class>
  <widget class="QDialog" name="dlgApropos">
   <property name="windowModality">
@@ -152,8 +172,8 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>CN5X++ est une application de panneau de contrôle 5/6 axes pour les machines à commandes numériques pilotées par Grbl.
-Cette application a pour but d'implémenter toutes les fonctionalités du microprogramme grbl-Mega-5X.</string>
+            <string>CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.
+Cette application a pour but d'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X.</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignJustify|Qt::AlignTop</set>

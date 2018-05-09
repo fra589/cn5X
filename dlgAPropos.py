@@ -135,8 +135,8 @@ class Ui_dlgApropos(object):
     dlgApropos.setWindowTitle(_translate("dlgApropos", "A propos de cn5X++"))
     self.label_2.setText(_translate("dlgApropos", "<h1>cn5X++</h1>"))
     self.lblVersion.setText(_translate("dlgApropos", "Version 0.0"))
-    self.label_3.setText(_translate("dlgApropos", "CN5X++ est une application de panneau de contrôle 5/6 axes pour les machines à commandes numériques pilotées par Grbl.\n"
-"Cette application a pour but d\'implémenter toutes les fonctionalités du microprogramme grbl-Mega-5X."))
+    self.label_3.setText(_translate("dlgApropos", "CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.\n"
+"Cette application a pour but d\'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X."))
     self.label_5.setText(_translate("dlgApropos", "Copyright (C) Gauthier Brière - 2018"))
     self.label_4.setText(_translate("dlgApropos", "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n"
 "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"

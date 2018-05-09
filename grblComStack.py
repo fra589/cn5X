@@ -26,7 +26,7 @@ from cn5X_config import *
 
 class grblStack():
   '''
-  Gestionnaire de file d'attente du port série.
+  Gestionnaire de file d'attente du port serie.
   Stocke des couples (CommandeGrbl, flag), soit en mode FiFo (addFiFo()), soit en mode LiFo (addLiFo())
   et les renvoie dans l'ordre choisi avec la fonction pop().
   '''
@@ -41,17 +41,17 @@ class grblStack():
     return len(self.__data)
 
   def addFiFo(self, item, flag = COM_FLAG_NO_FLAG):
-    ''' Ajoute un élément en mode FiFO, l'élément ajouté sera le dernier à sortir
+    ''' Ajoute un element en mode FiFO, l'element ajoute sera le dernier a sortir
     '''
     self.__data.append((item, flag))
 
   def addLiFo(self, item, flag = COM_FLAG_NO_FLAG):
-    ''' Ajoute un élément en mode LiFO, l'élément ajouté sera le premier à sortir
+    ''' Ajoute un element en mode LiFO, l'element ajoute sera le premier a sortir
     '''
     self.__data.insert(0, (item, flag))
 
   def next(self):
-    ''' Renvoie le prochain élément de la Queue sans dépiler (le supprimer) ou None si la liste est vide.
+    ''' Renvoie le prochain element de la Queue sans depiler (le supprimer) ou None si la liste est vide.
     '''
     if len(self.__data) > 0:
       return self.__data[0]
@@ -59,7 +59,7 @@ class grblStack():
       return None
 
   def pop(self):
-    ''' Dépile et renvoie le premier élément de la liste ou None si la liste est vide.
+    ''' Depile et renvoie le premier element de la liste ou None si la liste est vide.
     '''
     if len(self.__data) > 0:
       return self.__data.pop(0)

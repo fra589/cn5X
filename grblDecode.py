@@ -22,7 +22,8 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 from PyQt5 import QtGui
-from PyQt5 import QtWidgets #QtCore, QtGui,
+from PyQt5 import QtWidgets, QtCore #, QtGui,
+from PyQt5.QtCore import QCoreApplication, QObject
 from grblError import grblError
 from grblAlarm import grblAlarm
 from grblSettings import grblSetting
@@ -30,14 +31,15 @@ from speedOverrides import *
 from grblCom import grblCom
 
 
-class grblDecode():
+class grblDecode(QObject):
   '''
-  Classe de décodage des réponses de GRBL :
-  - Décode les reponses de Grbl,
-  - Met à jour l'interface graphique.
-  - Stocke des valeurs des paramètres décodés.
+  Classe de decodage des reponses de GRBL :
+  - Decode les reponses de Grbl,
+  - Met a jour l'interface graphique.
+  - Stocke des valeurs des parametres decodes.
   '''
   def __init__(self, ui, log, grbl: grblCom):
+    super().__init__()
     self.ui = ui
     self.log = log
     self.__grblCom = grbl
@@ -66,7 +68,7 @@ class grblDecode():
 
   def setNbAxis(self, val: int):
     if val < 3 or val > 6:
-      raise RuntimeError("Le nombre d'axes doit être compris entre 3 et 6 !")
+      raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))
     self.__nbAxis = val
 
 
@@ -77,7 +79,7 @@ class grblDecode():
   def decodeGrblStatus(self, grblOutput):
 
     if grblOutput[0] != "<" or grblOutput[-1] != ">":
-      return "decodeGrblStatus : erreur ! \n" + "[" + grblOutput + "] Status incorrect."
+      return self.tr("decodeGrblStatus : erreur ! \n[{}] Status incorrect.".format(grblOutput))
 
     # Affiche la chaine complette dans la barrs de status self.__statusText
     self.ui.statusBar.showMessage("{} + {}".format(self.__grblCom.grblVersion(), grblOutput))
@@ -220,7 +222,7 @@ class grblDecode():
         return D
       '''
     if not flagPn:
-      # Eteint toute les leds. Si on à pas trouvé la chaine Pn:, c'est que toute les leds sont éteintes.
+      # Eteint toute les leds. Si on a pas trouve la chaine Pn:, c'est que toute les leds sont eteintes.
       for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
         exec("self.ui.cnLed" + L + ".setLedStatus(False)")
 
@@ -238,22 +240,22 @@ class grblDecode():
 
     elif grblOutput[:6] == "error:":
       errNum = int(float(grblOutput[6:]))
-      return "Erreur grbl N° " + str(errNum) + " : " + grblError[errNum][1] + ",\n" + grblError[errNum][2]
+      return self.tr("Erreur grbl N° {} : {},\n{}".format(str(errNum), grblError[errNum][1], grblError[errNum][2]))
 
     elif grblOutput[:6] == "ALARM:":
       alarmNum = int(float(grblOutput[6:]))
-      return "Alarme grbl N° " + str(alarmNum) + " : " + grblAlarm[alarmNum][1] + ",\n" + grblAlarm[alarmNum][2]
+      return self.tr("Alarme grbl N° {} : {},\n{}".format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2]))
 
     else:
-      return "Réponse Grbl inconnue : [" + grblOutput + "]"
+      return self.tr("Reponse Grbl inconnue : [{}]".format(grblOutput))
 
 
   def errorMessage(self, errNum: int):
-    return "error:" + str(errNum) + " : " + grblError[errNum][1] + ",\n" + grblError[errNum][2]
+    return "error:{}: {},\n{}".format(str(errNum), grblError[errNum][1], grblError[errNum][2])
 
 
   def alarmMessage(self, alarmNum: int):
-      return "ALARM:" + str(alarmNum) + " : " + grblAlarm[alarmNum][1] + ",\n" + grblAlarm[alarmNum][2]
+    return "ALARM:{}: {},\n{}".format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
 
 
   def decodeGrblData(self, grblOutput):
@@ -322,13 +324,13 @@ class grblDecode():
 
       elif grblOutput[:4] == "[GC:":
         '''
-        traitement intérogation $G : G-code Parser State Message
+        traitement interogation $G : G-code Parser State Message
         [GC:G0 G54 G17 G21 G90 G94 M5 M9 T0 F0 S0]
         '''
         tblGcodeParser = grblOutput[4:-1].split(" ")
         for S in tblGcodeParser:
           if S in ["G54", "G55", "G56", "G57", "G58", "G59"]:
-            # Préparation font pour modifier dynamiquement Bold/Normal
+            # Preparation font pour modifier dynamiquement Bold/Normal
             font = QtGui.QFont()
             font.setFamily("LED Calculator")
             font.setPointSize(16)
@@ -355,41 +357,41 @@ class grblDecode():
                 lbl.setFont(font)
           elif S in ["G17", "G18", "G19"]:
             self.ui.lblPlan.setText(S)
-            if S == 'G17': self.ui.lblPlan.setToolTip(" Plan de travail = XY ")
-            if S == 'G18': self.ui.lblPlan.setToolTip(" Plan de travail = ZX ")
-            if S == 'G19': self.ui.lblPlan.setToolTip(" Plan de travail = YZ ")
+            if S == 'G17': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = XY "))
+            if S == 'G18': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = ZX "))
+            if S == 'G19': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = YZ "))
           elif S in ["G20", "G21"]:
             self.ui.lblUnites.setText(S)
-            if S == 'G20': self.ui.lblUnites.setToolTip(" Unités = pouce ")
-            if S == 'G21': self.ui.lblUnites.setToolTip(" Unités = millimètre ")
+            if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Unites = pouce "))
+            if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Unites = millimetre "))
           elif S in ["G90", "G91"]:
             self.ui.lblCoord.setText(S)
-            if S == 'G90': self.ui.lblCoord.setToolTip(" Déplacement en coordonnées absolues ")
-            if S == 'G91': self.ui.lblCoord.setToolTip(" Déplacement en coordonnées relatives ")
+            if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees absolues "))
+            if S == 'G91': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees relatives "))
           elif S in ['G0', 'G1', 'G2', 'G3']:
             self.ui.lblDeplacements.setText(S)
-            if S == 'G0': self.ui.lblDeplacements.setToolTip(" Déplacement en vitesse rapide ")
-            if S == 'G1': self.ui.lblDeplacements.setToolTip(" Déplacement en vitesse travail ")
-            if S == 'G2': self.ui.lblDeplacements.setToolTip(" Interpolation circulaire sens horaire en vitesse travail ")
-            if S == 'G3': self.ui.lblDeplacements.setToolTip(" Interpolation circulaire sens anti-horaire en vitesse travail ")
+            if S == 'G0': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse rapide "))
+            if S == 'G1': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse travail "))
+            if S == 'G2': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens horaire en vitesse travail "))
+            if S == 'G3': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens anti-horaire en vitesse travail "))
           elif S in ['G93', 'G94']:
             self.ui.lblVitesse.setText(S)
-            if S == 'G93': self.ui.lblVitesse.setToolTip(" Mode vitesse inverse du temps ")
-            if S == 'G94': self.ui.lblVitesse.setToolTip(" Mode vitesse en unités par minute ")
+            if S == 'G93': self.ui.lblVitesse.setToolTip(self.tr(" Mode vitesse inverse du temps "))
+            if S == 'G94': self.ui.lblVitesse.setToolTip(self.tr(" Mode vitesse en unites par minute "))
           elif S in ['M3', 'M4', 'M5']:
             self.ui.lblBroche.setText(S)
             if S == 'M3':
-              self.ui.lblBroche.setToolTip(" Broche en sens horaire ")
+              self.ui.lblBroche.setToolTip(self.tr(" Broche en sens horaire "))
               if not self.ui.btnSpinM3.getButtonStatus(): self.ui.btnSpinM3.setButtonStatus(True)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
             if S == 'M4':
-              self.ui.lblBroche.setToolTip(" Broche en sens anti-horaire ")
+              self.ui.lblBroche.setToolTip(self.tr(" Broche en sens anti-horaire "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               if not self.ui.btnSpinM4.getButtonStatus(): self.ui.btnSpinM4.setButtonStatus(True)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
             if S == 'M5':
-              self.ui.lblBroche.setToolTip(" Broche arrêtée ")
+              self.ui.lblBroche.setToolTip(self.tr(" Broche arretee "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               self.ui.btnSpinM3.setEnabled(True)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
@@ -398,48 +400,48 @@ class grblDecode():
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
-              self.ui.lblArrosage.setToolTip(" Arrosage par gouttelettes ")
+              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage par gouttelettes "))
               if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
               if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M7"
             if S == 'M8':
-              self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
+              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage fluide "))
               if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
               if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M8"
             if S == 'M78':
-              self.ui.lblArrosage.setToolTip(" Arrosage fluide ")
+              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage goutelettes + fluide "))
               if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
               if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M78"
             if S == 'M9':
-              self.ui.lblArrosage.setToolTip(" Arrosage arrêté ")
+              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage arrete "))
               if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
               if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
               if not self.ui.btnFloodM9.getButtonStatus(): self.ui.btnFloodM9.setButtonStatus(True)
               self.__etatArrosage = "M9"
           elif S[:1] == "T":
             self.ui.lblOutil.setText(S)
-            self.ui.lblOutil.setToolTip(" Outil numéro " + S[1:])
+            self.ui.lblOutil.setToolTip(self.tr(" Outil numero {}".format(S[1:])))
           elif S[:1] == "S":
             self.ui.lblRotation.setText(S)
-            self.ui.lblRotation.setToolTip(" Vitesse de broche = " + S[1:] + " tours/mn")
+            self.ui.lblRotation.setToolTip(self.tr(" Vitesse de broche = {} tours/mn".format(S[1:])))
           elif S[:1] == "F":
             self.ui.lblAvance.setText(S)
-            self.ui.lblAvance.setToolTip(" Vitesse d'avance = " + S[1:])
+            self.ui.lblAvance.setToolTip(self.tr(" Vitesse d'avance = ".format(S[1:])))
           else:
-            return("Status G-code Parser non reconnu dans {} : {}".format(grblOutput, S))
+            return(self.tr("Status G-code Parser non reconnu dans {} : {}".format(grblOutput, S)))
 
         #return(str(tblGcodeParser))
       else:
-        # Autre réponse [] ?
+        # Autre reponse [] ?
         return grblOutput
     else:
-      # Autre réponse ?
-      if grblOutput != "": self.log(logSeverity.info.value, "Réponse Grbl non décodée : [{}]".format(grblOutput))
+      # Autre reponse ?
+      if grblOutput != "": self.log(logSeverity.info.value, self.tr("Reponse Grbl non decodee : [{}]".format(grblOutput)))
       return grblOutput
 
 

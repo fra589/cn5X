@@ -26,9 +26,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
 class cnLed(QtWidgets.QLabel):
-  ''' QLabel affichant une image de Led éteinte ou allumée '''
+  ''' QLabel affichant une image de Led eteinte ou allumee '''
 
-  statusChanged = pyqtSignal(bool) # signal émis à chaque changement de valeur
+  statusChanged = pyqtSignal(bool) # signal emis a chaque changement de valeur
 
   def __init__(self, parent=None):
     super(cnLed, self).__init__(parent=parent)
@@ -42,13 +42,13 @@ class cnLed(QtWidgets.QLabel):
     self.iconOff = QtGui.QPixmap(self.__imagePath + "ledRougeEteinte.svg")
     self.iconOn  = QtGui.QPixmap(self.__imagePath + "ledRougeAlumee.svg")
 
-    # Propriétés du label
+    # Proprietes du label
     self.setMaximumSize(QtCore.QSize(20, 20))
     self.setText("")
     self.setPixmap(self.iconOff)
     self.setScaledContents(True)
 
-    self.__ledStatus = False # led éteinte à l'initialisation
+    self.__ledStatus = False # led eteinte a l'initialisation
 
 
   @pyqtSlot()
@@ -59,7 +59,7 @@ class cnLed(QtWidgets.QLabel):
 
   @pyqtSlot(bool)
   def setLedStatus(self, s: bool):
-    ''' Allume (s=True) ou éteind (s=False) la Led '''
+    ''' Allume (s=True) ou eteind (s=False) la Led '''
     if self.__ledStatus != s:
       if s:
         self.setPixmap(self.iconOn)
@@ -69,7 +69,7 @@ class cnLed(QtWidgets.QLabel):
       self.statusChanged.emit(s)
 
 
-  # Définie la propriété pour permettre la configuration par Designer
+  # Definie la propriete pour permettre la configuration par Designer
   ledStatus = QtCore.pyqtProperty(bool, fget=getLedStatus, fset=setLedStatus)
 
 #---------------------------------------------------------------------------------

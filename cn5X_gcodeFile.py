@@ -32,16 +32,16 @@ from grblCom import grblCom
 
 class gcodeFile(QObject):
   '''
-  Gestion d'un fichier GCode dans la QListView de l'interface graphique réservée à cet usage
-  Méthodes :
-  - __init__(QListView) -> Initialise et définit les éléments de l'UI qui recevront le contenu du fichier
+  Gestion d'un fichier GCode dans la QListView de l'interface graphique reservee a cet usage
+  Methodes :
+  - __init__(QListView) -> Initialise et definit les elements de l'UI qui recevront le contenu du fichier
   - showFileOpen()        -> Affiche la boite de dialogue d'ouverture
   - showFileSave()        -> Affiche la boite de dialogue d'enregistrement
   - readFile(filePath)    -> Charge un fichier dans la QListView
   - saveFile(filePath)    -> Enregistre le contenu de la QListView dans un fichier
   - closeFile()           -> Vide la QListView
-  - setGcodeChanged(bool) -> Définit si le contenu de la liste à été modifié depuis la lecture ou l'enregistrement du fichier
-  - bool = gcodeChanged() -> Renvoi vrai si le contenu de la liste à été modifié depuis la lecture ou l'enregistrement du fichier
+  - setGcodeChanged(bool) -> Definit si le contenu de la liste a ete modifie depuis la lecture ou l'enregistrement du fichier
+  - bool = gcodeChanged() -> Renvoi vrai si le contenu de la liste a ete modifie depuis la lecture ou l'enregistrement du fichier
   '''
 
   sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant
@@ -59,27 +59,27 @@ class gcodeFile(QObject):
     # Affiche la boite de dialogue d'ouverture
     opt = QtWidgets.QFileDialog.Options()
     opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fileName = QtWidgets.QFileDialog.getOpenFileName(None, "Ouvrir un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
+    fileName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fileName
 
   def readFile(self, filePath: str):
-    self.sig_log.emit(logSeverity.info.value, "Lecture du fichier : {}".format(filePath))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}".format(filePath)))
     try:
       f = open(filePath,'r')
       lignes  = f.readlines()
       f.close()
-      self.sig_log.emit(logSeverity.info.value, "{} lignes dans le fichier".format(len(lignes)))
+      self.sig_log.emit(logSeverity.info.value, self.tr("{} lignes dans le fichier".format(len(lignes))))
       # Envoi du contenu dans la liste
       self.__gcodeFileUiModel.clear()
       for l in lignes:
         item = QStandardItem(l.strip())
         self.__gcodeFileUiModel.appendRow(item)
       self.__gcodeFileUi.setModel(self.__gcodeFileUiModel)
-      # Sélectionne la premiere ligne du fichier dans la liste
+      # Selectionne la premiere ligne du fichier dans la liste
       self.selectGCodeFileLine(0)
-      # Sélectionne l'onglet du fichier
+      # Selectionne l'onglet du fichier
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, "Erreur lecture du fichier : {}".format(filePath))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur lecture du fichier : {}".format(filePath)))
       self.sig_log.emit(logSeverity.error.value, str(e))
       self.__gcodeFileUiModel.clear()
       self.__filePath     = ""
@@ -101,14 +101,14 @@ class gcodeFile(QObject):
 
 
   def selectGCodeFileLine(self, num: int):
-    ''' Selectionne un élément de la liste du fichier GCode '''
+    ''' Selectionne un element de la liste du fichier GCode '''
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
     self.__gcodeFileUi.selectionModel().clearSelection()
     self.__gcodeFileUi.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
 
 
   def getGCodeSelectedLine(self):
-    ''' Renvoie le N° (0 base) de la ligne sélectionnée dans la liste GCode et les données de cette ligne. '''
+    ''' Renvoie le N° (0 base) de la ligne selectionnee dans la liste GCode et les donnees de cette ligne. '''
     idx = self.__gcodeFileUi.selectionModel().selectedIndexes()
     return [idx[0].row(), self.__gcodeFileUiModel.data(idx[0])]
 
@@ -116,28 +116,28 @@ class gcodeFile(QObject):
   def saveAs(self):
     fileName = self.showFileSave()
     if fileName[0] != "":
-      self.sig_log.emit(logSeverity.info.value, "saveAs({})".format(fileName[0]))
+      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})".format(fileName[0])))
       self.saveFile(fileName[0])
     else:
-      self.sig_log.emit(logSeverity.info.value, "saveAs() annulé !")
+      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs() annule !"))
 
 
   def showFileSave(self):
     ''' Affiche la boite de dialogue "Save as" '''
     opt = QtWidgets.QFileDialog.Options()
     opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fileName = QtWidgets.QFileDialog.getSaveFileName(None, "Enregistrer un fichier GCode", "", "Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)", options=opt)
+    fileName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Enregistrer un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fileName
 
 
   def saveFile(self, filePath: str = ""):
     if filePath == "":
       if self.__filePath == "":
-        # Le nom du fichier n'est pas définit, il n'y à pas de fichier chargé, donc, rien à sauvegarder !
+        # Le nom du fichier n'est pas definit, il n'y a pas de fichier charge, donc, rien a sauvegarder !
         return
       else:
         filePath = self.__filePath
-    self.sig_log.emit(logSeverity.info.value, "Enregistrement du fichier : {}".format(filePath))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Enregistrement du fichier : {}".format(filePath)))
     try:
       f = open(filePath, 'w')
       for I in range(self.__gcodeFileUiModel.rowCount()):
@@ -147,16 +147,16 @@ class gcodeFile(QObject):
       f.close()
       self.__filePath = filePath
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, "Erreur Enregistrement du fichier : {}".format(filePath))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur Enregistrement du fichier : {}".format(filePath)))
       self.sig_log.emit(logSeverity.error.value, str(e))
     # Supprime les lignes vides dans la grille d'affichage
     self.delEmptyRow()
-    # Reinit du flag fichier changé
+    # Reinit du flag fichier change
     self.__gcodeChanged = False
 
 
   def enQueue(self, com: grblCom, startLine: int = 0, endLine: int = -1):
-    """ Envoi des lignes de startLine à endLine dans la file d'attente du grblCom """
+    """ Envoi des lignes de startLine a endLine dans la file d'attente du grblCom """
     if endLine == -1:
       endLine = self.__gcodeFileUiModel.rowCount()
     for I in range(startLine, endLine + 1):
@@ -169,7 +169,7 @@ class gcodeFile(QObject):
   def delEmptyRow(self):
     """ Elimination des lignes GCode vides """
     for I in reversed(range(self.__gcodeFileUiModel.rowCount())):
-      # On commence par la fin pour pouvoir supprimer sans tout décaler pour la suite
+      # On commence par la fin pour pouvoir supprimer sans tout decaler pour la suite
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) == "":
         self.__gcodeFileUiModel.removeRow(I)
@@ -192,9 +192,9 @@ class gcodeFile(QObject):
 
   def showConfirmChangeLost(self):
     m = msgBox(
-                  title     = "Enregistrer les modifications",
-                  text      = "Voulez-vous enregistrer les modifications avant de fermer ?",
-                  info      = "Si vous n'enregistrez pas, toutes les modifications effectuées depuis l'ouverture ou la dernière sauvegarde seront perdues.",
+                  title     = self.tr("Enregistrer les modifications"),
+                  text      = self.tr("Voulez-vous enregistrer les modifications avant de fermer ?"),
+                  info      = self.tr("Si vous n'enregistrez pas, toutes les modifications effectuees depuis l'ouverture ou la derniere sauvegarde seront perdues."),
                   icon      = msgIconList.Question,
                   stdButton = msgButtonList.Save | msgButtonList.Cancel | msgButtonList.Discard,
                   defButton = msgButtonList.Save,
@@ -205,7 +205,7 @@ class gcodeFile(QObject):
 
   def closeFile(self):
     if self.__gcodeChanged:
-      # GCode modifié, on demande confirmation
+      # GCode modifie, on demande confirmation
       Ret = self.showConfirmChangeLost()
       if Ret == msgButtonList.Save:
         if self.__filePath == "":
@@ -218,7 +218,7 @@ class gcodeFile(QObject):
         self.saveFile(self.__filePath)
         return True
       elif Ret == msgButtonList.Discard:
-        # Fermer le fichier consiste en vider la fenêtre GCode
+        # Fermer le fichier consiste en vider la fenetre GCode
         self.__gcodeFileUiModel.clear()
         self.__gcodeChanged = False
         self.__gcodeCharge  =False
@@ -226,9 +226,9 @@ class gcodeFile(QObject):
       else: # Ret == msgButtonList.Cancel:
         return False
     else:
-      # GCode non modifié, on ferme sans confirmation
-      # Fermer le fichier consiste en vider la fenêtre GCode
-      # et à supprimer le status GCode chargé.
+      # GCode non modifie, on ferme sans confirmation
+      # Fermer le fichier consiste en vider la fenetre GCode
+      # et a supprimer le status GCode charge.
       self.__gcodeFileUiModel.clear()
       self.__gcodeChanged = False
       self.__gcodeCharge  =False

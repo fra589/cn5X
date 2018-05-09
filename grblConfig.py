@@ -40,7 +40,7 @@ class upperCaseValidator(QValidator):
 class grblConfig(QObject):
   ''' Classe assurant la gestion de la boite de dialogue de configuration de Grbl '''
 
-  # Liste des contrôles éditables (49 contrôles)
+  # Liste des controles editables (49 controles)
   #---------------------------------------------------------
   # lneEEPROM lneN0 lneN1
   # spinStepPulse spinStepIdleDelay emStepPortInvert emDirectionPortInvert chkStepEnableInvert chkLimitPinsInvert chkProbePinInvert
@@ -67,22 +67,22 @@ class grblConfig(QObject):
 
     # Barre de boutons de la boite de dialogue
     self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.Apply)
-    self.__buttonApply.setToolTip("Applique les modifications.")
+    self.__buttonApply.setToolTip(self.tr("Applique les modifications."))
     self.__buttonApply.setEnabled(False)
     self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Close)
-    self.__buttonDiscard.setToolTip("Ferme la boîte de dialogue sans valider les modifications.")
+    self.__buttonDiscard.setToolTip(self.tr("Ferme la boîte de dialogue sans valider les modifications."))
     self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
     self.__buttonReset.setEnabled(False)
-    self.__buttonReset.setToolTip("Recharge tous les paramètres à partir de leur valeur actuelle dans Grbl.")
+    self.__buttonReset.setToolTip(self.tr("Recharge tous les parametres a partir de leur valeur actuelle dans Grbl."))
     self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ActionRole)
-    self.__buttonFactory.setToolTip("Réinitialise tous les paramètres à partir de leurs valeurs d'origine\ndéfinis lors de la compilation de Grbl.")
+    self.__buttonFactory.setToolTip(self.tr("Reinitialise tous les parametres a partir de leurs valeurs d'origine\ndefinis lors de la compilation de Grbl."))
 
     self.__buttonApply.pressed.connect(self.on_Apply)
     self.__buttonDiscard.pressed.connect(self.on_Discard)
     self.__buttonReset.pressed.connect(self.on_Reset)
     self.__buttonFactory.pressed.connect(self.on_ResetFactory)
 
-    # Connexion des changements d'états des QWidgets des paramètres de Grbl
+    # Connexion des changements d'etats des QWidgets des parametres de Grbl
     # QCheckBox
     self.__di.chkStepEnableInvert.stateChanged.connect(lambda: self.chkStateChange(self.__di.chkStepEnableInvert))
     self.__di.chkLimitPinsInvert.stateChanged.connect(lambda: self.chkStateChange(self.__di.chkLimitPinsInvert))
@@ -146,7 +146,7 @@ class grblConfig(QObject):
 
 
   def showDialog(self):
-    # Centrage de la boite de dialogue sur la fenêtre principale
+    # Centrage de la boite de dialogue sur la fenetre principale
     ParentX = self.parent().geometry().x()
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
@@ -177,7 +177,7 @@ class grblConfig(QObject):
 
   def on_sig_config(self, data: str):
     if   data[:1] == "$":
-      # Onglet matériel
+      # Onglet materiel
       if data[:3] == '$0=':
         self.__di.spinStepPulse.setValue(int(data.split("=")[1]))
       elif data[:3] == '$1=':
@@ -207,7 +207,7 @@ class grblConfig(QObject):
         else:
           self.__di.chkProbePinInvert.setCheckState(Qt.Checked)
           self.__di.chkProbePinInvert.setText("True")
-      # Onglet Unités
+      # Onglet Unites
       elif data[:4] == '$10=':
         self.__di.lneStatusReport.setText(data.split("=")[1])
       elif data[:4] == '$11=':
@@ -333,7 +333,7 @@ class grblConfig(QObject):
       decodeOpt = data[:-1].split(":")[1].split(',')
       self.__di.lblGrblBlockBufferSize.setText(decodeOpt[1])
       self.__di.lblGrblRxBufferSize.setText(decodeOpt[2])
-      # remplir lstOptions avec la liste des options Grbl compilées
+      # remplir lstOptions avec la liste des options Grbl compilees
       model = QStandardItemModel(self.__di.lstOptions)
       for o in list(decodeOpt[0]):
         if grblCompilOptions[o][0]:
@@ -348,13 +348,13 @@ class grblConfig(QObject):
 
   def __setNbAxes(self, nb: int, names: str):
     '''
-    Active ou désactive les contrôles en fonction du nombre d'axes à gérer
+    Active ou desactive les controles en fonction du nombre d'axes a gerer
     renomme les labels des axes en fonction de leur noms
     '''
     self.__di.emStepPortInvert.setNbAxes(nb)
     self.__di.emDirectionPortInvert.setNbAxes(nb)
     self.__di.emHomeDirInvert.setNbAxes(nb)
-    # Contrôles d'édition de masques
+    # Controles d'edition de masques
     self.__di.lblMaskX.setText(names[0])
     self.__di.lblMaskX_2.setText(names[0])
 
@@ -385,7 +385,7 @@ class grblConfig(QObject):
       self.__di.lblMaskC.setText("")
       self.__di.lblMaskC_2.setText("")
 
-    # Paramètres des axes
+    # Parametres des axes
     self.__di.lblStepsX.setText("{} steps/mm ($100)".format(names[0]))
     self.__di.lblRateX.setText("{} Max rate, mm/min ($110)".format(names[0]))
     self.__di.lblAccelX.setText("{} Acceleration, mm/sec^2 ($120)".format(names[0]))
@@ -461,8 +461,8 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_Apply(self):
-    """ Applique les éléments modifiés """
-    self.sig_config_changed.emit("Sauvegarde des paramètres modifiés : {}".format(self.__changedParams))
+    """ Applique les elements modifies """
+    self.sig_config_changed.emit(self.tr("Sauvegarde des parametres modifies : {}".format(self.__changedParams)))
 
     # Onglet 1 Initialisation
     if self.__di.lneEEPROM.objectName() in self.__changedParams:
@@ -475,7 +475,7 @@ class grblConfig(QObject):
       self.sig_config_changed.emit("$N1={}".format(str(self.__di.lneN1.text())))
       self.__grblCom.gcodePush("$N1={}\0".format(str(self.__di.lneN1.text())))
 
-    # Onglet 2 Matériel
+    # Onglet 2 Materiel
     if self.__di.spinStepPulse.objectName() in self.__changedParams:
       self.sig_config_changed.emit("$0={}".format(self.__di.spinStepPulse.value()))
       self.__grblCom.gcodePush("$0={}".format(self.__di.spinStepPulse.value()))
@@ -510,7 +510,7 @@ class grblConfig(QObject):
         self.sig_config_changed.emit("$6=0")
         self.__grblCom.gcodePush("$6=0")
 
-    # Onglet 3 Unités
+    # Onglet 3 Unites
     if self.__di.lneStatusReport in self.__changedParams:
       self.sig_config_changed.emit("$10={}".format(self.__di.lneStatusReport.text()))
       self.__grblCom.gcodePush("$10={}".format(self.__di.lneStatusReport.text()))
@@ -673,9 +673,9 @@ class grblConfig(QObject):
   @pyqtSlot()
   def on_ResetFactory(self):
     m = msgBox(
-        title     = "Restorer la configuration usine",
-        text      = "Etes vous sûrs ? Restorer la configuration usine restore tous les paramètres tels qu'ils étaient lors de la génération du microcode Grbl.",
-        info      = "Toutes les modifications et réglages effectués sur cette instance de Grbl seront définitevement perdus !",
+        title     = self.tr("Restorer la configuration usine"),
+        text      = self.tr("Etes vous sûrs ? Restorer la configuration usine restore tous les parametres tels qu'ils etaient lors de la generation du microcode Grbl."),
+        info      = self.tr("Toutes les modifications et reglages effectues sur cette instance de Grbl seront definitevement perdus !"),
         icon      = msgIconList.Question,
         stdButton = msgButtonList.Yes | msgButtonList.Cancel,
         defButton = msgButtonList.Cancel,
@@ -699,7 +699,7 @@ class grblConfig(QObject):
     self.__configChanged     = True
     self.__buttonApply.setEnabled(True)
     self.__buttonReset.setEnabled(True)
-    # mémorise que le paramètre à changé
+    # memorise que le parametre a change
     if not chk.objectName() in self.__changedParams:
       self.__changedParams.append(chk.objectName())
 
@@ -709,7 +709,7 @@ class grblConfig(QObject):
     self.__configChanged     = True
     self.__buttonApply.setEnabled(True)
     self.__buttonReset.setEnabled(True)
-    # mémorise que le paramètre à changé
+    # memorise que le parametre a change
     if not spin.objectName() in self.__changedParams:
       self.__changedParams.append(spin.objectName())
 
@@ -719,7 +719,7 @@ class grblConfig(QObject):
     self.__configChanged     = True
     self.__buttonApply.setEnabled(True)
     self.__buttonReset.setEnabled(True)
-    # mémorise que le paramètre à changé
+    # memorise que le parametre a change
     if not em.objectName() in self.__changedParams:
       self.__changedParams.append(em.objectName())
 
@@ -729,7 +729,7 @@ class grblConfig(QObject):
     self.__configChanged     = True
     self.__buttonApply.setEnabled(True)
     self.__buttonReset.setEnabled(True)
-    # mémorise que le paramètre à changé
+    # memorise que le parametre a change
     if not lne.objectName() in self.__changedParams:
       self.__changedParams.append(lne.objectName())
 

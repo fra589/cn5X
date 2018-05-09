@@ -31,22 +31,22 @@ from grblComSerial import grblComSerial
 
 class grblCom(QObject):
   '''
-  Gestion du thread de communication série avec Grbl
+  Gestion du thread de communication serie avec Grbl
   '''
 
-  # Reprise des signaux venant du thread de Com à faire suivre
+  # Reprise des signaux venant du thread de Com a faire suivre
   sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant grblComSerial, renvoie : logSeverity, message string
-  sig_connect = pyqtSignal()         # Emis à la réception de la connexion
-  sig_init    = pyqtSignal(str)      # Emis à la réception de la chaine d'initialisation de Grbl, renvoie la chaine complète
-  sig_ok      = pyqtSignal()         # Emis à la réception de la chaine "ok"
-  sig_error   = pyqtSignal(int)      # Emis à la réception d'une erreur Grbl, renvoie le N° d'erreur
-  sig_alarm   = pyqtSignal(int)      # Emis à la réception d'une alarme Grbl, renvoie le N° d'alarme
-  sig_status  = pyqtSignal(str)      # Emis à la réception d'un message de status ("<...|.>"), renvoie la ligne complète
-  sig_config  = pyqtSignal(str)      # Emis à la réception d'une valeur de config ($XXX)
-  sig_data    = pyqtSignal(str)      # Emis à la réception des autres données de Grbl, renvoie la ligne complète
-  sig_emit    = pyqtSignal(str)      # Emis à l'envoi des données sur le port série
-  sig_recu    = pyqtSignal(str)      # Emis à la réception des données sur le port série
-  sig_debug   = pyqtSignal(str)      # Emis à chaque envoi ou réception
+  sig_connect = pyqtSignal()         # Emis a la reception de la connexion
+  sig_init    = pyqtSignal(str)      # Emis a la reception de la chaine d'initialisation de Grbl, renvoie la chaine complete
+  sig_ok      = pyqtSignal()         # Emis a la reception de la chaine "ok"
+  sig_error   = pyqtSignal(int)      # Emis a la reception d'une erreur Grbl, renvoie le N° d'erreur
+  sig_alarm   = pyqtSignal(int)      # Emis a la reception d'une alarme Grbl, renvoie le N° d'alarme
+  sig_status  = pyqtSignal(str)      # Emis a la reception d'un message de status ("<...|.>"), renvoie la ligne complete
+  sig_config  = pyqtSignal(str)      # Emis a la reception d'une valeur de config ($XXX)
+  sig_data    = pyqtSignal(str)      # Emis a la reception des autres donnees de Grbl, renvoie la ligne complete
+  sig_emit    = pyqtSignal(str)      # Emis a l'envoi des donnees sur le port serie
+  sig_recu    = pyqtSignal(str)      # Emis a la reception des donnees sur le port serie
+  sig_debug   = pyqtSignal(str)      # Emis a chaque envoi ou reception
 
   # Signaux de pilotage a envoyer au thread
   sig_abort        = pyqtSignal()
@@ -71,7 +71,7 @@ class grblCom(QObject):
 
   def startCom(self, comPort: str, baudRate: int):
     '''
-    Gestion des communications série et des timers dans des threads distincts
+    Gestion des communications serie et des timers dans des threads distincts
     '''
 
     self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread.')
@@ -115,7 +115,7 @@ class grblCom(QObject):
 
   @pyqtSlot(bool)
   def on_sig_connect(self, value: bool):
-    ''' Maintien l'état de connexion '''
+    ''' Maintien l'etat de connexion '''
     self.__connectStatus = value
     self.sig_connect.emit()
 
@@ -134,7 +134,7 @@ class grblCom(QObject):
 
   @pyqtSlot(str)
   def on_sig_status(self, buff: str):
-    ''' Memorise le status de Grbl à chaque fois qu'on en voi un passer '''
+    ''' Memorise le status de Grbl a chaque fois qu'on en voi un passer '''
     self.__grblStatus = buff[1:].split('|')[0]
     self.sig_status.emit(buff)
 
@@ -144,15 +144,15 @@ class grblCom(QObject):
     return self.__grblStatus
 
   def stopCom(self):
-    ''' Stop le thread des communications série '''
+    ''' Stop le thread des communications serie '''
     self.clearCom() # Vide la file d'attente
-    self.sig_log.emit(logSeverity.info.value, "Envoi signal sig_abort au thread de communications série...")
+    self.sig_log.emit(logSeverity.info.value, self.tr("Envoi signal sig_abort au thread de communications serie..."))
     self.sig_abort.emit()
     # Attente de la fin du (des) thread(s)
     for thread, worker in self.__threads:
         thread.quit()  # this will quit **as soon as thread event loop unblocks**
         thread.wait()  # <- so you need to wait for it to *actually* quit
-    self.sig_log.emit(logSeverity.info.value, "Thread(s) enfant(s) terminé(s).")
+    self.sig_log.emit(logSeverity.info.value, self.tr("Thread(s) enfant(s) termine(s)."))
     self.__grblInit = False
     self.__threads = []
 
@@ -161,21 +161,21 @@ class grblCom(QObject):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodeInsert.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
 
 
   def gcodePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
 
 
   def realTimePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_realTimePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, "grblCom: Grbl non connecté ou non initialisé, [{}] impossible à envoyer".format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer".format(buff)))
 
 
   def clearCom(self):
