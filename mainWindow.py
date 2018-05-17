@@ -649,7 +649,7 @@ class Ui_mainWindow(object):
     self.cnLedA.setText("")
     self.cnLedA.setPixmap(QtGui.QPixmap(":/cn5X/images/ledRougeEteinte.svg"))
     self.cnLedA.setScaledContents(True)
-    self.cnLedA.setProperty("ledStatus", False)
+    self.cnLedA.setLedStatus(False)
     self.cnLedA.setObjectName("cnLedA")
     self.horizontalLayout_24.addWidget(self.cnLedA)
     spacerItem9 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -1778,7 +1778,7 @@ class Ui_mainWindow(object):
     self.horizontalLayout_17.addWidget(self.frmStatus)
     mainWindow.setCentralWidget(self.centralwidget)
     self.mnuBar = QtWidgets.QMenuBar(mainWindow)
-    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 20))
+    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 22))
     self.mnuBar.setObjectName("mnuBar")
     self.mnuApplication = QtWidgets.QMenu(self.mnuBar)
     self.mnuApplication.setObjectName("mnuApplication")
@@ -1833,7 +1833,7 @@ class Ui_mainWindow(object):
     self.mnuBar.addAction(self.menuAide.menuAction())
 
     self.retranslateUi(mainWindow)
-    self.grpConsole.setCurrentIndex(0)
+    self.grpConsole.setCurrentIndex(2)
     QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
   def retranslateUi(self, mainWindow):
@@ -1876,7 +1876,7 @@ class Ui_mainWindow(object):
     self.lblOffsetG92.setText(_translate("mainWindow", "Offset G92 :"))
     self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabGrblOutput), _translate("mainWindow", "Communication Grbl"))
     self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabGCodeFile), _translate("mainWindow", "Fichier GCode"))
-    self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabConsole), _translate("mainWindow", "Messages cn5X"))
+    self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabConsole), _translate("mainWindow", "Messages cn5X++"))
     self.btnDebug.setText(_translate("mainWindow", "Debug"))
     self.btnPausePooling.setText(_translate("mainWindow", "Pause pooling"))
     self.btnClearDebug.setText(_translate("mainWindow", "Clear debug"))

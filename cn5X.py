@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
@@ -47,10 +48,11 @@ class winMain(QtWidgets.QMainWindow):
     QtWidgets.QMainWindow.__init__(self, parent)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--port", help=self.tr("selection du port serie"))
     parser.add_argument("-c", "--connect", action="store_true", help=self.tr("Connecte le port serie"))
-    parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Desactive l'arret d'urgence"))
     parser.add_argument("-f", "--file", help=self.tr("Charge le fichier GCode"))
+    parser.add_argument("-l", "--lang", help=self.tr("Definie la langue de l'interface"))
+    parser.add_argument("-p", "--port", help=self.tr("selection du port serie"))
+    parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Deverrouille l'arret d'urgence"))
     self.__args = parser.parse_args()
 
     f=QFileInfo(__file__)
@@ -58,14 +60,33 @@ class winMain(QtWidgets.QMainWindow):
 
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
+
+    # On traite la langue tout de suite
+    if self.__args.lang != None:
+      #print("Locale demandee : {}".format(self.__args.lang))
+      locale = QLocale(self.__args.lang)
+    else:
+      # On prend la locale du système par défaut
+      locale = QLocale()
+
+    translator = QTranslator()
+    if not translator.load(locale, "i18n/cn5X", "."):
+      print("Locale not usable, using default english")
+      #locale = QLocale(QLocale.French, QLocale.France)
+      locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
+      translator.load(locale, "i18n/cn5X", ".")
+
+    QCoreApplication.installTranslator(translator)
+    self.ui.retranslateUi(self)
+
     self.logGrbl  = self.ui.txtGrblOutput    # Tous les messages de Grbl seront rediriges dans le widget txtGrblOutput
     self.logCn5X  = self.ui.txtConsoleOutput # Tous les messages applicatif seront rediriges dans le widget txtConsoleOutput
     self.logDebug = self.ui.txtDebugOutput   # Message debug de Grbl
 
-    self.logGrbl.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
-    self.logCn5X.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
+    self.logGrbl.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
+    self.logCn5X.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
-    self.ui.grpConsole.setCurrentIndex(2) # Active l'index de la log cn5X++
+    self.ui.grpConsole.setCurrentIndex(2)               # Active le tab de la log cn5X++
 
     self.__gcodeFile = gcodeFile(self.ui.gcodeTable)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
@@ -404,7 +425,7 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def closeEvent(self, event):
-    self.log(logSeverity.info.value, self.tr("Close event..."))
+    self.log(logSeverity.info.value, self.tr("Fermeture de l'application..."))
     if self.__connectionStatus:
       self.__grblCom.stopCom()
     if not self.__gcodeFile.closeFile():
@@ -1076,12 +1097,14 @@ if __name__ == '__main__':
   import sys
   app = QtWidgets.QApplication(sys.argv)
 
-  #translator = QTranslator()
-  #locale = QLocale()
+  '''
+  translator = QTranslator()
+  locale = QLocale()
   #locale = QLocale(QLocale.French, QLocale.France)
-  #locale = QLocale(QLocale.English, QLocale.UnitedStates)
-  #translator.load(locale, "cn5X", ".")
-  #app.installTranslator(translator)
+  #locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
+  translator.load(locale, "i18n/cn5X", ".")
+  app.installTranslator(translator)
+  '''
 
   window = winMain()
   window.show()

@@ -240,11 +240,11 @@ class grblDecode(QObject):
 
     elif grblOutput[:6] == "error:":
       errNum = int(float(grblOutput[6:]))
-      return self.tr("Erreur grbl N° {} : {},\n{}").format(str(errNum), grblError[errNum][1], grblError[errNum][2])
+      return self.tr("Erreur grbl No {} : {},\n{}").format(str(errNum), grblError[errNum][1], grblError[errNum][2])
 
     elif grblOutput[:6] == "ALARM:":
       alarmNum = int(float(grblOutput[6:]))
-      return self.tr("Alarme grbl N° {} : {},\n{}").format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
+      return self.tr("Alarme grbl No {} : {},\n{}").format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
 
     else:
       return self.tr("Reponse Grbl inconnue : [{}]").format(grblOutput)

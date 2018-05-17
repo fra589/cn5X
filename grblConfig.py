@@ -70,12 +70,12 @@ class grblConfig(QObject):
     self.__buttonApply.setToolTip(self.tr("Applique les modifications."))
     self.__buttonApply.setEnabled(False)
     self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Close)
-    self.__buttonDiscard.setToolTip(self.tr("Ferme la boîte de dialogue sans valider les modifications."))
+    self.__buttonDiscard.setToolTip(self.tr("Ferme la boite de dialogue sans valider les modifications."))
     self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
     self.__buttonReset.setEnabled(False)
-    self.__buttonReset.setToolTip(self.tr("Recharge tous les parametres a partir de leur valeur actuelle dans Grbl."))
+    self.__buttonReset.setToolTip(self.tr("Recharge tous les parametres a partir de leurs valeurs actuelles dans Grbl."))
     self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ActionRole)
-    self.__buttonFactory.setToolTip(self.tr("Reinitialise tous les parametres a partir de leurs valeurs d'origine\ndefinis lors de la compilation de Grbl."))
+    self.__buttonFactory.setToolTip(self.tr("Reinitialise tous les parametres a partir de leurs valeurs d'origines\ndefinis lors de la compilation de Grbl."))
 
     self.__buttonApply.pressed.connect(self.on_Apply)
     self.__buttonDiscard.pressed.connect(self.on_Discard)
@@ -674,8 +674,8 @@ class grblConfig(QObject):
   def on_ResetFactory(self):
     m = msgBox(
         title     = self.tr("Restorer la configuration usine"),
-        text      = self.tr("Etes vous sûrs ? Restorer la configuration usine restore tous les parametres tels qu'ils etaient lors de la generation du microcode Grbl."),
-        info      = self.tr("Toutes les modifications et reglages effectues sur cette instance de Grbl seront definitevement perdus !"),
+        text      = self.tr("Etes vous surs ?\nRestorer la configuration usine restore tous les parametres tels qu'ils etaient lors de la generation du microcode Grbl."),
+        info      = self.tr("Toutes les modifications et reglages effectues sur cette instance de Grbl seront definitivement perdus !"),
         icon      = msgIconList.Question,
         stdButton = msgButtonList.Yes | msgButtonList.Cancel,
         defButton = msgButtonList.Cancel,

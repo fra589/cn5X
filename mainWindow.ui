@@ -1675,7 +1675,7 @@ deverouiller l'arret d'urgence</string>
             <property name="scaledContents">
              <bool>true</bool>
             </property>
-            <property name="ledStatus" stdset="0">
+            <property name="ledStatus">
              <bool>false</bool>
             </property>
            </widget>
@@ -4178,7 +4178,7 @@ color: rgb(0, 0, 63);
        <item>
         <widget class="QTabWidget" name="grpConsole">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
@@ -4296,7 +4296,7 @@ color: rgb(0, 0, 63);
          </widget>
          <widget class="QWidget" name="tabConsole">
           <attribute name="title">
-           <string>Messages cn5X</string>
+           <string>Messages cn5X++</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <property name="spacing">
@@ -4503,7 +4503,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -4605,14 +4605,14 @@ color: rgb(0, 0, 63);
  </widget>
  <customwidgets>
   <customwidget>
-   <class>cnQPushButton</class>
-   <extends>QPushButton</extends>
-   <header>cnQPushButton</header>
-  </customwidget>
-  <customwidget>
    <class>cnLed</class>
    <extends>QLabel</extends>
    <header>cnled</header>
+  </customwidget>
+  <customwidget>
+   <class>cnQPushButton</class>
+   <extends>QPushButton</extends>
+   <header>cnQPushButton</header>
   </customwidget>
   <customwidget>
    <class>gcodeQLineEdit</class>
