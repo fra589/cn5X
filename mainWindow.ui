@@ -4535,9 +4535,19 @@ color: rgb(0, 0, 63);
     </property>
     <addaction name="mnuA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuLangue">
+    <property name="title">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>i18n/flags/flag_fr.svg</normaloff>i18n/flags/flag_fr.svg</iconset>
+    </property>
+   </widget>
    <addaction name="mnuApplication"/>
    <addaction name="menuMachine"/>
    <addaction name="menuAide"/>
+   <addaction name="menuLangue"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="mnuAppOuvrir">

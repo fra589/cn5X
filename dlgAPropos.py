@@ -107,7 +107,7 @@ class Ui_dlgApropos(object):
     self.tab_2 = QtWidgets.QWidget()
     self.tab_2.setObjectName("tab_2")
     self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.tab_2)
-    self.horizontalLayout_4.setContentsMargins(4, 4, 4, 4)
+    self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
     self.horizontalLayout_4.setSpacing(0)
     self.horizontalLayout_4.setObjectName("horizontalLayout_4")
     self.qptLicence = QtWidgets.QPlainTextEdit(self.tab_2)

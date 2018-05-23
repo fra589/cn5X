@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'                                                                         '
+' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+'                                                                         '
+' This file is part of cn5X++                                               '
+'                                                                         '
+' cn5X++ is free software: you can redistribute it and/or modify it         '
+'  under the terms of the GNU General Public License as published by      '
+' the Free Software Foundation, either version 3 of the License, or       '
+' (at your option) any later version.                                     '
+'                                                                         '
+' cn5X++ is distributed in the hope that it will be useful, but           '
+' WITHOUT ANY WARRANTY; without even the implied warranty of              '
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           '
+' GNU General Public License for more details.                            '
+'                                                                         '
+' You should have received a copy of the GNU General Public License       '
+' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
+'                                                                         '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+-->
+
+<locales xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cn5X_locales.xsd">
+  <translation>
+    <locale>fr</locale>
+    <label>Français</label>
+    <qm_file>cn5X.fr.qm</qm_file>
+    <flag_file>i18n/flags/flag_fr.svg</flag_file>
+  </translation>
+  <translation>
+    <locale>en</locale>
+    <label>English</label>
+    <qm_file>cn5X.en.qm</qm_file>
+    <flag_file>i18n/flags/flag_en.svg</flag_file>
+  </translation>
+  <translation>
+    <locale>es</locale>
+    <label>Español</label>
+    <qm_file>cn5X.es.qm</qm_file>
+    <flag_file>i18n/flags/flag_es.svg</flag_file>
+  </translation>
+  <translation>
+    <locale>pt</locale>
+    <label>Português</label>
+    <qm_file>cn5X.pt.qm</qm_file>
+    <flag_file>i18n/flags/flag_pt.svg</flag_file>
+  </translation>
+</locales>

@@ -24,8 +24,9 @@
 from enum import Enum
 from PyQt5 import QtGui
 
+ORG_NAME = "fra589"
 APP_NAME = "cn5X++"
-APP_VERSION_STRING = "0.2"
+APP_VERSION_STRING = "0.3"
 
 DEFAULT_NB_AXIS  = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
 DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']

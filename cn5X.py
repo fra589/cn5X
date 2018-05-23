@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-# !/usr/bin/env python3
+#! /usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -25,7 +24,7 @@
 import sys, os, time #, datetime
 import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QAbstractItemView
 from PyQt5.QtSerialPort import QSerialPortInfo
@@ -40,12 +39,20 @@ from grblJog import grblJog
 from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
 from cn5Xapropos import cn5XAPropos
+from xml.dom.minidom import parse, Node, Element
+
 import mainWindow
 
 class winMain(QtWidgets.QMainWindow):
 
   def __init__(self, parent=None):
     QtWidgets.QMainWindow.__init__(self, parent)
+
+    self.settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+
+    ###print("Demarrage de {}.{}.".format(self.settings.organizationName(), self.settings.applicationName()))
+    ###print("Liste des settings = *{}*".format(self.settings.allKeys()))
+    ###print("Lang settings = *{}*".format(self.settings.value("lang", "default")))
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--connect", action="store_true", help=self.tr("Connecte le port serie"))
@@ -61,23 +68,23 @@ class winMain(QtWidgets.QMainWindow):
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
 
-    # On traite la langue tout de suite
+    # création du menu des langues
+    self.createLangMenu()
+
+    # On traite la langue tout de suite, l'argument sur la ligne de commande est prioritaire
     if self.__args.lang != None:
       #print("Locale demandee : {}".format(self.__args.lang))
       locale = QLocale(self.__args.lang)
     else:
-      # On prend la locale du système par défaut
-      locale = QLocale()
+      # Si une langue est définie dans les settings, on l'applique
+      settingsLang = self.settings.value("lang", "default")
+      if settingsLang != "default":
+        locale = QLocale(settingsLang)
+      else:
+        # On prend la locale du système par défaut
+        locale = QLocale()
 
-    translator = QTranslator()
-    if not translator.load(locale, "i18n/cn5X", "."):
-      print("Locale not usable, using default english")
-      #locale = QLocale(QLocale.French, QLocale.France)
-      locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      translator.load(locale, "i18n/cn5X", ".")
-
-    QCoreApplication.installTranslator(translator)
-    self.ui.retranslateUi(self)
+    self.setTranslator(locale)
 
     self.logGrbl  = self.ui.txtGrblOutput    # Tous les messages de Grbl seront rediriges dans le widget txtGrblOutput
     self.logCn5X  = self.ui.txtConsoleOutput # Tous les messages applicatif seront rediriges dans le widget txtConsoleOutput
@@ -494,20 +501,23 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def action_btnConnect(self):
-    if self.ui.btnConnect.text() != "":
-      if self.ui.btnConnect.text() == self.tr("Connecter"):
-        # Force l'onglet "Grbl output"
-        self.ui.grpConsole.setCurrentIndex(0)
-        # Recupere les coordonnees et parametres du port a connecter
-        serialDevice = self.ui.cmbPort.currentText()
-        serialDevice = serialDevice.split("-")
-        serialDevice = serialDevice[0].strip()
-        baudRate = int(self.ui.cmbBauds.currentText())
-        # Demarrage du communicator
-        self.__grblCom.startCom(serialDevice, baudRate)
-      else:
-        # Arret du comunicator
-        self.__grblCom.stopCom()
+    if not self.__connectionStatus:
+      # Force l'onglet "Grbl output"
+      self.ui.grpConsole.setCurrentIndex(0)
+      # Recupere les coordonnees et parametres du port a connecter
+      serialDevice = self.ui.cmbPort.currentText()
+      serialDevice = serialDevice.split("-")
+      serialDevice = serialDevice[0].strip()
+      baudRate = int(self.ui.cmbBauds.currentText())
+      # Demarrage du communicator
+      self.__grblCom.startCom(serialDevice, baudRate)
+    else:
+      # Arret du comunicator
+      self.__grblCom.stopCom()
+      self.__connectionStatus = self.__grblCom.isOpen()
+      self.ui.btnConnect.setText(self.tr("Connecter")) # La prochaine action du bouton sera pour connecter
+      # Force l'onglet "Grbl output"
+      self.ui.grpConsole.setCurrentIndex(2)
 
 
   @pyqtSlot()
@@ -1043,13 +1053,14 @@ class winMain(QtWidgets.QMainWindow):
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
     resetX = QtWidgets.QAction(self.tr("Retour de {} a la position zero").format(self.__axisNames[axis]), self)
-    resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G90 G0 {}0".format(self.__axisNames[axis])))
+    cmdJog1 = CMD_GRBL_JOG + "G90G21F{}{}0".format(self.ui.dsbJogSpeed.value(), self.__axisNames[axis])
+    resetX.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog1))
     self.cMenu.addAction(resetX)
     resetAll = QtWidgets.QAction(self.tr("Retour de tous les axes en position zero"), self)
-    gcodeString = "G90 G0 "
+    cmdJog = CMD_GRBL_JOG + "G90G21F{}".format(self.ui.dsbJogSpeed.value())
     for N in self.__axisNames:
-      gcodeString += "{}0 ".format(N)
-    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
+      cmdJog += "{}0 ".format(N)
+    resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog))
     self.cMenu.addAction(resetAll)
     self.cMenu.popup(QtGui.QCursor.pos())
 
@@ -1090,6 +1101,95 @@ class winMain(QtWidgets.QMainWindow):
     self.cMenu.popup(QtGui.QCursor.pos())
 
 
+  def createLangMenu(self):
+    ''' Creation du menu de choix de la langue du programme
+    en fonction du contenu du fichier i18n/cn5X_locales.xml '''
+    document = parse("i18n/cn5X_locales.xml")
+    root = document.documentElement
+    translations = root.getElementsByTagName("translation")
+
+    l = 0
+    self.locales = []
+    self.ui.actionLang = []
+    self.ui.iconLang = []
+    for translation in translations:
+
+      self.locales.append(translation.getElementsByTagName("locale")[0].childNodes[0].nodeValue)
+      label = translation.getElementsByTagName("label")[0].childNodes[0].nodeValue
+      qm_file = translation.getElementsByTagName("qm_file")[0].childNodes[0].nodeValue
+      flag_file = translation.getElementsByTagName("flag_file")[0].childNodes[0].nodeValue
+
+      self.ui.actionLang.append(QtWidgets.QAction(self))
+      self.ui.iconLang.append(QtGui.QIcon())
+      self.ui.iconLang[l].addPixmap(QtGui.QPixmap(flag_file), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      self.ui.actionLang[l].setIcon(self.ui.iconLang[l])
+      self.ui.actionLang[l].setText(label)
+      self.ui.actionLang[l].setCheckable(True)
+      self.ui.actionLang[l].setObjectName(self.locales[l])
+      self.ui.menuLangue.addAction(self.ui.actionLang[l])
+
+      l += 1
+
+    self.ui.menuLangue.addSeparator()
+    self.actionLangSystem = QtWidgets.QAction()
+    self.actionLangSystem.setCheckable(True)
+    self.actionLangSystem.setObjectName("actionLangSystem")
+    self.ui.menuLangue.addAction(self.actionLangSystem)
+    self.actionLangSystem.setText(self.tr("Utiliser la langue du systeme"))
+
+    self.ui.menuLangue.triggered.connect(self.on_menuLangue)
+
+
+  def on_menuLangue(self, action):
+    if action.objectName() == "actionLangSystem":
+      locale = QLocale()
+      self.settings.remove("lang")
+    else:
+      locale = QLocale(action.objectName())
+      self.settings.setValue("lang", action.objectName())
+    # Active la nouvelle langue
+    self.setTranslator(locale)
+    #for a in self.ui.menuLangue.actions():
+    #  if a.objectName() == action.objectName():
+    #    a.setChecked(True)
+    #  else:
+    #    a.setChecked(False)
+
+
+  def setTranslator(self, locale: QLocale):
+    ''' Active la langue de l'interface '''
+    global translator # Reutilise le translateur de l'objet app
+    if not translator.load(locale, "i18n/cn5X", "."):
+      print("Locale ({}) not usable, using default to english".format(locale.name()))
+      #locale = QLocale(QLocale.French, QLocale.France)
+      locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
+      translator.load(locale, "i18n/cn5X", ".")
+
+    # Install le traducteur et l'exécute sur les éléments déjà chargés
+    QtCore.QCoreApplication.installTranslator(translator)
+    self.ui.retranslateUi(self)
+    self.actionLangSystem.setText(self.tr("Utiliser la langue du systeme"))
+
+    # Coche le bon item dans le menu langue
+    settingsLang = self.settings.value("lang", "default")
+    for a in self.ui.menuLangue.actions():
+      if a.objectName() == "actionLangSystem":
+        if settingsLang == "default":
+          a.setChecked(True)
+        else:
+          a.setChecked(False)
+      else:
+        la = QLocale(a.objectName())
+        if la.language() == locale.language():
+          self.ui.menuLangue.setIcon(a.icon())
+          if settingsLang != "default":
+            a.setChecked(True)
+          else:
+            a.setChecked(False)
+        else:
+          a.setChecked(False)
+
+
 """******************************************************************"""
 
 
@@ -1097,14 +1197,10 @@ if __name__ == '__main__':
   import sys
   app = QtWidgets.QApplication(sys.argv)
 
-  '''
   translator = QTranslator()
-  locale = QLocale()
-  #locale = QLocale(QLocale.French, QLocale.France)
-  #locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
+  locale = QLocale(QLocale.French, QLocale.France)
   translator.load(locale, "i18n/cn5X", ".")
   app.installTranslator(translator)
-  '''
 
   window = winMain()
   window.show()

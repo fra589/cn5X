@@ -732,7 +732,7 @@
             </layout>
            </item>
            <item>
-            <widget class="qwEditMask" name="emStepPortInvert" native="true">
+            <widget class="qwEditMask" name="emStepPortInvert">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
@@ -742,7 +742,7 @@
             </widget>
            </item>
            <item>
-            <widget class="qwEditMask" name="emDirectionPortInvert" native="true">
+            <widget class="qwEditMask" name="emDirectionPortInvert">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
@@ -1194,7 +1194,7 @@
             </layout>
            </item>
            <item>
-            <widget class="qwEditMask" name="emHomeDirInvert" native="true">
+            <widget class="qwEditMask" name="emHomeDirInvert">
              <property name="toolTip">
               <string>Editeur de masque 6 axes</string>
              </property>
