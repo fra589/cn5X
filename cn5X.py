@@ -68,23 +68,11 @@ class winMain(QtWidgets.QMainWindow):
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
 
+    self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
+    self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
+
     # création du menu des langues
     self.createLangMenu()
-
-    # On traite la langue tout de suite, l'argument sur la ligne de commande est prioritaire
-    if self.__args.lang != None:
-      #print("Locale demandee : {}".format(self.__args.lang))
-      locale = QLocale(self.__args.lang)
-    else:
-      # Si une langue est définie dans les settings, on l'applique
-      settingsLang = self.settings.value("lang", "default")
-      if settingsLang != "default":
-        locale = QLocale(settingsLang)
-      else:
-        # On prend la locale du système par défaut
-        locale = QLocale()
-
-    self.setTranslator(locale)
 
     self.logGrbl  = self.ui.txtGrblOutput    # Tous les messages de Grbl seront rediriges dans le widget txtGrblOutput
     self.logCn5X  = self.ui.txtConsoleOutput # Tous les messages applicatif seront rediriges dans le widget txtConsoleOutput
@@ -133,6 +121,23 @@ class winMain(QtWidgets.QMainWindow):
     os.chdir(pathname)
 
     """---------- Preparation de l'interface ----------"""
+
+    # On traite la langue.
+    if self.__args.lang != None:
+      # l'argument sur la ligne de commande est prioritaire.
+      #print("Locale demandee : {}".format(self.__args.lang))
+      locale = QLocale(self.__args.lang)
+    else:
+      # Si une langue est définie dans les settings, on l'applique
+      settingsLang = self.settings.value("lang", "default")
+      if settingsLang != "default":
+        locale = QLocale(settingsLang)
+      else:
+        # On prend la locale du système par défaut
+        locale = QLocale()
+
+    self.setTranslator(locale)
+
     QtGui.QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")  # Police type "LED"
     self.ui.btnConnect.setText(self.tr("Connecter"))                          # Label du bouton connect
     self.populatePortList()                                                   # On rempli la liste des ports serie
@@ -325,7 +330,7 @@ class winMain(QtWidgets.QMainWindow):
     '''
     if not self.__connectionStatus:
       # Pas connecte, tout doit etre desactive et l'arret d'urgence enfonce
-      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgenceOffPictureLocale))
       self.ui.btnUrgence.setToolTip(self.tr("Double clic pour\ndeverouiller l'arret d'urgence"))
       self.ui.frmArretUrgence.setEnabled(False)
       self.ui.frmControleVitesse.setEnabled(False)
@@ -336,7 +341,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmHomeAlarm.setEnabled(False)
     elif self.__arretUrgence:
       # Connecte mais sous arret d'urgence : Tout est desactive sauf l'arret d'urgence
-      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgenceOff.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgenceOffPictureLocale))
       self.ui.btnUrgence.setToolTip(self.tr("Double clic pour\ndeverouiller l'arret d'urgence"))
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(False)
@@ -347,7 +352,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.frmHomeAlarm.setEnabled(False)
     else:
       # Tout est en ordre, on active tout
-      self.ui.btnUrgence.setIcon(QtGui.QIcon(':/cn5X/images/btnUrgence.svg'))
+      self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgencePictureLocale))
       self.ui.btnUrgence.setToolTip(self.tr("Arret d'urgence"))
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(True)
@@ -1189,6 +1194,15 @@ class winMain(QtWidgets.QMainWindow):
         else:
           a.setChecked(False)
 
+    # Sélectionne l'image du bouton d'urgence
+    if locale.language() == QLocale(QLocale.French, QLocale.France).language():
+      self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
+      self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
+    else:
+      self.btnUrgencePictureLocale = ":/cn5X/images/btnEmergency.svg"
+      self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnEmergencyOff.svg"
+    # et relance l'affichage avec la nouvelle image
+    self.setEnableDisableGroupes()
 
 """******************************************************************"""
 
