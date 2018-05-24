@@ -62,8 +62,15 @@ class winMain(QtWidgets.QMainWindow):
     parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Deverrouille l'arret d'urgence"))
     self.__args = parser.parse_args()
 
-    f=QFileInfo(__file__)
-    self.__licenceFile = "{}/COPYING".format(QFileInfo.absolutePath(f))
+    #f=QFileInfo(__file__)
+    #self.__licenceFile = "{}/COPYING".format(QFileInfo.absolutePath(f))
+    if getattr(sys, 'frozen', False):
+        # frozen
+        dir_ = os.path.dirname(sys.executable)
+    else:
+        # unfrozen
+        dir_ = os.path.dirname(os.path.realpath(__file__))
+    self.__licenceFile = "{}/COPYING".format(dir_)
 
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
@@ -117,8 +124,8 @@ class winMain(QtWidgets.QMainWindow):
     self.__axisNames        = DEFAULT_AXIS_NAMES
     self.updateAxisNumber()
 
-    pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
-    os.chdir(pathname)
+    ###pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
+    ###os.chdir(pathname)
 
     """---------- Preparation de l'interface ----------"""
 

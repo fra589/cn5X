@@ -782,32 +782,32 @@ to unlock urgent stop</translation>
         <translation>Load GCode file</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="562"/>
+        <location filename="../cn5X.py" line="569"/>
         <source>Connecter</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="292"/>
+        <location filename="../cn5X.py" line="299"/>
         <source>Arret d&apos;urgence deverrouille.</source>
         <translation>Urgent stop unlocked.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="311"/>
+        <location filename="../cn5X.py" line="318"/>
         <source>Attention !</source>
         <translation>Warning !</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="311"/>
+        <location filename="../cn5X.py" line="318"/>
         <source>Aucun port de communication disponible !</source>
         <translation>No communication port available!</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="311"/>
+        <location filename="../cn5X.py" line="318"/>
         <source>{} n&apos;a pas trouve de port serie permettant de communiquer avec grbl.</source>
         <translation>{} did not find a serial port to communicate with grbl.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="311"/>
+        <location filename="../cn5X.py" line="318"/>
         <source>
 class serialCom:
 L&apos;appel de &quot;serial.tools.list_ports.comports()&quot; n&apos;a renvoye aucun port.</source>
@@ -816,189 +816,189 @@ class serialCom:
 Call to &quot;serial.tools.list_ports.comports ()&quot; did not return any port.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="366"/>
+        <location filename="../cn5X.py" line="373"/>
         <source>Double clic pour
 deverouiller l&apos;arret d&apos;urgence</source>
         <translation>Double click
 to unlock urgent stop</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="377"/>
+        <location filename="../cn5X.py" line="384"/>
         <source>Arret d&apos;urgence</source>
         <translation>Urgent stop</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="465"/>
+        <location filename="../cn5X.py" line="472"/>
         <source>Fermeture du fichier annulee</source>
         <translation>Closing file canceled</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="501"/>
+        <location filename="../cn5X.py" line="508"/>
         <source>Configuration de Grbl changee : {}</source>
         <translation>Grbl configuration changed: {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="517"/>
+        <location filename="../cn5X.py" line="524"/>
         <source>Deverouillage de l&apos;arret d&apos;urgence.</source>
         <translation>Unlocking urgent stop.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="522"/>
+        <location filename="../cn5X.py" line="529"/>
         <source>Arret d&apos;urgence STOP !!!</source>
         <translation>Urgent stop STOP!!!</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="554"/>
+        <location filename="../cn5X.py" line="561"/>
         <source>Connecte a {}</source>
         <translation>Connected to {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="555"/>
+        <location filename="../cn5X.py" line="562"/>
         <source>Deconnecter</source>
         <translation>Unconnect</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="561"/>
+        <location filename="../cn5X.py" line="568"/>
         <source>&lt;Non Connecte&gt;</source>
         <translation>&lt;Not connected&gt;</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="735"/>
+        <location filename="../cn5X.py" line="742"/>
         <source>cn5X++ : Grbl initialise.</source>
         <translation>cn5X ++: Grbl initialized.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="915"/>
+        <location filename="../cn5X.py" line="922"/>
         <source>Version {}</source>
         <translation>Version {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="951"/>
+        <location filename="../cn5X.py" line="958"/>
         <source>Demarrage du cycle...</source>
         <translation>Starting cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="963"/>
+        <location filename="../cn5X.py" line="970"/>
         <source>Hold en cours, impossible de repartir maintenant.</source>
         <translation>Pending Hold, restart now is impossible.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="965"/>
+        <location filename="../cn5X.py" line="972"/>
         <source>Reprise du cycle...</source>
         <translation>Resuming cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="972"/>
+        <location filename="../cn5X.py" line="979"/>
         <source>Pause du cycle...</source>
         <translation>Holding cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1003"/>
+        <location filename="../cn5X.py" line="1010"/>
         <source>Arret du cycle...</source>
         <translation>Stopping cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="988"/>
+        <location filename="../cn5X.py" line="995"/>
         <source>Pause en cours avant arret du cycle...</source>
         <translation>Holding in progress before stopping the cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="997"/>
+        <location filename="../cn5X.py" line="1004"/>
         <source>Pause avant arret du cycle...</source>
         <translation>Holding before stopping cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1011"/>
+        <location filename="../cn5X.py" line="1018"/>
         <source>Cycle termine.</source>
         <translation>Finished cycle.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1017"/>
+        <location filename="../cn5X.py" line="1024"/>
         <source>Editer la ligne</source>
         <translation>Line edit</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1020"/>
+        <location filename="../cn5X.py" line="1027"/>
         <source>Inserer une ligne</source>
         <translation>Insert line</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1023"/>
+        <location filename="../cn5X.py" line="1030"/>
         <source>Ajouter une ligne</source>
         <translation>Add line</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1026"/>
+        <location filename="../cn5X.py" line="1033"/>
         <source>Supprimer la ligne</source>
         <translation>Supress the line</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1056"/>
+        <location filename="../cn5X.py" line="1063"/>
         <source>Reinitialiser l&apos;avance a 100%</source>
         <translation>Set 100% of programmed rate</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1064"/>
+        <location filename="../cn5X.py" line="1071"/>
         <source>Reinitialiser la vitesse de broche a 100%</source>
         <translation>Set 100% of programmed spindle speed</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1072"/>
+        <location filename="../cn5X.py" line="1079"/>
         <source>Reinitialiser l&apos;axe {} a zero</source>
         <translation>Reset {} axis value to zero</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1075"/>
+        <location filename="../cn5X.py" line="1082"/>
         <source>Reinitialiser tous les axes a zero</source>
         <translation>Reset all axis values to zero</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1082"/>
+        <location filename="../cn5X.py" line="1089"/>
         <source>Retour de {} a la position zero</source>
         <translation>Return of {} to the zero position</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1086"/>
+        <location filename="../cn5X.py" line="1093"/>
         <source>Retour de tous les axes en position zero</source>
         <translation>Return of all axis to the zero position</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1097"/>
+        <location filename="../cn5X.py" line="1104"/>
         <source>Plan de travail G17 - XY (Defaut)</source>
         <translation>Working plane G17 - XY (Default)</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1100"/>
+        <location filename="../cn5X.py" line="1107"/>
         <source>Plan de travail G18 - XZ</source>
         <translation>Working plane G18 - XZ</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1103"/>
+        <location filename="../cn5X.py" line="1110"/>
         <source>Plan de travail G19 - YZ</source>
         <translation>Working plane G19 - YZ</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1111"/>
+        <location filename="../cn5X.py" line="1118"/>
         <source>G20 - Unites travail en pouces</source>
         <translation>G20 - Work units in inches</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1114"/>
+        <location filename="../cn5X.py" line="1121"/>
         <source>G21 - Unites travail en millimetres</source>
         <translation>G21 - Units work in millimeters</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1122"/>
+        <location filename="../cn5X.py" line="1129"/>
         <source>G90 - Deplacements en coordonnees absolues</source>
         <translation>G90 - Absolute coordinates moves</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1125"/>
+        <location filename="../cn5X.py" line="1132"/>
         <source>G91 - Deplacements en coordonnees relatives</source>
         <translation>G91 - Relative coordinates moves</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="461"/>
+        <location filename="../cn5X.py" line="468"/>
         <source>Fermeture de l&apos;application...</source>
         <translation>Closing application...</translation>
     </message>
@@ -1008,7 +1008,7 @@ to unlock urgent stop</translation>
         <translation>Define interface language</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1198"/>
+        <location filename="../cn5X.py" line="1205"/>
         <source>Utiliser la langue du systeme</source>
         <translation>Use language system setting</translation>
     </message>
