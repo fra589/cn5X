@@ -33,6 +33,10 @@ buildOptions = dict(packages = [], excludes = [],
                                       ('i18n/flags/flag_en.svg', 'i18n/flags/flag_en.svg'),
                                       ('i18n/flags/flag_es.svg', 'i18n/flags/flag_es.svg'),
                                       ('i18n/flags/flag_pt.svg', 'i18n/flags/flag_pt.svg'),
+                                      ('i18n/cn5X.fr.qm', 'i18n/cn5X.fr.qm'),
+                                      ('i18n/cn5X.en.qm', 'i18n/cn5X.en.qm'),
+                                      ('i18n/cn5X.es.qm', 'i18n/cn5X.es.qm'),
+                                      ('i18n/cn5X.pt.qm', 'i18n/cn5X.pt.qm'),
                                       ('i18n/cn5X_locales.xml', 'i18n/cn5X_locales.xml'),
                                       ('i18n/cn5X_locales.xsd', 'i18n/cn5X_locales.xsd')
                                     ]
