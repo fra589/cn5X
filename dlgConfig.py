@@ -596,7 +596,7 @@ class Ui_dlgConfig(object):
     self.label_37.setObjectName("label_37")
     self.verticalLayout_9.addWidget(self.label_37)
     self.label_38 = QtWidgets.QLabel(self.tab_4)
-    self.label_38.setText("Laser mode, boolean (32)")
+    self.label_38.setText("Laser mode, boolean ($32)")
     self.label_38.setObjectName("label_38")
     self.verticalLayout_9.addWidget(self.label_38)
     self.horizontalLayout_12.addLayout(self.verticalLayout_9)

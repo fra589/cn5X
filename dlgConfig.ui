@@ -1346,7 +1346,7 @@
            <item>
             <widget class="QLabel" name="label_38">
              <property name="text">
-              <string notr="true">Laser mode, boolean (32)</string>
+              <string notr="true">Laser mode, boolean ($32)</string>
              </property>
             </widget>
            </item>

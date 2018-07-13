@@ -574,7 +574,7 @@ class grblConfig(QObject):
       self.sig_config_changed.emit("$31={}".format(self.__di.spinMinSpindle.value()))
       self.__grblCom.gcodePush("$31={}".format(self.__di.spinMinSpindle.value()))
     if self.__di.chkLaserMode.objectName() in self.__changedParams:
-      if self.__di.chkHomingCycle.isChecked():
+      if self.__di.chkLaserMode.isChecked():
         self.sig_config_changed.emit("$32=1")
         self.__grblCom.gcodePush("$32=1")
       else:
