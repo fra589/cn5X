@@ -917,6 +917,7 @@ class winMain(QtWidgets.QMainWindow):
       if not self.ui.mnuDebug_mode.isChecked():
         self.ui.mnuDebug_mode.setChecked(True)
       self.ui.btnPausePooling.setEnabled(True)
+      self.on_sig_debug("cn5X++ (v{}) : Starting debug.".format(APP_VERSION_STRING))
     else:
       if self.ui.mnuDebug_mode.isChecked():
         self.ui.mnuDebug_mode.setChecked(False)
