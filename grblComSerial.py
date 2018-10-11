@@ -50,7 +50,7 @@ class grblComSerial(QObject):
   sig_debug   = pyqtSignal(str)      # Emis a chaque envoi ou reception
 
 
-  def __init__(self, comPort: str, baudRate: int):
+  def __init__(self, comPort: str, baudRate: int, pooling: bool):
     super().__init__()
 
     self.__abort            = False
@@ -73,7 +73,7 @@ class grblComSerial(QObject):
       CMD_GRBL_GET_GCODE_STATE + '\n'
     ]
     self.__lastQueryTime    = time.time()
-    self.__pooling          = True
+    self.__pooling          = pooling
 
 
   @pyqtSlot()

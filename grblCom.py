@@ -64,6 +64,7 @@ class grblCom(QObject):
     self.__Com           = None
     self.__connectStatus = False
     self.__grblInit      = False
+    self.__pooling       = True
     self.__grblVersion   = ""
     self.__grblStatus    = ""
     self.__threads = []
@@ -75,7 +76,7 @@ class grblCom(QObject):
     '''
 
     self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread.')
-    newComSerial = grblComSerial(comPort, baudRate)
+    newComSerial = grblComSerial(comPort, baudRate, self.__pooling)
     thread = QThread()
     thread.setObjectName('grblComSerial')
     self.__threads.append((thread, newComSerial))  # need to store worker too otherwise will be gc'd
@@ -184,11 +185,13 @@ class grblCom(QObject):
 
   @pyqtSlot()
   def startPooling(self):
+    self.__pooling = True
     self.sig_startPooling.emit()
 
 
   @pyqtSlot()
   def stopPooling(self):
+    self.__pooling = False
     self.sig_stopPooling.emit()
 
   def isOpen(self):
