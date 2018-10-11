@@ -264,12 +264,14 @@ class winMain(QtWidgets.QMainWindow):
       self.setCursor(Qt.WaitCursor)
       RC = self.__gcodeFile.readFile(self.__args.file)
       if RC:
-        # Selectionne l'onglet du fichier
-        self.ui.grpConsole.setCurrentIndex(1)
+        # Selectionne l'onglet du fichier sauf en cas de debug actif
+        if not self.ui.btnDebug.isChecked():
+          self.ui.grpConsole.setCurrentIndex(1)
         self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.filePath())
       else:
-        # Selectionne l'onglet de la console pour que le message d'erreur s'affiche
-        self.ui.grpConsole.setCurrentIndex(2)
+        # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
+        if not self.ui.btnDebug.isChecked():
+          self.ui.grpConsole.setCurrentIndex(2)
       # Restore le curseur de souris
       self.setCursor(Qt.ArrowCursor)
 
@@ -410,12 +412,14 @@ class winMain(QtWidgets.QMainWindow):
       self.setCursor(Qt.WaitCursor)
       RC = self.__gcodeFile.readFile(fileName[0])
       if RC:
-        # Selectionne l'onglet du fichier
-        self.ui.grpConsole.setCurrentIndex(1)
+        # Selectionne l'onglet du fichier sauf en cas de debug
+        if not self.ui.btnDebug.isChecked():
+          self.ui.grpConsole.setCurrentIndex(1)
         self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.filePath())
       else:
-        # Selectionne l'onglet de la console pour que le message d'erreur s'affiche
-        self.ui.grpConsole.setCurrentIndex(2)
+        # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
+        if not self.ui.btnDebug.isChecked():
+          self.ui.grpConsole.setCurrentIndex(2)
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
     # Restore le curseur de souris
@@ -514,8 +518,9 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def action_btnConnect(self):
     if not self.__connectionStatus:
-      # Force l'onglet "Grbl output"
-      self.ui.grpConsole.setCurrentIndex(0)
+      # Force l'onglet "Grbl output" sauf en cas de debug
+      if not self.ui.btnDebug.isChecked():
+        self.ui.grpConsole.setCurrentIndex(0)
       # Recupere les coordonnees et parametres du port a connecter
       serialDevice = self.ui.cmbPort.currentText()
       serialDevice = serialDevice.split("-")
@@ -528,8 +533,9 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.stopCom()
       self.__connectionStatus = self.__grblCom.isOpen()
       self.ui.btnConnect.setText(self.tr("Connecter")) # La prochaine action du bouton sera pour connecter
-      # Force l'onglet "Grbl output"
-      self.ui.grpConsole.setCurrentIndex(2)
+      # Force l'onglet "Grbl output" sauf en cas de debug
+      if not self.ui.btnDebug.isChecked():
+        self.ui.grpConsole.setCurrentIndex(2)
 
 
   @pyqtSlot()
@@ -707,11 +713,13 @@ class winMain(QtWidgets.QMainWindow):
     elif severity == logSeverity.warning.value:
       self.logCn5X.setTextColor(TXT_COLOR_ORANGE)
       self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Warning : " + data)
-      self.ui.grpConsole.setCurrentIndex(2)
+      if not self.ui.btnDebug.isChecked():
+        self.ui.grpConsole.setCurrentIndex(2)
     elif severity == logSeverity.error.value:
       self.logCn5X.setTextColor(TXT_COLOR_RED)
       self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Error   : " + data)
-      self.ui.grpConsole.setCurrentIndex(2)
+      if not self.ui.btnDebug.isChecked():
+        self.ui.grpConsole.setCurrentIndex(2)
   def log(self, severity: int, data: str):
     self.on_sig_log(severity, data)
 
