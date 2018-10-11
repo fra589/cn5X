@@ -137,12 +137,14 @@ class grblComSerial(QObject):
     timeout = 10 + (2 * tempNecessaire) # 2 fois le temps necessaire + 10 millisecondes
     # Ecriture sur le port serie
     self.__comPort.write(buffWrite)
-    self.sig_debug.emit("grblComSerial.__sendData() : self.__comPort.waitForBytesWritten({})".format(timeout))
+    self.sig_debug.emit("grblComSerial.__sendData(), T = {} : self.__comPort.waitForBytesWritten({})".format(time.time() * 1000, timeout))
     if self.__comPort.waitForBytesWritten(timeout):
       ### remonte en amon dans la boucle principale self.sig_emit.emit(buff)
+      self.sig_debug.emit(self.tr("grblComSerial : Donnees envoyees, T = {}".format(time.time() * 1000)))
       pass
     else:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}").format(self.__comPort.error()))
+      self.sig_debug.emit(self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}, T = {}").format(self.__comPort.error(), time.time() * 1000))
 
 
   def __traileLaLigne(self, l, flag = COM_FLAG_NO_FLAG):
@@ -239,18 +241,19 @@ class grblComSerial(QObject):
       # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
-          # Appel de CMD_GRBL_GET_BUILD_INFO pour que l'interface recupere le nombre d'axes et leurs noms
-          self.__sendData(CMD_GRBL_GET_BUILD_INFO)
           self.sig_init.emit(l)
           self.__initOK = True
         elif self.__initOK:
           self.sig_data.emit(l)
       if self.__initOK:
+        # Appel de CMD_GRBL_GET_BUILD_INFO pour que l'interface recupere le nombre d'axes et leurs noms
+        self.__sendData(CMD_GRBL_GET_BUILD_INFO + "\n")
         return True # On a bien recu la chaine d'initialisation de Grbl
 
   def __mainLoop(self):
     ''' Boucle principale du composant : lectures / ecritures sur le port serie '''
     okToSendGCode = True
+    flag = COM_FLAG_NO_FLAG
     while True:
       # On commence par vider la file d'attente des commandes temps reel
       while not self.__realTimeStack.isEmpty():
