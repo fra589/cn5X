@@ -75,6 +75,8 @@ class grblCom(QObject):
     Gestion des communications serie et des timers dans des threads distincts
     '''
 
+    self.sig_debug.emit("grblCom.startCom(self, {}, {})".format(comPort, baudRate))
+
     self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread.')
     newComSerial = grblComSerial(comPort, baudRate, self.__pooling)
     thread = QThread()
@@ -116,6 +118,7 @@ class grblCom(QObject):
 
   @pyqtSlot(bool)
   def on_sig_connect(self, value: bool):
+    self.sig_debug.emit("grblCom.on_sig_connect(self, {})".format(value))
     ''' Maintien l'etat de connexion '''
     self.__connectStatus = value
     self.sig_connect.emit()
@@ -123,6 +126,7 @@ class grblCom(QObject):
 
   @pyqtSlot(str)
   def  on_sig_init(self, buff: str):
+    self.sig_debug.emit("grblCom.on_sig_init(self, {})".format(buff))
     self.__grblInit = True
     self.__grblVersion = buff.split("[")[0]
     self.sig_init.emit(buff)
@@ -135,6 +139,7 @@ class grblCom(QObject):
 
   @pyqtSlot(str)
   def on_sig_status(self, buff: str):
+    self.sig_debug.emit("grblCom.on_sig_status(self, {})".format(buff))
     ''' Memorise le status de Grbl a chaque fois qu'on en voi un passer '''
     self.__grblStatus = buff[1:].split('|')[0]
     self.sig_status.emit(buff)
@@ -145,6 +150,7 @@ class grblCom(QObject):
     return self.__grblStatus
 
   def stopCom(self):
+    self.sig_debug.emit("grblCom.stopCom(self)")
     ''' Stop le thread des communications serie '''
     self.clearCom() # Vide la file d'attente
     self.sig_log.emit(logSeverity.info.value, self.tr("Envoi signal sig_abort au thread de communications serie..."))
