@@ -143,8 +143,8 @@ class grblComSerial(QObject):
       self.sig_debug.emit(self.tr("grblComSerial : Donnees envoyees, T = {}".format(time.time() * 1000)))
       pass
     else:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}").format(self.__comPort.error()))
-      self.sig_debug.emit(self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {0}, T = {}").format(self.__comPort.error(), time.time() * 1000))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {}").format(self.__comPort.error()))
+      self.sig_debug.emit(self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {}, T = {}").format(self.__comPort.error(), time.time() * 1000))
 
 
   def __traileLaLigne(self, l, flag = COM_FLAG_NO_FLAG):
