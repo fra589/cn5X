@@ -10,10 +10,10 @@ Nouveau panneau de contrôle Grbl 5/6 axes avec pour but d'implémenter toutes l
 *New 5/6 axis Grbl control panel to implement all the grbl-Mega-5X capabilities...*
 
 ## Attention !
-Ce dépot est une version pre-alpha en cours de développement. Il n'est pas prévu pour une utilisation en production.
+Ce dépot est une version alpha en cours de développement. Il n'est pas prévu pour une utilisation en production.
 Utilisation à vos risques et périls.
 ## *Warning !*
-*This repository is pre-alpha version under development. It is not intended for production.
+*This repository is alpha version under development. It is not intended for production.
 Use at your own risk.*
 
 ## Prérequis :
