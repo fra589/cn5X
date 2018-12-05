@@ -25,7 +25,7 @@ import sys, os, time #, datetime
 import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
-from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator
 from PyQt5.QtWidgets import QDialog, QAbstractItemView
 from PyQt5.QtSerialPort import QSerialPortInfo
 from cn5X_config import *
@@ -41,12 +41,25 @@ from grblConfig import grblConfig
 from cn5Xapropos import cn5XAPropos
 from xml.dom.minidom import parse, Node, Element
 
+class upperCaseValidator(QValidator):
+  def validate(self, string, pos):
+    return QValidator.Acceptable, string.upper(), pos
+    # for old code still using QString, use this instead
+    # string.replace(0, string.count(), string.toUpper())
+    # return QtGui.QValidator.Acceptable, pos
+
 import mainWindow
 
 class winMain(QtWidgets.QMainWindow):
 
   def __init__(self, parent=None):
     QtWidgets.QMainWindow.__init__(self, parent)
+
+    self.ucase = upperCaseValidator(self)
+    self.__gcodes_stack = []
+    self.__gcodes_stack_pos = -1
+    self.__gcode_recall_flag = False
+    self.__gcode_current_txt = ""
 
     self.settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
 
@@ -186,7 +199,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la methode 'action_btnConnect'
     self.ui.btnSend.pressed.connect(self.sendCmd)                        # Bouton d'envoi de commandes unitaires
-    self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Meme fonction par la touche entree
+    self.ui.txtGCode.setValidator(self.ucase)                            # Force la saisie des GCodes en majuscules
+    self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Meme fonction par la touche entree que le bouton d'envoi
     self.ui.txtGCode.textChanged.connect(self.txtGCode_on_Change)        # Analyse du champ de saisie au fur et a mesure de son edition
     self.ui.txtGCode.keyPressed.connect(self.on_keyPressed)
     self.ui.btnDebug.clicked.connect(self.on_btnDebug)
@@ -490,6 +504,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_config_changed(self, data: str):
     self.log(logSeverity.info.value, self.tr("Configuration de Grbl changee : {}").format(data))
 
+
   @pyqtSlot()
   def on_arretUrgence(self):
     if self.__arretUrgence:
@@ -685,25 +700,57 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.gcodePush(self.ui.txtGCode.text())
     self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
     self.ui.txtGCode.setFocus()
+    if self.ui.txtGCode.text() != "":
+      self.__gcodes_stack.insert(0, self.ui.txtGCode.text())
+      self.__gcodes_stack_pos = 0
+      self.__gcode_current_txt = ""
 
 
   @pyqtSlot()
   def txtGCode_on_Change(self):
+    print("txtGCode_on_Change()")
     if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
       self.logGrbl.append(REAL_TIME_REPORT_QUERY)
       self.decode.getNextStatus()
       self.__grblCom.realTimePush(REAL_TIME_REPORT_QUERY) # Envoi direct ? sans attendre le retour chariot.
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
+    if not self.__gcode_recall_flag:
+      self.__gcodes_stack_pos = -1
+    else:
+      self.__gcode_recall_flag = False
 
 
   @pyqtSlot(QtGui.QKeyEvent)
   def on_keyPressed(self, e):
-    if QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+C"):
+    key = e.key()
+    if QKeySequence(key+int(e.modifiers())) == QKeySequence("Ctrl+C"):
       pass
-    elif QKeySequence(e.key()+int(e.modifiers())) == QKeySequence("Ctrl+X"):
+    elif QKeySequence(key+int(e.modifiers())) == QKeySequence("Ctrl+X"):
       self.logGrbl.append("Ctrl+X")
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
-
+    elif key == Qt.Key_Up:
+      # Rappel des dernières commandes GCode
+      if len(self.__gcodes_stack) > 0:
+        if self.__gcode_current_txt == "":
+          self.__gcode_current_txt = self.ui.txtGCode.text()
+        self.__gcodes_stack_pos += 1
+        if self.__gcodes_stack_pos >= 0 and self.__gcodes_stack_pos < len(self.__gcodes_stack):
+          self.__gcode_recall_flag = True
+          self.ui.txtGCode.setText(self.__gcodes_stack[self.__gcodes_stack_pos])
+          self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
+        elif self.__gcodes_stack_pos >= len(self.__gcodes_stack):
+          self.__gcodes_stack_pos = len(self.__gcodes_stack) - 1
+    elif key == Qt.Key_Down:
+      # Rappel des dernières commandes GCode
+      if len(self.__gcodes_stack) > 0:
+        self.__gcodes_stack_pos -= 1
+        if self.__gcodes_stack_pos >= 0 and self.__gcodes_stack_pos < len(self.__gcodes_stack):
+          self.__gcode_recall_flag = True
+          self.ui.txtGCode.setText(self.__gcodes_stack[self.__gcodes_stack_pos])
+          self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
+        elif self.__gcodes_stack_pos < 0:
+          self.ui.txtGCode.setText(self.__gcode_current_txt)
+          self.__gcodes_stack_pos = -1
 
   @pyqtSlot(int, str)
   def on_sig_log(self, severity: int, data: str):
