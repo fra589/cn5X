@@ -621,41 +621,41 @@ class grblConfig(QObject):
 
     # Onglet 7 Vitesses
     if self.__di.dsbMaxRateX.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$110={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$110={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$110={}".format(self.__di.dsbMaxRateX.value()))
+      self.__grblCom.gcodePush("$110={}".format(self.__di.dsbMaxRateX.value()))
     if self.__di.dsbMaxRateY.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$111={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$111={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$111={}".format(self.__di.dsbMaxRateY.value()))
+      self.__grblCom.gcodePush("$111={}".format(self.__di.dsbMaxRateY.value()))
     if self.__di.dsbMaxRateZ.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$112={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$112={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$112={}".format(self.__di.dsbMaxRateZ.value()))
+      self.__grblCom.gcodePush("$112={}".format(self.__di.dsbMaxRateZ.value()))
     if self.__di.dsbMaxRateA.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$113={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$113={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$113={}".format(self.__di.dsbMaxRateA.value()))
+      self.__grblCom.gcodePush("$113={}".format(self.__di.dsbMaxRateA.value()))
     if self.__di.dsbMaxRateB.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$114={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$114={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$114={}".format(self.__di.dsbMaxRateB.value()))
+      self.__grblCom.gcodePush("$114={}".format(self.__di.dsbMaxRateB.value()))
     if self.__di.dsbMaxRateC.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$115={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$115={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$115={}".format(self.__di.dsbMaxRateC.value()))
+      self.__grblCom.gcodePush("$115={}".format(self.__di.dsbMaxRateC.value()))
     if self.__di.dsbAccelX.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$120={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$120={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$120={}".format(self.__di.dsbAccelX.value()))
+      self.__grblCom.gcodePush("$120={}".format(self.__di.dsbAccelX.value()))
     if self.__di.dsbAccelY.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$121={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$121={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$121={}".format(self.__di.dsbAccelY.value()))
+      self.__grblCom.gcodePush("$121={}".format(self.__di.dsbAccelY.value()))
     if self.__di.dsbAccelZ.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$122={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$122={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$122={}".format(self.__di.dsbAccelZ.value()))
+      self.__grblCom.gcodePush("$122={}".format(self.__di.dsbAccelZ.value()))
     if self.__di.dsbAccelA.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$123={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$123={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$123={}".format(self.__di.dsbAccelA.value()))
+      self.__grblCom.gcodePush("$123={}".format(self.__di.dsbAccelA.value()))
     if self.__di.dsbAccelB.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$124={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$124={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$124={}".format(self.__di.dsbAccelB.value()))
+      self.__grblCom.gcodePush("$124={}".format(self.__di.dsbAccelB.value()))
     if self.__di.dsbAccelC.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$125={}".format(self.__di.dsbStepsX.value()))
-      self.__grblCom.gcodePush("$125={}".format(self.__di.dsbStepsX.value()))
+      self.sig_config_changed.emit("$125={}".format(self.__di.dsbAccelC.value()))
+      self.__grblCom.gcodePush("$125={}".format(self.__di.dsbAccelC.value()))
 
     #self.__dlgConfig.done(QDialog.Accepted)
 
