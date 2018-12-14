@@ -697,6 +697,10 @@ class winMain(QtWidgets.QMainWindow):
     if self.ui.txtGCode.text() != "":
       if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
         self.decode.getNextStatus()
+      if self.ui.txtGCode.text() == CMD_GRBL_GET_GCODE_PARAMATERS:
+        self.decode.getNextGCodeParams()
+      if self.ui.txtGCode.text() == CMD_GRBL_GET_GCODE_STATE:
+        self.decode.getNextGCodeState()
     self.__grblCom.gcodePush(self.ui.txtGCode.text())
     self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
     self.ui.txtGCode.setFocus()

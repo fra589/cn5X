@@ -64,6 +64,8 @@ class grblDecode(QObject):
     self.__etatArrosage = None
     self.__etatMachine = None
     self.__getNextStatusOutput = False
+    self.__getNextGCodeParams = False
+    self.__getNextGCodeState = False
 
 
   def setNbAxis(self, val: int):
@@ -74,6 +76,14 @@ class grblDecode(QObject):
 
   def getNextStatus(self):
     self.__getNextStatusOutput = True
+
+
+  def getNextGCodeParams(self):
+    self.__getNextGCodeParams = True
+
+
+  def getNextGCodeState(self):
+    self.__getNextGCodeState = True
 
 
   def decodeGrblStatus(self, grblOutput):
@@ -272,7 +282,7 @@ class grblDecode(QObject):
       ''' Push Messages: '''
       if grblOutput[1:4] in self.__validG5x: # ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
         '''
-        messages indicate the parameter data printout from a "$#" user query.
+        messages indicate the parameter data printout from a "$#" (CMD_GRBL_GET_GCODE_PARAMATERS) user query.
         '''
         num=int(grblOutput[2:4])
         values=grblOutput[5:-1].split(",")
@@ -313,14 +323,24 @@ class grblDecode(QObject):
             self.ui.lblG92C.setText('{:+0.3f}'.format(self.__G5x[num][5]))
           else:
             self.ui.lblG92C.setText("-")
+        # renvoie le résultat si $# demandé dans par l'utilisateur
+        if self.__getNextGCodeParams:
+          return grblOutput
 
       elif grblOutput[1:5] == "TLO:":
         ''' Tool length offset (for the default z-axis) '''
         self.__toolLengthOffset = float(grblOutput[5:-1])
+        # renvoie le résultat si $# demandé dans par l'utilisateur
+        if self.__getNextGCodeParams:
+          return grblOutput
 
       elif grblOutput[1:5] == "PRB:":
         ''' Coordinates of the last probing cycle, suffix :1 => Success '''
         self.__probeCoord = grblOutput[5:-1].split(",")
+        # renvoie le résultat si $# demandé dans par l'utilisateur
+        if self.__getNextGCodeParams:
+          self.__getNextGCodeParams = False # L'envoi du résultat de $# est complet
+          return grblOutput
 
       elif grblOutput[:4] == "[GC:":
         '''
@@ -434,8 +454,10 @@ class grblDecode(QObject):
             self.ui.lblAvance.setToolTip(self.tr(" Vitesse d'avance = ").format(S[1:]))
           else:
             return(self.tr("Status G-code Parser non reconnu dans {} : {}").format(grblOutput, S))
-
-        #return(str(tblGcodeParser))
+        # renvoie le résultat si $G demandé dans par l'utilisateur
+        if self.__getNextGCodeState:
+          self.__getNextGCodeState = False
+          return grblOutput
       else:
         # Autre reponse [] ?
         return grblOutput
