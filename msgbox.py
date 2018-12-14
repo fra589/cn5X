@@ -73,4 +73,4 @@ class msgBox:
     self.msg.setEscapeButton(escButton)
 
   def afficheMsg(self):
-    return (self.msg.exec_())
+    return (self.msg.exec())

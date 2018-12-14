@@ -229,7 +229,7 @@ class grblDecode(QObject):
 
     if self.__getNextStatusOutput:
       self.__getNextStatusOutput = False
-      return "decodeGrblStatus({})".format(grblOutput)
+      return grblOutput
     else:
       return ""
 

@@ -708,7 +708,6 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def txtGCode_on_Change(self):
-    print("txtGCode_on_Change()")
     if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
       self.logGrbl.append(REAL_TIME_REPORT_QUERY)
       self.decode.getNextStatus()
