@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -649,7 +649,7 @@ class Ui_mainWindow(object):
     self.cnLedA.setText("")
     self.cnLedA.setPixmap(QtGui.QPixmap(":/cn5X/images/ledRougeEteinte.svg"))
     self.cnLedA.setScaledContents(True)
-    self.cnLedA.setLedStatus(False)
+    self.cnLedA.setProperty("ledStatus", False)
     self.cnLedA.setObjectName("cnLedA")
     self.horizontalLayout_24.addWidget(self.cnLedA)
     spacerItem9 = QtWidgets.QSpacerItem(13, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -1195,6 +1195,7 @@ class Ui_mainWindow(object):
     font.setWeight(75)
     self.lblG54.setFont(font)
     self.lblG54.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG54.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG54.setStyleSheet("background-color: rgb(0, 0, 63);\n"
 "color: rgb(248, 255, 192);")
     self.lblG54.setFrameShape(QtWidgets.QFrame.Box)
@@ -1210,6 +1211,7 @@ class Ui_mainWindow(object):
     font.setPointSize(16)
     self.lblG55.setFont(font)
     self.lblG55.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG55.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG55.setStyleSheet("background-color: rgb(248, 255, 192);\n"
 "color: rgb(0, 0, 63);\n"
 "")
@@ -1226,6 +1228,7 @@ class Ui_mainWindow(object):
     font.setPointSize(16)
     self.lblG56.setFont(font)
     self.lblG56.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG56.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG56.setStyleSheet("background-color: rgb(248, 255, 192);\n"
 "color: rgb(0, 0, 63);\n"
 "")
@@ -1242,6 +1245,7 @@ class Ui_mainWindow(object):
     font.setPointSize(16)
     self.lblG57.setFont(font)
     self.lblG57.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG57.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG57.setStyleSheet("background-color: rgb(248, 255, 192);\n"
 "color: rgb(0, 0, 63);\n"
 "")
@@ -1258,6 +1262,7 @@ class Ui_mainWindow(object):
     font.setPointSize(16)
     self.lblG58.setFont(font)
     self.lblG58.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG58.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG58.setStyleSheet("background-color: rgb(248, 255, 192);\n"
 "color: rgb(0, 0, 63);\n"
 "")
@@ -1275,6 +1280,7 @@ class Ui_mainWindow(object):
     font.setPointSize(16)
     self.lblG59.setFont(font)
     self.lblG59.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+    self.lblG59.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
     self.lblG59.setStyleSheet("background-color: rgb(248, 255, 192);\n"
 "color: rgb(0, 0, 63);\n"
 "")
@@ -1778,7 +1784,7 @@ class Ui_mainWindow(object):
     self.horizontalLayout_17.addWidget(self.frmStatus)
     mainWindow.setCentralWidget(self.centralwidget)
     self.mnuBar = QtWidgets.QMenuBar(mainWindow)
-    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 22))
+    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
     self.mnuBar.setObjectName("mnuBar")
     self.mnuApplication = QtWidgets.QMenu(self.mnuBar)
     self.mnuApplication.setObjectName("mnuApplication")
@@ -1840,7 +1846,7 @@ class Ui_mainWindow(object):
     self.mnuBar.addAction(self.menuLangue.menuAction())
 
     self.retranslateUi(mainWindow)
-    self.grpConsole.setCurrentIndex(2)
+    self.grpConsole.setCurrentIndex(0)
     QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
   def retranslateUi(self, mainWindow):
@@ -1881,6 +1887,12 @@ class Ui_mainWindow(object):
     self.lblG5xMode.setText(_translate("mainWindow", "Mode actif :"))
     self.lblOffsetActif.setText(_translate("mainWindow", "Offset G54 :"))
     self.lblOffsetG92.setText(_translate("mainWindow", "Offset G92 :"))
+    self.lblG54.setToolTip(_translate("mainWindow", "Decalage origine piece 1"))
+    self.lblG55.setToolTip(_translate("mainWindow", "Decalage origine piece 2"))
+    self.lblG56.setToolTip(_translate("mainWindow", "Decalage origine piece 3"))
+    self.lblG57.setToolTip(_translate("mainWindow", "Decalage origine piece 4"))
+    self.lblG58.setToolTip(_translate("mainWindow", "Decalage origine piece 5"))
+    self.lblG59.setToolTip(_translate("mainWindow", "Decalage origine piece 6"))
     self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabGrblOutput), _translate("mainWindow", "Communication Grbl"))
     self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabGCodeFile), _translate("mainWindow", "Fichier GCode"))
     self.grpConsole.setTabText(self.grpConsole.indexOf(self.tabConsole), _translate("mainWindow", "Messages cn5X++"))

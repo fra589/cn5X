@@ -21,7 +21,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-import sys, os, time #, datetime
+import sys, os, time
 import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
@@ -44,9 +44,6 @@ from xml.dom.minidom import parse, Node, Element
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
     return QValidator.Acceptable, string.upper(), pos
-    # for old code still using QString, use this instead
-    # string.replace(0, string.count(), string.toUpper())
-    # return QtGui.QValidator.Acceptable, pos
 
 import mainWindow
 
@@ -75,8 +72,7 @@ class winMain(QtWidgets.QMainWindow):
     parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Deverrouille l'arret d'urgence"))
     self.__args = parser.parse_args()
 
-    #f=QFileInfo(__file__)
-    #self.__licenceFile = "{}/COPYING".format(QFileInfo.absolutePath(f))
+    # Retrouve le fichier de licence dans le même répertoire que l'exécutable
     if getattr(sys, 'frozen', False):
         # frozen
         dir_ = os.path.dirname(sys.executable)
@@ -85,6 +81,7 @@ class winMain(QtWidgets.QMainWindow):
         dir_ = os.path.dirname(os.path.realpath(__file__))
     self.__licenceFile = "{}/COPYING".format(dir_)
 
+    # Initialise la fenêtre princpale
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
 
@@ -264,6 +261,12 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblPlan.customContextMenuRequested.connect(self.on_lblPlanContextMenu)
     self.ui.lblUnites.customContextMenuRequested.connect(self.on_lblUnitesContextMenu)
     self.ui.lblCoord.customContextMenuRequested.connect(self.on_lblCoordContextMenu)
+    self.ui.lblG54.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(1))
+    self.ui.lblG55.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(2))
+    self.ui.lblG56.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(3))
+    self.ui.lblG57.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(4))
+    self.ui.lblG58.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(5))
+    self.ui.lblG59.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(6))
 
     #--------------------------------------------------------------------------------------
     # Traitement des arguments de la ligne de commande
@@ -674,6 +677,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
+    ###print(e)
     self.__grblCom.gcodeInsert(lblText)
 
 
@@ -969,6 +973,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.btnPausePooling.setEnabled(True)
       self.on_sig_debug("cn5X++ (v{}) : Starting debug.".format(APP_VERSION_STRING))
     else:
+      self.on_sig_debug("cn5X++ (v{}) : Stop debugging.".format(APP_VERSION_STRING))
       if self.ui.mnuDebug_mode.isChecked():
         self.ui.mnuDebug_mode.setChecked(False)
       # Ensure pooling in active when debug is off
@@ -1135,6 +1140,10 @@ class winMain(QtWidgets.QMainWindow):
     self.cMenu.addAction(resetAll)
     self.cMenu.popup(QtGui.QCursor.pos())
 
+
+  def on_lblGXXContextMenu(self, piece: int):
+    self.cMenu = QtWidgets.QMenu(self)
+    setOrigineAll = QtWidgets.QAction(self.tr("Positionner l'origine piece {} (G{})").format(str(piece), str(piece + 53)), self)
 
   def on_lblPlanContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)

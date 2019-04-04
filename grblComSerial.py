@@ -220,9 +220,11 @@ class grblComSerial(QObject):
 
     # Attente initialisatoin Grbl
     tDebut = time.time() * 1000
+    self.sig_debug.emit(self.tr("grblComSerial : Wait for Grbl init... T = {:0.0f} ms...").format(tDebut))
     while True:
       serialData = ""
       while serialData == "" or serialData[-1] != '\n':
+        time.sleep(0.25)
         if self.__comPort.waitForReadyRead(25):
           buff = self.__comPort.readAll()
           self.sig_debug.emit("grblComSerial.__openComPort() : Buffer recu : \"" + str(buff) + "\"")
@@ -232,15 +234,19 @@ class grblComSerial(QObject):
           except:
             self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur decodage : {}").format(sys.exc_info()[0]))
             self.sig_debug.emit(self.tr("grblComSerial : Erreur decodage : {}").format(sys.exc_info()[0]))
+        else:
+          self.sig_debug.emit(self.tr("grblComSerial : Wait for Grbl init... T = {:0.0f} ms, Nothing to read on serial.").format(time.time() * 1000))
         now = time.time() * 1000
         if now > tDebut + openMaxTime:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
+          self.sig_debug.emit(self.tr("grblComSerial : openMaxTime ({}ms) timeout elapsed !").format(openMaxTime))
           self.sig_debug.emit(self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
           self.__comPort.close()
           return False
       # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
+          self.sig_debug.emit(self.tr("grblComSerial : Grbl init string received in {:0.0f} ms, OK.").format(time.time()*1000 - tDebut))
           self.sig_init.emit(l)
           self.__initOK = True
         elif self.__initOK:

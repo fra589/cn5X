@@ -1675,7 +1675,7 @@ deverouiller l'arret d'urgence</string>
             <property name="scaledContents">
              <bool>true</bool>
             </property>
-            <property name="ledStatus">
+            <property name="ledStatus" stdset="0">
              <bool>false</bool>
             </property>
            </widget>
@@ -3026,6 +3026,12 @@ color: rgb(0, 0, 63);</string>
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
                     </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 1</string>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(0, 0, 63);
 color: rgb(248, 255, 192);</string>
@@ -3060,6 +3066,12 @@ color: rgb(248, 255, 192);</string>
                     </property>
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 2</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3097,6 +3109,12 @@ color: rgb(0, 0, 63);
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
                     </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 3</string>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
@@ -3133,6 +3151,12 @@ color: rgb(0, 0, 63);
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
                     </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 4</string>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
 color: rgb(0, 0, 63);
@@ -3168,6 +3192,12 @@ color: rgb(0, 0, 63);
                     </property>
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 5</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3207,6 +3237,12 @@ color: rgb(0, 0, 63);
                     </property>
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decalage origine piece 6</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -4178,7 +4214,7 @@ color: rgb(0, 0, 63);
        <item>
         <widget class="QTabWidget" name="grpConsole">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
@@ -4503,7 +4539,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
