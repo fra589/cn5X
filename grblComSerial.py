@@ -183,7 +183,8 @@ class grblComSerial(QObject):
 
     self.sig_debug.emit("grblComSerial.__openComPort(self)")
 
-    openMaxTime = 5000 # (ms) Timeout pour recevoir la reponse de Grbl apres ouverture du port = 5 secondes
+    openResetTime = 1500  # Time for sending soft reset if init string is not receive from Grbl
+    openMaxTime =   5000  # (ms) Timeout pour recevoir la reponse de Grbl apres ouverture du port = 5 secondes
 
     # Configuration du port
     self.__comPort  = QSerialPort()
@@ -219,6 +220,7 @@ class grblComSerial(QObject):
     self.sig_debug.emit(self.tr("grblComSerial : comPort {} ouvert, RC = {}").format(self.__comPort.portName(), RC))
 
     # Attente initialisatoin Grbl
+    tReset = False
     tDebut = time.time() * 1000
     self.sig_debug.emit(self.tr("grblComSerial : Wait for Grbl init... T = {:0.0f} ms...").format(tDebut))
     while True:
@@ -237,6 +239,11 @@ class grblComSerial(QObject):
         else:
           self.sig_debug.emit(self.tr("grblComSerial : Wait for Grbl init... T = {:0.0f} ms, Nothing to read on serial.").format(time.time() * 1000))
         now = time.time() * 1000
+        if now > tDebut + (openResetTime) and not tReset:
+          # Try to send Reset to Grbl at half time of timeout
+          self.sig_debug.emit(self.tr("grblComSerial : No response from Grbl after {:0.0f}ms, sending soft reset...").format(openResetTime))
+          self.__sendData(REAL_TIME_SOFT_RESET)
+          tReset = True
         if now > tDebut + openMaxTime:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
           self.sig_debug.emit(self.tr("grblComSerial : openMaxTime ({}ms) timeout elapsed !").format(openMaxTime))
