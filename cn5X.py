@@ -820,9 +820,13 @@ class winMain(QtWidgets.QMainWindow):
     # Repere la chaine "[AXS:5:XYZAB]" pour recuperer le nombre d'axes et leurs noms
     if data[:5] == "[AXS:":
       self.__nbAxis           = int(data[1:-1].split(':')[1])
-      self.decode.setNbAxis(self.__nbAxis)
       self.__axisNames        = list(data[1:-1].split(':')[2])
+      if len(self.__axisNames) < self.__nbAxis:
+        # Il est posible qu'il y ait moins de lettres que le nombre d'axes si Grbl
+        # implémente l'option REPORT_VALUE_FOR_AXIS_NAME_ONCE
+        self.__nbAxis = len(self.__axisNames);
       self.updateAxisNumber()
+      self.decode.setNbAxis(self.__nbAxis)
 
     if not self.__grblConfigLoaded:
       self.logGrbl.append(data)
