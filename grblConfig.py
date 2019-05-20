@@ -538,8 +538,8 @@ class grblConfig(QObject):
         self.__grblCom.gcodePush("$20=0")
     if self.__di.chkHardLimits.objectName() in self.__changedParams:
       if self.__di.chkHardLimits.isChecked():
-        self.sig_config_changed.emit("$21")
-        self.__grblCom.gcodePush("$21")
+        self.sig_config_changed.emit("$21=1")
+        self.__grblCom.gcodePush("$21=1")
       else:
         self.sig_config_changed.emit("$21=0")
         self.__grblCom.gcodePush("$21=0")
