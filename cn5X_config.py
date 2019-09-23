@@ -2,12 +2,12 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
-'  under the terms of the GNU General Public License as published by      '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
+' under the terms of the GNU General Public License as published by       '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
@@ -26,7 +26,7 @@ from PyQt5 import QtGui
 
 ORG_NAME = "fra589"
 APP_NAME = "cn5X++"
-APP_VERSION_STRING = "0.3.j"
+APP_VERSION_STRING = "0.3.k"
 
 DEFAULT_NB_AXIS  = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
 DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']
@@ -35,10 +35,7 @@ COM_DEFAULT_BAUD_RATE = 115200
 
 GRBL_QUERY_DELAY =  75      # ms
 
-JOG_REPEAT_DELAY  = 250/1000 # s
-JOG_REPEAT_SPEED  =  20/1000 # s
-DEFAULT_JOG_SPEED = 100
-
+DEFAULT_JOG_SPEED             = 300
 
 class logSeverity(Enum):
   info    = 0

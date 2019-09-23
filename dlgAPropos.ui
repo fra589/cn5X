@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Gauthier Brière</author>
  <comment>
 
  Copyright 2018 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
@@ -29,8 +30,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>605</width>
-    <height>395</height>
+    <width>768</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -199,7 +200,7 @@ Cette application a pour but d'implementer toutes les fonctionalites du micropro
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string notr="true">Copyright (C) Gauthier Brière - 2018</string>
+            <string notr="true">Copyright (C) Gauthier Brière - 2018-2019</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

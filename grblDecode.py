@@ -4,10 +4,10 @@
 '                                                                         '
 ' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
-'  under the terms of the GNU General Public License as published by      '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
+' under the terms of the GNU General Public License as published by       '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
@@ -61,6 +61,8 @@ class grblDecode(QObject):
     self.__toolLengthOffset = 0
     self.__probeCoord = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__wco = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__wpos = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__mpos = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__etatArrosage = None
     self.__etatMachine = None
     self.__getNextStatusOutput = False
@@ -102,13 +104,13 @@ class grblDecode(QObject):
         if D != self.__etatMachine:
           self.ui.lblEtat.setText(D)
           self.__etatMachine = D
-          if D == "Idle":
+          if D == GRBL_STATUS_IDLE:
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
             if not self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(True)
-          elif D =="Hold:0":
+          elif D ==GRBL_STATUS_HOLD0:
             self.ui.lblEtat.setToolTip("Hold complete. Ready to resume.")
-          elif D =="Hold:1":
+          elif D ==GRBL_STATUS_HOLD1:
             self.ui.lblEtat.setToolTip("Hold in-progress. Reset will throw an alarm.")
           elif D =="Door:0":
             self.ui.lblEtat.setToolTip("Door closed. Ready to resume.")
@@ -123,6 +125,12 @@ class grblDecode(QObject):
 
       # Machine position MPos ($10=0 ou 2) ou WPos ($10=1 ou 3)?
       elif D[:5] == "MPos:":
+        # Mémorise la dernière position machine reçue
+        tblPos = D[5:].split(",")
+        for I in range(len(tblPos)):
+          self.__mpos[I] = float(tblPos[I])
+          self.__wpos[I] = float(tblPos[I]) - self.__wco[I]
+        # Met à jour l'interface
         if not self.ui.mnu_MPos.isChecked():
           self.ui.mnu_MPos.setChecked(True)
         if self.ui.mnu_WPos.isChecked():
@@ -145,6 +153,12 @@ class grblDecode(QObject):
           self.ui.lblPosC.setText("-")
 
       elif D[:5] == "WPos:":
+        # Mémorise la dernière position de travail reçue
+        tblPos = D[5:].split(",")
+        for I in range(len(tblPos)):
+          self.__wpos[I] = float(tblPos[I])
+          self.__mpos[I] = float(tblPos[I]) + self.__wco[I]
+        # Met à jour l'interface
         if not self.ui.mnu_WPos.isChecked():
           self.ui.mnu_WPos.setChecked(True)
         if self.ui.mnu_MPos.isChecked():
@@ -473,3 +487,20 @@ class grblDecode(QObject):
 
   def get_etatMachine(self):
     return self.__etatMachine
+
+
+  def wco(self):
+    return self.__wco
+
+
+  def wpos(self, axis=None):
+    return self.__wpos
+
+
+  def mpos(self, axis=None):
+    if not (axis is None):
+      return self.__mpos[axis]
+    else:
+      return self.__mpos
+
+

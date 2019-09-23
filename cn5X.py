@@ -3,12 +3,12 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
 ' cn5X++ is free software: you can redistribute it and/or modify it       '
-'  under the terms of the GNU General Public License as published by      '
+' under the terms of the GNU General Public License as published by       '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
@@ -21,6 +21,7 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.   '
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import sys, os, time
 import argparse
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -133,6 +134,9 @@ class winMain(QtWidgets.QMainWindow):
     self.__nbAxis           = DEFAULT_NB_AXIS
     self.__axisNames        = DEFAULT_AXIS_NAMES
     self.updateAxisNumber()
+    self.__maxTravel        = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    self.__firstGetSettings = False
+    self.__jogModContinue   = False
 
     ###pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
     ###os.chdir(pathname)
@@ -216,6 +220,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblG57.clicked.connect(self.on_lblG5xClick)
     self.ui.lblG58.clicked.connect(self.on_lblG5xClick)
     self.ui.lblG59.clicked.connect(self.on_lblG5xClick)
+
+    # Jogging buttons
     self.ui.btnJogMoinsX.mousePress.connect(self.on_jog)
     self.ui.btnJogPlusX.mousePress.connect(self.on_jog)
     self.ui.btnJogMoinsY.mousePress.connect(self.on_jog)
@@ -228,6 +234,20 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnJogPlusB.mousePress.connect(self.on_jog)
     self.ui.btnJogMoinsC.mousePress.connect(self.on_jog)
     self.ui.btnJogPlusC.mousePress.connect(self.on_jog)
+
+    self.ui.btnJogMoinsX.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusX.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogMoinsY.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusY.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogMoinsZ.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusZ.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogMoinsA.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusA.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogMoinsB.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusB.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogMoinsC.mouseRelease.connect(self.stop_jog)
+    self.ui.btnJogPlusC.mouseRelease.connect(self.stop_jog)
+
     self.ui.btnJogStop.mousePress.connect(self.__jog.jogCancel)
     self.ui.rbRapid025.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_25_POURCENT))
     self.ui.rbRapid050.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_50_POURCENT))
@@ -501,6 +521,8 @@ class winMain(QtWidgets.QMainWindow):
     dlgConfig.sig_config_changed.connect(self.on_sig_config_changed)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
+    # Rafraichi la config
+    self.__grblCom.gcodeInsert(CMD_GRBL_GET_SETTINGS)
 
 
   @pyqtSlot(str)
@@ -560,14 +582,14 @@ class winMain(QtWidgets.QMainWindow):
   def on_sig_connect(self):
     self.__connectionStatus = self.__grblCom.isOpen()
     if self.__connectionStatus:
-      # Mise a jour de l'interface
+      # Mise a jour de l'interface machine connectée
       self.ui.lblConnectStatus.setText(self.tr("Connecte a {}").format(self.ui.cmbPort.currentText().split("-")[0].strip()))
       self.ui.btnConnect.setText(self.tr("Deconnecter")) # La prochaine action du bouton sera pour deconnecter
       self.setEnableDisableConnectControls()
       # Active les groupes de controles de pilotage de Grbl
       self.setEnableDisableGroupes()
     else:
-      # Mise a jour de l'interface
+      # Mise a jour de l'interface machine non connectée
       self.ui.lblConnectStatus.setText(self.tr("<Non Connecte>"))
       self.ui.btnConnect.setText(self.tr("Connecter")) # La prochaine action du bouton sera pour connecter
       self.__statusText = ""
@@ -577,6 +599,8 @@ class winMain(QtWidgets.QMainWindow):
       self.__arretUrgence = True
       # Active les groupes de controles de pilotage de Grbl
       self.setEnableDisableGroupes()
+      # On redemandera les paramètres à la prochaine connection
+      self.__firstGetSettings = False
 
 
   @pyqtSlot(int)
@@ -624,7 +648,32 @@ class winMain(QtWidgets.QMainWindow):
     for qrb in [self.ui.rbtJog0000, self.ui.rbtJog0001, self.ui.rbtJog0010, self.ui.rbtJog0100, self.ui.rbtJog1000]:
       if qrb.isChecked():
         jogDistance = float(qrb.text().replace(' ', ''))
-    self.__jog.on_jog(cnButton, e, jogDistance)
+
+    if jogDistance != 0:
+      self.__jogModContinue = False
+      while cnButton.isMouseDown():  # on envoi qu'après avoir relâché le bouton
+        # Process events to receive signals;
+        QCoreApplication.processEvents()
+      # envoi de l'ordre jog
+      self.__jog.on_jog(cnButton, e, jogDistance)
+
+    else:  # jogDistance == 0
+      self.__jogModContinue = True
+      # Recherche la course max de l'axe considéré
+      axis = cnButton.name()[-1]   # L'axe est definit par le dernier caractere du nom du Bouton
+      maxTravel = 0
+      for I in range(self.__nbAxis):
+        if axis == self.__axisNames[I]:
+          maxTravel = self.__maxTravel[I]
+          break
+      # envoi de l'ordre jog
+      self.__jog.on_jog(cnButton, e, jogDistance, maxTravel)
+
+
+  @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
+  def stop_jog(self, cnButton, e):
+    if self.__jogModContinue:
+      self.__jog.jogCancel()
 
 
   @pyqtSlot(float)
@@ -677,7 +726,6 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
-    ###print(e)
     self.__grblCom.gcodeInsert(lblText)
 
 
@@ -783,7 +831,10 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.append(data)
     self.__statusText = data.split("[")[0]
     self.ui.statusBar.showMessage(self.__statusText)
-    self.__grblCom.gcodeInsert("\n")
+    # Interroge la config de grbl si la première fois
+    if not self.__firstGetSettings:
+      self.__grblCom.gcodeInsert(CMD_GRBL_GET_SETTINGS)
+      self.__firstGetSettings = True
 
 
   @pyqtSlot()
@@ -827,6 +878,19 @@ class winMain(QtWidgets.QMainWindow):
         self.__nbAxis = len(self.__axisNames);
       self.updateAxisNumber()
       self.decode.setNbAxis(self.__nbAxis)
+    # Memorise les courses maxi pour calcul des jogs max.
+    elif data[:4] == "$130":
+      self.__maxTravel[0] = float(data[5:])
+    elif data[:4] == "$131":
+      self.__maxTravel[1] = float(data[5:])
+    elif data[:4] == "$132":
+      self.__maxTravel[2] = float(data[5:])
+    elif data[:4] == "$133":
+      self.__maxTravel[3] = float(data[5:])
+    elif data[:4] == "$134":
+      self.__maxTravel[4] = float(data[5:])
+    elif data[:4] == "$135":
+      self.__maxTravel[5] = float(data[5:])
 
     if not self.__grblConfigLoaded:
       self.logGrbl.append(data)
@@ -1282,6 +1346,7 @@ class winMain(QtWidgets.QMainWindow):
       self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnEmergencyOff.svg"
     # et relance l'affichage avec la nouvelle image
     self.setEnableDisableGroupes()
+
 
 """******************************************************************"""
 

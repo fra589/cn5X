@@ -2,12 +2,12 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
-'  under the terms of the GNU General Public License as published by      '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
+' under the terms of the GNU General Public License as published by       '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
@@ -74,6 +74,7 @@ class grblComSerial(QObject):
     ]
     self.__lastQueryTime    = time.time()
     self.__pooling          = pooling
+    self.__okToSendGCode = True
 
 
   @pyqtSlot()
@@ -265,14 +266,13 @@ class grblComSerial(QObject):
 
   def __mainLoop(self):
     ''' Boucle principale du composant : lectures / ecritures sur le port serie '''
-    okToSendGCode = True
     flag = COM_FLAG_NO_FLAG
     while True:
       # On commence par vider la file d'attente des commandes temps reel
       while not self.__realTimeStack.isEmpty():
         toSend, flag = self.__realTimeStack.pop()
         self.__sendData(toSend)
-      if okToSendGCode:
+      if self.__okToSendGCode:
         # Envoi d'une ligne gcode si en attente
         if not self.__mainStack.isEmpty():
           # La pile n'est pas vide, on envoi la prochaine commande recuperee dans la pile GCode
@@ -285,7 +285,10 @@ class grblComSerial(QObject):
             else:
               self.sig_emit.emit(toSend[:-1])
           self.__sendData(toSend)
-          okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
+          self.__okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
+      else:
+        # Process events to receive signals;
+        QCoreApplication.processEvents()
       # Lecture du port serie
       serialData = ""
       while True:
@@ -309,7 +312,7 @@ class grblComSerial(QObject):
         tblLines = serialData.splitlines()
         for l in tblLines:
           if l.find('ok') >= 0 or l.find('error') >= 0:
-            okToSendGCode = True # Accuse de reception ou erreur de la derniere commande GCode envoyee
+            self.__okToSendGCode = True # Accuse de reception ou erreur de la derniere commande GCode envoyee
           if l !='':
             self.__traileLaLigne(l, flag)
       if self.__abort:
@@ -322,7 +325,7 @@ class grblComSerial(QObject):
           if len(self.__querySequence[self.__queryCounter]) == 1:
             self.realTimePush(self.__querySequence[self.__queryCounter])
           else:
-            if self.__grblStatus == "Idle":
+            if self.__grblStatus == GRBL_STATUS_IDLE:
               self.gcodeInsert(self.__querySequence[self.__queryCounter], COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
           self.__lastQueryTime    = time.time()
           self.__queryCounter += 1

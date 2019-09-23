@@ -2,17 +2,19 @@
 
 # Form implementation generated from reading ui file 'dlgAPropos.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_dlgApropos(object):
   def setupUi(self, dlgApropos):
     dlgApropos.setObjectName("dlgApropos")
     dlgApropos.setWindowModality(QtCore.Qt.ApplicationModal)
-    dlgApropos.resize(605, 395)
+    dlgApropos.resize(768, 576)
     icon = QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap(":/cn5X/images/XYZAB.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     dlgApropos.setWindowIcon(icon)
@@ -68,7 +70,7 @@ class Ui_dlgApropos(object):
     spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
     self.verticalLayout_3.addItem(spacerItem2)
     self.label_5 = QtWidgets.QLabel(self.tab)
-    self.label_5.setText("Copyright (C) Gauthier Brière - 2018")
+    self.label_5.setText("Copyright (C) Gauthier Brière - 2018-2019")
     self.label_5.setAlignment(QtCore.Qt.AlignCenter)
     self.label_5.setObjectName("label_5")
     self.verticalLayout_3.addWidget(self.label_5)
@@ -143,5 +145,4 @@ class Ui_dlgApropos(object):
     self.label_3.setText(_translate("dlgApropos", "CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.\n"
 "Cette application a pour but d\'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X."))
     self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("dlgApropos", "Infos"))
-
 import cn5X_rc

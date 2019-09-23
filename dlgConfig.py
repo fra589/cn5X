@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'dlgConfig.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_dlgConfig(object):
   def setupUi(self, dlgConfig):
@@ -1029,6 +1031,5 @@ class Ui_dlgConfig(object):
     self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("dlgConfig", "Broche"))
     self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("dlgConfig", "Courses"))
     self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("dlgConfig", "Vitesses"))
-
 from qweditmask import qwEditMask
 import cn5X_rc

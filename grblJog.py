@@ -2,12 +2,12 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
-'  under the terms of the GNU General Public License as published by      '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
+' under the terms of the GNU General Public License as published by       '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
 '                                                                         '
@@ -40,39 +40,32 @@ class grblJog():
 
 
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent, float)
-  def on_jog(self, cnButton, e, jogDistance):
+  @pyqtSlot(cnQPushButton, QtGui.QMouseEvent, float, float)
+  def on_jog(self, cnButton, e, jogDistance, maxTravel=0):
+    '''
+    Deplacement relatif (G91) de "jogDistance" mm (G21) sur axe defini par le nom du bouton
+    si jogDistance != 0, si jogDistance = 0, déplacement en coordonnées machine jusqu'à
+    la course maxi.
+    '''
+    axis = cnButton.name()[-1]  # L'axe est definit par le dernier caractere du nom du Bouton
 
-    axis = cnButton.name()[-1]           # L'axe est definit par le dernier caractere du nom du Bouton
-    if cnButton.name()[-5:-1] == "Plus": #
-      if jogDistance == 0:
-        value = 0.0125
-      else:
+    if jogDistance != 0:
+      if cnButton.name()[-5:-1] == "Plus":
         value = jogDistance
-    else:
-      if jogDistance == 0:
-        value = -0.0125
       else:
         value = -jogDistance
+      if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
+        cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(self.__jogSpeed, axis, value)
+        self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
 
-    if jogDistance == 0:
-      # On envoie des petits mouvements equivalent a 1 pas moteur tant que le bouton est enfonce
-      jogDelay = JOG_REPEAT_DELAY
-      while cnButton.isMouseDown():
-        self.doJog(axis, value)
-        QCoreApplication.processEvents()
-        time.sleep(jogDelay)
-        if jogDelay == JOG_REPEAT_DELAY:
-          jogDelay = JOG_REPEAT_SPEED
-      self.jogCancel()
-    else:
-      self.doJog(axis, value)
-
-
-  def doJog(self, axis: str, value: float):
-    ''' Deplacement relatif (G91) de "value" mm (G21) sur axe axis '''
-    if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
-      cmdJog = CMD_GRBL_JOG + "G91G21F{}{}{}".format(self.__jogSpeed, axis, value)
-      self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
+    elif maxTravel != 0:  # jogDistance == 0 & maxTravel !=0
+      if cnButton.name()[-5:-1] == "Plus":
+        value = 0
+      else:
+        value = -maxTravel
+      if self.__grblCom.grblStatus() in ['Idle', 'Jog']:
+        cmdJog = CMD_GRBL_JOG + "G53F{}{}{}".format(self.__jogSpeed, axis, value)
+        self.__grblCom.gcodePush(cmdJog, COM_FLAG_NO_OK)
 
 
   def jogCancel(self):
