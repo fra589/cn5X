@@ -266,6 +266,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnPause.clicked.connect(self.pauseCycle)
     self.ui.btnStop.clicked.connect(self.stopCycle)
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
+    QtWidgets.QShortcut(QtCore.Qt.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
+    QtWidgets.QShortcut(QtCore.Qt.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
     self.ui.dialAvance.customContextMenuRequested.connect(self.on_dialAvanceContextMenu)
     self.ui.dialBroche.customContextMenuRequested.connect(self.on_dialBrocheContextMenu)
     self.ui.lblLblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(0))
@@ -809,6 +811,7 @@ class winMain(QtWidgets.QMainWindow):
           self.ui.txtGCode.setText(self.__gcode_current_txt)
           self.__gcodes_stack_pos = -1
 
+
   @pyqtSlot(int, str)
   def on_sig_log(self, severity: int, data: str):
     if severity == logSeverity.info.value:
@@ -1066,12 +1069,12 @@ class winMain(QtWidgets.QMainWindow):
     self.logDebug.clear()
 
 
-  def startCycle(self):
+  def startCycle(self, startFrom: int = 0):
     self.log(logSeverity.info.value, self.tr("Demarrage du cycle..."))
     self.__gcodeFile.selectGCodeFileLine(0)
     self.__cycleRun = True
     self.__cyclePause = False
-    self.__gcodeFile.enQueue(self.__grblCom)
+    self.__gcodeFile.enQueue(self.__grblCom, startFrom)
     self.ui.btnStart.setButtonStatus(True)
     self.ui.btnPause.setButtonStatus(False)
     self.ui.btnStop.setButtonStatus(False)
@@ -1145,11 +1148,22 @@ class winMain(QtWidgets.QMainWindow):
       supprimeAction = QtWidgets.QAction(self.tr("Supprimer la ligne"), self)
       supprimeAction.triggered.connect(lambda: self.supprimeGCodeSlot(event))
       self.cMenu.addAction(supprimeAction)
+      self.cMenu.addSeparator()
+      runAction = QtWidgets.QAction(self.tr("Executer cette ligne"), self)
+      runAction.setShortcut('F7')
+      runAction.triggered.connect(lambda: self.runGCodeSlot(event))
+      self.cMenu.addAction(runAction)
+      startFromHereAction = QtWidgets.QAction(self.tr("Executer depuis cette ligne"), self)
+      startFromHereAction.setShortcut('F8')
+      startFromHereAction.triggered.connect(lambda: self.startFromGCodeSlotIndex(event))
+      self.cMenu.addAction(startFromHereAction)
       self.cMenu.popup(QtGui.QCursor.pos())
+
 
   def editGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
+
 
   def insertGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
@@ -1158,6 +1172,7 @@ class winMain(QtWidgets.QMainWindow):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
 
+
   def ajoutGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.__gcodeFile.addGCodeFileLine(idx[0].row())
@@ -1165,9 +1180,35 @@ class winMain(QtWidgets.QMainWindow):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
 
+
   def supprimeGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.__gcodeFile.deleteGCodeFileLine(idx[0].row())
+
+
+  def runGCodeSlot(self, event = None):
+    idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+    self.__gcodeFile.enQueue(self.__grblCom, idx[0].row(), idx[0].row())
+    self.__gcodeFile.selectGCodeFileLine(idx[0].row()+1)
+
+
+  def startFromGCodeSlotIndex(self, event = None):
+    idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+    self.startCycle(idx[0].row())
+
+
+  @pyqtSlot() #QtGui.QKeyEvent)
+  def on_GCodeTable_key_F7_Pressed(self):
+    if self.ui.gcodeTable.hasFocus() and self.__gcodeFile.isFileLoaded():
+      idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+      self.runGCodeSlot()
+
+
+  @pyqtSlot()
+  def on_GCodeTable_key_F8_Pressed(self):
+    if self.ui.gcodeTable.hasFocus() and self.__gcodeFile.isFileLoaded():
+      idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+      self.startFromGCodeSlotIndex()
 
 
   def on_dialAvanceContextMenu(self):
@@ -1365,7 +1406,7 @@ if __name__ == '__main__':
   else:
     # unfrozen
     app_path = os.path.dirname(os.path.realpath(__file__))
-  print(app_path)
+  print("cn5X++ running from: {}".format(app_path))
 
   # Bannière sur la console...
   print("")
