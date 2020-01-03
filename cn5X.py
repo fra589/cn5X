@@ -74,13 +74,15 @@ class winMain(QtWidgets.QMainWindow):
     self.__args = parser.parse_args()
 
     # Retrouve le fichier de licence dans le même répertoire que l'exécutable
+    '''
     if getattr(sys, 'frozen', False):
         # frozen
         dir_ = os.path.dirname(sys.executable)
     else:
         # unfrozen
         dir_ = os.path.dirname(os.path.realpath(__file__))
-    self.__licenceFile = "{}/COPYING".format(dir_)
+    '''
+    self.__licenceFile = "{}/COPYING".format(app_path)
 
     # Initialise la fenêtre princpale
     self.ui = mainWindow.Ui_mainWindow()
@@ -247,8 +249,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnJogPlusB.mouseRelease.connect(self.stop_jog)
     self.ui.btnJogMoinsC.mouseRelease.connect(self.stop_jog)
     self.ui.btnJogPlusC.mouseRelease.connect(self.stop_jog)
-
     self.ui.btnJogStop.mousePress.connect(self.__jog.jogCancel)
+
     self.ui.rbRapid025.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_25_POURCENT))
     self.ui.rbRapid050.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_50_POURCENT))
     self.ui.rbRapid100.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_100_POURCENT))
@@ -1252,7 +1254,7 @@ class winMain(QtWidgets.QMainWindow):
   def createLangMenu(self):
     ''' Creation du menu de choix de la langue du programme
     en fonction du contenu du fichier i18n/cn5X_locales.xml '''
-    document = parse("i18n/cn5X_locales.xml")
+    document = parse("{}/i18n/cn5X_locales.xml".format(app_path))
     root = document.documentElement
     translations = root.getElementsByTagName("translation")
 
@@ -1307,11 +1309,11 @@ class winMain(QtWidgets.QMainWindow):
   def setTranslator(self, locale: QLocale):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
-    if not translator.load(locale, "i18n/cn5X", "."):
+    if not translator.load(locale, "{}/i18n/cn5X".format(app_path), "."):
       print("Locale ({}) not usable, using default to english".format(locale.name()))
       #locale = QLocale(QLocale.French, QLocale.France)
       locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      translator.load(locale, "i18n/cn5X", ".")
+      translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
 
     # Install le traducteur et l'exécute sur les éléments déjà chargés
     QtCore.QCoreApplication.installTranslator(translator)
@@ -1353,11 +1355,32 @@ class winMain(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
   import sys
+
   app = QtWidgets.QApplication(sys.argv)
+
+  # Retrouve le répertoire de l'exécutable
+  if getattr(sys, 'frozen', False):
+    # frozen
+    app_path = os.path.dirname(sys.executable)
+  else:
+    # unfrozen
+    app_path = os.path.dirname(os.path.realpath(__file__))
+  print(app_path)
+
+  # Bannière sur la console...
+  print("")
+  print("                ####### #     #")
+  print("  ####   #    # #        #   #     #       #")
+  print(" #    #  ##   # #         # #      #       #")
+  print(" #       # #  #  #####     #     #####   #####")
+  print(" #       #  # #       #   # #      #       #")
+  print(" #    #  #   ## #     #  #   #     #       #")
+  print("  ####   #    #  #####  #     #")
+  print("")
 
   translator = QTranslator()
   locale = QLocale(QLocale.French, QLocale.France)
-  translator.load(locale, "i18n/cn5X", ".")
+  translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
   app.installTranslator(translator)
 
   window = winMain()
