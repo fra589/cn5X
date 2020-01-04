@@ -1072,16 +1072,6 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def startCycle(self, startFrom: int = 0):
-<<<<<<< HEAD
-    self.log(logSeverity.info.value, self.tr("Demarrage du cycle..."))
-    self.__gcodeFile.selectGCodeFileLine(0)
-    self.__cycleRun = True
-    self.__cyclePause = False
-    self.__gcodeFile.enQueue(self.__grblCom, startFrom)
-    self.ui.btnStart.setButtonStatus(True)
-    self.ui.btnPause.setButtonStatus(False)
-    self.ui.btnStop.setButtonStatus(False)
-=======
     if self.ui.gcodeTable.model().rowCount()<=0:
       self.log(logSeverity.warning.value, self.tr("Tentative de demarrage d'un cycle vide..."))
     else:
@@ -1093,7 +1083,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.btnStart.setButtonStatus(True)
       self.ui.btnPause.setButtonStatus(False)
       self.ui.btnStop.setButtonStatus(False)
->>>>>>> master2
 
 
   def pauseCycle(self):

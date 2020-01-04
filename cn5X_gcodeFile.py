@@ -60,13 +60,8 @@ class gcodeFile(QObject):
     # Affiche la boite de dialogue d'ouverture
     opt = QtWidgets.QFileDialog.Options()
     ###opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-<<<<<<< HEAD
-    fileName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
-    return fileName
-=======
     fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fName
->>>>>>> master2
 
   def readFile(self, filePath: str):
     self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}").format(filePath))
