@@ -70,6 +70,10 @@ class grblDecode(QObject):
     self.__getNextGCodeState = False
 
 
+  def getG5actif(self):
+    return "G{}".format(self.__G5actif)
+
+
   def setNbAxis(self, val: int):
     if val < 3 or val > 6:
       raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))

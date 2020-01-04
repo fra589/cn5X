@@ -1234,21 +1234,21 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction(self.tr("Reinitialiser l'axe {} a zero").format(self.__axisNames[axis]), self)
+    resetX = QtWidgets.QAction(self.tr("Placer l'origine {} de l'axe {} ici").format(self.decode.getG5actif(), self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Reinitialiser tous les axes a zero"), self)
+    resetAll = QtWidgets.QAction(self.tr("Placer l'origine {} de tous les axes ici").format(self.decode.getG5actif()), self)
     gcodeString = "G10 P0 L20 "
     for N in self.__axisNames:
       gcodeString += "{}0 ".format(N)
     resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction(self.tr("Retour de {} a la position zero").format(self.__axisNames[axis]), self)
+    resetX = QtWidgets.QAction(self.tr("Jog axe {} vers l'origine {}").format(self.__axisNames[axis], self.decode.getG5actif()), self)
     cmdJog1 = CMD_GRBL_JOG + "G90G21F{}{}0".format(self.ui.dsbJogSpeed.value(), self.__axisNames[axis])
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog1))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Retour de tous les axes en position zero"), self)
+    resetAll = QtWidgets.QAction(self.tr("Jog de tous les axes vers l'origine {}").format(self.decode.getG5actif()), self)
     cmdJog = CMD_GRBL_JOG + "G90G21F{}".format(self.ui.dsbJogSpeed.value())
     for N in self.__axisNames:
       cmdJog += "{}0 ".format(N)
