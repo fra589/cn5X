@@ -70,6 +70,10 @@ class grblDecode(QObject):
     self.__getNextGCodeState = False
 
 
+  def getG5actif(self):
+    return "G{}".format(self.__G5actif)
+
+
   def setNbAxis(self, val: int):
     if val < 3 or val > 6:
       raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))
@@ -108,9 +112,16 @@ class grblDecode(QObject):
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
             if not self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(True)
+            self.ui.lblEtat.setToolTip("Grbl is waiting for work.")
           elif D ==GRBL_STATUS_HOLD0:
+            if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
+            if not self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(True)
+            if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
             self.ui.lblEtat.setToolTip("Hold complete. Ready to resume.")
           elif D ==GRBL_STATUS_HOLD1:
+            if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
+            if not self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(True)
+            if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
             self.ui.lblEtat.setToolTip("Hold in-progress. Reset will throw an alarm.")
           elif D =="Door:0":
             self.ui.lblEtat.setToolTip("Door closed. Ready to resume.")
@@ -120,6 +131,17 @@ class grblDecode(QObject):
             self.ui.lblEtat.setToolTip("Door opened. Hold (or parking retract) in-progress. Reset will throw an alarm.")
           elif D =="Door:3":
             self.ui.lblEtat.setToolTip("Door closed and resuming. Restoring from park, if applicable. Reset will throw an alarm.")
+          elif D == GRBL_STATUS_RUN:
+            if not self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(True)
+            if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
+            if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
+            self.ui.lblEtat.setToolTip("Grbl running...")
+          elif D == GRBL_STATUS_JOG:
+            self.ui.lblEtat.setToolTip("Grbl jogging...")
+          elif D == GRBL_STATUS_ALARM:
+            self.ui.lblEtat.setToolTip("Grbl Alarm! see Grbl communication.")
+          elif D == GRBL_STATUS_HOME:
+            self.ui.lblEtat.setToolTip("Grbl homing, wait for finish...")
           else:
             self.ui.lblEtat.setToolTip("")
 
@@ -419,18 +441,22 @@ class grblDecode(QObject):
               if not self.ui.btnSpinM3.getButtonStatus(): self.ui.btnSpinM3.setButtonStatus(True)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
+              if not self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(True)  # Activation bouton M3
+              if self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(False)     # Interdit un changement de sens de rotation direct
             if S == 'M4':
               self.ui.lblBroche.setToolTip(self.tr(" Broche en sens anti-horaire "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               if not self.ui.btnSpinM4.getButtonStatus(): self.ui.btnSpinM4.setButtonStatus(True)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
+              if self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(False)     # Interdit un changement de sens de rotation direct
+              if not self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(True)  # Activation bouton M4
             if S == 'M5':
               self.ui.lblBroche.setToolTip(self.tr(" Broche arretee "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
-              self.ui.btnSpinM3.setEnabled(True)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
-              self.ui.btnSpinM4.setEnabled(True)
               if not self.ui.btnSpinM5.getButtonStatus(): self.ui.btnSpinM5.setButtonStatus(True)
+              if not self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(True)  # Activation bouton M3
+              if not self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(True)  # Activation bouton M4
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
