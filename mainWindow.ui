@@ -4324,7 +4324,7 @@ color: rgb(0, 0, 63);
               <bool>true</bool>
              </attribute>
              <attribute name="verticalHeaderDefaultSectionSize">
-              <number>15</number>
+              <number>21</number>
              </attribute>
             </widget>
            </item>
@@ -4576,8 +4576,8 @@ color: rgb(0, 0, 63);
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>i18n/flags/flag_fr.svg</normaloff>i18n/flags/flag_fr.svg</iconset>
+     <iconset resource="cn5X.qrc">
+      <normaloff>:/i18n/i18n/flags/flag_fr.svg</normaloff>:/i18n/i18n/flags/flag_fr.svg</iconset>
     </property>
    </widget>
    <addaction name="mnuApplication"/>

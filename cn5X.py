@@ -74,13 +74,15 @@ class winMain(QtWidgets.QMainWindow):
     self.__args = parser.parse_args()
 
     # Retrouve le fichier de licence dans le même répertoire que l'exécutable
+    '''
     if getattr(sys, 'frozen', False):
         # frozen
         dir_ = os.path.dirname(sys.executable)
     else:
         # unfrozen
         dir_ = os.path.dirname(os.path.realpath(__file__))
-    self.__licenceFile = "{}/COPYING".format(dir_)
+    '''
+    self.__licenceFile = "{}/COPYING".format(app_path)
 
     # Initialise la fenêtre princpale
     self.ui = mainWindow.Ui_mainWindow()
@@ -247,8 +249,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnJogPlusB.mouseRelease.connect(self.stop_jog)
     self.ui.btnJogMoinsC.mouseRelease.connect(self.stop_jog)
     self.ui.btnJogPlusC.mouseRelease.connect(self.stop_jog)
-
     self.ui.btnJogStop.mousePress.connect(self.__jog.jogCancel)
+
     self.ui.rbRapid025.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_25_POURCENT))
     self.ui.rbRapid050.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_50_POURCENT))
     self.ui.rbRapid100.clicked.connect(lambda: self.__grblCom.realTimePush(REAL_TIME_RAPID_100_POURCENT))
@@ -264,6 +266,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnPause.clicked.connect(self.pauseCycle)
     self.ui.btnStop.clicked.connect(self.stopCycle)
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
+    QtWidgets.QShortcut(QtCore.Qt.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
+    QtWidgets.QShortcut(QtCore.Qt.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
     self.ui.dialAvance.customContextMenuRequested.connect(self.on_dialAvanceContextMenu)
     self.ui.dialBroche.customContextMenuRequested.connect(self.on_dialBrocheContextMenu)
     self.ui.lblLblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(0))
@@ -304,7 +308,7 @@ class winMain(QtWidgets.QMainWindow):
         # Selectionne l'onglet du fichier sauf en cas de debug actif
         if not self.ui.btnDebug.isChecked():
           self.ui.grpConsole.setCurrentIndex(1)
-        self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.filePath())
+        self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.fileName())
       else:
         # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
@@ -452,7 +456,7 @@ class winMain(QtWidgets.QMainWindow):
         # Selectionne l'onglet du fichier sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
           self.ui.grpConsole.setCurrentIndex(1)
-        self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.filePath())
+        self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.fileName())
       else:
         # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
@@ -477,6 +481,8 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_mnuAppFermerGCode(self):
     self.__gcodeFile.closeFile()
+    # Active ou desactive les boutons de cycle
+    self.setEnableDisableGroupes()
 
 
   @pyqtSlot()
@@ -807,6 +813,7 @@ class winMain(QtWidgets.QMainWindow):
           self.ui.txtGCode.setText(self.__gcode_current_txt)
           self.__gcodes_stack_pos = -1
 
+
   @pyqtSlot(int, str)
   def on_sig_log(self, severity: int, data: str):
     if severity == logSeverity.info.value:
@@ -1064,15 +1071,18 @@ class winMain(QtWidgets.QMainWindow):
     self.logDebug.clear()
 
 
-  def startCycle(self):
-    self.log(logSeverity.info.value, self.tr("Demarrage du cycle..."))
-    self.__gcodeFile.selectGCodeFileLine(0)
-    self.__cycleRun = True
-    self.__cyclePause = False
-    self.__gcodeFile.enQueue(self.__grblCom)
-    self.ui.btnStart.setButtonStatus(True)
-    self.ui.btnPause.setButtonStatus(False)
-    self.ui.btnStop.setButtonStatus(False)
+  def startCycle(self, startFrom: int = 0):
+    if self.ui.gcodeTable.model().rowCount()<=0:
+      self.log(logSeverity.warning.value, self.tr("Tentative de demarrage d'un cycle vide..."))
+    else:
+      self.log(logSeverity.info.value, self.tr("Demarrage du cycle..."))
+      self.__gcodeFile.selectGCodeFileLine(0)
+      self.__cycleRun = True
+      self.__cyclePause = False
+      self.__gcodeFile.enQueue(self.__grblCom, startFrom)
+      self.ui.btnStart.setButtonStatus(True)
+      self.ui.btnPause.setButtonStatus(False)
+      self.ui.btnStop.setButtonStatus(False)
 
 
   def pauseCycle(self):
@@ -1143,11 +1153,22 @@ class winMain(QtWidgets.QMainWindow):
       supprimeAction = QtWidgets.QAction(self.tr("Supprimer la ligne"), self)
       supprimeAction.triggered.connect(lambda: self.supprimeGCodeSlot(event))
       self.cMenu.addAction(supprimeAction)
+      self.cMenu.addSeparator()
+      runAction = QtWidgets.QAction(self.tr("Executer cette ligne"), self)
+      runAction.setShortcut('F7')
+      runAction.triggered.connect(lambda: self.runGCodeSlot(event))
+      self.cMenu.addAction(runAction)
+      startFromHereAction = QtWidgets.QAction(self.tr("Executer depuis cette ligne"), self)
+      startFromHereAction.setShortcut('F8')
+      startFromHereAction.triggered.connect(lambda: self.startFromGCodeSlotIndex(event))
+      self.cMenu.addAction(startFromHereAction)
       self.cMenu.popup(QtGui.QCursor.pos())
+
 
   def editGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
+
 
   def insertGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
@@ -1156,6 +1177,7 @@ class winMain(QtWidgets.QMainWindow):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
 
+
   def ajoutGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.__gcodeFile.addGCodeFileLine(idx[0].row())
@@ -1163,9 +1185,35 @@ class winMain(QtWidgets.QMainWindow):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.ui.gcodeTable.edit(idx[0])
 
+
   def supprimeGCodeSlot(self, event):
     idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
     self.__gcodeFile.deleteGCodeFileLine(idx[0].row())
+
+
+  def runGCodeSlot(self, event = None):
+    idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+    self.__gcodeFile.enQueue(self.__grblCom, idx[0].row(), idx[0].row())
+    self.__gcodeFile.selectGCodeFileLine(idx[0].row()+1)
+
+
+  def startFromGCodeSlotIndex(self, event = None):
+    idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+    self.startCycle(idx[0].row())
+
+
+  @pyqtSlot() #QtGui.QKeyEvent)
+  def on_GCodeTable_key_F7_Pressed(self):
+    if self.ui.gcodeTable.hasFocus() and self.__gcodeFile.isFileLoaded():
+      idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+      self.runGCodeSlot()
+
+
+  @pyqtSlot()
+  def on_GCodeTable_key_F8_Pressed(self):
+    if self.ui.gcodeTable.hasFocus() and self.__gcodeFile.isFileLoaded():
+      idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
+      self.startFromGCodeSlotIndex()
 
 
   def on_dialAvanceContextMenu(self):
@@ -1252,7 +1300,7 @@ class winMain(QtWidgets.QMainWindow):
   def createLangMenu(self):
     ''' Creation du menu de choix de la langue du programme
     en fonction du contenu du fichier i18n/cn5X_locales.xml '''
-    document = parse("i18n/cn5X_locales.xml")
+    document = parse("{}/i18n/cn5X_locales.xml".format(app_path))
     root = document.documentElement
     translations = root.getElementsByTagName("translation")
 
@@ -1307,11 +1355,11 @@ class winMain(QtWidgets.QMainWindow):
   def setTranslator(self, locale: QLocale):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
-    if not translator.load(locale, "i18n/cn5X", "."):
+    if not translator.load(locale, "{}/i18n/cn5X".format(app_path), "."):
       print("Locale ({}) not usable, using default to english".format(locale.name()))
       #locale = QLocale(QLocale.French, QLocale.France)
       locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      translator.load(locale, "i18n/cn5X", ".")
+      translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
 
     # Install le traducteur et l'exécute sur les éléments déjà chargés
     QtCore.QCoreApplication.installTranslator(translator)
@@ -1353,11 +1401,32 @@ class winMain(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
   import sys
+
   app = QtWidgets.QApplication(sys.argv)
+
+  # Retrouve le répertoire de l'exécutable
+  if getattr(sys, 'frozen', False):
+    # frozen
+    app_path = os.path.dirname(sys.executable)
+  else:
+    # unfrozen
+    app_path = os.path.dirname(os.path.realpath(__file__))
+  print("cn5X++ running from: {}".format(app_path))
+
+  # Bannière sur la console...
+  print("")
+  print("                ####### #     #")
+  print("  ####   #    # #        #   #     #       #")
+  print(" #    #  ##   # #         # #      #       #")
+  print(" #       # #  #  #####     #     #####   #####")
+  print(" #       #  # #       #   # #      #       #")
+  print(" #    #  #   ## #     #  #   #     #       #")
+  print("  ####   #    #  #####  #     #")
+  print("")
 
   translator = QTranslator()
   locale = QLocale(QLocale.French, QLocale.France)
-  translator.load(locale, "i18n/cn5X", ".")
+  translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
   app.installTranslator(translator)
 
   window = winMain()

@@ -21,6 +21,7 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
@@ -58,9 +59,9 @@ class gcodeFile(QObject):
   def showFileOpen(self):
     # Affiche la boite de dialogue d'ouverture
     opt = QtWidgets.QFileDialog.Options()
-    opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fileName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
-    return fileName
+    ###opt |= QtWidgets.QFileDialog.DontUseNativeDialog
+    fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    return fName
 
   def readFile(self, filePath: str):
     self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}").format(filePath))
@@ -100,6 +101,10 @@ class gcodeFile(QObject):
     return self.__filePath
 
 
+  def fileName(self):
+    return os.path.basename(self.__filePath)
+
+
   def selectGCodeFileLine(self, num: int):
     ''' Selectionne un element de la liste du fichier GCode '''
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
@@ -114,10 +119,10 @@ class gcodeFile(QObject):
 
 
   def saveAs(self):
-    fileName = self.showFileSave()
-    if fileName[0] != "":
-      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})").format(fileName[0]))
-      self.saveFile(fileName[0])
+    fName = self.showFileSave()
+    if fName[0] != "":
+      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})").format(fName[0]))
+      self.saveFile(fName[0])
     else:
       self.sig_log.emit(logSeverity.info.value, self.tr("saveAs() annule !"))
 
@@ -126,8 +131,8 @@ class gcodeFile(QObject):
     ''' Affiche la boite de dialogue "Save as" '''
     opt = QtWidgets.QFileDialog.Options()
     opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fileName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Enregistrer un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
-    return fileName
+    fName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Enregistrer un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    return fName
 
 
   def saveFile(self, filePath: str = ""):

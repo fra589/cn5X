@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'mainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_mainWindow(object):
   def setupUi(self, mainWindow):
@@ -1705,7 +1707,7 @@ class Ui_mainWindow(object):
     self.gcodeTable.setObjectName("gcodeTable")
     self.gcodeTable.horizontalHeader().setVisible(False)
     self.gcodeTable.horizontalHeader().setStretchLastSection(True)
-    self.gcodeTable.verticalHeader().setDefaultSectionSize(15)
+    self.gcodeTable.verticalHeader().setDefaultSectionSize(21)
     self.gridLayout_6.addWidget(self.gcodeTable, 0, 0, 1, 1)
     self.grpConsole.addTab(self.tabGCodeFile, "")
     self.tabConsole = QtWidgets.QWidget()
@@ -1795,7 +1797,7 @@ class Ui_mainWindow(object):
     self.menuLangue = QtWidgets.QMenu(self.mnuBar)
     self.menuLangue.setTitle("")
     icon28 = QtGui.QIcon()
-    icon28.addPixmap(QtGui.QPixmap("i18n/flags/flag_fr.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    icon28.addPixmap(QtGui.QPixmap(":/i18n/i18n/flags/flag_fr.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     self.menuLangue.setIcon(icon28)
     self.menuLangue.setObjectName("menuLangue")
     mainWindow.setMenuBar(self.mnuBar)
@@ -1914,7 +1916,6 @@ class Ui_mainWindow(object):
     self.mnuAppEnregistrerSous.setText(_translate("mainWindow", "Enregistrer &sous..."))
     self.mnu_GrblConfig.setText(_translate("mainWindow", "Configuration de Grbl..."))
     self.mnuA_propos.setText(_translate("mainWindow", "A propos de cn5X++..."))
-
 from cnQLabel import cnQLabel
 from cnQPushButton import cnQPushButton
 from cnled import cnLed

@@ -75,9 +75,17 @@ class grblCom(QObject):
     Gestion des communications serie et des timers dans des threads distincts
     '''
 
+    # TODO : Ajout possibilité de connection réseau
+    # Windows : pseudo serial over TCP driver => rien a faire
+    # Linux : use socat :
+    # sudo socat pty,link=/dev/ttyTCP0,raw tcp:127.0.0.1:1386
+    # comPort = "ttyTCP0" (si dans /dev)
+    # attention aux droits d'accès !
+    # comPort = "/tmp/ttyTCP0" (chemin absolu)
+
     self.sig_debug.emit("grblCom.startCom(self, {}, {})".format(comPort, baudRate))
 
-    self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread.')
+    self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread on {}.'.format(comPort))
     newComSerial = grblComSerial(comPort, baudRate, self.__pooling)
     thread = QThread()
     thread.setObjectName('grblComSerial')
