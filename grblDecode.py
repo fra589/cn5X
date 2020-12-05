@@ -44,7 +44,22 @@ class grblDecode(QObject):
     self.log = log
     self.__grblCom = grbl
     self.__nbAxis = DEFAULT_NB_AXIS
-    self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
+    ###self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
+    self.__validMachineState = [
+      GRBL_STATUS_IDLE,
+      GRBL_STATUS_RUN,
+      GRBL_STATUS_HOLD0,
+      GRBL_STATUS_HOLD1,
+      GRBL_STATUS_JOG,
+      GRBL_STATUS_ALARM,
+      GRBL_STATUS_DOOR0,
+      GRBL_STATUS_DOOR1,
+      GRBL_STATUS_DOOR2,
+      GRBL_STATUS_DOOR3,
+      GRBL_STATUS_CHECK,
+      GRBL_STATUS_HOME,
+      GRBL_STATUS_SLEEP
+    ]
     self.__validG5x = ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
     self.__G5actif = 54
     self.__G5x={
@@ -509,6 +524,13 @@ class grblDecode(QObject):
 
   def get_etatArrosage(self):
     return self.__etatArrosage
+
+
+  def set_etatMachine(self, etat):
+      if etat in self.__validMachineState:
+        if etat != self.__etatMachine:
+          self.ui.lblEtat.setText(etat)
+          self.__etatMachine = etat
 
 
   def get_etatMachine(self):

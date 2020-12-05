@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'mainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_mainWindow(object):
   def setupUi(self, mainWindow):
@@ -1786,7 +1784,7 @@ class Ui_mainWindow(object):
     self.horizontalLayout_17.addWidget(self.frmStatus)
     mainWindow.setCentralWidget(self.centralwidget)
     self.mnuBar = QtWidgets.QMenuBar(mainWindow)
-    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
+    self.mnuBar.setGeometry(QtCore.QRect(0, 0, 1024, 22))
     self.mnuBar.setObjectName("mnuBar")
     self.mnuApplication = QtWidgets.QMenu(self.mnuBar)
     self.mnuApplication.setObjectName("mnuApplication")
@@ -1828,6 +1826,8 @@ class Ui_mainWindow(object):
     self.mnu_GrblConfig.setObjectName("mnu_GrblConfig")
     self.mnuA_propos = QtWidgets.QAction(mainWindow)
     self.mnuA_propos.setObjectName("mnuA_propos")
+    self.mnuUnlock = QtWidgets.QAction(mainWindow)
+    self.mnuUnlock.setObjectName("mnuUnlock")
     self.mnuApplication.addAction(self.mnuAppOuvrir)
     self.mnuApplication.addAction(self.mnuAppEnregistrer)
     self.mnuApplication.addAction(self.mnuAppEnregistrerSous)
@@ -1841,6 +1841,7 @@ class Ui_mainWindow(object):
     self.menuMachine.addAction(self.mnu_WPos)
     self.menuMachine.addSeparator()
     self.menuMachine.addAction(self.mnuDebug_mode)
+    self.menuMachine.addAction(self.mnuUnlock)
     self.menuAide.addAction(self.mnuA_propos)
     self.mnuBar.addAction(self.mnuApplication.menuAction())
     self.mnuBar.addAction(self.menuMachine.menuAction())
@@ -1916,6 +1917,9 @@ class Ui_mainWindow(object):
     self.mnuAppEnregistrerSous.setText(_translate("mainWindow", "Enregistrer &sous..."))
     self.mnu_GrblConfig.setText(_translate("mainWindow", "Configuration de Grbl..."))
     self.mnuA_propos.setText(_translate("mainWindow", "A propos de cn5X++..."))
+    self.mnuUnlock.setText(_translate("mainWindow", "Reset Serial"))
+    self.mnuUnlock.setToolTip(_translate("mainWindow", "Reset Serial communication when hanged"))
+
 from cnQLabel import cnQLabel
 from cnQPushButton import cnQPushButton
 from cnled import cnLed

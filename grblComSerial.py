@@ -50,8 +50,9 @@ class grblComSerial(QObject):
   sig_debug   = pyqtSignal(str)      # Emis a chaque envoi ou reception
 
 
-  def __init__(self, comPort: str, baudRate: int, pooling: bool):
+  def __init__(self, ui, comPort: str, baudRate: int, pooling: bool):
     super().__init__()
+    self.ui = ui
 
     self.__abort            = False
     self.__portName         = comPort
@@ -116,6 +117,17 @@ class grblComSerial(QObject):
 
 
   @pyqtSlot(str)
+  def resetSerial(self, buff: str):
+    ''' Reinitialisation de la communication série '''
+    print("grblComSerial: resetSerial()")
+    print("self.__okToSendGCode = {}".format(self.__okToSendGCode))
+    self.__realTimeStack.clear()
+    self.__mainStack.clear()
+    self.__sendData(REAL_TIME_SOFT_RESET)
+    ###self.__sendData(buff)
+    self.__okToSendGCode = True
+
+  @pyqtSlot(str)
   @pyqtSlot(str, object)
   def gcodeInsert(self, buff: str, flag = COM_FLAG_NO_FLAG):
     ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
@@ -125,12 +137,20 @@ class grblComSerial(QObject):
   def __sendData(self, buff: str):
     ''' Envoie des donnees sur le port serie '''
     # Signal debug pour toutes les donnees envoyees
-    if buff[-1:] == "\n":
-      self.sig_debug.emit(">>> " + buff[:-1] + "\\n")
-    elif buff[-2:] == "\r\n":
+    if buff[-2:] == "\r\n":
       self.sig_debug.emit(">>> " + buff[:-2] + "\\r\\n")
+    elif buff[-1:] == "\n":
+      self.sig_debug.emit(">>> " + buff[:-1] + "\\n")
     else:
-      self.sig_debug.emit(">>> " + buff)
+      if buff == REAL_TIME_SOFT_RESET:
+        self.sig_debug.emit(">>> REAL_TIME_SOFT_RESET")
+      elif buff == REAL_TIME_JOG_CANCEL:
+        self.sig_debug.emit(">>> REAL_TIME_SOFT_RESET")
+      else:
+        self.sig_debug.emit(">>> " + buff)
+    # Force l'etat Home car grbl bloque la commande ? pendant le Homing
+    if buff[0:2] == CMD_GRBL_RUN_HOME_CYCLE:
+      self.ui.lblEtat.setText(GRBL_STATUS_HOME)
     # Formatage du buffer a envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
     # Temps necessaire pour la com (millisecondes), arrondi a l'entier superieur
@@ -244,13 +264,20 @@ class grblComSerial(QObject):
           # Try to send Reset to Grbl at half time of timeout
           self.sig_debug.emit(self.tr("grblComSerial : No response from Grbl after {:0.0f}ms, sending soft reset...").format(openResetTime))
           self.__sendData(REAL_TIME_SOFT_RESET)
+          self.__sendData("\n")
           tReset = True
         if now > tDebut + openMaxTime:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
           self.sig_debug.emit(self.tr("grblComSerial : openMaxTime ({}ms) timeout elapsed !").format(openMaxTime))
           self.sig_debug.emit(self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
+          '''
           self.__comPort.close()
+          self.sig_connect.emit(False)
           return False
+          ''' 
+          self.sig_init.emit("Grbl ??? ['$' for help]")
+          self.__initOK = True
+          return True # On a pas recu la chaine d'initialisation de Grbl mais on essaie quand même...
       # On cherche la chaine d'initialisation dans les lignes du buffer
       for l in serialData.splitlines():
         if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl 1.1f ['$' for help]
@@ -287,6 +314,7 @@ class grblComSerial(QObject):
           self.__sendData(toSend)
           self.__okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
       else:
+        self.sig_debug.emit(self.tr("grblComSerial : Not OK to send GCode ({}").format(self.__mainStack.next()))
         # Process events to receive signals;
         QCoreApplication.processEvents()
       # Lecture du port serie

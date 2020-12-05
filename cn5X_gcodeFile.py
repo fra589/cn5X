@@ -21,7 +21,14 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import os
+import os, sys
+'''
+if sys.platform == 'linux':
+  print("Platform = Linux")
+  import gi
+  gi.require_version('Gtk+', '3.0')
+  from gi.repository import Gtk # => Segmentation fault. Conflit possible avec QT ?
+'''
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
@@ -57,7 +64,41 @@ class gcodeFile(QObject):
     self.__gcodeChanged     = False
 
   def showFileOpen(self):
-    # Affiche la boite de dialogue d'ouverture
+    ''' Affiche la boite de dialogue d'ouverture '''
+    '''
+    if sys.platform == 'linux':
+      # Prépare la boite de dialogue
+      dialog = Gtk.FileChooserDialog(
+        self.tr("Ouvrir un fichier GCode"),
+        self,
+        Gtk.FileChooserAction.OPEN,
+        (
+          Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+          Gtk.STOCK_OPEN, Gtk.ResponseType.OK
+        )
+      )
+      dialog.set_local_only(False) # Permet l'affichage des fichiers réseaux sous Linux GTK+3
+      dialog_filter = Gtk.FileFilter()
+      dialog_filter.set_name(self.tr("Fichier GCode"))
+      dialog_filter.add_pattern("*.gcode")
+      dialog_filter.add_pattern("*.ngc")
+      dialog_filter.add_pattern("*.nc")
+      dialog_filter.add_pattern("*.gc")
+      dialog_filter.add_pattern("*.cnc")
+      dialog.add_filter(dialog_filter)
+      # Affiche la boite de dialogue
+      response = dialog.run()
+      # Traite la réponse
+      if response == Gtk.ResponseType.OK:
+          print("Open clicked")
+          print("File selected: " + dialog.get_filename())
+      elif response == Gtk.ResponseType.CANCEL:
+          print("Cancel clicked")
+      # Libère les ressources
+      dialog.destroy()
+
+    else: # sys.platform == 'linux'
+    '''
     opt = QtWidgets.QFileDialog.Options()
     ###opt |= QtWidgets.QFileDialog.DontUseNativeDialog
     fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)

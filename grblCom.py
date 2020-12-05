@@ -56,10 +56,12 @@ class grblCom(QObject):
   sig_clearCom     = pyqtSignal()
   sig_startPooling = pyqtSignal()
   sig_stopPooling  = pyqtSignal()
+  sig_resetSerial  = pyqtSignal(str)
 
 
-  def __init__(self):
+  def __init__(self, ui):
     super().__init__()
+    self.ui = ui
     self.__threads       = None
     self.__Com           = None
     self.__connectStatus = False
@@ -86,7 +88,7 @@ class grblCom(QObject):
     self.sig_debug.emit("grblCom.startCom(self, {}, {})".format(comPort, baudRate))
 
     self.sig_log.emit(logSeverity.info.value, 'grblCom: Starting grblComSerial thread on {}.'.format(comPort))
-    newComSerial = grblComSerial(comPort, baudRate, self.__pooling)
+    newComSerial = grblComSerial(self.ui, comPort, baudRate, self.__pooling)
     thread = QThread()
     thread.setObjectName('grblComSerial')
     self.__threads.append((thread, newComSerial))  # need to store worker too otherwise will be gc'd
@@ -114,7 +116,7 @@ class grblCom(QObject):
     self.sig_clearCom.connect(newComSerial.clearCom)
     self.sig_startPooling.connect(newComSerial.startPooling)
     self.sig_stopPooling.connect(newComSerial.stopPooling)
-
+    self.sig_resetSerial.connect(newComSerial.resetSerial)
 
     # Start the thread...
     thread.started.connect(newComSerial.run)
@@ -211,3 +213,7 @@ class grblCom(QObject):
   def isOpen(self):
     return self.__connectStatus
 
+
+  @pyqtSlot(str)
+  def resetSerial(self, buff: str):
+    self.sig_resetSerial.emit(buff)

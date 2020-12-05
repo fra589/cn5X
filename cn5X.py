@@ -74,14 +74,6 @@ class winMain(QtWidgets.QMainWindow):
     self.__args = parser.parse_args()
 
     # Retrouve le fichier de licence dans le même répertoire que l'exécutable
-    '''
-    if getattr(sys, 'frozen', False):
-        # frozen
-        dir_ = os.path.dirname(sys.executable)
-    else:
-        # unfrozen
-        dir_ = os.path.dirname(os.path.realpath(__file__))
-    '''
     self.__licenceFile = "{}/COPYING".format(app_path)
 
     # Initialise la fenêtre princpale
@@ -108,7 +100,7 @@ class winMain(QtWidgets.QMainWindow):
 
     self.timerDblClic = QtCore.QTimer()
 
-    self.__grblCom = grblCom()
+    self.__grblCom = grblCom(self.ui)
     self.__grblCom.sig_log.connect(self.on_sig_log)
     self.__grblCom.sig_connect.connect(self.on_sig_connect)
     self.__grblCom.sig_init.connect(self.on_sig_init)
@@ -139,9 +131,6 @@ class winMain(QtWidgets.QMainWindow):
     self.__maxTravel        = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__firstGetSettings = False
     self.__jogModContinue   = False
-
-    ###pathname = os.path.abspath(os.path.dirname(sys.argv[0]))
-    ###os.chdir(pathname)
 
     """---------- Preparation de l'interface ----------"""
 
@@ -196,6 +185,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnu_MPos.triggered.connect(self.on_mnu_MPos)
     self.ui.mnu_WPos.triggered.connect(self.on_mnu_WPos)
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
+    self.ui.mnuUnlock.triggered.connect(self.on_mnuUnlock)
 
     self.ui.mnuA_propos.triggered.connect(self.on_mnuA_propos)
 
@@ -650,6 +640,13 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
   def on_jog(self, cnButton, e):
+    # Jogging seulement si Idle
+    if self.decode.get_etatMachine() != GRBL_STATUS_IDLE:
+      return
+
+    # On anticipe l'état GRBL_STATUS_JOG
+    self.decode.set_etatMachine(GRBL_STATUS_JOG)
+
     jogDistance = 0
     for qrb in [self.ui.rbtJog0000, self.ui.rbtJog0001, self.ui.rbtJog0010, self.ui.rbtJog0100, self.ui.rbtJog1000]:
       if qrb.isChecked():
@@ -658,7 +655,7 @@ class winMain(QtWidgets.QMainWindow):
     if jogDistance != 0:
       self.__jogModContinue = False
       while cnButton.isMouseDown():  # on envoi qu'après avoir relâché le bouton
-        # Process events to receive signals;
+        # Process events to receive signals en attendant que le bouton soit relâché;
         QCoreApplication.processEvents()
       # envoi de l'ordre jog
       self.__jog.on_jog(cnButton, e, jogDistance)
@@ -1031,6 +1028,12 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
+  def on_mnuUnlock(self):
+    ''' Force l'envoi de \n pour déblocage communication
+    '''
+    self.__grblCom.resetSerial(self.ui.txtGCode.text() + "\n")
+
+  @pyqtSlot()
   def on_mnuA_propos(self):
     ''' Appel de la boite de dialogue A Propos
     '''
@@ -1154,11 +1157,11 @@ class winMain(QtWidgets.QMainWindow):
       supprimeAction.triggered.connect(lambda: self.supprimeGCodeSlot(event))
       self.cMenu.addAction(supprimeAction)
       self.cMenu.addSeparator()
-      runAction = QtWidgets.QAction(self.tr("Executer cette ligne"), self)
+      runAction = QtWidgets.QAction(self.tr("Executer cette ligne\t(F7)"), self)
       runAction.setShortcut('F7')
       runAction.triggered.connect(lambda: self.runGCodeSlot(event))
       self.cMenu.addAction(runAction)
-      startFromHereAction = QtWidgets.QAction(self.tr("Executer depuis cette ligne"), self)
+      startFromHereAction = QtWidgets.QAction(self.tr("Executer a partir de cette ligne\t(F8)"), self)
       startFromHereAction.setShortcut('F8')
       startFromHereAction.triggered.connect(lambda: self.startFromGCodeSlotIndex(event))
       self.cMenu.addAction(startFromHereAction)

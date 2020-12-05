@@ -329,6 +329,7 @@ class grblConfig(QObject):
       self.__di.lblAxisName.setText(data[:-1].split(":")[2])
       self.__setNbAxes(int(data[:-1].split(":")[1]), data[:-1].split(":")[2])
     elif data[:5] == "[OPT:": # BLOCK_BUFFER_SIZE,RX_BUFFER_SIZE
+      ###print(data)
       self.__di.lblGrblOptions.setText(data[:-1].split(":")[1])
       decodeOpt = data[:-1].split(":")[1].split(',')
       self.__di.lblGrblBlockBufferSize.setText(decodeOpt[1])
@@ -336,9 +337,14 @@ class grblConfig(QObject):
       # remplir lstOptions avec la liste des options Grbl compilees
       model = QStandardItemModel(self.__di.lstOptions)
       for o in list(decodeOpt[0]):
-        if grblCompilOptions[o][0]:
-          item = QStandardItem("{} : {}".format(o, grblCompilOptions[o][0]))
+        try:
+          if grblCompilOptions[o][0]:
+            item = QStandardItem("{} : {}".format(o, grblCompilOptions[o][0]))
+            model.appendRow(item)
+        except KeyError:
+          item = QStandardItem("{} : {}".format(o, "Unknown Grbl compil option"))
           model.appendRow(item)
+            
       self.__di.lstOptions.setModel(model)
     self.__configChanged     = False
     self.__buttonApply.setEnabled(False)

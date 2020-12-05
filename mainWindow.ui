@@ -4539,7 +4539,7 @@ color: rgb(0, 0, 63);
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -4564,6 +4564,7 @@ color: rgb(0, 0, 63);
     <addaction name="mnu_WPos"/>
     <addaction name="separator"/>
     <addaction name="mnuDebug_mode"/>
+    <addaction name="mnuUnlock"/>
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
@@ -4646,6 +4647,14 @@ color: rgb(0, 0, 63);
   <action name="mnuA_propos">
    <property name="text">
     <string>A propos de cn5X++...</string>
+   </property>
+  </action>
+  <action name="mnuUnlock">
+   <property name="text">
+    <string>Reset Serial</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset Serial communication when hanged</string>
    </property>
   </action>
  </widget>

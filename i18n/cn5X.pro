@@ -49,6 +49,7 @@ SOURCES += ../cn5X.py \
 	../mainWindow.py \
 	../msgbox.py \
 	../qweditmask.py \
+	../setup.py \
 	../speedOverrides.py
 TRANSLATIONS += cn5X.fr.ts \
                 cn5X.en.ts \
