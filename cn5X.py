@@ -100,7 +100,7 @@ class winMain(QtWidgets.QMainWindow):
 
     self.timerDblClic = QtCore.QTimer()
 
-    self.__grblCom = grblCom(self.ui)
+    self.__grblCom = grblCom()
     self.__grblCom.sig_log.connect(self.on_sig_log)
     self.__grblCom.sig_connect.connect(self.on_sig_connect)
     self.__grblCom.sig_init.connect(self.on_sig_init)
@@ -115,6 +115,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_debug.connect(self.on_sig_debug)
 
     self.decode = grblDecode(self.ui, self.log, self.__grblCom)
+    self.__grblCom.setDecodeur(self.decode)
 
     self.__jog = grblJog(self.__grblCom)
     self.ui.dsbJogSpeed.setValue(DEFAULT_JOG_SPEED)

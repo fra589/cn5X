@@ -50,9 +50,9 @@ class grblComSerial(QObject):
   sig_debug   = pyqtSignal(str)      # Emis a chaque envoi ou reception
 
 
-  def __init__(self, ui, comPort: str, baudRate: int, pooling: bool):
+  def __init__(self, decodeur, comPort: str, baudRate: int, pooling: bool):
     super().__init__()
-    self.ui = ui
+    self.decode = decodeur
 
     self.__abort            = False
     self.__portName         = comPort
@@ -150,7 +150,7 @@ class grblComSerial(QObject):
         self.sig_debug.emit(">>> " + buff)
     # Force l'etat Home car grbl bloque la commande ? pendant le Homing
     if buff[0:2] == CMD_GRBL_RUN_HOME_CYCLE:
-      self.ui.lblEtat.setText(GRBL_STATUS_HOME)
+      self.decode.set_etatMachine(GRBL_STATUS_HOME)
     # Formatage du buffer a envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
     # Temps necessaire pour la com (millisecondes), arrondi a l'entier superieur
