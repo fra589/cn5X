@@ -1415,7 +1415,7 @@ if __name__ == '__main__':
   else:
     # unfrozen
     app_path = os.path.dirname(os.path.realpath(__file__))
-  print("cn5X++ running from: {}".format(app_path))
+  print("{} v{} running from: {}".format(APP_NAME, APP_VERSION_STRING, app_path))
 
   # Bannière sur la console...
   print("")

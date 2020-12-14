@@ -119,13 +119,14 @@ class grblComSerial(QObject):
   @pyqtSlot(str)
   def resetSerial(self, buff: str):
     ''' Reinitialisation de la communication série '''
-    print("grblComSerial: resetSerial()")
-    print("self.__okToSendGCode = {}".format(self.__okToSendGCode))
+    ###print("grblComSerial: self.__okToSendGCode = {}".format(self.__okToSendGCode))
+    ###print("grblComSerial: resetSerial()")
     self.__realTimeStack.clear()
     self.__mainStack.clear()
     self.__sendData(REAL_TIME_SOFT_RESET)
     ###self.__sendData(buff)
     self.__okToSendGCode = True
+    ###print("grblComSerial: self.__okToSendGCode = {}".format(self.__okToSendGCode))
 
   @pyqtSlot(str)
   @pyqtSlot(str, object)
@@ -298,8 +299,9 @@ class grblComSerial(QObject):
       # On commence par vider la file d'attente des commandes temps reel
       while not self.__realTimeStack.isEmpty():
         toSend, flag = self.__realTimeStack.pop()
+        ###print(toSend)
         self.__sendData(toSend)
-      if self.__okToSendGCode:
+      if self.__okToSendGCode == True:
         # Envoi d'une ligne gcode si en attente
         if not self.__mainStack.isEmpty():
           # La pile n'est pas vide, on envoi la prochaine commande recuperee dans la pile GCode
@@ -315,6 +317,7 @@ class grblComSerial(QObject):
           self.__okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
       else:
         self.sig_debug.emit(self.tr("grblComSerial : Not OK to send GCode ({}").format(self.__mainStack.next()))
+        ###print("Not OK to send GCode")
         # Process events to receive signals;
         QCoreApplication.processEvents()
       # Lecture du port serie
@@ -339,8 +342,16 @@ class grblComSerial(QObject):
         # Decoupe les donnees recues en lignes pour les envoyer une par une
         tblLines = serialData.splitlines()
         for l in tblLines:
-          if l.find('ok') >= 0 or l.find('error') >= 0:
+          ###print(l)
+          if l.find('ok') >= 0 or l.find('error') >= 0 or l.find('ALARM') >= 0:
             self.__okToSendGCode = True # Accuse de reception ou erreur de la derniere commande GCode envoyee
+            '''if l.find('ok') >= 0:
+              print ("grblComSerial: __mainLoop(): ok recu")
+            if l.find('error') >= 0:
+              print ("grblComSerial: __mainLoop(): error recu")
+            if l.find('ALARM') >= 0:
+              print ("grblComSerial: __mainLoop(): ALARM recu")
+            '''
           if l !='':
             self.__traileLaLigne(l, flag)
       if self.__abort:

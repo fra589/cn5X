@@ -322,14 +322,17 @@ class grblConfig(QObject):
         self.__di.lneN1.setText(data.split("=")[1])
     elif data[:5] == "[VER:":
       decodeVer=data.split(":")[1].split(".")
-      self.__di.lblGrblDate.setText(decodeVer[2])
+      if len(decodeVer) == 3: # standard grbl(Mega-5X version is <major>.<minor>.<buildDate>
+        self.__di.lblGrblDate.setText(decodeVer[2])
+      else:
+        # No build date ? not 5X standard, but...
+        self.__di.lblGrblDate.setText("<unknow>")
       self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
     elif data[:5] == "[AXS:":
       self.__di.lblGrblNbAxes.setText(data[:-1].split(":")[1])
       self.__di.lblAxisName.setText(data[:-1].split(":")[2])
       self.__setNbAxes(int(data[:-1].split(":")[1]), data[:-1].split(":")[2])
     elif data[:5] == "[OPT:": # BLOCK_BUFFER_SIZE,RX_BUFFER_SIZE
-      ###print(data)
       self.__di.lblGrblOptions.setText(data[:-1].split(":")[1])
       decodeOpt = data[:-1].split(":")[1].split(',')
       self.__di.lblGrblBlockBufferSize.setText(decodeOpt[1])
