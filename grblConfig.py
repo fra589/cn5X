@@ -329,7 +329,7 @@ class grblConfig(QObject):
           # No build date ? not 5X standard, but...
           self.__di.lblGrblDate.setText("<unknow>")
         self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
-      except except IndexError as e:
+      except IndexError as e:
         print("File \"/home/pi/cn5X/grblConfig.py\", line 330, in on_sig_config")
         print("self.__di.lneEEPROM.setText(data[1:-1].split(\":\")[2])")
         print("IndexError: list index out of range")
