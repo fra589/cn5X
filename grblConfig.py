@@ -321,13 +321,18 @@ class grblConfig(QObject):
       elif data[:3] == "$N1":
         self.__di.lneN1.setText(data.split("=")[1])
     elif data[:5] == "[VER:":
-      decodeVer=data.split(":")[1].split(".")
-      if len(decodeVer) == 3: # standard grbl(Mega-5X version is <major>.<minor>.<buildDate>
-        self.__di.lblGrblDate.setText(decodeVer[2])
-      else:
-        # No build date ? not 5X standard, but...
-        self.__di.lblGrblDate.setText("<unknow>")
-      self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
+      try:
+        decodeVer=data.split(":")[1].split(".")
+        if len(decodeVer) == 3: # standard grbl(Mega-5X version is <major>.<minor>.<buildDate>
+          self.__di.lblGrblDate.setText(decodeVer[2])
+        else:
+          # No build date ? not 5X standard, but...
+          self.__di.lblGrblDate.setText("<unknow>")
+        self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
+      except except IndexError as e:
+        print("File \"/home/pi/cn5X/grblConfig.py\", line 330, in on_sig_config")
+        print("self.__di.lneEEPROM.setText(data[1:-1].split(\":\")[2])")
+        print("IndexError: list index out of range")
     elif data[:5] == "[AXS:":
       self.__di.lblGrblNbAxes.setText(data[:-1].split(":")[1])
       self.__di.lblAxisName.setText(data[:-1].split(":")[2])
