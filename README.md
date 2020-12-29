@@ -10,17 +10,18 @@ Nouveau panneau de contrôle Grbl 5/6 axes avec pour but d'implémenter toutes l
 *New 5/6 axis Grbl control panel to implement all the grbl-Mega-5X capabilities...*
 
 ## Attention !
-Ce dépot est une version alpha en cours de développement. Il n'est pas prévu pour une utilisation en production.
+Ce dépot est une version en cours de développement. Il n'est pas prévu pour une utilisation en production.
 Utilisation à vos risques et périls.
 ## *Warning !*
-*This repository is alpha version under development. It is not intended for production.
+*This repository is version under development. It is not intended for production.
 Use at your own risk.*
 
 ## Prérequis :
-cn5X++ est basé sur Python3, PyQT5 et PyQT5-QtSerialPort.  
+depuis la version 0.5.a, QTSerialPort à été remplacé par le module pure python pyserial qui à l'avantage de fonctionner sans (trop) de problème avec Microsoft Windows.  
+cn5X++ est basé sur Python3, PyQT5 et python-serial.  
 Pour installer les prérequis sur un système Linux type Debian :
 ```
-apt-get install python3 python3-pyqt5 python3-pyqt5.qtserialport
+apt-get install python3 python3-pyqt5 python3-serial
 ```
 
 l'utilisateur doit faire partie du groupe Unix dialout pour pouvoir utiliser les ports série :  

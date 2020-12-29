@@ -26,13 +26,13 @@ from PyQt5 import QtGui
 
 ORG_NAME           = "fra589"
 APP_NAME           = "cn5X++"
-APP_VERSION_STRING = "0.4.e"
+APP_VERSION_STRING = "0.5.a"
 
 DEFAULT_NB_AXIS    = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
 DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']
 
 COM_DEFAULT_BAUD_RATE = 115200
-
+SERIAL_READ_TIMEOUT   = 250      # ms
 GRBL_QUERY_DELAY      =  75      # ms
 
 DEFAULT_JOG_SPEED     = 300

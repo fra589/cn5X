@@ -24,11 +24,11 @@
 
 import sys, os, time
 import argparse
+import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator
 from PyQt5.QtWidgets import QDialog, QAbstractItemView
-from PyQt5.QtSerialPort import QSerialPortInfo
 from cn5X_config import *
 from msgbox import *
 from speedOverrides import *
@@ -158,7 +158,7 @@ class winMain(QtWidgets.QMainWindow):
     app.setStyleSheet("QToolTip { background-color: rgb(248, 255, 192); color: rgb(0, 0, 63); }")
 
     curIndex = -1                                                             # On rempli la liste des vitesses
-    for v in QSerialPortInfo.standardBaudRates():
+    for v in serial.Serial.BAUDRATES:
       self.ui.cmbBauds.addItem(str(v))
       curIndex += 1
       if v == COM_DEFAULT_BAUD_RATE:
@@ -321,11 +321,13 @@ class winMain(QtWidgets.QMainWindow):
     ''' Rempli la liste des ports serie '''
     self.ui.cmbPort.clear()
     self.ui.cmbPort.addItem("")
-    if len(QSerialPortInfo.availablePorts()) > 0:
-      for p in QSerialPortInfo.availablePorts():
-        self.ui.cmbPort.addItem(p.portName() + ' - ' + p.description())
+    ports = serial.tools.list_ports.comports(True)
+    if len(ports) > 0:
+      for p in ports:
+        print(p.device)
+        self.ui.cmbPort.addItem(p.device + ' - ' + p.description)
         if self.__args.port != None:
-          if self.__args.port == p.portName() or self.__args.port == p.systemLocation():
+          if self.__args.port == p.device:
             self.ui.cmbPort.setCurrentIndex(len(self.ui.cmbPort)-1)
     else:
       m = msgBox(
@@ -339,7 +341,7 @@ class winMain(QtWidgets.QMainWindow):
       m.afficheMsg()
     # S'il n'y a qu'un seul port serie et que l'on a rien precise comme option port, on le selectionne
     if self.__args.port == None:
-      if len(QSerialPortInfo.availablePorts()) == 1:
+      if len(ports) == 1:
         self.ui.cmbPort.setCurrentIndex(1)
     # Definit l'activation des controles en fonction de la selection du port serie ou non
     self.setEnableDisableConnectControls()

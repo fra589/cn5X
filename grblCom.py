@@ -24,7 +24,6 @@
 import sys, time
 from math import *
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
-from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 from cn5X_config import *
 from grblComSerial import grblComSerial
 
