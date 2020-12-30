@@ -52,7 +52,13 @@ executables = [
 ]
 
 setup(name='cn5X++',
-      version = APP_VERSION_STRING,
-      description = '5/6 axis Grbl control panel for grbl-Mega-5X',
-      options = dict(build_exe = buildOptions),
-      executables = executables)
+  version = APP_VERSION_STRING,
+  description = '5/6 axis Grbl control panel for grbl-Mega-5X',
+  author = 'Gauthier Brière',
+  install_requires = [
+    'pyqt5',
+    'pyserial',
+    ]
+  options = dict(build_exe = buildOptions),
+  executables = executables
+  )
