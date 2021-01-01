@@ -162,7 +162,7 @@ class grblComSerial(QObject):
     self.sig_debug.emit("grblComSerial.__sendData(), T = {} : timeout = {}".format(time.time() * 1000, timeout))
     try:
       self.__comPort.write(buffWrite)
-    except SerialTimeoutException:
+    except serial.SerialTimeoutException:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {}").format(self.__comPort.error()))
     except:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unknown error"))
@@ -232,7 +232,7 @@ class grblComSerial(QObject):
     RC = False
     try:
       self.__comPort.open()
-    except SerialException as err:
+    except serial.SerialException as err:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
       self.sig_debug.emit(self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
       self.sig_connect.emit(False)
@@ -347,9 +347,9 @@ class grblComSerial(QObject):
           '''
           if l !='':
             self.__traileLaLigne(l, flag)
-        except SerialTimeoutException:
+        except serial.SerialTimeoutException:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Timeout lors de la lecture du port serie !"))
-        except SerialException:  
+        except serial.SerialException:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected exception lors de la lecture du port serie !"))
 
         # Process events to receive signals;
