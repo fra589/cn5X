@@ -340,11 +340,11 @@ class grblComSerial(QObject):
           '''
           if l.find('ok') >= 0:
             print ("grblComSerial: __mainLoop(): ok recu")
-          if l.find('error') >= 0:
-            print ("grblComSerial: __mainLoop(): error recu")
-          if l.find('ALARM') >= 0:
-            print ("grblComSerial: __mainLoop(): ALARM recu")
           '''
+          if l.find('error') >= 0:
+            print ("grblComSerial: __mainLoop(): error recu [{}].".format(l))
+          if l.find('ALARM') >= 0:
+            print ("grblComSerial: __mainLoop(): ALARM recu [{}].".format(l))
           if l !='':
             self.__traileLaLigne(l, flag)
         except serial.SerialTimeoutException:

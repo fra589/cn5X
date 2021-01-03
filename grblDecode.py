@@ -44,7 +44,6 @@ class grblDecode(QObject):
     self.log = log
     self.__grblCom = grbl
     self.__nbAxis = DEFAULT_NB_AXIS
-    ###self.__validMachineState = ['Idle', 'Run', 'Hold:0', 'Hold:1', 'Jog', 'Alarm', 'Door:0', 'Door:1', 'Door:2', 'Door:3', 'Check', 'Home', 'Sleep']
     self.__validMachineState = [
       GRBL_STATUS_IDLE,
       GRBL_STATUS_RUN,
@@ -118,7 +117,6 @@ class grblDecode(QObject):
     flagPn = False
     tblDecode = grblOutput[1:-1].split("|")
     for D in tblDecode:
-      ###print("D = {" + D + "}")
       if D in self.__validMachineState:
         if D != self.__etatMachine:
           self.ui.lblEtat.setText(D)

@@ -857,6 +857,7 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(int)
   def on_sig_alarm(self, alarmNum: int):
     self.logGrbl.append(self.decode.alarmMessage(alarmNum))
+    self.decode.set_etatMachine(GRBL_STATUS_ALARM)
 
 
   @pyqtSlot(str)
