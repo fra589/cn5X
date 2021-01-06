@@ -25,6 +25,7 @@ grblCompilOptions = {
   'V': ["Variable spindle enabled"],
   'N': ["Line numbers enabled"],
   'M': ["Mist coolant enabled"],
+  'G': ["Safety door support standard"],
   'C': ["CoreXY enabled"],
   'P': ["Parking motion enabled"],
   'Z': ["Homing force origin enabled"],

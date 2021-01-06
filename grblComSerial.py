@@ -207,7 +207,7 @@ class grblComSerial(QObject):
     self.sig_debug.emit("grblComSerial.__openComPort(self)")
 
     openReceiveTimeout = 2000 # Timeout for first Grbl serial message
-    openResetTime = 1500      # Time for sending soft reset if init string is not receive from Grbl
+    openResetTime = 2000      # Time for sending soft reset if init string is not receive from Grbl
     openMaxTime =   5000      # (ms) Timeout pour recevoir la reponse de Grbl apres ouverture du port = 5 secondes
 
     # Configuration du port serie
@@ -275,13 +275,18 @@ class grblComSerial(QObject):
     tDebut = time.time() * 1000
     while True:
       while self.__comPort.in_waiting:
-        l = self.__comPort.readline().decode().strip()
-        self.sig_debug.emit("grblComSerial.__openComPort() : ligne recue : \"" + l + "\"")
-        self.sig_data.emit(l)
-        if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl V.Mx ['$' for help]
-          self.sig_debug.emit(self.tr("grblComSerial : Grbl init string received in {:0.0f} ms, OK.").format(time.time()*1000 - tDebut))
-          self.sig_init.emit(l)
-          self.__initOK = True
+        buff = self.__comPort.readline()
+        try:
+          l = buff.decode().strip()
+          self.sig_debug.emit("grblComSerial.__openComPort() : ligne recue : \"" + l + "\"")
+          self.sig_data.emit(l)
+          if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl V.Mx ['$' for help]
+            self.sig_debug.emit(self.tr("grblComSerial : Grbl init string received in {:0.0f} ms, OK.").format(time.time()*1000 - tDebut))
+            self.sig_init.emit(l)
+            self.__initOK = True
+        except UnicodeDecodeError:
+          # Trace l'erreur et ignore...
+          self.sig_log.emmit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
       if not self.__initOK:
         now = time.time() * 1000
         if now > tDebut + (openResetTime) and not tReset:
@@ -351,6 +356,9 @@ class grblComSerial(QObject):
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Timeout lors de la lecture du port serie !"))
         except serial.SerialException:
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected exception lors de la lecture du port serie !"))
+        except UnicodeDecodeError:
+          # Trace l'erreur et ignore...
+          self.sig_log.emmit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
 
         # Process events to receive signals;
         QCoreApplication.processEvents()
