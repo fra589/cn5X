@@ -437,12 +437,16 @@ class grblDecode(QObject):
             self.ui.lblCoord.setText(S)
             if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees absolues "))
             if S == 'G91': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees relatives "))
-          elif S in ['G0', 'G1', 'G2', 'G3']:
+          elif S in ['G0', 'G1', 'G2', 'G3', 'G38.2', 'G38.3', 'G38.4', 'G38.5']:
             self.ui.lblDeplacements.setText(S)
-            if S == 'G0': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse rapide "))
-            if S == 'G1': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse travail "))
-            if S == 'G2': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens horaire en vitesse travail "))
-            if S == 'G3': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens anti-horaire en vitesse travail "))
+            if S == 'G0': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse rapide. "))
+            if S == 'G1': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse travail. "))
+            if S == 'G2': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens horaire en vitesse travail. "))
+            if S == 'G3': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens anti-horaire en vitesse travail. "))
+            if S == 'G38.2': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe vers la piece, stoppe au toucher, signale une erreur en cas de defaut. "))
+            if S == 'G38.3': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe vers la piece, stoppe au toucher."))
+            if S == 'G38.4': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe en quittant la piece, stoppe en perdant le contact, signal une erreur en cas de defaut. "))
+            if S == 'G38.5': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe en quittant la piece, stoppe en perdant le contact. "))
           elif S in ['G93', 'G94']:
             self.ui.lblVitesse.setText(S)
             if S == 'G93': self.ui.lblVitesse.setToolTip(self.tr(" Mode vitesse inverse du temps "))
