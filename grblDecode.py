@@ -26,7 +26,7 @@ from PyQt5 import QtWidgets, QtCore #, QtGui,
 from PyQt5.QtCore import QCoreApplication, QObject
 from grblError import grblError
 from grblAlarm import grblAlarm
-from grblSettings import grblSetting
+###from grblSettings import grblSetting
 from speedOverrides import *
 from grblCom import grblCom
 
@@ -324,7 +324,7 @@ class grblDecode(QObject):
         return grblOutput
       else: # Pure setting output
         settingNum = int(float(grblOutput[1:].split('=')[0]))
-        settingInfo = grblSetting(settingNum)
+        settingInfo = self.grblSetting(settingNum)
         return (grblOutput + " >> " + settingInfo)
 
     elif grblOutput[:1] == "[" and grblOutput[-1:] == "]":
@@ -553,4 +553,59 @@ class grblDecode(QObject):
     else:
       return self.__mpos
 
+  def grblSetting(self, num):
+    
+    # "$-Code"," Setting"," Units"," Setting Description"
+    grblSettingsCodes = {
+      0: [self.tr("Step pulse time"), self.tr("microseconds"), self.tr("Sets time length per step (Minimum 3usec).")],
+      1: [self.tr("Step idle delay"), self.tr("milliseconds"), self.tr("Sets a short hold delay when stopping to let dynamics settle before disabling steppers. Value 255 keeps motors enabled with no delay.")],
+      2: [self.tr("Step pulse invert"), self.tr("mask"), self.tr("Inverts the step signal. Set axis bit to invert (00000ZYX).")],
+      3: [self.tr("Step direction invert"), self.tr("mask"), self.tr("Inverts the direction signal. Set axis bit to invert (00000ZYX).")],
+      4: [self.tr("Invert step enable pin"), self.tr("boolean"), self.tr("Inverts the stepper driver enable pin signal.")],
+      5: [self.tr("Invert limit pins"), self.tr("boolean"), self.tr("Inverts the all of the limit input pins.")],
+      6: [self.tr("Invert probe pin"), self.tr("boolean"), self.tr("Inverts the probe input pin signal.")],
+      10: [self.tr("Status report options"), self.tr("mask"), self.tr("Alters data included in status reports.")],
+      11: [self.tr("Junction deviation"), self.tr("millimeters"), self.tr("Sets how fast Grbl travels through consecutive motions. Lower value slows it down.")],
+      12: [self.tr("Arc tolerance"), self.tr("millimeters"), self.tr("Sets the G2 and G3 arc tracing accuracy based on radial error. Beware: A very small value may effect performance.")],
+      13: [self.tr("Report in inches"), self.tr("boolean"), self.tr("Enables inch units when returning any position and rate value that is not a settings value.")],
+      20: [self.tr("Soft limits enable"), self.tr("boolean"), self.tr("Enables soft limits checks within machine travel and sets alarm when exceeded. Requires homing.")],
+      21: [self.tr("Hard limits enable"), self.tr("boolean"), self.tr("Enables hard limits. Immediately halts motion and throws an alarm when switch is triggered.")],
+      22: [self.tr("Homing cycle enable"), self.tr("boolean"), self.tr("Enables homing cycle. Requires limit switches on all axes.")],
+      23: [self.tr("Homing direction invert"), self.tr("mask"), self.tr("Homing searches for a switch in the positive direction. Set axis bit (00000ZYX) to search in negative direction.")],
+      24: [self.tr("Homing locate feed rate"), self.tr("units (millimeters or degres)/min"), self.tr("Feed rate to slowly engage limit switch to determine its location accurately.")],
+      25: [self.tr("Homing search seek rate"), self.tr("units (millimeters or degres)/min"), self.tr("Seek rate to quickly find the limit switch before the slower locating phase.")],
+      26: [self.tr("Homing switch debounce delay"), self.tr("milliseconds"), self.tr("Sets a short delay between phases of homing cycle to let a switch debounce.")],
+      27: [self.tr("Homing switch pull-off distance"), self.tr("millimeters"), self.tr("Retract distance after triggering switch to disengage it. Homing will fail if switch isn't cleared.")],
+      30: [self.tr("Maximum spindle speed"), self.tr("RPM"), self.tr("Maximum spindle speed. Sets PWM to 100% duty cycle.")],
+      31: [self.tr("Minimum spindle speed"), self.tr("RPM"), self.tr("Minimum spindle speed. Sets PWM to 0.4% or lowest duty cycle.")],
+      32: [self.tr("Laser-mode enable"), self.tr("boolean"), self.tr("Enables laser mode. Consecutive G1/2/3 commands will not halt when spindle speed is changed.")],
+      100: [self.tr("1st axis travel resolution"), self.tr("step/unit"), self.tr("1st axis travel resolution in steps per unit (millimeter or degre).")],
+      101: [self.tr("2nd axis travel resolution"), self.tr("step/unit"), self.tr("2nd axis travel resolution in steps per unit (millimeter or degre).")],
+      102: [self.tr("3rd axis travel resolution"), self.tr("step/unit"), self.tr("3rd axis travel resolution in steps per unit (millimeter or degre).")],
+      103: [self.tr("4th axis travel resolution"), self.tr("step/unit"), self.tr("4th axis travel resolution in steps per unit (millimeter or degre);")],
+      104: [self.tr("5th axis travel resolution"), self.tr("step/unit"), self.tr("5th axis travel resolution in steps per unit (millimeter or degre).")],
+      105: [self.tr("6th axis travel resolution"), self.tr("step/unit"), self.tr("6th axis travel resolution in steps per unit (millimeter or degre).")],
+      110: [self.tr("1st axis maximum rate"), self.tr("unit/min"), self.tr("1st axis maximum rate. Used as G0 rapid rate.")],
+      111: [self.tr("2nd axis maximum rate"), self.tr("unit/min"), self.tr("2nd axis maximum rate. Used as G0 rapid rate.")],
+      112: [self.tr("3rd axis maximum rate"), self.tr("unit/min"), self.tr("3rd axis maximum rate. Used as G0 rapid rate.")],
+      113: [self.tr("4th axis maximum rate"), self.tr("unit/min"), self.tr("4th axis maximum rate. Used as G0 rapid rate")],
+      114: [self.tr("5th axis maximum rate"), self.tr("unit/min"), self.tr("5th axis maximum rate. Used as G0 rapid rate")],
+      115: [self.tr("6th axis maximum rate"), self.tr("unit/min"), self.tr("6th axis maximum rate. Used as G0 rapid rate")],
+      120: [self.tr("1st axis acceleration"), self.tr("unit/sec^2"), self.tr("1st axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      121: [self.tr("2nd axis acceleration"), self.tr("unit/sec^2"), self.tr("2nd axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      122: [self.tr("3rd axis acceleration"), self.tr("unit/sec^2"), self.tr("3rd axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      123: [self.tr("4th axis acceleration"), self.tr("unit/sec^2"), self.tr("4th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      124: [self.tr("5th axis acceleration"), self.tr("unit/sec^2"), self.tr("5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      125: [self.tr("6th axis acceleration"), self.tr("unit/sec^2"), self.tr("5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      130: [self.tr("1st axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 1st axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
+      131: [self.tr("2nd axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 2nd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
+      132: [self.tr("3rd axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 3rd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
+      133: [self.tr("4th axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 4th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
+      134: [self.tr("5th axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 5th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
+      135: [self.tr("6th axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 6th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")]
+    }
 
+    return (grblSettingsCodes[num][0]
+         + " (" + grblSettingsCodes[num][1] + ")"
+         + " : " + grblSettingsCodes[num][2]
+    )

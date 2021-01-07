@@ -369,7 +369,7 @@ class grblComSerial(QObject):
         break # Sortie de la boucle principale
 
       # Interrogations de Grbl a interval regulier selon la sequence definie par self.__querySequence
-      if self.__pooling and self.decode.get_etatMachine() != GRBL_STATUS_HOME:
+      if self.__pooling:
         if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
           if len(self.__querySequence[self.__queryCounter]) == 1:
             self.realTimePush(self.__querySequence[self.__queryCounter])
