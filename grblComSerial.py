@@ -339,7 +339,8 @@ class grblComSerial(QObject):
       while self.__comPort.in_waiting:
         try:
           # Lecture d'une ligne envoyée par Grbl
-          l = self.__comPort.readline().decode().strip()
+          buff = self.__comPort.readline()
+          l = buff.decode().strip()
           if l.find('ok') >= 0 or l.find('error') >= 0 or l.find('ALARM') >= 0:
             self.__okToSendGCode = True # Accuse de reception, erreur ou ALARME de la derniere commande GCode envoyee
           '''
