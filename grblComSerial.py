@@ -286,7 +286,7 @@ class grblComSerial(QObject):
             self.__initOK = True
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
       if not self.__initOK:
         now = time.time() * 1000
         if now > tDebut + (openResetTime) and not tReset:
@@ -354,12 +354,12 @@ class grblComSerial(QObject):
           if l !='':
             self.__traileLaLigne(l, flag)
         except serial.SerialTimeoutException:
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Timeout lors de la lecture du port serie !"))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop : Timeout lors de la lecture du port serie !"))
         except serial.SerialException:
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected exception lors de la lecture du port serie !"))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop() : Unexpected exception lors de la lecture du port serie !"))
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__mainLoop() : Erreur de decodage utf-8, buff={}".format(buff)))
 
         # Process events to receive signals;
         QCoreApplication.processEvents()
@@ -369,7 +369,7 @@ class grblComSerial(QObject):
         break # Sortie de la boucle principale
 
       # Interrogations de Grbl a interval regulier selon la sequence definie par self.__querySequence
-      if self.__pooling:
+      if self.__pooling and self.decode.get_etatMachine() != GRBL_STATUS_HOME:
         if (time.time() - self.__lastQueryTime) * 1000 > GRBL_QUERY_DELAY and self.__initOK:
           if len(self.__querySequence[self.__queryCounter]) == 1:
             self.realTimePush(self.__querySequence[self.__queryCounter])
