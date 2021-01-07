@@ -901,7 +901,11 @@ class winMain(QtWidgets.QMainWindow):
       self.__maxTravel[5] = float(data[5:])
 
     if not self.__grblConfigLoaded:
-      self.logGrbl.append(data)
+      retour = self.decode.decodeGrblData(data)
+      if retour is not None and retour != "":
+        self.logGrbl.append(retour)
+      else:
+        self.logGrbl.append(data)
 
 
   def updateAxisNumber(self):
