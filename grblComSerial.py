@@ -151,6 +151,7 @@ class grblComSerial(QObject):
         self.sig_debug.emit(">>> " + buff)
     # Force l'etat Home car grbl bloque la commande ? pendant le Homing
     if buff[0:2] == CMD_GRBL_RUN_HOME_CYCLE:
+      self.__grblStatus = GRBL_STATUS_HOME
       self.decode.set_etatMachine(GRBL_STATUS_HOME)
     # Formatage du buffer a envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
@@ -348,9 +349,9 @@ class grblComSerial(QObject):
             print ("grblComSerial: __mainLoop(): ok recu")
           '''
           if l.find('error') >= 0:
-            print ("grblComSerial: __mainLoop(): error recu [{}].".format(l))
+            print ("grblComSerial: __mainLoop(): error Grbl received [{}].".format(l))
           if l.find('ALARM') >= 0:
-            print ("grblComSerial: __mainLoop(): ALARM recu [{}].".format(l))
+            print ("grblComSerial: __mainLoop(): ALARM Grbl received [{}].".format(l))
           if l !='':
             self.__traileLaLigne(l, flag)
         except serial.SerialTimeoutException:
