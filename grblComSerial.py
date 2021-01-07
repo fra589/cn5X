@@ -286,7 +286,7 @@ class grblComSerial(QObject):
             self.__initOK = True
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emmit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
       if not self.__initOK:
         now = time.time() * 1000
         if now > tDebut + (openResetTime) and not tReset:
@@ -358,7 +358,7 @@ class grblComSerial(QObject):
           self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected exception lors de la lecture du port serie !"))
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emmit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
 
         # Process events to receive signals;
         QCoreApplication.processEvents()
