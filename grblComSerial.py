@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -91,7 +91,7 @@ class grblComSerial(QObject):
   @pyqtSlot()
   def abort(self):
     ''' Traitement du signal demandant l'arret de la communication '''
-    self.sig_log.emit(logSeverity.info.value, self.tr("serialCommunicator : abort recu."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.py: abort received."))
     self.__abort = True
 
 
@@ -151,8 +151,8 @@ class grblComSerial(QObject):
         self.sig_debug.emit(">>> " + buff)
     # Force l'etat Home car grbl bloque la commande ? pendant le Homing
     if buff[0:2] == CMD_GRBL_RUN_HOME_CYCLE:
-      self.__grblStatus = GRBL_STATUS_HOME
       self.decode.set_etatMachine(GRBL_STATUS_HOME)
+      self.__grblStatus = GRBL_STATUS_HOME
     # Formatage du buffer a envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
     # Temps necessaire pour la com (millisecondes), arrondi a l'entier superieur
@@ -164,11 +164,11 @@ class grblComSerial(QObject):
     try:
       self.__comPort.write(buffWrite)
     except serial.SerialTimeoutException:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur envoi des donnees : timeout, err# = {}").format(self.__comPort.error()))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: Error when sending data: timeout, err# = {}").format(self.__comPort.error()))
     except:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unknown error"))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: Unknown error"))
     else:
-      self.sig_debug.emit(self.tr("grblComSerial : Donnees envoyees, T = {}".format(time.time() * 1000)))
+      self.sig_debug.emit(self.tr("grblComSerial: Data sent, T = {}".format(time.time() * 1000)))
 
 
   def __traileLaLigne(self, l, flag = COM_FLAG_NO_FLAG):
@@ -234,29 +234,29 @@ class grblComSerial(QObject):
     try:
       self.__comPort.open()
     except serial.SerialException as err:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
-      self.sig_debug.emit(self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: Error opening serial port : {0}").format(err))
+      self.sig_debug.emit(self.tr("grblComSerial: Error opening serial port : {0}").format(err))
       self.sig_connect.emit(False)
       return False
     except ValueError as err: #– Will be raised when parameter are out of range e.g. baud rate, data bits.
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Parameter out of range : {0}").format(err))
-      self.sig_debug.emit(self.tr("grblComSerial : Erreur ouverture du port : {0}").format(err))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: Parameter out of range : {0}").format(err))
+      self.sig_debug.emit(self.tr("grblComSerial: Parameter out of range : {0}").format(err))
       self.sig_connect.emit(False)
       return False
     except:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Unexpected error : {}").format(sys.exc_info()[0]))
-      self.sig_debug.emit(self.tr("grblComSerial : Unexpected error : {}").format(sys.exc_info()[0]))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: Unexpected error : {}").format(sys.exc_info()[0]))
+      self.sig_debug.emit(self.tr("grblComSerial: Unexpected error : {}").format(sys.exc_info()[0]))
       self.sig_connect.emit(False)
       return False
 
     # Ouverture du port OK
     self.sig_connect.emit(True)
-    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : comPort {} ouvert.").format(self.__comPort.port))
-    self.sig_debug.emit(self.tr("grblComSerial : comPort {} ouvert.").format(self.__comPort.port))
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial: comPort {} open.").format(self.__comPort.port))
+    self.sig_debug.emit(self.tr("grblComSerial: comPort {} open.").format(self.__comPort.port))
 
     # Initialisation Grbl
     tDebut=time.time() * 1000
-    self.sig_debug.emit(self.tr("grblComSerial : Wait for Grbl init... T = {:0.0f} ms...").format(tDebut))
+    self.sig_debug.emit(self.tr("grblComSerial: Wait for Grbl init... T = {:0.0f} ms...").format(tDebut))
 
     # Reveille grbl
     self.__comPort.write(("\r\n\r\n").encode('utf-8'))
@@ -266,8 +266,8 @@ class grblComSerial(QObject):
       time.sleep(0.01)
       now = time.time() * 1000
       if now > tDebut + openReceiveTimeout:
-        self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : timeout ! Aucune réponse de Grbl."))
-        self.sig_debug.emit(self.tr("grblComSerial : timeout ! Aucune réponse de Grbl."))
+        self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial: timeout! No reply from Grbl."))
+        self.sig_debug.emit(self.tr("grblComSerial: timeout! No reply from Grbl."))
         self.sig_connect.emit(False)
         return False
 
@@ -279,27 +279,28 @@ class grblComSerial(QObject):
         buff = self.__comPort.readline()
         try:
           l = buff.decode().strip()
-          self.sig_debug.emit("grblComSerial.__openComPort() : ligne recue : \"" + l + "\"")
-          self.sig_data.emit(l)
+          self.sig_debug.emit(self.tr("grblComSerial.__openComPort(): line received: \"") + l + "\"")
           if l[:5] == "Grbl " and l[-5:] == "help]": # Init string : Grbl V.Mx ['$' for help]
-            self.sig_debug.emit(self.tr("grblComSerial : Grbl init string received in {:0.0f} ms, OK.").format(time.time()*1000 - tDebut))
+            self.sig_debug.emit(self.tr("grblComSerial.__openComPort(): Grbl init string received in {:0.0f} ms, OK.").format(time.time()*1000 - tDebut))
             self.sig_init.emit(l)
             self.__initOK = True
+          else:
+            self.sig_data.emit(l)
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__openComPort() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__openComPort(): utf-8 decode error, buff={}".format(buff)))
       if not self.__initOK:
         now = time.time() * 1000
         if now > tDebut + (openResetTime) and not tReset:
           # Try to send Reset to Grbl at half time of timeout
-          self.sig_debug.emit(self.tr("grblComSerial : No response from Grbl after {:0.0f}ms, sending soft reset...").format(openResetTime))
+          self.sig_debug.emit(self.tr("grblComSerial.__openComPort(): No response from Grbl after {:0.0f}ms, sending soft reset...").format(openResetTime))
           self.__sendData(REAL_TIME_SOFT_RESET)
           self.__sendData("\r\n")
           tReset = True
         if now > tDebut + openMaxTime:
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : Initialisation de Grbl : Timeout !"))
-          self.sig_debug.emit(self.tr("grblComSerial : openMaxTime ({}ms) timeout elapsed !").format(openMaxTime))
-          self.sig_debug.emit(self.tr("grblComSerial : Initialisation de Grbl non recue, Grbl version inconnue ?"))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__openComPort(): Grbl initialization: Timeout!"))
+          self.sig_debug.emit(self.tr("grblComSerial.__openComPort(): openMaxTime ({}ms) timeout elapsed !").format(openMaxTime))
+          self.sig_log.emit(self.tr("grblComSerial.__openComPort(): Grbl's init string not received or unknown Grbl version."))
           self.sig_init.emit("Grbl ??? ['$' for help]")
           self.__initOK = True
           return True # On a pas recu la chaine d'initialisation de Grbl mais on essaie quand même...
@@ -331,7 +332,7 @@ class grblComSerial(QObject):
           self.__sendData(toSend)
           self.__okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
       else: # self.__okToSendGCode is False
-        self.sig_debug.emit(self.tr("grblComSerial : Not OK to send GCode ({}").format(self.__mainStack.next()))
+        self.sig_debug.emit(self.tr("grblComSerial.__mainLoop(): Not OK to send GCode ({}).").format(self.__mainStack.next()))
         # Process events to receive signals;
         QCoreApplication.processEvents()
       #-----------------------------------------------------------------
@@ -347,26 +348,26 @@ class grblComSerial(QObject):
           '''
           if l.find('ok') >= 0:
             print ("grblComSerial: __mainLoop(): ok recu")
-          '''
           if l.find('error') >= 0:
             print ("grblComSerial: __mainLoop(): error Grbl received [{}].".format(l))
           if l.find('ALARM') >= 0:
             print ("grblComSerial: __mainLoop(): ALARM Grbl received [{}].".format(l))
+          '''
           if l !='':
             self.__traileLaLigne(l, flag)
         except serial.SerialTimeoutException:
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop : Timeout lors de la lecture du port serie !"))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop: Timeout when reading serial port!"))
         except serial.SerialException:
-          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop() : Unexpected exception lors de la lecture du port serie !"))
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.__mainLoop(): Unexpected exception when reading serial port!"))
         except UnicodeDecodeError:
           # Trace l'erreur et ignore...
-          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__mainLoop() : Erreur de decodage utf-8, buff={}".format(buff)))
+          self.sig_log.emit(logSeverity.warning.value, self.tr("grblComSerial.__mainLoop(): utf-8 decode error, buff={}".format(buff)))
 
         # Process events to receive signals;
         QCoreApplication.processEvents()
 
       if self.__abort:
-        self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : sig_abort recu, sortie du thread..."))
+        self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): sig_abort received, closing the thread..."))
         break # Sortie de la boucle principale
 
       # Interrogations de Grbl a interval regulier selon la sequence definie par self.__querySequence
@@ -383,12 +384,12 @@ class grblComSerial(QObject):
             self.__queryCounter = 0
 
     # On est sorti de la boucle principale : fermeture du port.
-    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : Fermeture du port serie."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): Closing serial port."))
     self.sig_connect.emit(False)
     self.__comPort.close()
     self.__initOK = False
     # Emission du signal de fin
-    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : Fin."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): End."))
 
 
   def run(self):
@@ -396,12 +397,11 @@ class grblComSerial(QObject):
 
     thread_name = QThread.currentThread().objectName()
     thread_id = int(QThread.currentThreadId())  # cast to int() is necessary
-    self.sig_log.emit(logSeverity.info.value, self.tr('grblComSerial running "{}" from thread #{}.').format(thread_name, hex(thread_id)))
+    self.sig_log.emit(logSeverity.info.value, self.tr('grblComSerial.run(): Running "{}" from thread #{}.').format(thread_name, hex(thread_id)))
 
     if self.__openComPort():
       self.__mainLoop()
     else:
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial : impossible d'ouvrir le port serie !"))
+      self.sig_log.emit(logSeverity.error.value, self.tr("grblComSerial.run(): Unable to open serial port!"))
       # Emission du signal de fin
-      self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial : Fin."))
-
+      self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.run(): End."))

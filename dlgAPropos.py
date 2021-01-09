@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'dlgAPropos.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.3
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_dlgApropos(object):
   def setupUi(self, dlgApropos):
@@ -70,7 +68,7 @@ class Ui_dlgApropos(object):
     spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
     self.verticalLayout_3.addItem(spacerItem2)
     self.label_5 = QtWidgets.QLabel(self.tab)
-    self.label_5.setText("Copyright (C) Gauthier Brière - 2018-2019")
+    self.label_5.setText("Copyright (C) Gauthier Brière - 2018-2021")
     self.label_5.setAlignment(QtCore.Qt.AlignCenter)
     self.label_5.setObjectName("label_5")
     self.verticalLayout_3.addWidget(self.label_5)
@@ -118,7 +116,7 @@ class Ui_dlgApropos(object):
     self.qptLicence.setPlainText("")
     self.qptLicence.setObjectName("qptLicence")
     self.horizontalLayout_4.addWidget(self.qptLicence)
-    self.tabWidget.addTab(self.tab_2, "Licence")
+    self.tabWidget.addTab(self.tab_2, "")
     self.verticalLayout_4.addWidget(self.tabWidget)
     self.horizontalLayout = QtWidgets.QHBoxLayout()
     self.horizontalLayout.setSpacing(0)
@@ -140,9 +138,11 @@ class Ui_dlgApropos(object):
 
   def retranslateUi(self, dlgApropos):
     _translate = QtCore.QCoreApplication.translate
-    dlgApropos.setWindowTitle(_translate("dlgApropos", "A propos de cn5X++"))
+    dlgApropos.setWindowTitle(_translate("dlgApropos", "About cn5X++"))
     self.lblVersion.setText(_translate("dlgApropos", "Version 0.0"))
-    self.label_3.setText(_translate("dlgApropos", "CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.\n"
-"Cette application a pour but d\'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X."))
-    self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("dlgApropos", "Infos"))
+    self.label_3.setText(_translate("dlgApropos", "CN5X++ is a 5/6 axis control panel application for Grbl-controlled digital machines.\n"
+"This application is intended to implement all the features of the grbl-Mega-5X firmware."))
+    self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("dlgApropos", "Information"))
+    self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("dlgApropos", "License"))
+
 import cn5X_rc

@@ -46,7 +46,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>cn5X++ - Configuration de Grbl</string>
+   <string>cn5X++ - Grbl settings</string>
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
@@ -81,7 +81,7 @@
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
-       <string>Initialisation</string>
+       <string>Initialization</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="1">
@@ -130,7 +130,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Microcode :</string>
+                <string>Firmware:</string>
                </property>
               </widget>
              </item>
@@ -142,7 +142,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Date version :</string>
+                <string>Version date:</string>
                </property>
               </widget>
              </item>
@@ -154,7 +154,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Nombre d'axes :</string>
+                <string>Number of axes:</string>
                </property>
               </widget>
              </item>
@@ -222,7 +222,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Version :</string>
+                <string>Version:</string>
                </property>
               </widget>
              </item>
@@ -234,7 +234,7 @@
                 </font>
                </property>
                <property name="text">
-                <string notr="true">EEPROM string :</string>
+                <string notr="true">EEPROM string:</string>
                </property>
               </widget>
              </item>
@@ -246,7 +246,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Nom des axes :</string>
+                <string>Axes names:</string>
                </property>
               </widget>
              </item>
@@ -318,7 +318,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Options :</string>
+                    <string>Options:</string>
                    </property>
                   </widget>
                  </item>
@@ -535,7 +535,7 @@
      </widget>
      <widget class="QWidget" name="tab_1">
       <attribute name="title">
-       <string>Materiel</string>
+       <string>Hardware</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="1">
@@ -571,14 +571,14 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string notr="true">Step pulse, microseconds ($0)</string>
+              <string>Step pulse, microseconds ($0)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string notr="true">Step idle delay, milliseconds ($1)</string>
+              <string>Step idle delay, milliseconds ($1)</string>
              </property>
             </widget>
            </item>
@@ -592,35 +592,35 @@
            <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string notr="true">Step port invert, mask ($2)</string>
+              <string>Step port invert, mask ($2)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
              <property name="text">
-              <string notr="true">Direction port invert, mask ($3)</string>
+              <string>Direction port invert, mask ($3)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_5">
              <property name="text">
-              <string notr="true">Step enable invert, boolean ($4)</string>
+              <string>Step enable invert, boolean ($4)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
              <property name="text">
-              <string notr="true">Limit pins invert, boolean ($5)</string>
+              <string>Limit pins invert, boolean ($5)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_15">
              <property name="text">
-              <string notr="true">Probe pin invert, boolean ($6)</string>
+              <string>Probe pin invert, boolean ($6)</string>
              </property>
             </widget>
            </item>
@@ -734,20 +734,20 @@
            <item>
             <widget class="qwEditMask" name="emStepPortInvert">
              <property name="toolTip">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
              <property name="whatsThis">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="qwEditMask" name="emDirectionPortInvert">
              <property name="toolTip">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
              <property name="whatsThis">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
             </widget>
            </item>
@@ -806,7 +806,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Unites</string>
+       <string>Units</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="1">
@@ -842,28 +842,28 @@
            <item>
             <widget class="QLabel" name="label_16">
              <property name="text">
-              <string notr="true">Status report, mask ($10)</string>
+              <string>Status report, mask ($10)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_17">
              <property name="text">
-              <string notr="true">Junction deviation, mm ($11)</string>
+              <string>Junction deviation, mm ($11)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string notr="true">Arc tolerance, mm ($12)</string>
+              <string>Arc tolerance, mm ($12)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_19">
              <property name="text">
-              <string notr="true">Report inches, boolean ($13)</string>
+              <string>Report inches, boolean ($13)</string>
              </property>
             </widget>
            </item>
@@ -957,7 +957,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Limites</string>
+       <string>Limits</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="1" column="0">
@@ -980,21 +980,21 @@
            <item>
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string notr="true">Soft limits, boolean ($20)</string>
+              <string>Soft limits, boolean ($20)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_21">
              <property name="text">
-              <string notr="true">Hard limits, boolean ($21)</string>
+              <string>Hard limits, boolean ($21)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_22">
              <property name="text">
-              <string notr="true">Homing cycle, boolean ($22)</string>
+              <string>Homing cycle, boolean ($22)</string>
              </property>
             </widget>
            </item>
@@ -1008,35 +1008,35 @@
            <item>
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string notr="true">Homing dir invert, mask ($23)</string>
+              <string>Homing dir invert, mask ($23)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_32">
              <property name="text">
-              <string notr="true">Homing feed, mm/min ($24)</string>
+              <string>Homing feed, mm/min ($24)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_33">
              <property name="text">
-              <string notr="true">Homing seek, mm/min ($25)</string>
+              <string>Homing seek, mm/min ($25)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_34">
              <property name="text">
-              <string notr="true">Homing debounce, milliseconds ($26)</string>
+              <string>Homing debounce, milliseconds ($26)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_35">
              <property name="text">
-              <string notr="true">Homing pull-off, mm ($27)</string>
+              <string>Homing pull-off, mm ($27)</string>
              </property>
             </widget>
            </item>
@@ -1196,10 +1196,10 @@
            <item>
             <widget class="qwEditMask" name="emHomeDirInvert">
              <property name="toolTip">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
              <property name="whatsThis">
-              <string>Editeur de masque 6 axes</string>
+              <string>6 axis mask editor</string>
              </property>
             </widget>
            </item>
@@ -1296,7 +1296,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Broche</string>
+       <string>Spindle</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="1">
@@ -1332,21 +1332,21 @@
            <item>
             <widget class="QLabel" name="label_36">
              <property name="text">
-              <string notr="true">Max spindle speed, RPM or laser power ($30)</string>
+              <string>Max spindle speed, RPM or laser power ($30)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_37">
              <property name="text">
-              <string notr="true">Min spindle speed, RPM ($31)</string>
+              <string>Min spindle speed, RPM ($31)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_38">
              <property name="text">
-              <string notr="true">Laser mode, boolean ($32)</string>
+              <string>Laser mode, boolean ($32)</string>
              </property>
             </widget>
            </item>
@@ -1415,7 +1415,7 @@
      </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
-       <string>Courses</string>
+       <string>Travels</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="2" column="1">
@@ -1443,35 +1443,35 @@
              <item>
               <widget class="QLabel" name="lblStepsX">
                <property name="text">
-                <string notr="true">X steps/mm ($100)</string>
+                <string>X steps/mm ($100)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblStepsY">
                <property name="text">
-                <string notr="true">Y steps/mm ($101)</string>
+                <string>Y steps/mm ($101)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblStepsZ">
                <property name="text">
-                <string notr="true">Z steps/mm ($102)</string>
+                <string>Z steps/mm ($102)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblStepsA">
                <property name="text">
-                <string notr="true">A steps/unit ($103)</string>
+                <string>A steps/unit ($103)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblStepsB">
                <property name="text">
-                <string notr="true">B steps/unit ($104)</string>
+                <string>B steps/unit ($104)</string>
                </property>
               </widget>
              </item>
@@ -1481,7 +1481,7 @@
                 <bool>true</bool>
                </property>
                <property name="text">
-                <string notr="true">C steps/unit ($105)</string>
+                <string>C steps/unit ($105)</string>
                </property>
               </widget>
              </item>
@@ -1653,35 +1653,35 @@
              <item>
               <widget class="QLabel" name="lblTravelX">
                <property name="text">
-                <string notr="true">X Max travel, mm ($130)</string>
+                <string>X Max travel, mm ($130)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblTravelY">
                <property name="text">
-                <string notr="true">Y Max travel, mm ($131)</string>
+                <string>Y Max travel, mm ($131)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblTravelZ">
                <property name="text">
-                <string notr="true">Z Max travel, mm ($132)</string>
+                <string>Z Max travel, mm ($132)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblTravelA">
                <property name="text">
-                <string notr="true">A Max travel, unit ($133)</string>
+                <string>A Max travel, unit ($133)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblTravelB">
                <property name="text">
-                <string notr="true">B Max travel, unit ($134)</string>
+                <string>B Max travel, unit ($134)</string>
                </property>
               </widget>
              </item>
@@ -1691,7 +1691,7 @@
                 <bool>true</bool>
                </property>
                <property name="text">
-                <string notr="true">C Max travel, unit ($135)</string>
+                <string>C Max travel, unit ($135)</string>
                </property>
               </widget>
              </item>
@@ -1901,7 +1901,7 @@
      </widget>
      <widget class="QWidget" name="tab_6">
       <attribute name="title">
-       <string>Vitesses</string>
+       <string>Speeds</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
@@ -1919,35 +1919,35 @@
              <item>
               <widget class="QLabel" name="lblRateX">
                <property name="text">
-                <string notr="true">X Max rate, mm/min ($110)</string>
+                <string>X Max rate, mm/min ($110)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblRateY">
                <property name="text">
-                <string notr="true">Y Max rate, mm/min ($111)</string>
+                <string>Y Max rate, mm/min ($111)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblRateZ">
                <property name="text">
-                <string notr="true">Z Max rate, mm/min ($112)</string>
+                <string>Z Max rate, mm/min ($112)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblRateA">
                <property name="text">
-                <string notr="true">A Max rate, unit/min ($113)</string>
+                <string>A Max rate, unit/min ($113)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblRateB">
                <property name="text">
-                <string notr="true">B Max rate, unit/min ($114)</string>
+                <string>B Max rate, unit/min ($114)</string>
                </property>
               </widget>
              </item>
@@ -1957,7 +1957,7 @@
                 <bool>true</bool>
                </property>
                <property name="text">
-                <string notr="true">C Max rate, unit/min ($115)</string>
+                <string>C Max rate, unit/min ($115)</string>
                </property>
               </widget>
              </item>
@@ -2135,35 +2135,35 @@
              <item>
               <widget class="QLabel" name="lblAccelX">
                <property name="text">
-                <string notr="true">X Acceleration, mm/sec^2 ($120)</string>
+                <string>X Acceleration, mm/sec^2 ($120)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblAccelY">
                <property name="text">
-                <string notr="true">Y Acceleration, mm/sec^2 ($121)</string>
+                <string>Y Acceleration, mm/sec^2 ($121)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblAccelZ">
                <property name="text">
-                <string notr="true">Z Acceleration, mm/sec^2 ($122)</string>
+                <string>Z Acceleration, mm/sec^2 ($122)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblAccelA">
                <property name="text">
-                <string notr="true">A Acceleration, unit/sec^2 ($123)</string>
+                <string>A Acceleration, unit/sec^2 ($123)</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="lblAccelB">
                <property name="text">
-                <string notr="true">B Acceleration, unit/sec^2 ($124)</string>
+                <string>B Acceleration, unit/sec^2 ($124)</string>
                </property>
               </widget>
              </item>
@@ -2173,7 +2173,7 @@
                 <bool>true</bool>
                </property>
                <property name="text">
-                <string notr="true">C Acceleration, unit/sec^2 ($125)</string>
+                <string>C Acceleration, unit/sec^2 ($125)</string>
                </property>
               </widget>
              </item>

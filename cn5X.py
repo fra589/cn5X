@@ -3,7 +3,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2019 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -61,16 +61,12 @@ class winMain(QtWidgets.QMainWindow):
 
     self.settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
 
-    ###print("Demarrage de {}.{}.".format(self.settings.organizationName(), self.settings.applicationName()))
-    ###print("Liste des settings = *{}*".format(self.settings.allKeys()))
-    ###print("Lang settings = *{}*".format(self.settings.value("lang", "default")))
-
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--connect", action="store_true", help=self.tr("Connecte le port serie"))
-    parser.add_argument("-f", "--file", help=self.tr("Charge le fichier GCode"))
-    parser.add_argument("-l", "--lang", help=self.tr("Definie la langue de l'interface"))
-    parser.add_argument("-p", "--port", help=self.tr("selection du port serie"))
-    parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Deverrouille l'arret d'urgence"))
+    parser.add_argument("-c", "--connect", action="store_true", help=self.tr("Connect the serial port"))
+    parser.add_argument("-f", "--file", help=self.tr("Load the GCode file"))
+    parser.add_argument("-l", "--lang", help=self.tr("Define the interface language"))
+    parser.add_argument("-p", "--port", help=self.tr("select the serial port"))
+    parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Unlock urgent stop"))
     self.__args = parser.parse_args()
 
     # Retrouve le fichier de licence dans le même répertoire que l'exécutable
@@ -152,7 +148,7 @@ class winMain(QtWidgets.QMainWindow):
     self.setTranslator(locale)
 
     QtGui.QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")  # Police type "LED"
-    self.ui.btnConnect.setText(self.tr("Connecter"))                          # Label du bouton connect
+    self.ui.btnConnect.setText(self.tr("Connect"))                            # Label du bouton connect
     self.populatePortList()                                                   # On rempli la liste des ports serie
 
     app.setStyleSheet("QToolTip { background-color: rgb(248, 255, 192); color: rgb(0, 0, 63); }")
@@ -309,7 +305,7 @@ class winMain(QtWidgets.QMainWindow):
 
     if self.__args.noUrgentStop:
       self.__arretUrgence = False
-      self.log(logSeverity.info.value, self.tr("Arret d'urgence deverrouille."))
+      self.log(logSeverity.info.value, self.tr("Urgent stop unlocked."))
 
     # Initialise l'etat d'activation ou non des controles
     # En fonction de la selection du port serie ou non
@@ -331,11 +327,11 @@ class winMain(QtWidgets.QMainWindow):
             self.ui.cmbPort.setCurrentIndex(len(self.ui.cmbPort)-1)
     else:
       m = msgBox(
-                  title  = self.tr("Attention !"),
-                  text   = self.tr("Aucun port de communication disponible !"),
-                  info   = self.tr("{} n'a pas trouve de port serie permettant de communiquer avec grbl.").format(sys.argv[0]),
+                  title  = self.tr("Warning !"),
+                  text   = self.tr("No communication port available!"),
+                  info   = self.tr("{} could not find a serial port allowing to communicate with grbl.").format(sys.argv[0]),
                   icon   = msgIconList.Information,
-                  detail = self.tr("\nclass serialCom:\nL'appel de \"serial.tools.list_ports.comports()\" n'a renvoye aucun port."),
+                  detail = self.tr("\nclass serialCom:\n\"serial.tools.list_ports.comports()\" did not return any port."),
                   stdButton = msgButtonList.Close
                 )
       m.afficheMsg()
@@ -374,7 +370,7 @@ class winMain(QtWidgets.QMainWindow):
     if not self.__connectionStatus:
       # Pas connecte, tout doit etre desactive et l'arret d'urgence enfonce
       self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgenceOffPictureLocale))
-      self.ui.btnUrgence.setToolTip(self.tr("Double clic pour\ndeverouiller l'arret d'urgence"))
+      self.ui.btnUrgence.setToolTip(self.tr("Double click to\nunlock the emergency stop"))
       self.ui.frmArretUrgence.setEnabled(False)
       self.ui.frmControleVitesse.setEnabled(False)
       self.ui.grpJog.setEnabled(False)
@@ -385,7 +381,7 @@ class winMain(QtWidgets.QMainWindow):
     elif self.__arretUrgence:
       # Connecte mais sous arret d'urgence : Tout est desactive sauf l'arret d'urgence
       self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgenceOffPictureLocale))
-      self.ui.btnUrgence.setToolTip(self.tr("Double clic pour\ndeverouiller l'arret d'urgence"))
+      self.ui.btnUrgence.setToolTip(self.tr("Double click to\nunlock the emergency stop"))
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(False)
       self.ui.grpJog.setEnabled(False)
@@ -396,7 +392,7 @@ class winMain(QtWidgets.QMainWindow):
     else:
       # Tout est en ordre, on active tout
       self.ui.btnUrgence.setIcon(QtGui.QIcon(self.btnUrgencePictureLocale))
-      self.ui.btnUrgence.setToolTip(self.tr("Arret d'urgence"))
+      self.ui.btnUrgence.setToolTip(self.tr("Emergency stop"))
       self.ui.frmArretUrgence.setEnabled(True)
       self.ui.frmControleVitesse.setEnabled(True)
       self.ui.grpJog.setEnabled(True)
@@ -484,11 +480,11 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def closeEvent(self, event):
-    self.log(logSeverity.info.value, self.tr("Fermeture de l'application..."))
+    self.log(logSeverity.info.value, self.tr("Closing the application..."))
     if self.__connectionStatus:
       self.__grblCom.stopCom()
     if not self.__gcodeFile.closeFile():
-      self.log(logSeverity.info.value, self.tr("Fermeture du fichier annulee"))
+      self.log(logSeverity.info.value, self.tr("Closing file canceled"))
       event.setAccepted(False) # True accepte la fermeture, False annule la fermeture
     else:
       self.__statusText = "Bye-bye..."
@@ -526,7 +522,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_config_changed(self, data: str):
-    self.log(logSeverity.info.value, self.tr("Configuration de Grbl changee : {}").format(data))
+    self.log(logSeverity.info.value, self.tr("Grbl configuration updated: {}").format(data))
 
 
   @pyqtSlot()
@@ -543,12 +539,12 @@ class winMain(QtWidgets.QMainWindow):
         # self.timerDblClic.remainingTime() > 0 # Double clic detecte
         self.timerDblClic.stop()
         self.__arretUrgence = False
-        self.log(logSeverity.info.value, self.tr("Deverouillage de l'arret d'urgence."))
+        self.log(logSeverity.info.value, self.tr("Unlocking emergency stop."))
     else:
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
       self.__arretUrgence = True
-      self.log(logSeverity.warning.value, self.tr("Arret d'urgence STOP !!!"))
+      self.log(logSeverity.warning.value, self.tr("Emergency stop pressed: STOP !!!"))
 
     # Actualise l'etat actif/inactif des groupes de controles de pilotage de Grbl
     self.setEnableDisableGroupes()
@@ -571,7 +567,7 @@ class winMain(QtWidgets.QMainWindow):
       # Arret du comunicator
       self.__grblCom.stopCom()
       self.__connectionStatus = self.__grblCom.isOpen()
-      self.ui.btnConnect.setText(self.tr("Connecter")) # La prochaine action du bouton sera pour connecter
+      self.ui.btnConnect.setText(self.tr("Connect")) # La prochaine action du bouton sera pour connecter
       # Force l'onglet "Grbl output" sauf en cas de debug
       if not self.ui.btnDebug.isChecked():
         self.ui.grpConsole.setCurrentIndex(2)
@@ -582,15 +578,15 @@ class winMain(QtWidgets.QMainWindow):
     self.__connectionStatus = self.__grblCom.isOpen()
     if self.__connectionStatus:
       # Mise a jour de l'interface machine connectée
-      self.ui.lblConnectStatus.setText(self.tr("Connecte a {}").format(self.ui.cmbPort.currentText().split("-")[0].strip()))
-      self.ui.btnConnect.setText(self.tr("Deconnecter")) # La prochaine action du bouton sera pour deconnecter
+      self.ui.lblConnectStatus.setText(self.tr("Connected to {}").format(self.ui.cmbPort.currentText().split("-")[0].strip()))
+      self.ui.btnConnect.setText(self.tr("Disconnect")) # La prochaine action du bouton sera pour deconnecter
       self.setEnableDisableConnectControls()
       # Active les groupes de controles de pilotage de Grbl
       self.setEnableDisableGroupes()
     else:
       # Mise a jour de l'interface machine non connectée
-      self.ui.lblConnectStatus.setText(self.tr("<Non Connecte>"))
-      self.ui.btnConnect.setText(self.tr("Connecter")) # La prochaine action du bouton sera pour connecter
+      self.ui.lblConnectStatus.setText(self.tr("<Not Connected>"))
+      self.ui.btnConnect.setText(self.tr("Connect")) # La prochaine action du bouton sera pour connecter
       self.__statusText = ""
       self.ui.statusBar.showMessage(self.__statusText)
       self.setEnableDisableConnectControls()
@@ -834,7 +830,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_init(self, data: str):
-    self.log(logSeverity.info.value, self.tr("cn5X++ : Grbl initialise."))
+    self.log(logSeverity.info.value, self.tr("cn5X++ : Grbl initialized."))
     self.logGrbl.append(data)
     self.__statusText = data.split("[")[0]
     self.ui.statusBar.showMessage(self.__statusText)
@@ -1084,9 +1080,9 @@ class winMain(QtWidgets.QMainWindow):
 
   def startCycle(self, startFrom: int = 0):
     if self.ui.gcodeTable.model().rowCount()<=0:
-      self.log(logSeverity.warning.value, self.tr("Tentative de demarrage d'un cycle vide..."))
+      self.log(logSeverity.warning.value, self.tr("Attempt to start an empty cycle..."))
     else:
-      self.log(logSeverity.info.value, self.tr("Demarrage du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Starting cycle..."))
       self.__gcodeFile.selectGCodeFileLine(0)
       self.__cycleRun = True
       self.__cyclePause = False
@@ -1098,16 +1094,16 @@ class winMain(QtWidgets.QMainWindow):
 
   def pauseCycle(self):
     if self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
-      self.log(logSeverity.warning.value, self.tr("Hold en cours, impossible de repartir maintenant."))
+      self.log(logSeverity.warning.value, self.tr("Holding in progress, can't restart now."))
     if self.ui.lblEtat.text() == GRBL_STATUS_HOLD0:
-      self.log(logSeverity.info.value, self.tr("Reprise du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Resuming cycle..."))
       self.__grblCom.realTimePush(REAL_TIME_CYCLE_START_RESUME)
       self.__cyclePause = False
       self.ui.btnStart.setButtonStatus(True)
       self.ui.btnPause.setButtonStatus(False)
       self.ui.btnStop.setButtonStatus(False)
     else:
-      self.log(logSeverity.info.value, self.tr("Pause du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Holding cycle..."))
       self.__grblCom.realTimePush(REAL_TIME_FEED_HOLD)
       self.__cyclePause = True
       self.ui.btnStart.setButtonStatus(False)
@@ -1118,27 +1114,27 @@ class winMain(QtWidgets.QMainWindow):
   def stopCycle(self):
     if self.ui.lblEtat.text() == GRBL_STATUS_HOLD0:
       # Deja en pause, on vide la file d'attente et on envoie un SoftReset
-      self.log(logSeverity.info.value, self.tr("Arret du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Stopping cycle..."))
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
     elif self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
       # Attente que le Hold soit termine
-      self.log(logSeverity.info.value, self.tr("Pause en cours avant arret du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Holding cycle before stopping..."))
       while self.ui.lblEtat.text() == GRBL_STATUS_HOLD1:
         QCoreApplication.processEvents()
       # Puis, vide la file d'attente et envoie un SoftReset
-      self.log(logSeverity.info.value, self.tr("Arret du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Stopping cycle..."))
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
     else:
       # Envoie une pause
-      self.log(logSeverity.info.value, self.tr("Pause avant arret du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Holding cycle before stopping..."))
       self.__grblCom.realTimePush(REAL_TIME_FEED_HOLD)
       # Attente que le Hold soit termine
       while self.ui.lblEtat.text() != GRBL_STATUS_HOLD0:
         QCoreApplication.processEvents()
       # Puis, vide la file d'attente et envoie un SoftReset
-      self.log(logSeverity.info.value, self.tr("Arret du cycle..."))
+      self.log(logSeverity.info.value, self.tr("Stopping cycle..."))
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
     self.__cycleRun = False
@@ -1146,30 +1142,30 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStart.setButtonStatus(False)
     self.ui.btnPause.setButtonStatus(False)
     self.ui.btnStop.setButtonStatus(True)
-    self.log(logSeverity.info.value, self.tr("Cycle termine."))
+    self.log(logSeverity.info.value, self.tr("Cycle completed."))
 
 
   def on_gcodeTableContextMenu(self, event):
     if self.__gcodeFile.isFileLoaded():
       self.cMenu = QtWidgets.QMenu(self)
-      editAction = QtWidgets.QAction(self.tr("Editer la ligne"), self)
+      editAction = QtWidgets.QAction(self.tr("Edit line"), self)
       editAction.triggered.connect(lambda: self.editGCodeSlot(event))
       self.cMenu.addAction(editAction)
-      insertAction = QtWidgets.QAction(self.tr("Inserer une ligne"), self)
+      insertAction = QtWidgets.QAction(self.tr("Insert line"), self)
       insertAction.triggered.connect(lambda: self.insertGCodeSlot(event))
       self.cMenu.addAction(insertAction)
-      ajoutAction = QtWidgets.QAction(self.tr("Ajouter une ligne"), self)
+      ajoutAction = QtWidgets.QAction(self.tr("Add line"), self)
       ajoutAction.triggered.connect(lambda: self.ajoutGCodeSlot(event))
       self.cMenu.addAction(ajoutAction)
-      supprimeAction = QtWidgets.QAction(self.tr("Supprimer la ligne"), self)
+      supprimeAction = QtWidgets.QAction(self.tr("Suppress line"), self)
       supprimeAction.triggered.connect(lambda: self.supprimeGCodeSlot(event))
       self.cMenu.addAction(supprimeAction)
       self.cMenu.addSeparator()
-      runAction = QtWidgets.QAction(self.tr("Executer cette ligne\t(F7)"), self)
+      runAction = QtWidgets.QAction(self.tr("Run this line\t(F7)"), self)
       runAction.setShortcut('F7')
       runAction.triggered.connect(lambda: self.runGCodeSlot(event))
       self.cMenu.addAction(runAction)
-      startFromHereAction = QtWidgets.QAction(self.tr("Executer a partir de cette ligne\t(F8)"), self)
+      startFromHereAction = QtWidgets.QAction(self.tr("Run from this line\t(F8)"), self)
       startFromHereAction.setShortcut('F8')
       startFromHereAction.triggered.connect(lambda: self.startFromGCodeSlotIndex(event))
       self.cMenu.addAction(startFromHereAction)
@@ -1229,7 +1225,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_dialAvanceContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    resetAction = QtWidgets.QAction(self.tr("Reinitialiser l'avance a 100%"), self)
+    resetAction = QtWidgets.QAction(self.tr("Reset feedrate to 100%"), self)
     resetAction.triggered.connect(lambda: self.ui.dialAvance.setValue(100))
     self.cMenu.addAction(resetAction)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -1237,7 +1233,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_dialBrocheContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    resetAction = QtWidgets.QAction(self.tr("Reinitialiser la vitesse de broche a 100%"), self)
+    resetAction = QtWidgets.QAction(self.tr("Reset spindle speed to 100%"), self)
     resetAction.triggered.connect(lambda: self.ui.dialBroche.setValue(100))
     self.cMenu.addAction(resetAction)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -1245,21 +1241,21 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction(self.tr("Placer l'origine {} de l'axe {} ici").format(self.decode.getG5actif(), self.__axisNames[axis]), self)
+    resetX = QtWidgets.QAction(self.tr("Place the {} origin of axis {} here").format(self.decode.getG5actif(), self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10 P0 L20 {}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Placer l'origine {} de tous les axes ici").format(self.decode.getG5actif()), self)
+    resetAll = QtWidgets.QAction(self.tr("Place the {} origin of all axis here").format(self.decode.getG5actif()), self)
     gcodeString = "G10 P0 L20 "
     for N in self.__axisNames:
       gcodeString += "{}0 ".format(N)
     resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction(self.tr("Jog axe {} vers l'origine {}").format(self.__axisNames[axis], self.decode.getG5actif()), self)
+    resetX = QtWidgets.QAction(self.tr("Jog axis {} to {} origin").format(self.__axisNames[axis], self.decode.getG5actif()), self)
     cmdJog1 = CMD_GRBL_JOG + "G90G21F{}{}0".format(self.ui.dsbJogSpeed.value(), self.__axisNames[axis])
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog1))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Jog de tous les axes vers l'origine {}").format(self.decode.getG5actif()), self)
+    resetAll = QtWidgets.QAction(self.tr("Jog all axis to {} origin").format(self.decode.getG5actif()), self)
     cmdJog = CMD_GRBL_JOG + "G90G21F{}".format(self.ui.dsbJogSpeed.value())
     for N in self.__axisNames:
       cmdJog += "{}0 ".format(N)
@@ -1270,17 +1266,17 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblGXXContextMenu(self, piece: int):
     self.cMenu = QtWidgets.QMenu(self)
-    setOrigineAll = QtWidgets.QAction(self.tr("Positionner l'origine piece {} (G{})").format(str(piece), str(piece + 53)), self)
+    setOrigineAll = QtWidgets.QAction(self.tr("Place the workpiece origin {} (G{})").format(str(piece), str(piece + 53)), self)
 
   def on_lblPlanContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    planXY = QtWidgets.QAction(self.tr("Plan de travail G17 - XY (Defaut)"), self)
+    planXY = QtWidgets.QAction(self.tr("G17 Working plane - XY (Defaut)"), self)
     planXY.triggered.connect(lambda: self.__grblCom.gcodePush("G17"))
     self.cMenu.addAction(planXY)
-    planXZ = QtWidgets.QAction(self.tr("Plan de travail G18 - XZ"), self)
+    planXZ = QtWidgets.QAction(self.tr("G18 Working plane - XZ"), self)
     planXZ.triggered.connect(lambda: self.__grblCom.gcodePush("G18"))
     self.cMenu.addAction(planXZ)
-    planYZ = QtWidgets.QAction(self.tr("Plan de travail G19 - YZ"), self)
+    planYZ = QtWidgets.QAction(self.tr("G19 Working plane - YZ"), self)
     planYZ.triggered.connect(lambda: self.__grblCom.gcodePush("G19"))
     self.cMenu.addAction(planYZ)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -1288,10 +1284,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblUnitesContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    unitePouces = QtWidgets.QAction(self.tr("G20 - Unites travail en pouces"), self)
+    unitePouces = QtWidgets.QAction(self.tr("G20 - Work units in inches"), self)
     unitePouces.triggered.connect(lambda: self.__grblCom.gcodePush("G20"))
     self.cMenu.addAction(unitePouces)
-    uniteMM = QtWidgets.QAction(self.tr("G21 - Unites travail en millimetres"), self)
+    uniteMM = QtWidgets.QAction(self.tr("G21 - Work units in millimeters"), self)
     uniteMM.triggered.connect(lambda: self.__grblCom.gcodePush("G21"))
     self.cMenu.addAction(uniteMM)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -1299,10 +1295,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblCoordContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    unitePouces = QtWidgets.QAction(self.tr("G90 - Deplacements en coordonnees absolues"), self)
+    unitePouces = QtWidgets.QAction(self.tr("G90 - Absolute coordinates movements"), self)
     unitePouces.triggered.connect(lambda: self.__grblCom.gcodePush("G90"))
     self.cMenu.addAction(unitePouces)
-    uniteMM = QtWidgets.QAction(self.tr("G91 - Deplacements en coordonnees relatives"), self)
+    uniteMM = QtWidgets.QAction(self.tr("G91 - relative coordinates movements"), self)
     uniteMM.triggered.connect(lambda: self.__grblCom.gcodePush("G91"))
     self.cMenu.addAction(uniteMM)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -1342,7 +1338,7 @@ class winMain(QtWidgets.QMainWindow):
     self.actionLangSystem.setCheckable(True)
     self.actionLangSystem.setObjectName("actionLangSystem")
     self.ui.menuLangue.addAction(self.actionLangSystem)
-    self.actionLangSystem.setText(self.tr("Utiliser la langue du systeme"))
+    self.actionLangSystem.setText(self.tr("Use system language"))
 
     self.ui.menuLangue.triggered.connect(self.on_menuLangue)
 
@@ -1375,7 +1371,7 @@ class winMain(QtWidgets.QMainWindow):
     # Install le traducteur et l'exécute sur les éléments déjà chargés
     QtCore.QCoreApplication.installTranslator(translator)
     self.ui.retranslateUi(self)
-    self.actionLangSystem.setText(self.tr("Utiliser la langue du systeme"))
+    self.actionLangSystem.setText(self.tr("Use system language"))
 
     # Coche le bon item dans le menu langue
     settingsLang = self.settings.value("lang", "default")

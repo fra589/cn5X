@@ -4,11 +4,11 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -35,9 +35,9 @@ NOMWIDGET = "qwEditMask"
 # groupe (str) de widgets pour affichage dans Designer
 GROUPEWIDGET = "cn5X++ widgets"
 # texte (str) pour le toolTip dans Designer
-TEXTETOOLTIP = "Editeur de masque 6 axes"
+TEXTETOOLTIP = "6 axis mask editor"
 # texte (str) pour le whatsThis dans Designer
-TEXTEWHATSTHIS = "Editeur de masque 6 axes"
+TEXTEWHATSTHIS = "6 axis mask editor"
 # icone (rien ou un fichier image ou un QPixmap) pour afficher dans Designer
 ICONEWIDGET = QtGui.QIcon()  # sans image, l'icone est celui de Qt
 # ===========================================================================

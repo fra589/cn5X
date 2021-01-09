@@ -2,11 +2,11 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -67,15 +67,15 @@ class grblConfig(QObject):
 
     # Barre de boutons de la boite de dialogue
     self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.Apply)
-    self.__buttonApply.setToolTip(self.tr("Applique les modifications."))
+    self.__buttonApply.setToolTip(self.tr("Apply the changes."))
     self.__buttonApply.setEnabled(False)
     self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Close)
-    self.__buttonDiscard.setToolTip(self.tr("Ferme la boite de dialogue sans valider les modifications."))
+    self.__buttonDiscard.setToolTip(self.tr("Close the dialog box without validating modifications."))
     self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
     self.__buttonReset.setEnabled(False)
-    self.__buttonReset.setToolTip(self.tr("Recharge tous les parametres a partir de leurs valeurs actuelles dans Grbl."))
+    self.__buttonReset.setToolTip(self.tr("Reloads all parameters from their current values in Grbl."))
     self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ActionRole)
-    self.__buttonFactory.setToolTip(self.tr("Reinitialise tous les parametres a partir de leurs valeurs d'origines\ndefinis lors de la compilation de Grbl."))
+    self.__buttonFactory.setToolTip(self.tr("Reset all parameters to their original values\ndefined when compiling Grbl."))
 
     self.__buttonApply.pressed.connect(self.on_Apply)
     self.__buttonDiscard.pressed.connect(self.on_Discard)
@@ -476,7 +476,7 @@ class grblConfig(QObject):
   @pyqtSlot()
   def on_Apply(self):
     """ Applique les elements modifies """
-    self.sig_config_changed.emit(self.tr("Sauvegarde des parametres modifies : {}").format(self.__changedParams))
+    self.sig_config_changed.emit(self.tr("Save modified parameters : {}").format(self.__changedParams))
 
     # Onglet 1 Initialisation
     if self.__di.lneEEPROM.objectName() in self.__changedParams:
@@ -687,9 +687,9 @@ class grblConfig(QObject):
   @pyqtSlot()
   def on_ResetFactory(self):
     m = msgBox(
-        title     = self.tr("Restorer la configuration usine"),
-        text      = self.tr("Etes vous surs ?\nRestorer la configuration usine restore tous les parametres tels qu'ils etaient lors de la generation du microcode Grbl."),
-        info      = self.tr("Toutes les modifications et reglages effectues sur cette instance de Grbl seront definitivement perdus !"),
+        title     = self.tr("Restore factory settings"),
+        text      = self.tr("Are you sure?\nRestoring the factory settings restores all settings as they were when generating the Grbl firmware."),
+        info      = self.tr("All modifications and adjustments made to this instance of Grbl will be permanently lost!"),
         icon      = msgIconList.Question,
         stdButton = msgButtonList.Yes | msgButtonList.Cancel,
         defButton = msgButtonList.Cancel,

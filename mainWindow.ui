@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2021 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -155,8 +155,8 @@
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="toolTip">
-               <string>Double clic pour
-deverouiller l'arret d'urgence</string>
+               <string>Double click
+to unlock urgent stop</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-radius: 25;</string>
@@ -225,20 +225,20 @@ deverouiller l'arret d'urgence</string>
                <item>
                 <widget class="QPushButton" name="btnHomeCycle">
                  <property name="toolTip">
-                  <string>Cycle d'origine machine</string>
+                  <string>Run homing cycle</string>
                  </property>
                  <property name="text">
-                  <string notr="true">Home cycle</string>
+                  <string>Home cycle</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <widget class="QPushButton" name="btnKillAlarm">
                  <property name="toolTip">
-                  <string>Supprimer le verrou d'alarme Grbl</string>
+                  <string>Run homing cycle</string>
                  </property>
                  <property name="text">
-                  <string notr="true">Unlock Alarm</string>
+                  <string>Unlock Alarm</string>
                  </property>
                  <property name="icon">
                   <iconset resource="cn5X.qrc">
@@ -255,7 +255,7 @@ deverouiller l'arret d'urgence</string>
                <item>
                 <widget class="QPushButton" name="btnReset">
                  <property name="text">
-                  <string notr="true">Soft Reset (^X)</string>
+                  <string>Soft Reset (^X)</string>
                  </property>
                 </widget>
                </item>
@@ -331,7 +331,7 @@ deverouiller l'arret d'urgence</string>
                  <item>
                   <widget class="QLabel" name="label_22">
                    <property name="text">
-                    <string>Avance</string>
+                    <string>Feedrate</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -347,7 +347,7 @@ deverouiller l'arret d'urgence</string>
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>Liaison des vitesses d'avance et de broche</string>
+                    <string>Link feedrate and spindle speed</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -377,7 +377,7 @@ deverouiller l'arret d'urgence</string>
                  <item>
                   <widget class="QLabel" name="label_23">
                    <property name="text">
-                    <string>Broche</string>
+                    <string>Spindle</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -451,7 +451,7 @@ deverouiller l'arret d'urgence</string>
                         </size>
                        </property>
                        <property name="toolTip">
-                        <string>Reinitialiser la vitesse d'avance</string>
+                        <string>Reset feedrate</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -532,7 +532,7 @@ deverouiller l'arret d'urgence</string>
                         </size>
                        </property>
                        <property name="toolTip">
-                        <string>Reinitialiser la vitesse de broche</string>
+                        <string>Reset spindle speed</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -571,7 +571,7 @@ deverouiller l'arret d'urgence</string>
             <item>
              <widget class="QGroupBox" name="grpVitesseRapide">
               <property name="title">
-               <string>Avance Rapide</string>
+               <string>Rapid feedrate</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <property name="spacing">
@@ -652,7 +652,7 @@ deverouiller l'arret d'urgence</string>
           </size>
          </property>
          <property name="title">
-          <string notr="true">Jogging</string>
+          <string>Jogging</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_13">
           <property name="spacing">
@@ -1149,7 +1149,7 @@ deverouiller l'arret d'urgence</string>
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string notr="true">Jog Increment</string>
+               <string>Jog Increment</string>
               </property>
              </widget>
             </item>
@@ -1252,7 +1252,7 @@ deverouiller l'arret d'urgence</string>
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string notr="true">Jog mm/mn</string>
+               <string>Jog mm/mn</string>
               </property>
              </widget>
             </item>
@@ -1302,7 +1302,7 @@ deverouiller l'arret d'urgence</string>
        <item>
         <widget class="QGroupBox" name="grpConnexion">
          <property name="title">
-          <string>Connexion</string>
+          <string>Connection</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <property name="leftMargin">
@@ -1343,7 +1343,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>Port :</string>
+               <string notr="true">Port :</string>
               </property>
              </widget>
             </item>
@@ -1356,7 +1356,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="toolTip">
-               <string>Selectionnez le port de la machine grbl.</string>
+               <string>Select serial port of Grbl.</string>
               </property>
               <property name="editable">
                <bool>true</bool>
@@ -1372,7 +1372,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="toolTip">
-               <string notr="true">Rafraichir la liste</string>
+               <string>Refresh list</string>
               </property>
               <property name="text">
                <string/>
@@ -1405,7 +1405,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>Bauds :</string>
+               <string notr="true">Bauds :</string>
               </property>
              </widget>
             </item>
@@ -1435,7 +1435,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>&lt;Non Connecte&gt;</string>
+               <string>&lt;Not Connected&gt;</string>
               </property>
              </widget>
             </item>
@@ -1454,7 +1454,7 @@ deverouiller l'arret d'urgence</string>
                </size>
               </property>
               <property name="text">
-               <string>(De)Connecter</string>
+               <string>(Un)Connect</string>
               </property>
              </widget>
             </item>
@@ -1538,7 +1538,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite X</string>
+             <string>X Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1580,7 +1580,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Y</string>
+             <string>Y Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1622,7 +1622,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite Z</string>
+             <string>Z Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1664,7 +1664,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite A</string>
+             <string>A Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1709,7 +1709,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite B</string>
+             <string>B Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1751,7 +1751,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string>Limite C</string>
+             <string>C Limit</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1793,7 +1793,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string notr="true">Probe</string>
+             <string>Probe</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1835,7 +1835,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string notr="true">Door</string>
+             <string>Door</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1877,7 +1877,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string notr="true">Hold</string>
+             <string>Hold</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1919,7 +1919,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string notr="true">soft Reset</string>
+             <string>soft Reset</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -1961,7 +1961,7 @@ deverouiller l'arret d'urgence</string>
              </size>
             </property>
             <property name="toolTip">
-             <string notr="true">cycle Start</string>
+             <string>cycle Start</string>
             </property>
             <property name="text">
              <string notr="true"/>
@@ -2405,7 +2405,7 @@ color: rgb(0, 0, 63);</string>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_27">
                  <property name="text">
-                  <string>Etat Grbl : </string>
+                  <string>Grbl status : </string>
                  </property>
                 </widget>
                </item>
@@ -2446,7 +2446,7 @@ color: rgb(248, 255, 192);</string>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_12">
                  <property name="text">
-                  <string>Plan : </string>
+                  <string>Plane : </string>
                  </property>
                 </widget>
                </item>
@@ -2494,7 +2494,7 @@ QToolType {
                <item row="1" column="2">
                 <widget class="QLabel" name="label_17">
                  <property name="text">
-                  <string>Broche :</string>
+                  <string>Spindle:</string>
                  </property>
                 </widget>
                </item>
@@ -2535,7 +2535,7 @@ color: rgb(248, 255, 192);</string>
                <item row="2" column="0">
                 <widget class="QLabel" name="label_14">
                  <property name="text">
-                  <string>Unites :</string>
+                  <string>Units:</string>
                  </property>
                 </widget>
                </item>
@@ -2579,7 +2579,7 @@ color: rgb(248, 255, 192);</string>
                <item row="2" column="2">
                 <widget class="QLabel" name="label_18">
                  <property name="text">
-                  <string>Arrosage :</string>
+                  <string>Coolant:</string>
                  </property>
                 </widget>
                </item>
@@ -2620,7 +2620,7 @@ color: rgb(248, 255, 192);</string>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_15">
                  <property name="text">
-                  <string>Coordonnees :</string>
+                  <string>coordinates:</string>
                  </property>
                 </widget>
                </item>
@@ -2664,7 +2664,7 @@ color: rgb(248, 255, 192);</string>
                <item row="3" column="2">
                 <widget class="QLabel" name="label_19">
                  <property name="text">
-                  <string>Outil :</string>
+                  <string>Tool:</string>
                  </property>
                 </widget>
                </item>
@@ -2705,7 +2705,7 @@ color: rgb(248, 255, 192);</string>
                <item row="4" column="0">
                 <widget class="QLabel" name="label_13">
                  <property name="text">
-                  <string>Deplacements :</string>
+                  <string>Moves:</string>
                  </property>
                 </widget>
                </item>
@@ -2746,7 +2746,7 @@ color: rgb(248, 255, 192);</string>
                <item row="4" column="2">
                 <widget class="QLabel" name="label_21">
                  <property name="text">
-                  <string>Rotation broche :</string>
+                  <string>Spindle speed:</string>
                  </property>
                 </widget>
                </item>
@@ -2787,7 +2787,7 @@ color: rgb(248, 255, 192);</string>
                <item row="5" column="0">
                 <widget class="QLabel" name="label_16">
                  <property name="text">
-                  <string>Mode vitesse :</string>
+                  <string>Speed mode:</string>
                  </property>
                 </widget>
                </item>
@@ -2828,7 +2828,7 @@ color: rgb(248, 255, 192);</string>
                <item row="5" column="2">
                 <widget class="QLabel" name="label_20">
                  <property name="text">
-                  <string>Avance :</string>
+                  <string>Feedrate:</string>
                  </property>
                 </widget>
                </item>
@@ -2944,31 +2944,31 @@ color: rgb(0, 0, 63);</string>
                    <cursorShape>CrossCursor</cursorShape>
                   </property>
                   <property name="text">
-                   <string>Mode actif :</string>
+                   <string>Active mode:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lblOffsetActif">
                   <property name="text">
-                   <string>Offset G54 :</string>
+                   <string>G54 Offset:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lblOffsetG92">
                   <property name="text">
-                   <string>Offset G92 :</string>
+                   <string>G92 Offset:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="lblOffsetWco">
                   <property name="toolTip">
-                   <string notr="true">Working Coordinate Offset</string>
+                   <string>Working Coordinate Offset</string>
                   </property>
                   <property name="text">
-                   <string notr="true">WCO :</string>
+                   <string>WCO :</string>
                   </property>
                  </widget>
                 </item>
@@ -3030,7 +3030,7 @@ color: rgb(0, 0, 63);</string>
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 1</string>
+                     <string>Coordinate System Offsets 1</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(0, 0, 63);
@@ -3071,7 +3071,7 @@ color: rgb(248, 255, 192);</string>
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 2</string>
+                     <string>Coordinate System Offsets 2</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3113,7 +3113,7 @@ color: rgb(0, 0, 63);
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 3</string>
+                     <string>Coordinate System Offsets 3</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3155,7 +3155,7 @@ color: rgb(0, 0, 63);
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 4</string>
+                     <string>Coordinate System Offsets 4</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3197,7 +3197,7 @@ color: rgb(0, 0, 63);
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 5</string>
+                     <string>Coordinate System Offsets 5</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -3242,7 +3242,7 @@ color: rgb(0, 0, 63);
                      <enum>Qt::CustomContextMenu</enum>
                     </property>
                     <property name="toolTip">
-                     <string>Decalage origine piece 6</string>
+                     <string>Coordinate System Offsets 6</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(248, 255, 192);
@@ -4218,7 +4218,7 @@ color: rgb(0, 0, 63);
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
-           <string>Communication Grbl</string>
+           <string>Grbl communication</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <property name="leftMargin">
@@ -4268,7 +4268,7 @@ color: rgb(0, 0, 63);
          </widget>
          <widget class="QWidget" name="tabGCodeFile">
           <attribute name="title">
-           <string>Fichier GCode</string>
+           <string>GCode file</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_6">
            <property name="leftMargin">
@@ -4332,7 +4332,7 @@ color: rgb(0, 0, 63);
          </widget>
          <widget class="QWidget" name="tabConsole">
           <attribute name="title">
-           <string>Messages cn5X++</string>
+           <string>cn5X++ messages</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <property name="spacing">
@@ -4521,7 +4521,7 @@ color: rgb(0, 0, 63);
              </size>
             </property>
             <property name="text">
-             <string>Envoyer</string>
+             <string>Send</string>
             </property>
            </widget>
           </item>
@@ -4544,7 +4544,7 @@ color: rgb(0, 0, 63);
    </property>
    <widget class="QMenu" name="mnuApplication">
     <property name="title">
-     <string>&amp;Fichier</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="mnuAppOuvrir"/>
     <addaction name="mnuAppEnregistrer"/>
@@ -4568,7 +4568,7 @@ color: rgb(0, 0, 63);
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
-     <string>&amp;Aide</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="mnuA_propos"/>
    </widget>
@@ -4589,12 +4589,12 @@ color: rgb(0, 0, 63);
   <widget class="QStatusBar" name="statusBar"/>
   <action name="mnuAppOuvrir">
    <property name="text">
-    <string>&amp;Ouvrir un fichier GCode...</string>
+    <string>&amp;Open GCode file...</string>
    </property>
   </action>
   <action name="mnuAppQuitter">
    <property name="text">
-    <string>&amp;Quitter</string>
+    <string>&amp;Quit</string>
    </property>
   </action>
   <action name="mnuDebug_mode">
@@ -4613,7 +4613,7 @@ color: rgb(0, 0, 63);
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Visualiser positions machine (MPos)</string>
+    <string>View machine positions (MPos)</string>
    </property>
   </action>
   <action name="mnu_WPos">
@@ -4621,32 +4621,32 @@ color: rgb(0, 0, 63);
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Visualiser position de travail (WPos)</string>
+    <string>View working positions (WPos)</string>
    </property>
   </action>
   <action name="mnuAppFermerGCode">
    <property name="text">
-    <string>&amp;Fermer le fichier GCode</string>
+    <string>&amp;Close GCode file</string>
    </property>
   </action>
   <action name="mnuAppEnregistrer">
    <property name="text">
-    <string>&amp;Enregistrer le fichier GCode</string>
+    <string>&amp;Save GCode file</string>
    </property>
   </action>
   <action name="mnuAppEnregistrerSous">
    <property name="text">
-    <string>Enregistrer &amp;sous...</string>
+    <string>Save &amp;as...</string>
    </property>
   </action>
   <action name="mnu_GrblConfig">
    <property name="text">
-    <string>Configuration de Grbl...</string>
+    <string>Grbl settings...</string>
    </property>
   </action>
   <action name="mnuA_propos">
    <property name="text">
-    <string>A propos de cn5X++...</string>
+    <string>About cn5X++...</string>
    </property>
   </action>
   <action name="mnuUnlock">

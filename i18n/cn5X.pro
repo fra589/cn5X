@@ -30,14 +30,15 @@ SOURCES += ../cn5X.py \
 	../cn5X_config.py \
 	../cn5X_gcodeFile.py \
 	../cn5X_rc.py \
+	../cnledplugin.py \
 	../cnled.py \
 	../cnQLabel.py \
 	../cnQPushButton.py \
 	../compilOptions.py \
 	../dlgAPropos.py \
 	../dlgConfig.py \
+	../dlgProbe.py \
 	../gcodeQLineEdit.py \
-	../grblAlarm.py \
 	../grblCom.py \
 	../grblComSerial.py \
 	../grblComStack.py \
@@ -45,13 +46,10 @@ SOURCES += ../cn5X.py \
 	../grblDecode.py \
 	../grblError.py \
 	../grblJog.py \
-	../grblSettings.py \
 	../mainWindow.py \
 	../msgbox.py \
 	../qweditmask.py \
 	../setup.py \
 	../speedOverrides.py
 TRANSLATIONS += cn5X.fr.ts \
-                cn5X.en.ts \
-                cn5X.es.ts \
-                cn5X.pt.ts
+                cn5X.en.ts

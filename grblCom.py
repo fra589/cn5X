@@ -2,11 +2,11 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -166,13 +166,13 @@ class grblCom(QObject):
     self.sig_debug.emit("grblCom.stopCom(self)")
     ''' Stop le thread des communications serie '''
     self.clearCom() # Vide la file d'attente
-    self.sig_log.emit(logSeverity.info.value, self.tr("Envoi signal sig_abort au thread de communications serie..."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Sending sig_abort signal to serial communications thread..."))
     self.sig_abort.emit()
     # Attente de la fin du (des) thread(s)
     for thread, worker in self.__threads:
         thread.quit()  # this will quit **as soon as thread event loop unblocks**
         thread.wait()  # <- so you need to wait for it to *actually* quit
-    self.sig_log.emit(logSeverity.info.value, self.tr("Thread(s) enfant(s) termine(s)."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Child(s) thread(s) terminated."))
     self.__grblInit = False
     self.__threads = []
 
@@ -181,21 +181,21 @@ class grblCom(QObject):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodeInsert.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
 
   def gcodePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_gcodePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
 
   def realTimePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
       self.sig_realTimePush.emit(buff, flag)
     else:
-      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer").format(buff))
+      self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
 
   def clearCom(self):

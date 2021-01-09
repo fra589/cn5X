@@ -35,7 +35,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>A propos de cn5X++</string>
+   <string>About cn5X++</string>
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
@@ -70,7 +70,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Infos</string>
+       <string>Information</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="spacing">
@@ -173,8 +173,8 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>CN5X++ est une application de panneau de controle 5/6 axes pour les machines a commandes numeriques pilotees par Grbl.
-Cette application a pour but d'implementer toutes les fonctionalites du microprogramme grbl-Mega-5X.</string>
+            <string>CN5X++ is a 5/6 axis control panel application for Grbl-controlled digital machines.
+This application is intended to implement all the features of the grbl-Mega-5X firmware.</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignJustify|Qt::AlignTop</set>
@@ -200,7 +200,7 @@ Cette application a pour but d'implementer toutes les fonctionalites du micropro
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string notr="true">Copyright (C) Gauthier Brière - 2018-2019</string>
+            <string notr="true">Copyright (C) Gauthier Brière - 2018-2021</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -311,7 +311,7 @@ If not, see &lt;http://www.gnu.org/licenses/&gt;.</string>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string notr="true">Licence</string>
+       <string>License</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <property name="spacing">

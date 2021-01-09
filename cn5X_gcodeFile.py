@@ -2,11 +2,11 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -69,7 +69,7 @@ class gcodeFile(QObject):
     if sys.platform == 'linux':
       # Prépare la boite de dialogue
       dialog = Gtk.FileChooserDialog(
-        self.tr("Ouvrir un fichier GCode"),
+        self.tr("Open a GCode file"),
         self,
         Gtk.FileChooserAction.OPEN,
         (
@@ -79,7 +79,7 @@ class gcodeFile(QObject):
       )
       dialog.set_local_only(False) # Permet l'affichage des fichiers réseaux sous Linux GTK+3
       dialog_filter = Gtk.FileFilter()
-      dialog_filter.set_name(self.tr("Fichier GCode"))
+      dialog_filter.set_name(self.tr("GCode file"))
       dialog_filter.add_pattern("*.gcode")
       dialog_filter.add_pattern("*.ngc")
       dialog_filter.add_pattern("*.nc")
@@ -101,16 +101,16 @@ class gcodeFile(QObject):
     '''
     opt = QtWidgets.QFileDialog.Options()
     ###opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Ouvrir un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Open a GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fName
 
   def readFile(self, filePath: str):
-    self.sig_log.emit(logSeverity.info.value, self.tr("Lecture du fichier : {}").format(filePath))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Reading file: {}").format(filePath))
     try:
       f = open(filePath,'r')
       lignes  = f.readlines()
       f.close()
-      self.sig_log.emit(logSeverity.info.value, self.tr("{} lignes dans le fichier").format(len(lignes)))
+      self.sig_log.emit(logSeverity.info.value, self.tr("{} lines in the file").format(len(lignes)))
       # Envoi du contenu dans la liste
       self.__gcodeFileUiModel.clear()
       for l in lignes:
@@ -121,7 +121,7 @@ class gcodeFile(QObject):
       self.selectGCodeFileLine(0)
       # Selectionne l'onglet du fichier
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur lecture du fichier : {}").format(filePath))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Reading file error: {}").format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
       self.__gcodeFileUiModel.clear()
       self.__filePath     = ""
@@ -165,14 +165,14 @@ class gcodeFile(QObject):
       self.sig_log.emit(logSeverity.info.value, self.tr("saveAs({})").format(fName[0]))
       self.saveFile(fName[0])
     else:
-      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs() annule !"))
+      self.sig_log.emit(logSeverity.info.value, self.tr("saveAs() canceled!"))
 
 
   def showFileSave(self):
     ''' Affiche la boite de dialogue "Save as" '''
     opt = QtWidgets.QFileDialog.Options()
     opt |= QtWidgets.QFileDialog.DontUseNativeDialog
-    fName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Enregistrer un fichier GCode"), "", self.tr("Fichier GCode (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    fName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Save GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fName
 
 
@@ -183,7 +183,7 @@ class gcodeFile(QObject):
         return
       else:
         filePath = self.__filePath
-    self.sig_log.emit(logSeverity.info.value, self.tr("Enregistrement du fichier : {}").format(filePath))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Saving file: {}").format(filePath))
     try:
       f = open(filePath, 'w')
       for I in range(self.__gcodeFileUiModel.rowCount()):
@@ -193,7 +193,7 @@ class gcodeFile(QObject):
       f.close()
       self.__filePath = filePath
     except Exception as e:
-      self.sig_log.emit(logSeverity.error.value, self.tr("Erreur Enregistrement du fichier : {}").format(filePath))
+      self.sig_log.emit(logSeverity.error.value, self.tr("Save file error: {}").format(filePath))
       self.sig_log.emit(logSeverity.error.value, str(e))
     # Supprime les lignes vides dans la grille d'affichage
     self.delEmptyRow()
@@ -238,9 +238,9 @@ class gcodeFile(QObject):
 
   def showConfirmChangeLost(self):
     m = msgBox(
-                  title     = self.tr("Enregistrer les modifications"),
-                  text      = self.tr("Voulez-vous enregistrer les modifications avant de fermer ?"),
-                  info      = self.tr("Si vous n'enregistrez pas, toutes les modifications effectuees depuis l'ouverture ou la derniere sauvegarde seront perdues."),
+                  title     = self.tr("Save Changes"),
+                  text      = self.tr("Do you want to save the changes before closing?"),
+                  info      = self.tr("If you do not save, any changes made since opening or the last save will be lost."),
                   icon      = msgIconList.Question,
                   stdButton = msgButtonList.Save | msgButtonList.Cancel | msgButtonList.Discard,
                   defButton = msgButtonList.Save,

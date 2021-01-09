@@ -2,11 +2,11 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                               '
+' This file is part of cn5X++                                             '
 '                                                                         '
-' cn5X++ is free software: you can redistribute it and/or modify it         '
+' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
 ' the Free Software Foundation, either version 3 of the License, or       '
 ' (at your option) any later version.                                     '
@@ -130,9 +130,9 @@ class qwEditMask(QtWidgets.QWidget):
 
   @pyqtSlot(int)
   def setNbAxes(self, val: int):
-    ''' Affecte le nombre d'axes geres (valeur entre 3 et 6) '''
+    ''' Affecte le nombre d'axes gérés (valeur entre 3 et 6) '''
     if val < 3 or val > 6:
-      raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))
+      raise RuntimeError(self.tr("The number of axis should be between 3 and 6!"))
     self.__nbAxes = val
     for i in range(6):
       if i < val:

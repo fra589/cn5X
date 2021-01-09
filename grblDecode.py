@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018 Gauthier Brière (gauthier.briere "at" gmail.com)         '
+' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -25,8 +25,6 @@ from PyQt5 import QtGui
 from PyQt5 import QtWidgets, QtCore #, QtGui,
 from PyQt5.QtCore import QCoreApplication, QObject
 from grblError import grblError
-from grblAlarm import grblAlarm
-###from grblSettings import grblSetting
 from speedOverrides import *
 from grblCom import grblCom
 
@@ -82,6 +80,18 @@ class grblDecode(QObject):
     self.__getNextStatusOutput = False
     self.__getNextGCodeParams = False
     self.__getNextGCodeState = False
+    self.__grblAlarm = [
+      [0, self.tr("No Alarm."), ""],
+      [1, self.tr("Hard limit"),         self.tr("Hard limit has been triggered. Machine position is likely lost due to sudden halt. Re-homing is highly recommended.")],
+      [2, self.tr("Soft limit"),         self.tr("Soft limit alarm. G-code motion target exceeds machine travel. Machine position retained. Alarm may be safely unlocked.")],
+      [3, self.tr("Abort during cycle"), self.tr("Reset while in motion. Machine position is likely lost due to sudden halt. Re-homing is highly recommended.")],
+      [4, self.tr("Probe fail"),         self.tr("Probe fail. Probe is not in the expected initial state before starting probe cycle when G38.2 and G38.3 is not triggered and G38.4 and G38.5 is triggered.")],
+      [5, self.tr("Probe fail"),         self.tr("Probe fail. Probe did not contact the workpiece within the programmed travel for G38.2 and G38.4.")],
+      [6, self.tr("Homing fail"),        self.tr("Homing fail. The active homing cycle was reset.")],
+      [7, self.tr("Homing fail"),        self.tr("Homing fail. Safety door was opened during homing cycle.")],
+      [8, self.tr("Homing fail"),        self.tr("Homing fail. Pull off travel failed to clear limit switch. Try increasing pull-off setting or check wiring.")],
+      [9, self.tr("Homing fail"),        self.tr("Homing fail. Could not find limit switch within search distances. Try increasing max travel, decreasing pull-off distance, or check wiring.")]
+    ]
 
 
   def getG5actif(self):
@@ -90,7 +100,7 @@ class grblDecode(QObject):
 
   def setNbAxis(self, val: int):
     if val < 3 or val > 6:
-      raise RuntimeError(self.tr("Le nombre d'axes doit etre compris entre 3 et 6 !"))
+      raise RuntimeError(self.tr("The number of axis should be between 3 and 6!"))
     self.__nbAxis = val
 
 
@@ -109,7 +119,7 @@ class grblDecode(QObject):
   def decodeGrblStatus(self, grblOutput):
 
     if grblOutput[0] != "<" or grblOutput[-1] != ">":
-      return self.tr("decodeGrblStatus : erreur ! \n[{}] Status incorrect.").format(grblOutput)
+      return self.tr("grblDecode.py.decodeGrblStatus():error ! \n[{}] Incorrect status.").format(grblOutput)
 
     # Affiche la chaine complette dans la barrs de status self.__statusText
     self.ui.statusBar.showMessage("{} + {}".format(self.__grblCom.grblVersion(), grblOutput))
@@ -125,36 +135,36 @@ class grblDecode(QObject):
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
             if not self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(True)
-            self.ui.lblEtat.setToolTip("Grbl is waiting for work.")
+            self.ui.lblEtat.setToolTip(self.tr("Grbl is waiting for work."))
           elif D ==GRBL_STATUS_HOLD0:
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if not self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(True)
             if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
-            self.ui.lblEtat.setToolTip("Hold complete. Ready to resume.")
+            self.ui.lblEtat.setToolTip(self.tr("Hold complete. Ready to resume."))
           elif D ==GRBL_STATUS_HOLD1:
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if not self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(True)
             if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
-            self.ui.lblEtat.setToolTip("Hold in-progress. Reset will throw an alarm.")
+            self.ui.lblEtat.setToolTip(self.tr("Hold in-progress. Reset will throw an alarm."))
           elif D =="Door:0":
-            self.ui.lblEtat.setToolTip("Door closed. Ready to resume.")
+            self.ui.lblEtat.setToolTip(self.tr("Door closed. Ready to resume."))
           elif D =="Door:1":
-            self.ui.lblEtat.setToolTip("Machine stopped. Door still ajar. Can't resume until closed.")
+            self.ui.lblEtat.setToolTip(self.tr("Machine stopped. Door still ajar. Can't resume until closed."))
           elif D =="Door:2":
-            self.ui.lblEtat.setToolTip("Door opened. Hold (or parking retract) in-progress. Reset will throw an alarm.")
+            self.ui.lblEtat.setToolTip(self.tr("Door opened. Hold (or parking retract) in-progress. Reset will throw an alarm."))
           elif D =="Door:3":
-            self.ui.lblEtat.setToolTip("Door closed and resuming. Restoring from park, if applicable. Reset will throw an alarm.")
+            self.ui.lblEtat.setToolTip(self.tr("Door closed and resuming. Restoring from park, if applicable. Reset will throw an alarm."))
           elif D == GRBL_STATUS_RUN:
             if not self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(True)
             if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
             if self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(False)
-            self.ui.lblEtat.setToolTip("Grbl running...")
+            self.ui.lblEtat.setToolTip(self.tr("Grbl running..."))
           elif D == GRBL_STATUS_JOG:
-            self.ui.lblEtat.setToolTip("Grbl jogging...")
+            self.ui.lblEtat.setToolTip(self.tr("Grbl jogging..."))
           elif D == GRBL_STATUS_ALARM:
-            self.ui.lblEtat.setToolTip("Grbl Alarm! see Grbl communication.")
+            self.ui.lblEtat.setToolTip(self.tr("Grbl Alarm! see Grbl communication."))
           elif D == GRBL_STATUS_HOME:
-            self.ui.lblEtat.setToolTip("Grbl homing, wait for finish...")
+            self.ui.lblEtat.setToolTip(self.tr("Grbl homing, wait for finish..."))
           else:
             self.ui.lblEtat.setToolTip("")
 
@@ -171,19 +181,19 @@ class grblDecode(QObject):
         if self.ui.mnu_WPos.isChecked():
           self.ui.mnu_WPos.setChecked(False)
         tblPos = D[5:].split(",")
-        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Machine Position (MPos).")
-        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip("Machine Position (MPos).")
-        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip("Machine Position (MPos).")
+        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Machine Position (MPos)."))
+        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Machine Position (MPos)."))
+        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Machine Position (MPos)."))
         if self.__nbAxis > 3:
-          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Machine Position (MPos).")
+          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Machine Position (MPos)."))
         else:
           self.ui.lblPosA.setText("-")
         if self.__nbAxis > 4:
-          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Machine Position (MPos).")
+          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
         else:
           self.ui.lblPosB.setText("-")
         if self.__nbAxis > 5:
-          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip("Machine Position (MPos).")
+          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
         else:
           self.ui.lblPosC.setText("-")
 
@@ -199,19 +209,19 @@ class grblDecode(QObject):
         if self.ui.mnu_MPos.isChecked():
           self.ui.mnu_MPos.setChecked(False)
         tblPos = D[5:].split(",")
-        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip("Working Position (WPos).")
-        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip("Working Position (WPos).")
-        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip("Working Position (WPos).")
+        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Working Position (WPos)."))
+        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Working Position (WPos)."))
+        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Working Position (WPos)."))
         if self.__nbAxis > 3:
-          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip("Working Position (WPos).")
+          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Working Position (WPos)."))
         else:
           self.ui.lblPosA.setText("-")
         if self.__nbAxis > 4:
-          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip("Working Position (WPos).")
+          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
         else:
           self.ui.lblPosB.setText("-")
         if self.__nbAxis > 5:
-          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip("Working Position (WPos).")
+          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
         else:
           self.ui.lblPosC.setText("-")
 
@@ -299,14 +309,14 @@ class grblDecode(QObject):
 
     elif grblOutput[:6] == "error:":
       errNum = int(float(grblOutput[6:]))
-      return self.tr("Erreur grbl No {} : {},\n{}").format(str(errNum), grblError[errNum][1], grblError[errNum][2])
+      return self.tr("Grbl error number {}: {},\n{}").format(str(errNum), grblError[errNum][1], grblError[errNum][2])
 
     elif grblOutput[:6] == "ALARM:":
       alarmNum = int(float(grblOutput[6:]))
-      return self.tr("Alarme grbl No {} : {},\n{}").format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
+      return self.tr("Grbl Alarm number {}: {},\n{}").format(str(alarmNum), self.__grblAlarm[alarmNum][1], self.__grblAlarm[alarmNum][2])
 
     else:
-      return self.tr("Reponse Grbl inconnue : [{}]").format(grblOutput)
+      return self.tr("Unknown Grbl reply: [{}]").format(grblOutput)
 
 
   def errorMessage(self, errNum: int):
@@ -314,7 +324,7 @@ class grblDecode(QObject):
 
 
   def alarmMessage(self, alarmNum: int):
-    return "ALARM:{}: {},\n{}".format(str(alarmNum), grblAlarm[alarmNum][1], grblAlarm[alarmNum][2])
+    return "ALARM:{}: {},\n{}".format(str(alarmNum), self.__grblAlarm[alarmNum][1], self.__grblAlarm[alarmNum][2])
 
 
   def decodeGrblData(self, grblOutput):
@@ -426,49 +436,49 @@ class grblDecode(QObject):
                 lbl.setFont(font)
           elif S in ["G17", "G18", "G19"]:
             self.ui.lblPlan.setText(S)
-            if S == 'G17': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = XY "))
-            if S == 'G18': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = ZX "))
-            if S == 'G19': self.ui.lblPlan.setToolTip(self.tr(" Plan de travail = YZ "))
+            if S == 'G17': self.ui.lblPlan.setToolTip(self.tr(" Working plane = XY "))
+            if S == 'G18': self.ui.lblPlan.setToolTip(self.tr(" Working plane = ZX "))
+            if S == 'G19': self.ui.lblPlan.setToolTip(self.tr(" Working plane = YZ "))
           elif S in ["G20", "G21"]:
             self.ui.lblUnites.setText(S)
-            if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Unites = pouce "))
-            if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Unites = millimetre "))
+            if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Units = pouce "))
+            if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Units = millimeter "))
           elif S in ["G90", "G91"]:
             self.ui.lblCoord.setText(S)
-            if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees absolues "))
-            if S == 'G91': self.ui.lblCoord.setToolTip(self.tr(" Deplacement en coordonnees relatives "))
+            if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Absolute coordinates move "))
+            if S == 'G91': self.ui.lblCoord.setToolTip(self.tr(" Relative coordinates move "))
           elif S in ['G0', 'G1', 'G2', 'G3', 'G38.2', 'G38.3', 'G38.4', 'G38.5']:
             self.ui.lblDeplacements.setText(S)
-            if S == 'G0': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse rapide. "))
-            if S == 'G1': self.ui.lblDeplacements.setToolTip(self.tr(" Deplacement en vitesse travail. "))
-            if S == 'G2': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens horaire en vitesse travail. "))
-            if S == 'G3': self.ui.lblDeplacements.setToolTip(self.tr(" Interpolation circulaire sens anti-horaire en vitesse travail. "))
-            if S == 'G38.2': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe vers la piece, stoppe au toucher, signale une erreur en cas de defaut. "))
-            if S == 'G38.3': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe vers la piece, stoppe au toucher."))
-            if S == 'G38.4': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe en quittant la piece, stoppe en perdant le contact, signal une erreur en cas de defaut. "))
-            if S == 'G38.5': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: palpe en quittant la piece, stoppe en perdant le contact. "))
+            if S == 'G0': self.ui.lblDeplacements.setToolTip(self.tr(" Rapid speed move. "))
+            if S == 'G1': self.ui.lblDeplacements.setToolTip(self.tr(" Linear (straight line) motion at programed feed rate. "))
+            if S == 'G2': self.ui.lblDeplacements.setToolTip(self.tr(" Circular interpolation motion clockwise at programed feed rate. "))
+            if S == 'G3': self.ui.lblDeplacements.setToolTip(self.tr(" Circular interpolation motion counter-clockwise at programed feed rate. "))
+            if S == 'G38.2': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: probe toward workpiece, stop on contact, signal error if failure. "))
+            if S == 'G38.3': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: probe toward workpiece, stop on contact."))
+            if S == 'G38.4': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: probe away from workpiece, stop on loss of contact, signal error if failure. "))
+            if S == 'G38.5': self.ui.lblDeplacements.setToolTip(self.tr(" Probe: probe away from workpiece, stop on loss of contact. "))
           elif S in ['G93', 'G94']:
             self.ui.lblVitesse.setText(S)
-            if S == 'G93': self.ui.lblVitesse.setToolTip(self.tr(" Mode vitesse inverse du temps "))
-            if S == 'G94': self.ui.lblVitesse.setToolTip(self.tr(" Mode vitesse en unites par minute "))
+            if S == 'G93': self.ui.lblVitesse.setToolTip(self.tr(" Inverse Time feed mode "))
+            if S == 'G94': self.ui.lblVitesse.setToolTip(self.tr(" Units per minute feed mode "))
           elif S in ['M3', 'M4', 'M5']:
             self.ui.lblBroche.setText(S)
             if S == 'M3':
-              self.ui.lblBroche.setToolTip(self.tr(" Broche en sens horaire "))
+              self.ui.lblBroche.setToolTip(self.tr(" Spindle clockwise at the S speed "))
               if not self.ui.btnSpinM3.getButtonStatus(): self.ui.btnSpinM3.setButtonStatus(True)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
               if not self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(True)  # Activation bouton M3
               if self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(False)     # Interdit un changement de sens de rotation direct
             if S == 'M4':
-              self.ui.lblBroche.setToolTip(self.tr(" Broche en sens anti-horaire "))
+              self.ui.lblBroche.setToolTip(self.tr(" Spindle counter-clockwise at the S speed "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               if not self.ui.btnSpinM4.getButtonStatus(): self.ui.btnSpinM4.setButtonStatus(True)
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
               if self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(False)     # Interdit un changement de sens de rotation direct
               if not self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(True)  # Activation bouton M4
             if S == 'M5':
-              self.ui.lblBroche.setToolTip(self.tr(" Broche arretee "))
+              self.ui.lblBroche.setToolTip(self.tr(" Spindle stoped "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
               if self.ui.btnSpinM4.getButtonStatus():     self.ui.btnSpinM4.setButtonStatus(False)
               if not self.ui.btnSpinM5.getButtonStatus(): self.ui.btnSpinM5.setButtonStatus(True)
@@ -477,40 +487,40 @@ class grblDecode(QObject):
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
-              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage par gouttelettes "))
+              self.ui.lblArrosage.setToolTip(self.tr(" Mist coolant on "))
               if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
               if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M7"
             if S == 'M8':
-              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage fluide "))
+              self.ui.lblArrosage.setToolTip(self.tr(" Flood coolant on "))
               if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
               if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M8"
             if S == 'M78':
-              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage goutelettes + fluide "))
+              self.ui.lblArrosage.setToolTip(self.tr(" Mist + Flood coolant on "))
               if not self.ui.btnFloodM7.getButtonStatus(): self.ui.btnFloodM7.setButtonStatus(True)
               if not self.ui.btnFloodM8.getButtonStatus(): self.ui.btnFloodM8.setButtonStatus(True)
               if self.ui.btnFloodM9.getButtonStatus():     self.ui.btnFloodM9.setButtonStatus(False)
               self.__etatArrosage = "M78"
             if S == 'M9':
-              self.ui.lblArrosage.setToolTip(self.tr(" Arrosage arrete "))
+              self.ui.lblArrosage.setToolTip(self.tr(" Coolant off "))
               if self.ui.btnFloodM7.getButtonStatus():     self.ui.btnFloodM7.setButtonStatus(False)
               if self.ui.btnFloodM8.getButtonStatus():     self.ui.btnFloodM8.setButtonStatus(False)
               if not self.ui.btnFloodM9.getButtonStatus(): self.ui.btnFloodM9.setButtonStatus(True)
               self.__etatArrosage = "M9"
           elif S[:1] == "T":
             self.ui.lblOutil.setText(S)
-            self.ui.lblOutil.setToolTip(self.tr(" Outil numero {}").format(S[1:]))
+            self.ui.lblOutil.setToolTip(self.tr(" Tool number {}").format(S[1:]))
           elif S[:1] == "S":
             self.ui.lblRotation.setText(S)
-            self.ui.lblRotation.setToolTip(self.tr(" Vitesse de broche = {} tours/mn").format(S[1:]))
+            self.ui.lblRotation.setToolTip(self.tr(" Spindle speed = {} revolutions per minute").format(S[1:]))
           elif S[:1] == "F":
             self.ui.lblAvance.setText(S)
-            self.ui.lblAvance.setToolTip(self.tr(" Vitesse d'avance = ").format(S[1:]))
+            self.ui.lblAvance.setToolTip(self.tr(" Feed rate  = ").format(S[1:]))
           else:
-            return(self.tr("Status G-code Parser non reconnu dans {} : {}").format(grblOutput, S))
+            return(self.tr("Unknown G-code Parser status in {} : {}").format(grblOutput, S))
         # renvoie le résultat si $G demandé dans par l'utilisateur
         if self.__getNextGCodeState:
           self.__getNextGCodeState = False
@@ -520,7 +530,7 @@ class grblDecode(QObject):
         return grblOutput
     else:
       # Autre reponse ?
-      if grblOutput != "": self.log(logSeverity.info.value, self.tr("Reponse Grbl non decodee : [{}]").format(grblOutput))
+      if grblOutput != "": self.log(logSeverity.info.value, self.tr("Not decoded Grbl reply : [{}]").format(grblOutput))
       return grblOutput
 
 
