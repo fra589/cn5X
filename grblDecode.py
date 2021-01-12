@@ -441,8 +441,8 @@ class grblDecode(QObject):
             if S == 'G19': self.ui.lblPlan.setToolTip(self.tr(" Working plane = YZ "))
           elif S in ["G20", "G21"]:
             self.ui.lblUnites.setText(S)
-            if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Units = pouce "))
-            if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Units = millimeter "))
+            if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Units = inches "))
+            if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Units = millimeters "))
           elif S in ["G90", "G91"]:
             self.ui.lblCoord.setText(S)
             if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Absolute coordinates move "))
@@ -592,7 +592,7 @@ class grblDecode(QObject):
       100: [self.tr("1st axis travel resolution"), self.tr("step/unit"), self.tr("1st axis travel resolution in steps per unit (millimeter or degre).")],
       101: [self.tr("2nd axis travel resolution"), self.tr("step/unit"), self.tr("2nd axis travel resolution in steps per unit (millimeter or degre).")],
       102: [self.tr("3rd axis travel resolution"), self.tr("step/unit"), self.tr("3rd axis travel resolution in steps per unit (millimeter or degre).")],
-      103: [self.tr("4th axis travel resolution"), self.tr("step/unit"), self.tr("4th axis travel resolution in steps per unit (millimeter or degre);")],
+      103: [self.tr("4th axis travel resolution"), self.tr("step/unit"), self.tr("4th axis travel resolution in steps per unit (millimeter or degre).")],
       104: [self.tr("5th axis travel resolution"), self.tr("step/unit"), self.tr("5th axis travel resolution in steps per unit (millimeter or degre).")],
       105: [self.tr("6th axis travel resolution"), self.tr("step/unit"), self.tr("6th axis travel resolution in steps per unit (millimeter or degre).")],
       110: [self.tr("1st axis maximum rate"), self.tr("unit/min"), self.tr("1st axis maximum rate. Used as G0 rapid rate.")],
@@ -606,7 +606,7 @@ class grblDecode(QObject):
       122: [self.tr("3rd axis acceleration"), self.tr("unit/sec^2"), self.tr("3rd axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
       123: [self.tr("4th axis acceleration"), self.tr("unit/sec^2"), self.tr("4th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
       124: [self.tr("5th axis acceleration"), self.tr("unit/sec^2"), self.tr("5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
-      125: [self.tr("6th axis acceleration"), self.tr("unit/sec^2"), self.tr("5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
+      125: [self.tr("6th axis acceleration"), self.tr("unit/sec^2"), self.tr("6th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.")],
       130: [self.tr("1st axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 1st axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
       131: [self.tr("2nd axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 2nd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],
       132: [self.tr("3rd axis maximum travel"), self.tr("unit (millimeters or degres)"), self.tr("Maximum 3rd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.")],

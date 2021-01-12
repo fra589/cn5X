@@ -571,7 +571,7 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Step pulse, microseconds ($0)</string>
+              <string>Step pulse time, microseconds ($0)</string>
              </property>
             </widget>
            </item>
@@ -592,35 +592,35 @@
            <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>Step port invert, mask ($2)</string>
+              <string>Step pulse invert, mask ($2)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
              <property name="text">
-              <string>Direction port invert, mask ($3)</string>
+              <string>Step direction invert, mask ($3)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_5">
              <property name="text">
-              <string>Step enable invert, boolean ($4)</string>
+              <string>Invert step enable pin, boolean ($4)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_14">
              <property name="text">
-              <string>Limit pins invert, boolean ($5)</string>
+              <string>Invert limit pins, boolean ($5)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_15">
              <property name="text">
-              <string>Probe pin invert, boolean ($6)</string>
+              <string>Invert probe pin, boolean ($6)</string>
              </property>
             </widget>
            </item>
@@ -842,7 +842,7 @@
            <item>
             <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>Status report, mask ($10)</string>
+              <string>Status report options, mask ($10)</string>
              </property>
             </widget>
            </item>
@@ -863,7 +863,7 @@
            <item>
             <widget class="QLabel" name="label_19">
              <property name="text">
-              <string>Report inches, boolean ($13)</string>
+              <string>Report in inches, boolean ($13)</string>
              </property>
             </widget>
            </item>
@@ -980,21 +980,21 @@
            <item>
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>Soft limits, boolean ($20)</string>
+              <string>Soft limits enable, boolean ($20)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_21">
              <property name="text">
-              <string>Hard limits, boolean ($21)</string>
+              <string>Hard limits enable, boolean ($21)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_22">
              <property name="text">
-              <string>Homing cycle, boolean ($22)</string>
+              <string>Homing cycle enable, boolean ($22)</string>
              </property>
             </widget>
            </item>
@@ -1008,35 +1008,35 @@
            <item>
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>Homing dir invert, mask ($23)</string>
+              <string>Homing direction invert, mask ($23)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_32">
              <property name="text">
-              <string>Homing feed, mm/min ($24)</string>
+              <string>Homing locate feed rate, mm/min ($24)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_33">
              <property name="text">
-              <string>Homing seek, mm/min ($25)</string>
+              <string>Homing search seek rate, mm/min ($25)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_34">
              <property name="text">
-              <string>Homing debounce, milliseconds ($26)</string>
+              <string>Homing switch debounce delay, milliseconds ($26)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_35">
              <property name="text">
-              <string>Homing pull-off, mm ($27)</string>
+              <string>Homing switch pull-off distance, mm ($27)</string>
              </property>
             </widget>
            </item>
@@ -1332,21 +1332,21 @@
            <item>
             <widget class="QLabel" name="label_36">
              <property name="text">
-              <string>Max spindle speed, RPM or laser power ($30)</string>
+              <string>Maximum spindle speed, RPM or laser power ($30)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_37">
              <property name="text">
-              <string>Min spindle speed, RPM ($31)</string>
+              <string>Minimum spindle speed, RPM ($31)</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_38">
              <property name="text">
-              <string>Laser mode, boolean ($32)</string>
+              <string>Laser-mode enable, boolean ($32)</string>
              </property>
             </widget>
            </item>

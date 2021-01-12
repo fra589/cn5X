@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.1" language="en" sourcelanguage="en">
 <context>
     <name>cnQPushButton</name>
     <message>
@@ -11,13 +12,13 @@
 <context>
     <name>dlgApropos</name>
     <message>
-        <location filename="../dlgAPropos.py" line="142"/>
-        <source>Version 0.0</source>
+        <location filename="../dlgAPropos.py" line="141"/>
+        <source>About cn5X++</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../dlgAPropos.py" line="141"/>
-        <source>About cn5X++</source>
+        <location filename="../dlgAPropos.py" line="142"/>
+        <source>Version 0.0</source>
         <translation></translation>
     </message>
     <message>
@@ -81,7 +82,7 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="974"/>
-        <source>Step pulse, microseconds ($0)</source>
+        <source>Step pulse time, microseconds ($0)</source>
         <translation></translation>
     </message>
     <message>
@@ -91,27 +92,27 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="976"/>
-        <source>Step port invert, mask ($2)</source>
+        <source>Step pulse invert, mask ($2)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="977"/>
-        <source>Direction port invert, mask ($3)</source>
+        <source>Step direction invert, mask ($3)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="978"/>
-        <source>Step enable invert, boolean ($4)</source>
+        <source>Invert step enable pin, boolean ($4)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="979"/>
-        <source>Limit pins invert, boolean ($5)</source>
+        <source>Invert limit pins, boolean ($5)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="980"/>
-        <source>Probe pin invert, boolean ($6)</source>
+        <source>Invert probe pin, boolean ($6)</source>
         <translation></translation>
     </message>
     <message>
@@ -126,7 +127,7 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="986"/>
-        <source>Status report, mask ($10)</source>
+        <source>Status report options, mask ($10)</source>
         <translation></translation>
     </message>
     <message>
@@ -141,7 +142,7 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="989"/>
-        <source>Report inches, boolean ($13)</source>
+        <source>Report in inches, boolean ($13)</source>
         <translation></translation>
     </message>
     <message>
@@ -151,42 +152,42 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="991"/>
-        <source>Soft limits, boolean ($20)</source>
+        <source>Soft limits enable, boolean ($20)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="992"/>
-        <source>Hard limits, boolean ($21)</source>
+        <source>Hard limits enable, boolean ($21)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="993"/>
-        <source>Homing cycle, boolean ($22)</source>
+        <source>Homing cycle enable, boolean ($22)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="994"/>
-        <source>Homing dir invert, mask ($23)</source>
+        <source>Homing direction invert, mask ($23)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="995"/>
-        <source>Homing feed, mm/min ($24)</source>
+        <source>Homing locate feed rate, mm/min ($24)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="996"/>
-        <source>Homing seek, mm/min ($25)</source>
+        <source>Homing search seek rate, mm/min ($25)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="997"/>
-        <source>Homing debounce, milliseconds ($26)</source>
+        <source>Homing switch debounce delay, milliseconds ($26)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="998"/>
-        <source>Homing pull-off, mm ($27)</source>
+        <source>Homing switch pull-off distance, mm ($27)</source>
         <translation></translation>
     </message>
     <message>
@@ -196,17 +197,17 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1002"/>
-        <source>Max spindle speed, RPM or laser power ($30)</source>
+        <source>Maximum spindle speed, RPM or laser power ($30)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1003"/>
-        <source>Min spindle speed, RPM ($31)</source>
+        <source>Minimum spindle speed, RPM ($31)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1004"/>
-        <source>Laser mode, boolean ($32)</source>
+        <source>Laser-mode enable, boolean ($32)</source>
         <translation></translation>
     </message>
     <message>
@@ -383,11 +384,6 @@ This application is intended to implement all the features of the grbl-Mega-5X f
         <translation></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="263"/>
-        <source>Do you want to save the changes before closing?</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../cn5X_gcodeFile.py" line="198"/>
         <source>Save GCode file</source>
         <translation></translation>
@@ -405,6 +401,11 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     <message>
         <location filename="../cn5X_gcodeFile.py" line="263"/>
         <source>Save Changes</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cn5X_gcodeFile.py" line="263"/>
+        <source>Do you want to save the changes before closing?</source>
         <translation></translation>
     </message>
     <message>
@@ -454,6 +455,11 @@ This application is intended to implement all the features of the grbl-Mega-5X f
         <translation></translation>
     </message>
     <message>
+        <location filename="../grblComSerial.py" line="259"/>
+        <source>grblComSerial: Error opening serial port : {0}</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../grblComSerial.py" line="264"/>
         <source>grblComSerial: Parameter out of range : {0}</source>
         <translation></translation>
@@ -476,6 +482,11 @@ This application is intended to implement all the features of the grbl-Mega-5X f
     <message>
         <location filename="../grblComSerial.py" line="291"/>
         <source>grblComSerial: timeout! No reply from Grbl.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblComSerial.py" line="303"/>
+        <source>grblComSerial.__openComPort(): line received: &quot;</source>
         <translation></translation>
     </message>
     <message>
@@ -539,8 +550,8 @@ This application is intended to implement all the features of the grbl-Mega-5X f
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="428"/>
-        <source>grblComSerial.run(): End.</source>
+        <location filename="../grblComSerial.py" line="413"/>
+        <source>grblComSerial.__mainLoop(): End.</source>
         <translation></translation>
     </message>
     <message>
@@ -554,18 +565,8 @@ This application is intended to implement all the features of the grbl-Mega-5X f
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="259"/>
-        <source>grblComSerial: Error opening serial port : {0}</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblComSerial.py" line="303"/>
-        <source>grblComSerial.__openComPort(): line received: &quot;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblComSerial.py" line="413"/>
-        <source>grblComSerial.__mainLoop(): End.</source>
+        <location filename="../grblComSerial.py" line="428"/>
+        <source>grblComSerial.run(): End.</source>
         <translation></translation>
     </message>
 </context>
@@ -593,19 +594,205 @@ defined when compiling Grbl.</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../grblConfig.py" line="423"/>
+        <source>{} steps/mm ($100)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="424"/>
+        <source>{} Max rate, mm/min ($110)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="425"/>
+        <source>{} Acceleration, mm/sec^2 ($120)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="426"/>
+        <source>{} Max travel, mm ($130)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="428"/>
+        <source>{} steps/mm ($101)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="429"/>
+        <source>{} Max rate, mm/min ($111)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="430"/>
+        <source>{} Acceleration, mm/sec^2 ($121)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="431"/>
+        <source>{} Max travel, mm ($131)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="433"/>
+        <source>{} steps/mm ($102)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="434"/>
+        <source>{} Max rate, mm/min ($112)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="435"/>
+        <source>{} Acceleration, mm/sec^2 ($122)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="436"/>
+        <source>{} Max travel, mm ($132)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="439"/>
+        <source>{} steps/mm ($103)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="440"/>
+        <source>{} Max rate, mm/min ($113)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="441"/>
+        <source>{} Acceleration, mm/sec^2 ($123)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="442"/>
+        <source>{} Max travel, mm ($133)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="444"/>
+        <source>- steps/mm ($103)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="445"/>
+        <source>- Max rate, mm/min ($113)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="446"/>
+        <source>- Acceleration, mm/sec^2 ($123)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="447"/>
+        <source>- Max travel, mm ($133)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="458"/>
+        <source>{} steps/mm ($104)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="459"/>
+        <source>{} Max rate, mm/min ($114)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="460"/>
+        <source>{} Acceleration, mm/sec^2 ($124)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="461"/>
+        <source>{} Max travel, mm ($134)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="463"/>
+        <source>- steps/mm ($104)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="464"/>
+        <source>- Max rate, mm/min ($114)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="465"/>
+        <source>- Acceleration, mm/sec^2 ($124)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="466"/>
+        <source>- Max travel, mm ($134)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="477"/>
+        <source>{} steps/mm ($105)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="478"/>
+        <source>{} Max rate, mm/min ($115)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="479"/>
+        <source>{} Acceleration, mm/sec^2 ($125)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="480"/>
+        <source>{} Max travel, mm ($135)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="482"/>
+        <source>- steps/mm ($105)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="483"/>
+        <source>- Max rate, mm/min ($115)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="484"/>
+        <source>- Acceleration, mm/sec^2 ($125)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="485"/>
+        <source>- Max travel, mm ($135)</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../grblConfig.py" line="499"/>
         <source>Save modified parameters : {}</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../grblConfig.py" line="709"/>
-        <source>All modifications and adjustments made to this instance of Grbl will be permanently lost!</source>
+        <source>Restore factory settings</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../grblConfig.py" line="709"/>
-        <source>Restore factory settings</source>
-        <translation type="unfinished"></translation>
+        <source>Are you sure?
+Restoring the factory settings restores all settings as they were when generating the Grbl firmware.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblConfig.py" line="709"/>
+        <source>All modifications and adjustments made to this instance of Grbl will be permanently lost!</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -795,12 +982,12 @@ defined when compiling Grbl.</source>
     </message>
     <message>
         <location filename="../grblDecode.py" line="465"/>
-        <source> Units = pouce </source>
+        <source> Units = inches </source>
         <translation></translation>
     </message>
     <message>
         <location filename="../grblDecode.py" line="466"/>
-        <source> Units = millimeter </source>
+        <source> Units = millimeters </source>
         <translation></translation>
     </message>
     <message>
@@ -816,6 +1003,11 @@ defined when compiling Grbl.</source>
     <message>
         <location filename="../grblDecode.py" line="473"/>
         <source> Rapid speed move. </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="474"/>
+        <source> Linear (straight line) motion at programed feed rate. </source>
         <translation></translation>
     </message>
     <message>
@@ -859,13 +1051,53 @@ defined when compiling Grbl.</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../grblDecode.py" line="488"/>
+        <source> Spindle clockwise at the S speed </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="495"/>
+        <source> Spindle counter-clockwise at the S speed </source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../grblDecode.py" line="502"/>
         <source> Spindle stoped </source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../grblDecode.py" line="511"/>
+        <source> Mist coolant on </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="517"/>
+        <source> Flood coolant on </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="523"/>
+        <source> Mist + Flood coolant on </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="529"/>
+        <source> Coolant off </source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../grblDecode.py" line="536"/>
         <source> Tool number {}</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="539"/>
+        <source> Spindle speed = {} revolutions per minute</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="542"/>
+        <source> Feed rate  = </source>
         <translation></translation>
     </message>
     <message>
@@ -1175,7 +1407,7 @@ defined when compiling Grbl.</source>
     </message>
     <message>
         <location filename="../grblDecode.py" line="616"/>
-        <source>4th axis travel resolution in steps per unit (millimeter or degre);</source>
+        <source>4th axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation></translation>
     </message>
     <message>
@@ -1314,13 +1546,18 @@ defined when compiling Grbl.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="630"/>
+        <location filename="../grblDecode.py" line="629"/>
         <source>5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../grblDecode.py" line="630"/>
         <source>6th axis acceleration</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../grblDecode.py" line="630"/>
+        <source>6th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation></translation>
     </message>
     <message>
@@ -1388,159 +1625,9 @@ defined when compiling Grbl.</source>
         <source>Maximum 6th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation></translation>
     </message>
-    <message>
-        <location filename="../grblDecode.py" line="474"/>
-        <source> Linear (straight line) motion at programed feed rate. </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="488"/>
-        <source> Spindle clockwise at the S speed </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="495"/>
-        <source> Spindle counter-clockwise at the S speed </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="511"/>
-        <source> Mist coolant on </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="517"/>
-        <source> Flood coolant on </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="523"/>
-        <source> Mist + Flood coolant on </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="529"/>
-        <source> Coolant off </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="539"/>
-        <source> Spindle speed = {} revolutions per minute</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../grblDecode.py" line="542"/>
-        <source> Feed rate  = </source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>mainWindow</name>
-    <message>
-        <location filename="../mainWindow.py" line="1888"/>
-        <source>Active mode:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1891"/>
-        <source>Working Coordinate Offset</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1899"/>
-        <source>Grbl communication</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1900"/>
-        <source>GCode file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1901"/>
-        <source>cn5X++ messages</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1905"/>
-        <source>Debug</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1903"/>
-        <source>Pause pooling</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1904"/>
-        <source>Clear debug</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1907"/>
-        <source>&amp;File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1908"/>
-        <source>&amp;Machine</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1910"/>
-        <source>&amp;Open GCode file...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1911"/>
-        <source>&amp;Quit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1912"/>
-        <source>Debug mode</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1913"/>
-        <source>View machine positions (MPos)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1914"/>
-        <source>View working positions (WPos)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1915"/>
-        <source>&amp;Close GCode file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1916"/>
-        <source>&amp;Save GCode file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1918"/>
-        <source>Grbl settings...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1919"/>
-        <source>About cn5X++...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1920"/>
-        <source>Reset Serial</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="1921"/>
-        <source>Reset Serial communication when hanged</source>
-        <translation></translation>
-    </message>
     <message>
         <location filename="../mainWindow.py" line="1845"/>
         <source>Double click
@@ -1748,6 +1835,11 @@ to unlock urgent stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../mainWindow.py" line="1888"/>
+        <source>Active mode:</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../mainWindow.py" line="1889"/>
         <source>G54 Offset:</source>
         <translation></translation>
@@ -1755,6 +1847,11 @@ to unlock urgent stop</source>
     <message>
         <location filename="../mainWindow.py" line="1890"/>
         <source>G92 Offset:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1891"/>
+        <source>Working Coordinate Offset</source>
         <translation></translation>
     </message>
     <message>
@@ -1793,8 +1890,48 @@ to unlock urgent stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../mainWindow.py" line="1899"/>
+        <source>Grbl communication</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1900"/>
+        <source>GCode file</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1901"/>
+        <source>cn5X++ messages</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1905"/>
+        <source>Debug</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1903"/>
+        <source>Pause pooling</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1904"/>
+        <source>Clear debug</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../mainWindow.py" line="1906"/>
         <source>Send</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1907"/>
+        <source>&amp;File</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1908"/>
+        <source>&amp;Machine</source>
         <translation></translation>
     </message>
     <message>
@@ -1803,8 +1940,63 @@ to unlock urgent stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../mainWindow.py" line="1910"/>
+        <source>&amp;Open GCode file...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1911"/>
+        <source>&amp;Quit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1912"/>
+        <source>Debug mode</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1913"/>
+        <source>View machine positions (MPos)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1914"/>
+        <source>View working positions (WPos)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1915"/>
+        <source>&amp;Close GCode file</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1916"/>
+        <source>&amp;Save GCode file</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../mainWindow.py" line="1917"/>
         <source>Save &amp;as...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1918"/>
+        <source>Grbl settings...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1919"/>
+        <source>About cn5X++...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1920"/>
+        <source>Reset Serial</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="1921"/>
+        <source>Reset Serial communication when hanged</source>
         <translation></translation>
     </message>
 </context>
@@ -1818,31 +2010,6 @@ to unlock urgent stop</source>
 </context>
 <context>
     <name>winMain</name>
-    <message>
-        <location filename="../cn5X.py" line="1068"/>
-        <source>Version {}</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../cn5X.py" line="1188"/>
-        <source>Run this line<byte value="x9"/>(F7)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../cn5X.py" line="1192"/>
-        <source>Run from this line<byte value="x9"/>(F8)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../cn5X.py" line="1282"/>
-        <source>Jog all axis to {} origin</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../cn5X.py" line="1297"/>
-        <source>G17 Working plane - XY (Defaut)</source>
-        <translation></translation>
-    </message>
     <message>
         <location filename="../cn5X.py" line="86"/>
         <source>Connect the serial port</source>
@@ -1957,6 +2124,11 @@ unlock the emergency stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../cn5X.py" line="1068"/>
+        <source>Version {}</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../cn5X.py" line="1107"/>
         <source>Attempt to start an empty cycle...</source>
         <translation></translation>
@@ -2017,6 +2189,16 @@ unlock the emergency stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../cn5X.py" line="1188"/>
+        <source>Run this line	(F7)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="1192"/>
+        <source>Run from this line	(F8)</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../cn5X.py" line="1252"/>
         <source>Reset feedrate to 100%</source>
         <translation></translation>
@@ -2042,8 +2224,18 @@ unlock the emergency stop</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../cn5X.py" line="1282"/>
+        <source>Jog all axis to {} origin</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../cn5X.py" line="1293"/>
         <source>Place the workpiece origin {} (G{})</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="1297"/>
+        <source>G17 Working plane - XY (Defaut)</source>
         <translation></translation>
     </message>
     <message>
