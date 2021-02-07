@@ -246,7 +246,7 @@ class gcodeFile(QObject):
                   defButton = msgButtonList.Save,
                   escButton = msgButtonList.Cancel
     )
-    return(m.afficheMsg())
+    return (m.afficheMsg())
 
 
   def closeFile(self):

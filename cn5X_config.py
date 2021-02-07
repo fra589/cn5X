@@ -26,7 +26,7 @@ from PyQt5 import QtGui
 
 ORG_NAME           = "fra589"
 APP_NAME           = "cn5X++"
-APP_VERSION_STRING = "0.5.j"
+APP_VERSION_STRING = "0.8.a"
 
 DEFAULT_NB_AXIS    = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
 DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']
@@ -114,3 +114,9 @@ TXT_COLOR_BLUE   = QtGui.QColor(0, 0, 92)
 COM_FLAG_NO_FLAG  = 0
 COM_FLAG_NO_OK    = 1
 COM_FLAG_NO_ERROR = 2
+
+CN5X_TAB_GRBL  = 0
+CN5X_TAB_FILE  = 1
+CN5X_TAB_LOG   = 2
+CN5X_TAB_DEBUG = 3
+

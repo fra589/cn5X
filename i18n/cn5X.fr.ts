@@ -3,9 +3,9 @@
 <context>
     <name>cnQPushButton</name>
     <message>
-        <location filename="../cnQPushButton.py" line="94"/>
+        <location filename="../cnQPushButton.py" line="95"/>
         <source>Image resource of button ({}) not found</source>
-        <translation>Resource image du bouton ({}) non trouvée</translation>
+        <translation type="obsolete">Resource image du bouton ({}) non trouvée</translation>
     </message>
 </context>
 <context>
@@ -417,17 +417,17 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
 <context>
     <name>grblCom</name>
     <message>
-        <location filename="../grblCom.py" line="191"/>
+        <location filename="../grblCom.py" line="214"/>
         <source>Sending sig_abort signal to serial communications thread...</source>
         <translation>Envoi signal sig_abort au thread de communications serie...</translation>
     </message>
     <message>
-        <location filename="../grblCom.py" line="197"/>
+        <location filename="../grblCom.py" line="220"/>
         <source>Child(s) thread(s) terminated.</source>
         <translation>Thread(s) enfant(s) termine(s).</translation>
     </message>
     <message>
-        <location filename="../grblCom.py" line="220"/>
+        <location filename="../grblCom.py" line="254"/>
         <source>grblCom: Grbl not connected or not initialized, [{}] could not be sent.</source>
         <translation>grblCom: Grbl non connecte ou non initialise, [{}] impossible a envoyer.</translation>
     </message>
@@ -435,139 +435,144 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
 <context>
     <name>grblComSerial</name>
     <message>
-        <location filename="../grblComSerial.py" line="115"/>
+        <location filename="../grblComSerial.py" line="118"/>
         <source>grblComSerial.py: abort received.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="188"/>
+        <location filename="../grblComSerial.py" line="192"/>
         <source>grblComSerial: Error when sending data: timeout, err# = {}</source>
         <translation>grblComSerial : Erreur lors de l&apos;envoi des données : timeout, err# = {}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="190"/>
+        <location filename="../grblComSerial.py" line="194"/>
         <source>grblComSerial: Unknown error</source>
         <translation>grblComSerial : Erreur inconnue</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="192"/>
+        <location filename="../grblComSerial.py" line="196"/>
         <source>grblComSerial: Data sent, T = {}</source>
         <translation>grblComSerial: Données envoyées, T = {}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="264"/>
-        <source>grblComSerial: Parameter out of range : {0}</source>
-        <translation>grblComSerial: Paramètre hors limites : {0}</translation>
+        <location filename="../grblComSerial.py" line="272"/>
+        <source>grblComSerial.__openComPort(): Parameter out of range : {0}</source>
+        <translation type="unfinished">grblComSerial: Paramètre hors limites : {0}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="269"/>
-        <source>grblComSerial: Unexpected error : {}</source>
-        <translation>grblComSerial: Erreur inattendue : {}</translation>
+        <location filename="../grblComSerial.py" line="277"/>
+        <source>grblComSerial.__openComPort(): Unexpected error : {}</source>
+        <translation type="unfinished">grblComSerial: Erreur inattendue : {}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="276"/>
-        <source>grblComSerial: comPort {} open.</source>
-        <translation></translation>
+        <location filename="../grblComSerial.py" line="284"/>
+        <source>grblComSerial.__openComPort(): comPort {} open.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="280"/>
-        <source>grblComSerial: Wait for Grbl init... T = {:0.0f} ms...</source>
-        <translation>grblComSerial: Attente de l&apos;initialisation de Grbl... T = {:0.0f} ms...</translation>
+        <location filename="../grblComSerial.py" line="288"/>
+        <source>grblComSerial.__openComPort(): Wait for Grbl init... T = {:0.0f} ms...</source>
+        <translation type="unfinished">grblComSerial: Attente de l&apos;initialisation de Grbl... T = {:0.0f} ms...</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="291"/>
-        <source>grblComSerial: timeout! No reply from Grbl.</source>
-        <translation>grblComSerial: timeout! Pas de réponse de Grbl.</translation>
+        <location filename="../grblComSerial.py" line="299"/>
+        <source>grblComSerial.__openComPort(): timeout! No reply from Grbl.</source>
+        <translation type="unfinished">grblComSerial: timeout! Pas de réponse de Grbl.</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="305"/>
+        <location filename="../grblComSerial.py" line="319"/>
         <source>grblComSerial.__openComPort(): Grbl init string received in {:0.0f} ms, OK.</source>
         <translation>grblComSerial.__openComPort(): Initialisation de Grbl reçue en {:0.0f} ms, OK.</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="312"/>
+        <location filename="../grblComSerial.py" line="326"/>
         <source>grblComSerial.__openComPort(): utf-8 decode error, buff={}</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="317"/>
+        <location filename="../grblComSerial.py" line="331"/>
         <source>grblComSerial.__openComPort(): No response from Grbl after {:0.0f}ms, sending soft reset...</source>
         <translation>grblComSerial.__openComPort(): Pas de response de Grbl après {:0.0f}ms, envoi soft reset...</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="322"/>
+        <location filename="../grblComSerial.py" line="336"/>
         <source>grblComSerial.__openComPort(): Grbl initialization: Timeout!</source>
         <translation>grblComSerial.__openComPort(): Grbl initialisation: Timeout!</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="323"/>
+        <location filename="../grblComSerial.py" line="337"/>
         <source>grblComSerial.__openComPort(): openMaxTime ({}ms) timeout elapsed !</source>
         <translation>grblComSerial.__openComPort(): openMaxTime ({}ms) timeout atteind !</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="324"/>
+        <location filename="../grblComSerial.py" line="338"/>
         <source>grblComSerial.__openComPort(): Grbl&apos;s init string not received or unknown Grbl version.</source>
         <translation>grblComSerial.__openComPort(): Chaine d&apos;initialisation Grbl non reçue ou version Grbl inconue.</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="356"/>
+        <location filename="../grblComSerial.py" line="371"/>
         <source>grblComSerial.__mainLoop(): Not OK to send GCode ({}).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="380"/>
+        <location filename="../grblComSerial.py" line="400"/>
         <source>grblComSerial.__mainLoop: Timeout when reading serial port!</source>
         <translation>grblComSerial.__mainLoop: Timeout lors de la lecture du port série !</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="382"/>
+        <location filename="../grblComSerial.py" line="402"/>
         <source>grblComSerial.__mainLoop(): Unexpected exception when reading serial port!</source>
         <translation>grblComSerial.__mainLoop(): Exception inattendue lors de la lecture du port série !</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="385"/>
+        <location filename="../grblComSerial.py" line="405"/>
         <source>grblComSerial.__mainLoop(): utf-8 decode error, buff={}</source>
         <translation>grblComSerial.__mainLoop(): utf-8 decode error, buff={}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="391"/>
+        <location filename="../grblComSerial.py" line="411"/>
         <source>grblComSerial.__mainLoop(): sig_abort received, closing the thread...</source>
         <translation>grblComSerial.__mainLoop(): sig_abort reçu, fermeture du thread...</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="408"/>
+        <location filename="../grblComSerial.py" line="428"/>
         <source>grblComSerial.__mainLoop(): Closing serial port.</source>
         <translation>grblComSerial.__mainLoop(): Fermeture du port série.</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="428"/>
+        <location filename="../grblComSerial.py" line="448"/>
         <source>grblComSerial.run(): End.</source>
         <translation>grblComSerial.run(): Fin.</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="421"/>
+        <location filename="../grblComSerial.py" line="441"/>
         <source>grblComSerial.run(): Running &quot;{}&quot; from thread #{}.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="426"/>
+        <location filename="../grblComSerial.py" line="446"/>
         <source>grblComSerial.run(): Unable to open serial port!</source>
         <translation>grblComSerial.run(): Impossible d&apos;ouvrir le port série !</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="259"/>
-        <source>grblComSerial: Error opening serial port : {0}</source>
-        <translation>grblComSerial: Erreur d&apos;ouverture du port série : {0}</translation>
+        <location filename="../grblComSerial.py" line="267"/>
+        <source>grblComSerial.__openComPort(): Error opening serial port : {0}</source>
+        <translation type="unfinished">grblComSerial: Erreur d&apos;ouverture du port série : {0}</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="303"/>
+        <location filename="../grblComSerial.py" line="317"/>
         <source>grblComSerial.__openComPort(): line received: &quot;</source>
         <translation>grblComSerial.__openComPort(): ligne reçue : &quot;</translation>
     </message>
     <message>
-        <location filename="../grblComSerial.py" line="413"/>
+        <location filename="../grblComSerial.py" line="433"/>
         <source>grblComSerial.__mainLoop(): End.</source>
         <translation>grblComSerial.__mainLoop(): Fin.</translation>
+    </message>
+    <message>
+        <location filename="../grblComSerial.py" line="312"/>
+        <source>grblComSerial.__openComPort(): Read error: {}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -793,833 +798,833 @@ définis lors de la compilation de Grbl.</translation>
 <context>
     <name>grblDecode</name>
     <message>
-        <location filename="../grblDecode.py" line="104"/>
+        <location filename="../grblDecode.py" line="108"/>
         <source>No Alarm.</source>
         <translation>Pas d&apos;alarme.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="105"/>
+        <location filename="../grblDecode.py" line="109"/>
         <source>Hard limit</source>
         <translation>Limite matérielle</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="105"/>
+        <location filename="../grblDecode.py" line="109"/>
         <source>Hard limit has been triggered. Machine position is likely lost due to sudden halt. Re-homing is highly recommended.</source>
         <translation>Limite matérielle déclenchée. La position de la machine est probablement perdue en raison d&apos;un arrêt soudain. La reprise d&apos;origine est fortement recommandée.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="106"/>
+        <location filename="../grblDecode.py" line="110"/>
         <source>Soft limit</source>
         <translation>Limite logicielle</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="106"/>
+        <location filename="../grblDecode.py" line="110"/>
         <source>Soft limit alarm. G-code motion target exceeds machine travel. Machine position retained. Alarm may be safely unlocked.</source>
         <translation>Alarme limite logicielle. La cible de mouvement du code G dépasse la course de la machine. Position de la machine conservée. L&apos;alarme peut être déverrouillée en toute sécurité.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="107"/>
+        <location filename="../grblDecode.py" line="111"/>
         <source>Abort during cycle</source>
         <translation>Abandon pendant le cycle</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="107"/>
+        <location filename="../grblDecode.py" line="111"/>
         <source>Reset while in motion. Machine position is likely lost due to sudden halt. Re-homing is highly recommended.</source>
         <translation>Réinitialisation pendant le mouvement. La position de la machine est probablement perdue en raison d&apos;un arrêt soudain. La reprise d&apos;origine est fortement recommandée.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="109"/>
+        <location filename="../grblDecode.py" line="113"/>
         <source>Probe fail</source>
         <translation>Échec du palpage</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="108"/>
+        <location filename="../grblDecode.py" line="112"/>
         <source>Probe fail. Probe is not in the expected initial state before starting probe cycle when G38.2 and G38.3 is not triggered and G38.4 and G38.5 is triggered.</source>
         <translation>Échec du palpage. La sonde n&apos;est pas dans l&apos;état initial attendu avant le démarrage du cycle de sonde lorsque G38.2 et G38.3 ne sont pas déclenchés et que G38.4 et G38.5 sont déclenchés.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="109"/>
+        <location filename="../grblDecode.py" line="113"/>
         <source>Probe fail. Probe did not contact the workpiece within the programmed travel for G38.2 and G38.4.</source>
         <translation>Échec du palpage. Le palpeur n&apos;a pas contacté la pièce pendant la course programmée pour G38.2 et G38.4.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="113"/>
+        <location filename="../grblDecode.py" line="117"/>
         <source>Homing fail</source>
         <translation>Échec de la prise d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="110"/>
+        <location filename="../grblDecode.py" line="114"/>
         <source>Homing fail. The active homing cycle was reset.</source>
         <translation>Échec de la prise d&apos;origine. Le cycle de prise d&apos;origine actif a été réinitialisé.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="111"/>
+        <location filename="../grblDecode.py" line="115"/>
         <source>Homing fail. Safety door was opened during homing cycle.</source>
         <translation>Échec de la prise d&apos;origine. La porte de sécurité a été ouverte pendant la prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="112"/>
+        <location filename="../grblDecode.py" line="116"/>
         <source>Homing fail. Pull off travel failed to clear limit switch. Try increasing pull-off setting or check wiring.</source>
         <translation>Échec de la prise d&apos;origine. La course de retrait n&apos;a pas permis d&apos;effacer l&apos;interrupteur de fin de course. Essayez d&apos;augmenter le réglage de retrait ou vérifiez le câblage.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="113"/>
+        <location filename="../grblDecode.py" line="117"/>
         <source>Homing fail. Could not find limit switch within search distances. Try increasing max travel, decreasing pull-off distance, or check wiring.</source>
         <translation>Échec de la prise d&apos;origine. Impossible de trouver l&apos;interrupteur de fin de course dans les distances de recherche. Essayez d&apos;augmenter la course maximale, de réduire la distance de retrait ou de vérifier le câblage.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="123"/>
+        <location filename="../grblDecode.py" line="127"/>
         <source>The number of axis should be between 3 and 6!</source>
         <translation>Le nombre d&apos;axes doit être compris entre 3 et 6 !</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="142"/>
+        <location filename="../grblDecode.py" line="150"/>
         <source>grblDecode.py.decodeGrblStatus():error ! 
 [{}] Incorrect status.</source>
         <translation>grblDecode.py.decodeGrblStatus():erreur ! 
 [{}] Statut incorrect.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="158"/>
+        <location filename="../grblDecode.py" line="166"/>
         <source>Grbl is waiting for work.</source>
         <translation>Grbl attend pour travailler.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="163"/>
+        <location filename="../grblDecode.py" line="171"/>
         <source>Hold complete. Ready to resume.</source>
         <translation>Pause complette. Prêt à redémarrer.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="168"/>
+        <location filename="../grblDecode.py" line="176"/>
         <source>Hold in-progress. Reset will throw an alarm.</source>
         <translation>Pause en cours. La réinitialisation génèrera une alarme.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="170"/>
+        <location filename="../grblDecode.py" line="178"/>
         <source>Door closed. Ready to resume.</source>
         <translation>Porte fermée. Prêt à redémarrer.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="172"/>
+        <location filename="../grblDecode.py" line="180"/>
         <source>Machine stopped. Door still ajar. Can&apos;t resume until closed.</source>
         <translation>La machine arrêtée. Porte toujours ouverte. Impossible de reprendre avant fermeture.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="174"/>
+        <location filename="../grblDecode.py" line="182"/>
         <source>Door opened. Hold (or parking retract) in-progress. Reset will throw an alarm.</source>
         <translation>Porte ouverte. Pause (ou parquage) en cours. La réinitialisation génèrera une alarme.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="176"/>
+        <location filename="../grblDecode.py" line="184"/>
         <source>Door closed and resuming. Restoring from park, if applicable. Reset will throw an alarm.</source>
         <translation>Porte fermée et redémarrage. Retour éventuel de la position de parquage. La réinitialisation génèrera une alarme.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="181"/>
+        <location filename="../grblDecode.py" line="189"/>
         <source>Grbl running...</source>
         <translation>Grbl en cours d&apos;exécution...</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="183"/>
+        <location filename="../grblDecode.py" line="191"/>
         <source>Grbl jogging...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="185"/>
+        <location filename="../grblDecode.py" line="193"/>
         <source>Grbl Alarm! see Grbl communication.</source>
         <translation>Alarme Grbl ! Voir l&apos;onglet communication.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="187"/>
+        <location filename="../grblDecode.py" line="195"/>
         <source>Grbl homing, wait for finish...</source>
         <translation>Prise d&apos;origine Grbl, attente de la fin...</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="216"/>
+        <location filename="../grblDecode.py" line="224"/>
         <source>Machine Position (MPos).</source>
         <translation>Position machine (MPos).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="244"/>
+        <location filename="../grblDecode.py" line="252"/>
         <source>Working Position (WPos).</source>
         <translation>Position de travail (WPos).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="333"/>
+        <location filename="../grblDecode.py" line="341"/>
         <source>Grbl error number {}: {},
 {}</source>
         <translation>Erreur Grbl numéro {} : {},
 {}</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="337"/>
+        <location filename="../grblDecode.py" line="345"/>
         <source>Grbl Alarm number {}: {},
 {}</source>
         <translation>Alarme Grbl numéro {} : {},
 {}</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="340"/>
+        <location filename="../grblDecode.py" line="348"/>
         <source>Unknown Grbl reply: [{}]</source>
         <translation>Réponse Grbl non reconnue : [{}]</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="460"/>
+        <location filename="../grblDecode.py" line="479"/>
         <source> Working plane = XY </source>
         <translation> Plan de travail = XY </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="461"/>
+        <location filename="../grblDecode.py" line="480"/>
         <source> Working plane = ZX </source>
         <translation> Plan de travail = ZX </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="462"/>
+        <location filename="../grblDecode.py" line="481"/>
         <source> Working plane = YZ </source>
         <translation> Plan de travail = YZ </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="465"/>
+        <location filename="../grblDecode.py" line="484"/>
         <source> Units = inches </source>
         <translation> Unités = pouces </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="466"/>
+        <location filename="../grblDecode.py" line="485"/>
         <source> Units = millimeters </source>
         <translation> Unités = millimètres </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="469"/>
+        <location filename="../grblDecode.py" line="488"/>
         <source> Absolute coordinates move </source>
         <translation> Déplacement en coordonnées absolues </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="470"/>
+        <location filename="../grblDecode.py" line="489"/>
         <source> Relative coordinates move </source>
         <translation> Déplacement en coordonnées relatives </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="473"/>
+        <location filename="../grblDecode.py" line="492"/>
         <source> Rapid speed move. </source>
         <translation> Déplacement rapide. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="475"/>
+        <location filename="../grblDecode.py" line="494"/>
         <source> Circular interpolation motion clockwise at programed feed rate. </source>
         <translation> Interpolation circulaire en sens horaire à la vitesse programmée. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="476"/>
+        <location filename="../grblDecode.py" line="495"/>
         <source> Circular interpolation motion counter-clockwise at programed feed rate. </source>
         <translation> Interpolation circulaire en sens anti horaire à la vitesse programmée. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="477"/>
+        <location filename="../grblDecode.py" line="496"/>
         <source> Probe: probe toward workpiece, stop on contact, signal error if failure. </source>
         <translation> Palpage : Palpe vers la pièce, arrêt au contact, signale une erreur en cas de défaut. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="478"/>
+        <location filename="../grblDecode.py" line="497"/>
         <source> Probe: probe toward workpiece, stop on contact.</source>
         <translation> Palpage : Palpe vers la pièce, arrêt au contact.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="479"/>
+        <location filename="../grblDecode.py" line="498"/>
         <source> Probe: probe away from workpiece, stop on loss of contact, signal error if failure. </source>
         <translation> Palpage : Palpe en s&apos;éloignant de la pièce, arrêt lors de la perte de contact, signale une erreur en cas de défaut. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="480"/>
+        <location filename="../grblDecode.py" line="499"/>
         <source> Probe: probe away from workpiece, stop on loss of contact. </source>
         <translation> Palpage : Palpe en s&apos;éloignant de la pièce, arrêt lors de la perte de contact. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="483"/>
+        <location filename="../grblDecode.py" line="502"/>
         <source> Inverse Time feed mode </source>
         <translation> Mode vitesse en inverse du temps </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="484"/>
+        <location filename="../grblDecode.py" line="503"/>
         <source> Units per minute feed mode </source>
         <translation> Mode vitesse en unités par minute </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="502"/>
+        <location filename="../grblDecode.py" line="521"/>
         <source> Spindle stoped </source>
         <translation> Broche arrêtée </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="536"/>
+        <location filename="../grblDecode.py" line="555"/>
         <source> Tool number {}</source>
         <translation> Outil numéro {}</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="544"/>
+        <location filename="../grblDecode.py" line="563"/>
         <source>Unknown G-code Parser status in {} : {}</source>
         <translation>Statut de l&apos;analyseur GCode inconnu dans {} : {}</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="554"/>
+        <location filename="../grblDecode.py" line="586"/>
         <source>Not decoded Grbl reply : [{}]</source>
         <translation>Réponse Grbl non décodée : [{}]</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="591"/>
+        <location filename="../grblDecode.py" line="664"/>
         <source>Step pulse time</source>
         <translation>Durée d&apos;impulsion moteur</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="591"/>
+        <location filename="../grblDecode.py" line="664"/>
         <source>microseconds</source>
         <translation>microsecondes</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="591"/>
+        <location filename="../grblDecode.py" line="664"/>
         <source>Sets time length per step (Minimum 3usec).</source>
         <translation>Définit la longueur par pas (minimum 3usec).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="592"/>
+        <location filename="../grblDecode.py" line="665"/>
         <source>Step idle delay</source>
         <translation>Délai désacivation moteurs</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="608"/>
+        <location filename="../grblDecode.py" line="681"/>
         <source>milliseconds</source>
         <translation>millisecondes</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="592"/>
+        <location filename="../grblDecode.py" line="665"/>
         <source>Sets a short hold delay when stopping to let dynamics settle before disabling steppers. Value 255 keeps motors enabled with no delay.</source>
         <translation>Définit un court délai d&apos;attente à l&apos;arrêt pour laisser la dynamique se stabiliser avant de désactiver les moteurs. La valeur 255 maintient les moteurs activés sans délai.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="593"/>
+        <location filename="../grblDecode.py" line="666"/>
         <source>Step pulse invert</source>
         <translation>Inversion impulsions moteurs</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="605"/>
+        <location filename="../grblDecode.py" line="678"/>
         <source>mask</source>
         <translation>masque</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="593"/>
+        <location filename="../grblDecode.py" line="666"/>
         <source>Inverts the step signal. Set axis bit to invert (00000ZYX).</source>
         <translation>Inverse le signal de pas. Réglez le bit d&apos;axe à inverser (00CBAZYX).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="594"/>
+        <location filename="../grblDecode.py" line="667"/>
         <source>Step direction invert</source>
         <translation>Inversion direction moteurs</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="594"/>
+        <location filename="../grblDecode.py" line="667"/>
         <source>Inverts the direction signal. Set axis bit to invert (00000ZYX).</source>
         <translation>Inverse le signal de direction. Réglez le bit d&apos;axe à inverser (00CBAZYX).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="595"/>
+        <location filename="../grblDecode.py" line="668"/>
         <source>Invert step enable pin</source>
         <translation>Inversion activation moteurs</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="612"/>
+        <location filename="../grblDecode.py" line="685"/>
         <source>boolean</source>
         <translation>booléen</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="595"/>
+        <location filename="../grblDecode.py" line="668"/>
         <source>Inverts the stepper driver enable pin signal.</source>
         <translation>Inverse le signal de broche d&apos;activation du pilote pas à pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="596"/>
+        <location filename="../grblDecode.py" line="669"/>
         <source>Invert limit pins</source>
         <translation>Inversion limit pins</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="596"/>
+        <location filename="../grblDecode.py" line="669"/>
         <source>Inverts the all of the limit input pins.</source>
         <translation>Inverse toutes les broches d&apos;entrée des fin de courses.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="597"/>
+        <location filename="../grblDecode.py" line="670"/>
         <source>Invert probe pin</source>
         <translation>Inversion broche palpeur</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="597"/>
+        <location filename="../grblDecode.py" line="670"/>
         <source>Inverts the probe input pin signal.</source>
         <translation>Inverse le signal de la broche d&apos;entrée de la sonde de palpage.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="598"/>
+        <location filename="../grblDecode.py" line="671"/>
         <source>Status report options</source>
         <translation>Options de rapport d&apos;état</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="598"/>
+        <location filename="../grblDecode.py" line="671"/>
         <source>Alters data included in status reports.</source>
         <translation>Modifie les données incluses dans les rapports d&apos;état.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="599"/>
+        <location filename="../grblDecode.py" line="672"/>
         <source>Junction deviation</source>
         <translation>Écart de jonction</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="609"/>
+        <location filename="../grblDecode.py" line="682"/>
         <source>millimeters</source>
         <translation>millimètres</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="599"/>
+        <location filename="../grblDecode.py" line="672"/>
         <source>Sets how fast Grbl travels through consecutive motions. Lower value slows it down.</source>
         <translation>Définit la vitesse à laquelle Grbl parcourt des mouvements consécutifs. Une valeur inférieure le ralentit.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="600"/>
+        <location filename="../grblDecode.py" line="673"/>
         <source>Arc tolerance</source>
         <translation>Tolérance d&apos;arc</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="600"/>
+        <location filename="../grblDecode.py" line="673"/>
         <source>Sets the G2 and G3 arc tracing accuracy based on radial error. Beware: A very small value may effect performance.</source>
         <translation>Définit la précision du tracé d&apos;arc G2 et G3 en fonction de l&apos;erreur radiale. Attention: une très petite valeur peut affecter les performances.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="601"/>
+        <location filename="../grblDecode.py" line="674"/>
         <source>Report in inches</source>
         <translation>Rapport en pouces</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="601"/>
+        <location filename="../grblDecode.py" line="674"/>
         <source>Enables inch units when returning any position and rate value that is not a settings value.</source>
         <translation>Active les unités en pouces lors du renvoi de toute valeur de position et de vitesse qui n&apos;est pas une valeur de réglage.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="602"/>
+        <location filename="../grblDecode.py" line="675"/>
         <source>Soft limits enable</source>
         <translation>Activation des limites logicielles</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="602"/>
+        <location filename="../grblDecode.py" line="675"/>
         <source>Enables soft limits checks within machine travel and sets alarm when exceeded. Requires homing.</source>
         <translation>Active les vérifications des limites logicielles dans la course de la machine et active une alarme en cas de dépassement. Nécessite une prise d&apos;origine machine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="603"/>
+        <location filename="../grblDecode.py" line="676"/>
         <source>Hard limits enable</source>
         <translation>Activation des limites matérielles</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="603"/>
+        <location filename="../grblDecode.py" line="676"/>
         <source>Enables hard limits. Immediately halts motion and throws an alarm when switch is triggered.</source>
         <translation>Active des limites matérielles. Arrête immédiatement le mouvement et déclenche une alarme lorsque qu&apos;un interrupteur de fin de course est déclenché.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="604"/>
+        <location filename="../grblDecode.py" line="677"/>
         <source>Homing cycle enable</source>
         <translation>Activation du cycle d&apos;origine machine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="604"/>
+        <location filename="../grblDecode.py" line="677"/>
         <source>Enables homing cycle. Requires limit switches on all axes.</source>
         <translation>Active le cycle de prise d&apos;origine machine. Nécessite des interrupteurs de fin de course sur tous les axes configurés.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="605"/>
+        <location filename="../grblDecode.py" line="678"/>
         <source>Homing direction invert</source>
         <translation>Direction prise d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="605"/>
+        <location filename="../grblDecode.py" line="678"/>
         <source>Homing searches for a switch in the positive direction. Set axis bit (00000ZYX) to search in negative direction.</source>
         <translation>La prise d&apos;origine machine recherche un commutateur dans le sens positif. Réglez le bit d&apos;axe (00CBAZYX) pour rechercher dans le sens négatif.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="606"/>
+        <location filename="../grblDecode.py" line="679"/>
         <source>Homing locate feed rate</source>
         <translation>Vitesse de localisation d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="607"/>
+        <location filename="../grblDecode.py" line="680"/>
         <source>units (millimeters or degres)/min</source>
         <translation>unités (millimètres ou degrés)/min</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="606"/>
+        <location filename="../grblDecode.py" line="679"/>
         <source>Feed rate to slowly engage limit switch to determine its location accurately.</source>
         <translation>Vitesse d&apos;avance pour engager lentement l&apos;interrupteur de fin de course pour déterminer son emplacement avec précision.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="607"/>
+        <location filename="../grblDecode.py" line="680"/>
         <source>Homing search seek rate</source>
         <translation>Vitesse de recherche d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="607"/>
+        <location filename="../grblDecode.py" line="680"/>
         <source>Seek rate to quickly find the limit switch before the slower locating phase.</source>
         <translation>Vitesse de recherche pour trouver rapidement l&apos;interrupteur de fin de course avant la phase de localisation plus lente.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="608"/>
+        <location filename="../grblDecode.py" line="681"/>
         <source>Homing switch debounce delay</source>
         <translation>Délai anti-rebond du commutateur d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="608"/>
+        <location filename="../grblDecode.py" line="681"/>
         <source>Sets a short delay between phases of homing cycle to let a switch debounce.</source>
         <translation>Définit un court délai entre les phases du cycle de référence pour filtrer les rebonds de contact des commutateurs de fin de course.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="609"/>
+        <location filename="../grblDecode.py" line="682"/>
         <source>Homing switch pull-off distance</source>
         <translation>Distance de retrait de l&apos;interrupteur d&apos;origine</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="609"/>
+        <location filename="../grblDecode.py" line="682"/>
         <source>Retract distance after triggering switch to disengage it. Homing will fail if switch isn&apos;t cleared.</source>
         <translation>Distance de rétactation après avoir déclenché l&apos;interrupteur pour le désengager. La prise d&apos;origine échouera si le commutateur n&apos;est pas désengagé.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="610"/>
+        <location filename="../grblDecode.py" line="683"/>
         <source>Maximum spindle speed</source>
         <translation>Vitesse maximale de broche</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="611"/>
+        <location filename="../grblDecode.py" line="684"/>
         <source>RPM</source>
         <translation>Tour/min</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="610"/>
+        <location filename="../grblDecode.py" line="683"/>
         <source>Maximum spindle speed. Sets PWM to 100% duty cycle.</source>
         <translation>Vitesse maximale de broche. Avec le PWM à 100% du cycle.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="611"/>
+        <location filename="../grblDecode.py" line="684"/>
         <source>Minimum spindle speed</source>
         <translation>Vitesse minimum de broche</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="611"/>
+        <location filename="../grblDecode.py" line="684"/>
         <source>Minimum spindle speed. Sets PWM to 0.4% or lowest duty cycle.</source>
         <translation>Vitesse minimum de broche. Règle le PWM à 0,4% du cycle ou inférieur.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="612"/>
+        <location filename="../grblDecode.py" line="685"/>
         <source>Laser-mode enable</source>
         <translation>Activation mode laser</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="612"/>
+        <location filename="../grblDecode.py" line="685"/>
         <source>Enables laser mode. Consecutive G1/2/3 commands will not halt when spindle speed is changed.</source>
         <translation>Activation mode laser. Les commandes G1/2/3 consécutives n&apos;arrêteront pas le déplacement lorsque la vitesse de broche est modifiée.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="613"/>
+        <location filename="../grblDecode.py" line="686"/>
         <source>1st axis travel resolution</source>
         <translation>Résolution de déplacement du 1er axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="618"/>
+        <location filename="../grblDecode.py" line="691"/>
         <source>step/unit</source>
         <translation>pas/unité</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="613"/>
+        <location filename="../grblDecode.py" line="686"/>
         <source>1st axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 1er axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="614"/>
+        <location filename="../grblDecode.py" line="687"/>
         <source>2nd axis travel resolution</source>
         <translation>Résolution de déplacement du 2ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="614"/>
+        <location filename="../grblDecode.py" line="687"/>
         <source>2nd axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 2ème axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="615"/>
+        <location filename="../grblDecode.py" line="688"/>
         <source>3rd axis travel resolution</source>
         <translation>Résolution de déplacement du 3ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="615"/>
+        <location filename="../grblDecode.py" line="688"/>
         <source>3rd axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 3ème axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="616"/>
+        <location filename="../grblDecode.py" line="689"/>
         <source>4th axis travel resolution</source>
         <translation>Résolution de déplacement du 4ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="616"/>
+        <location filename="../grblDecode.py" line="689"/>
         <source>4th axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 4ème axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="617"/>
+        <location filename="../grblDecode.py" line="690"/>
         <source>5th axis travel resolution</source>
         <translation>Résolution de déplacement du 5ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="617"/>
+        <location filename="../grblDecode.py" line="690"/>
         <source>5th axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 5ème axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="618"/>
+        <location filename="../grblDecode.py" line="691"/>
         <source>6th axis travel resolution</source>
         <translation>Résolution de déplacement du 6ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="618"/>
+        <location filename="../grblDecode.py" line="691"/>
         <source>6th axis travel resolution in steps per unit (millimeter or degre).</source>
         <translation>Résolution de déplacement du 6ème axe en pas par unité (millimètre ou degré).</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="619"/>
+        <location filename="../grblDecode.py" line="692"/>
         <source>1st axis maximum rate</source>
         <translation>Vitesse maximum du 1er axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="624"/>
+        <location filename="../grblDecode.py" line="697"/>
         <source>unit/min</source>
         <translation>unité/min</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="619"/>
+        <location filename="../grblDecode.py" line="692"/>
         <source>1st axis maximum rate. Used as G0 rapid rate.</source>
         <translation>Vitesse maximum du 1er axe. Utilisée en vitesse rapide G0.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="620"/>
+        <location filename="../grblDecode.py" line="693"/>
         <source>2nd axis maximum rate</source>
         <translation>Vitesse maximum du 2ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="620"/>
+        <location filename="../grblDecode.py" line="693"/>
         <source>2nd axis maximum rate. Used as G0 rapid rate.</source>
         <translation>Vitesse maximum du 2ème axe. Utilisée en vitesse rapide G0.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="621"/>
+        <location filename="../grblDecode.py" line="694"/>
         <source>3rd axis maximum rate</source>
         <translation>Vitesse maximum du 3ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="621"/>
+        <location filename="../grblDecode.py" line="694"/>
         <source>3rd axis maximum rate. Used as G0 rapid rate.</source>
         <translation>Vitesse maximum du 3ème axe. Utilisée en vitesse rapide G0.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="622"/>
+        <location filename="../grblDecode.py" line="695"/>
         <source>4th axis maximum rate</source>
         <translation>Vitesse maximum du 4ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="622"/>
+        <location filename="../grblDecode.py" line="695"/>
         <source>4th axis maximum rate. Used as G0 rapid rate</source>
         <translation>Vitesse maximum du 4ème axe. Utilisée en vitesse rapide G0</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="623"/>
+        <location filename="../grblDecode.py" line="696"/>
         <source>5th axis maximum rate</source>
         <translation>Vitesse maximum du 5ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="623"/>
+        <location filename="../grblDecode.py" line="696"/>
         <source>5th axis maximum rate. Used as G0 rapid rate</source>
         <translation>Vitesse maximum du 5ème axe. Utilisée en vitesse rapide G0</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="624"/>
+        <location filename="../grblDecode.py" line="697"/>
         <source>6th axis maximum rate</source>
         <translation>Vitesse maximum du 6ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="624"/>
+        <location filename="../grblDecode.py" line="697"/>
         <source>6th axis maximum rate. Used as G0 rapid rate</source>
         <translation>Vitesse maximum du 6ème axe. Utilisée en vitesse rapide G0</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="625"/>
+        <location filename="../grblDecode.py" line="698"/>
         <source>1st axis acceleration</source>
         <translation>Accélération 1er axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="630"/>
+        <location filename="../grblDecode.py" line="703"/>
         <source>unit/sec^2</source>
         <translation>unité/sec^2</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="625"/>
+        <location filename="../grblDecode.py" line="698"/>
         <source>1st axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 1er axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="626"/>
+        <location filename="../grblDecode.py" line="699"/>
         <source>2nd axis acceleration</source>
         <translation>Accélération 2ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="626"/>
+        <location filename="../grblDecode.py" line="699"/>
         <source>2nd axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 2ème axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="627"/>
+        <location filename="../grblDecode.py" line="700"/>
         <source>3rd axis acceleration</source>
         <translation>Accélération 3ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="627"/>
+        <location filename="../grblDecode.py" line="700"/>
         <source>3rd axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 3ème axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="628"/>
+        <location filename="../grblDecode.py" line="701"/>
         <source>4th axis acceleration</source>
         <translation>Accélération 4ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="628"/>
+        <location filename="../grblDecode.py" line="701"/>
         <source>4th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 4ème axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="629"/>
+        <location filename="../grblDecode.py" line="702"/>
         <source>5th axis acceleration</source>
         <translation>Accélération 5ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="629"/>
+        <location filename="../grblDecode.py" line="702"/>
         <source>5th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 5ème axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="630"/>
+        <location filename="../grblDecode.py" line="703"/>
         <source>6th axis acceleration</source>
         <translation>Accélération 6éme axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="630"/>
+        <location filename="../grblDecode.py" line="703"/>
         <source>6th axis acceleration. Used for motion planning to not exceed motor torque and lose steps.</source>
         <translation>Accélération 6ème axe. Utilisé pour la planification de mouvement pour ne pas dépasser le couple du moteur et perdre des pas.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="631"/>
+        <location filename="../grblDecode.py" line="704"/>
         <source>1st axis maximum travel</source>
         <translation>Course maximum 1er axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="636"/>
+        <location filename="../grblDecode.py" line="709"/>
         <source>unit (millimeters or degres)</source>
         <translation>unité (millimètres ou degrés)</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="631"/>
+        <location filename="../grblDecode.py" line="704"/>
         <source>Maximum 1st axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 1er axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="632"/>
+        <location filename="../grblDecode.py" line="705"/>
         <source>2nd axis maximum travel</source>
         <translation>Course maximum 2ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="632"/>
+        <location filename="../grblDecode.py" line="705"/>
         <source>Maximum 2nd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 2ème axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="633"/>
+        <location filename="../grblDecode.py" line="706"/>
         <source>3rd axis maximum travel</source>
         <translation>Course maximum 3ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="633"/>
+        <location filename="../grblDecode.py" line="706"/>
         <source>Maximum 3rd axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 3ème axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="634"/>
+        <location filename="../grblDecode.py" line="707"/>
         <source>4th axis maximum travel</source>
         <translation>Course maximum 4ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="634"/>
+        <location filename="../grblDecode.py" line="707"/>
         <source>Maximum 4th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 4ème axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="635"/>
+        <location filename="../grblDecode.py" line="708"/>
         <source>5th axis maximum travel</source>
         <translation>Course maximum 5ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="635"/>
+        <location filename="../grblDecode.py" line="708"/>
         <source>Maximum 5th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 5ème axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="636"/>
+        <location filename="../grblDecode.py" line="709"/>
         <source>6th axis maximum travel</source>
         <translation>Course maximum 6ème axe</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="636"/>
+        <location filename="../grblDecode.py" line="709"/>
         <source>Maximum 6th axis travel distance from homing switch. Determines valid machine space for soft-limits and homing search distances.</source>
         <translation>Distance de déplacement maximale du 6ème axe depuis le commutateur de fin de course. Détermine l&apos;espace machine valide pour les limites logicielles et les distances de prise d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="474"/>
+        <location filename="../grblDecode.py" line="493"/>
         <source> Linear (straight line) motion at programed feed rate. </source>
         <translation> Mouvement linéaire (en ligne droite) à la vitesse d&apos;avance programmée. </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="488"/>
+        <location filename="../grblDecode.py" line="507"/>
         <source> Spindle clockwise at the S speed </source>
         <translation> Broche dans le sens horaire à la vitesse S </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="495"/>
+        <location filename="../grblDecode.py" line="514"/>
         <source> Spindle counter-clockwise at the S speed </source>
         <translation> Broche dans le sens anti horaire à la vitesse S </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="511"/>
+        <location filename="../grblDecode.py" line="530"/>
         <source> Mist coolant on </source>
         <translation> Arrosage gouttelettes actif </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="517"/>
+        <location filename="../grblDecode.py" line="536"/>
         <source> Flood coolant on </source>
         <translation> Arrosage fluide actif </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="523"/>
+        <location filename="../grblDecode.py" line="542"/>
         <source> Mist + Flood coolant on </source>
         <translation> Arrosage gouttelettes + fluide actif </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="529"/>
+        <location filename="../grblDecode.py" line="548"/>
         <source> Coolant off </source>
         <translation> Arrosage arrêté </translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="539"/>
+        <location filename="../grblDecode.py" line="558"/>
         <source> Spindle speed = {} revolutions per minute</source>
         <translation> Vitesse de broche = {} tours par minute</translation>
     </message>
     <message>
-        <location filename="../grblDecode.py" line="542"/>
+        <location filename="../grblDecode.py" line="561"/>
         <source> Feed rate  = </source>
         <translation> Vitesse d&apos;avance = </translation>
     </message>
@@ -1627,376 +1632,849 @@ définis lors de la compilation de Grbl.</translation>
 <context>
     <name>mainWindow</name>
     <message>
-        <location filename="../mainWindow.py" line="1888"/>
+        <location filename="../mainWindow.py" line="3947"/>
         <source>Active mode:</source>
         <translation>Mode actif :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1891"/>
+        <location filename="../mainWindow.py" line="3950"/>
         <source>Working Coordinate Offset</source>
         <translation>Décalage des coordonnées de travail</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1899"/>
-        <source>Grbl communication</source>
-        <translation>Communication Grbl</translation>
+        <location filename="../mainWindow.py" line="1903"/>
+        <source>Grbl com</source>
+        <translation type="obsolete">Communication Grbl</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1900"/>
+        <location filename="../mainWindow.py" line="4085"/>
         <source>GCode file</source>
         <translation>Fichier GCode</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1901"/>
+        <location filename="../mainWindow.py" line="1905"/>
         <source>cn5X++ messages</source>
-        <translation>Messages cn5X++</translation>
+        <translation type="obsolete">Messages cn5X++</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1905"/>
+        <location filename="../mainWindow.py" line="4090"/>
         <source>Debug</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1903"/>
+        <location filename="../mainWindow.py" line="4088"/>
         <source>Pause pooling</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1904"/>
+        <location filename="../mainWindow.py" line="4089"/>
         <source>Clear debug</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1907"/>
+        <location filename="../mainWindow.py" line="4091"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1908"/>
+        <location filename="../mainWindow.py" line="4092"/>
         <source>&amp;Machine</source>
         <translation>&amp;Machine</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1910"/>
+        <location filename="../mainWindow.py" line="4095"/>
         <source>&amp;Open GCode file...</source>
         <translation>&amp;Ouvrir un fichier GCode...</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1911"/>
+        <location filename="../mainWindow.py" line="4096"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1912"/>
+        <location filename="../mainWindow.py" line="4097"/>
         <source>Debug mode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1913"/>
+        <location filename="../mainWindow.py" line="4098"/>
         <source>View machine positions (MPos)</source>
         <translation>Visualiser position machine (MPos)</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1914"/>
+        <location filename="../mainWindow.py" line="4099"/>
         <source>View working positions (WPos)</source>
         <translation>Visualiser position de travail (WPos)</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1915"/>
+        <location filename="../mainWindow.py" line="4100"/>
         <source>&amp;Close GCode file</source>
         <translation>&amp;Fermer le fichier GCode</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1916"/>
+        <location filename="../mainWindow.py" line="4101"/>
         <source>&amp;Save GCode file</source>
         <translation>&amp;Sauvegarder le fichier GCode</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1918"/>
+        <location filename="../mainWindow.py" line="4103"/>
         <source>Grbl settings...</source>
         <translation>Configuration Grbl...</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1919"/>
+        <location filename="../mainWindow.py" line="4104"/>
         <source>About cn5X++...</source>
         <translation>A propos de cn5X++...</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1920"/>
+        <location filename="../mainWindow.py" line="4105"/>
         <source>Reset Serial</source>
         <translation>Reinitialiser le port série</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1921"/>
+        <location filename="../mainWindow.py" line="4106"/>
         <source>Reset Serial communication when hanged</source>
         <translation>Reinitialise le port série en cas de blocage</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1845"/>
+        <location filename="../mainWindow.py" line="3902"/>
         <source>Double click
 to unlock urgent stop</source>
         <translation>Double click
 pour déverrouiller l&apos;arrêt d&apos;urgence</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1849"/>
+        <location filename="../mainWindow.py" line="3912"/>
         <source>Run homing cycle</source>
         <translation>Cycle d&amp;apos;origine machine</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1848"/>
+        <location filename="../mainWindow.py" line="3911"/>
         <source>Home cycle</source>
         <translation>Origine machine</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1850"/>
+        <location filename="../mainWindow.py" line="3913"/>
         <source>Unlock Alarm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1851"/>
+        <location filename="../mainWindow.py" line="3914"/>
         <source>Soft Reset (^X)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1852"/>
+        <location filename="../mainWindow.py" line="3904"/>
         <source>Feedrate</source>
         <translation>Avance</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1853"/>
+        <location filename="../mainWindow.py" line="3905"/>
         <source>Link feedrate and spindle speed</source>
         <translation>Liaison des vitesses d&amp;apos;avance et de broche</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1854"/>
+        <location filename="../mainWindow.py" line="3906"/>
         <source>Spindle</source>
         <translation>Broche</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1855"/>
+        <location filename="../mainWindow.py" line="3907"/>
         <source>Reset feedrate</source>
         <translation>Reinitialiser la vitesse d&amp;apos;avance</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1856"/>
+        <location filename="../mainWindow.py" line="3908"/>
         <source>Reset spindle speed</source>
         <translation>Reinitialiser la vitesse de broche</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1857"/>
+        <location filename="../mainWindow.py" line="3909"/>
         <source>Rapid feedrate</source>
         <translation>Avance rapide</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1858"/>
+        <location filename="../mainWindow.py" line="3915"/>
         <source>Jogging</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1859"/>
+        <location filename="../mainWindow.py" line="3916"/>
         <source>Jog Increment</source>
         <translation>Incrément Jog</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1860"/>
+        <location filename="../mainWindow.py" line="3917"/>
         <source>Jog mm/mn</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1861"/>
+        <location filename="../mainWindow.py" line="3918"/>
         <source>Connection</source>
         <translation>Connexion</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1862"/>
+        <location filename="../mainWindow.py" line="3919"/>
         <source>Select serial port of Grbl.</source>
         <translation>Selectionnez le port série de grbl.</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1863"/>
+        <location filename="../mainWindow.py" line="3920"/>
         <source>Refresh list</source>
         <translation>Rafraîchir la liste</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1864"/>
+        <location filename="../mainWindow.py" line="3923"/>
         <source>&lt;Not Connected&gt;</source>
         <translation>&lt;Non connecté&gt;</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1865"/>
+        <location filename="../mainWindow.py" line="3924"/>
         <source>(Un)Connect</source>
         <translation>(De)Connecter</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1866"/>
+        <location filename="../mainWindow.py" line="3925"/>
         <source>X Limit</source>
         <translation>Limite X</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1867"/>
+        <location filename="../mainWindow.py" line="3926"/>
         <source>Y Limit</source>
         <translation>Limite Y</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1868"/>
+        <location filename="../mainWindow.py" line="3927"/>
         <source>Z Limit</source>
         <translation>Limite Z</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1869"/>
+        <location filename="../mainWindow.py" line="3928"/>
         <source>A Limit</source>
         <translation>Limite A</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1870"/>
+        <location filename="../mainWindow.py" line="3929"/>
         <source>B Limit</source>
         <translation>Limite B</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1871"/>
+        <location filename="../mainWindow.py" line="3930"/>
         <source>C Limit</source>
         <translation>Limite C</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1872"/>
+        <location filename="../mainWindow.py" line="3931"/>
         <source>Probe</source>
         <translation>Sonde</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1873"/>
+        <location filename="../mainWindow.py" line="3932"/>
         <source>Door</source>
         <translation>Porte</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1874"/>
+        <location filename="../mainWindow.py" line="3933"/>
         <source>Hold</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1875"/>
+        <location filename="../mainWindow.py" line="3934"/>
         <source>soft Reset</source>
         <translation>Reset logiciel</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1876"/>
+        <location filename="../mainWindow.py" line="3935"/>
         <source>cycle Start</source>
         <translation>Départ cycle</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1877"/>
+        <location filename="../mainWindow.py" line="3936"/>
         <source>Grbl status : </source>
         <translation>Statut Grbl : </translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1878"/>
+        <location filename="../mainWindow.py" line="3937"/>
         <source>Plane : </source>
         <translation>Plan : </translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1879"/>
+        <location filename="../mainWindow.py" line="3938"/>
         <source>Spindle:</source>
         <translation>Broche :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1880"/>
+        <location filename="../mainWindow.py" line="3939"/>
         <source>Units:</source>
         <translation>Unités :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1881"/>
+        <location filename="../mainWindow.py" line="3940"/>
         <source>Coolant:</source>
         <translation>Arrosage :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1882"/>
+        <location filename="../mainWindow.py" line="3941"/>
         <source>coordinates:</source>
         <translation>Coordonnées :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1883"/>
+        <location filename="../mainWindow.py" line="3942"/>
         <source>Tool:</source>
         <translation>Outil :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1884"/>
+        <location filename="../mainWindow.py" line="3943"/>
         <source>Moves:</source>
         <translation>Déplacements :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1885"/>
+        <location filename="../mainWindow.py" line="3944"/>
         <source>Spindle speed:</source>
         <translation>Vitesse broche :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1886"/>
+        <location filename="../mainWindow.py" line="3945"/>
         <source>Speed mode:</source>
         <translation>Mode vitesse :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1887"/>
+        <location filename="../mainWindow.py" line="3946"/>
         <source>Feedrate:</source>
         <translation>Avance :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1889"/>
+        <location filename="../mainWindow.py" line="3948"/>
         <source>G54 Offset:</source>
         <translation>Offset G54 :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1890"/>
+        <location filename="../mainWindow.py" line="3949"/>
         <source>G92 Offset:</source>
         <translation>Offset G92 :</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1892"/>
+        <location filename="../mainWindow.py" line="3951"/>
         <source>WCO :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1893"/>
+        <location filename="../mainWindow.py" line="3952"/>
         <source>Coordinate System Offsets 1</source>
         <translation>Decalage origine piece 1</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1894"/>
+        <location filename="../mainWindow.py" line="3953"/>
         <source>Coordinate System Offsets 2</source>
         <translation>Decalage origine piece 2</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1895"/>
+        <location filename="../mainWindow.py" line="3954"/>
         <source>Coordinate System Offsets 3</source>
         <translation>Decalage origine piece 3</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1896"/>
+        <location filename="../mainWindow.py" line="3955"/>
         <source>Coordinate System Offsets 4</source>
         <translation>Decalage origine piece 4</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1897"/>
+        <location filename="../mainWindow.py" line="3956"/>
         <source>Coordinate System Offsets 5</source>
         <translation>Decalage origine piece 5</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1898"/>
+        <location filename="../mainWindow.py" line="3957"/>
         <source>Coordinate System Offsets 6</source>
         <translation>Decalage origine piece 6</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1906"/>
+        <location filename="../mainWindow.py" line="4083"/>
         <source>Send</source>
         <translation>Envoyer</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1909"/>
+        <location filename="../mainWindow.py" line="4094"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="1917"/>
+        <location filename="../mainWindow.py" line="4102"/>
         <source>Save &amp;as...</source>
         <translation>Enregistrer &amp;sous...</translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4086"/>
+        <source>cn5X++ log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4084"/>
+        <source>Grbl communication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3958"/>
+        <source>Main panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4020"/>
+        <source>Z Probe parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3981"/>
+        <source>Z distance to the destination point that the probe will move towards, starting from the current location.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4022"/>
+        <source>Probe Distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4026"/>
+        <source>Feed rate to slowly engage probe to determine its location accurately.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4030"/>
+        <source>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3974"/>
+        <source>Retract distance after triggering probe to disengage it. Probing will fail if switch isn&apos;t cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4035"/>
+        <source>Move after probe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4041"/>
+        <source>Define Z Origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4051"/>
+        <source>Run probe in Z- direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4082"/>
+        <source>Probe Z</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3959"/>
+        <source>XY Probe parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4039"/>
+        <source>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4036"/>
+        <source>Add retract travel after probing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4038"/>
+        <source>Define the retract distance after probing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4050"/>
+        <source>Add or subtract Z offset to the probed point for the Z origin definition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3971"/>
+        <source>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4025"/>
+        <source>Feed rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3965"/>
+        <source>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance (unit/mn).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4029"/>
+        <source>Seek rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4033"/>
+        <source>Pull-off dist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4040"/>
+        <source>Go to exact point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4037"/>
+        <source>Retract</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4001"/>
+        <source>XY Origin definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4042"/>
+        <source>G54 offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4043"/>
+        <source>G92 offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4006"/>
+        <source>Add or subtract X offset to the probed point for the X origin definition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4005"/>
+        <source>Add X offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4009"/>
+        <source>Add or subtract Y offset to the probed point for the Y origin definition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4008"/>
+        <source>Add Y offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4000"/>
+        <source>Run probe in X+ and Y- direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3995"/>
+        <source>Run probe in X- direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3997"/>
+        <source>Run probe in X+ direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3999"/>
+        <source>Run probe in Y- direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3996"/>
+        <source>Run probe in X+, X-, Y+ and Y- direction to find center.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3991"/>
+        <source>Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4010"/>
+        <source>Home X-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4014"/>
+        <source>Home X center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4015"/>
+        <source>Home X+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4016"/>
+        <source>Home Y-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4017"/>
+        <source>Home Y center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4018"/>
+        <source>Home Y+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3982"/>
+        <source>Probe diameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3980"/>
+        <source>XY clearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3964"/>
+        <source>Z clearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3976"/>
+        <source>Probe distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3989"/>
+        <source>Probe inside</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3990"/>
+        <source>Probe outside</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4019"/>
+        <source>Probe XY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4045"/>
+        <source>Add Z offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4056"/>
+        <source>Last Z probe measurement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4053"/>
+        <source>Result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4057"/>
+        <source>Tool change measurement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4060"/>
+        <source>Absolute X machine position (G53 based) of tool length sensor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4059"/>
+        <source>X position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4063"/>
+        <source>Absolute Y machine position (G53 based) of tool length sensor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4062"/>
+        <source>Y position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4064"/>
+        <source>Rapid move to XY machine position (G53G0X.Y.) of tool length sensor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4065"/>
+        <source>Go to position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4070"/>
+        <source>Initial Z coordinate of tool tip probe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4067"/>
+        <source>Initial tool length probe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4071"/>
+        <source>Reset initial result to last Z probe measurement and cancel tool offset (send G49)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4072"/>
+        <source>Reset
+(G49)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4078"/>
+        <source>Tool Z offset to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4075"/>
+        <source>Calculated offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4079"/>
+        <source>Set new tool length offset (G43.1) with the last measure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4080"/>
+        <source>Send
+G43.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3992"/>
+        <source>Run probe in X- and Y+ direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3993"/>
+        <source>Run probe in Y+ direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3994"/>
+        <source>Run probe in X+ and Y+ direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3998"/>
+        <source>Run probe in X- and Y- direction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4093"/>
+        <source>Set origine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4107"/>
+        <source>Place the G54 origin of axis X here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4108"/>
+        <source>Place the G54 origin of axis Y here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4109"/>
+        <source>Place the G54 origin of axis Z here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4110"/>
+        <source>Place the G54 origin of axis A here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4111"/>
+        <source>Place the G54 origin of axis B here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4112"/>
+        <source>Place the G54 origin of axis C here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4113"/>
+        <source>Place the G54 origin of all axis here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4114"/>
+        <source>Set axis positions with G92 offset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4115"/>
+        <source>Turn off and reset G92 offsets (G92.1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4116"/>
+        <source>Jog to location...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4023"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative Z distance to the destination point that the probe will move towards, starting from the current location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4034"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative retract distance after triggering probe to disengage it. Probing will fail if switch isn&apos;t cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4048"/>
+        <source>Set Z
+origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4046"/>
+        <source>Define the Z origin at the coordinates of the last Z probing result,
+corrected with the Z offset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4011"/>
+        <source>Home
+X &amp;&amp; Y
+center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4117"/>
+        <source>Save actuals G92 offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4118"/>
+        <source>Restore saved G92 offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3921"/>
+        <source>Serial port read/write activity: green=idle, red=active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="3922"/>
+        <source>Serial port lock status: green=enabled to send, red=locked and waiting for OK</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2010,82 +2488,82 @@ pour déverrouiller l&apos;arrêt d&apos;urgence</translation>
 <context>
     <name>winMain</name>
     <message>
-        <location filename="../cn5X.py" line="1068"/>
+        <location filename="../cn5X.py" line="1397"/>
         <source>Version {}</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1188"/>
+        <location filename="../cn5X.py" line="1517"/>
         <source>Run this line<byte value="x9"/>(F7)</source>
         <translation>Éxécuter cette ligne<byte value="x9"/>(F7)</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1192"/>
+        <location filename="../cn5X.py" line="1521"/>
         <source>Run from this line<byte value="x9"/>(F8)</source>
         <translation>Éxécuter à partir de cette ligne<byte value="x9"/>(F8)</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1282"/>
+        <location filename="../cn5X.py" line="1614"/>
         <source>Jog all axis to {} origin</source>
         <translation>Jog tous les axes vers origine {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1297"/>
+        <location filename="../cn5X.py" line="1632"/>
         <source>G17 Working plane - XY (Defaut)</source>
         <translation>Plan de travail XY - G17 (Défaut)</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="86"/>
+        <location filename="../cn5X.py" line="88"/>
         <source>Connect the serial port</source>
         <translation>Connecte le port série</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="87"/>
+        <location filename="../cn5X.py" line="89"/>
         <source>Load the GCode file</source>
         <translation>Charge le fichier GCode</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="88"/>
+        <location filename="../cn5X.py" line="90"/>
         <source>Define the interface language</source>
         <translation>Définit la langue de l&apos;interface</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="89"/>
+        <location filename="../cn5X.py" line="91"/>
         <source>select the serial port</source>
         <translation>Sélectionne le port série</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="90"/>
+        <location filename="../cn5X.py" line="92"/>
         <source>Unlock urgent stop</source>
         <translation>Déverrouille l&apos;arrêt d&apos;urgence</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="611"/>
+        <location filename="../cn5X.py" line="1010"/>
         <source>Connect</source>
         <translation>Connecter</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="330"/>
+        <location filename="../cn5X.py" line="370"/>
         <source>Urgent stop unlocked.</source>
         <translation>Arrêt d&apos;urgence déverrouillé.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="351"/>
+        <location filename="../cn5X.py" line="394"/>
         <source>Warning !</source>
         <translation>Attention !</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="351"/>
+        <location filename="../cn5X.py" line="394"/>
         <source>No communication port available!</source>
         <translation>Pas de port de communication disponible !</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="351"/>
+        <location filename="../cn5X.py" line="394"/>
         <source>{} could not find a serial port allowing to communicate with grbl.</source>
         <translation>{} n&apos;a pas trouvé de port série permettant de communiquer avec Grbl.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="351"/>
+        <location filename="../cn5X.py" line="394"/>
         <source>
 class serialCom:
 &quot;serial.tools.list_ports.comports()&quot; did not return any port.</source>
@@ -2094,186 +2572,270 @@ class serialCom:
 &quot;serial.tools.list_ports.comports()&quot; n&apos;a retourné aucun port.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="406"/>
+        <location filename="../cn5X.py" line="492"/>
         <source>Double click to
 unlock the emergency stop</source>
         <translation>Double click pour
 déverrouiller l&apos;arrêt d&apos;urgence</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="417"/>
+        <location filename="../cn5X.py" line="504"/>
         <source>Emergency stop</source>
         <translation>Arrêt d&apos;urgence</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="505"/>
+        <location filename="../cn5X.py" line="601"/>
         <source>Closing the application...</source>
         <translation>Ferme l&apos;application...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="509"/>
+        <location filename="../cn5X.py" line="605"/>
         <source>Closing file canceled</source>
         <translation>Fermeture du fichier annulée</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="547"/>
+        <location filename="../cn5X.py" line="944"/>
         <source>Grbl configuration updated: {}</source>
         <translation>La configuration de Grbl a été mise à jour : {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="564"/>
+        <location filename="../cn5X.py" line="961"/>
         <source>Unlocking emergency stop.</source>
         <translation>Déverrouillage de l&apos;arrêt d&apos;urgence.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="569"/>
+        <location filename="../cn5X.py" line="966"/>
         <source>Emergency stop pressed: STOP !!!</source>
         <translation>Arrêt d&apos;urgence enfoncé : STOP !!!</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="603"/>
+        <location filename="../cn5X.py" line="1000"/>
         <source>Connected to {}</source>
         <translation>Connecté à {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="604"/>
+        <location filename="../cn5X.py" line="1001"/>
         <source>Disconnect</source>
         <translation>Déconnecter</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="610"/>
+        <location filename="../cn5X.py" line="1009"/>
         <source>&lt;Not Connected&gt;</source>
         <translation>&lt;Non connecté&gt;</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="857"/>
+        <location filename="../cn5X.py" line="1262"/>
         <source>cn5X++ : Grbl initialized.</source>
         <translation>cn5X++ : Grbl initialisé.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1107"/>
+        <location filename="../cn5X.py" line="1436"/>
         <source>Attempt to start an empty cycle...</source>
         <translation>Tentative de démarrage d&apos;un cycle vide...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1109"/>
+        <location filename="../cn5X.py" line="1438"/>
         <source>Starting cycle...</source>
         <translation>Démarrage du cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1121"/>
+        <location filename="../cn5X.py" line="1450"/>
         <source>Holding in progress, can&apos;t restart now.</source>
         <translation>Pause en cours, impossible de redémarrer maintenant.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1123"/>
+        <location filename="../cn5X.py" line="1452"/>
         <source>Resuming cycle...</source>
         <translation>Reprise du cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1130"/>
+        <location filename="../cn5X.py" line="1459"/>
         <source>Holding cycle...</source>
         <translation>Pause du cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1161"/>
+        <location filename="../cn5X.py" line="1490"/>
         <source>Stopping cycle...</source>
         <translation>Arrêt du cycle...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1155"/>
+        <location filename="../cn5X.py" line="1484"/>
         <source>Holding cycle before stopping...</source>
         <translation>Pause du cycle avant l&apos;arrêt...</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1169"/>
+        <location filename="../cn5X.py" line="1498"/>
         <source>Cycle completed.</source>
         <translation>Cycle terminé.</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1175"/>
+        <location filename="../cn5X.py" line="1504"/>
         <source>Edit line</source>
         <translation>Édite la ligne</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1178"/>
+        <location filename="../cn5X.py" line="1507"/>
         <source>Insert line</source>
         <translation>Insert une ligne</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1181"/>
+        <location filename="../cn5X.py" line="1510"/>
         <source>Add line</source>
         <translation>Ajoute une ligne</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1184"/>
+        <location filename="../cn5X.py" line="1513"/>
         <source>Suppress line</source>
         <translation>Supprime une ligne</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1252"/>
+        <location filename="../cn5X.py" line="1581"/>
         <source>Reset feedrate to 100%</source>
         <translation>Réinitialiser l&apos;avance à 100%</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1260"/>
+        <location filename="../cn5X.py" line="1589"/>
         <source>Reset spindle speed to 100%</source>
         <translation>Réinitialiser la vitesse de broche à 100%</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1268"/>
+        <location filename="../cn5X.py" line="1597"/>
         <source>Place the {} origin of axis {} here</source>
         <translation>Placer l&apos;origine {} de l&apos;axe {} ici</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1271"/>
+        <location filename="../cn5X.py" line="1600"/>
         <source>Place the {} origin of all axis here</source>
         <translation>Placer l&apos;origine {} de tous les axes ici</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1278"/>
+        <location filename="../cn5X.py" line="1610"/>
         <source>Jog axis {} to {} origin</source>
         <translation>Jog de l&apos;axe {} vers l&apos;origine {}</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1293"/>
+        <location filename="../cn5X.py" line="1628"/>
         <source>Place the workpiece origin {} (G{})</source>
         <translation>Placer l&apos;origine {} de la pièce (G{})</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1300"/>
+        <location filename="../cn5X.py" line="1635"/>
         <source>G18 Working plane - XZ</source>
         <translation>Plan de travail G18 - XZ</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1303"/>
+        <location filename="../cn5X.py" line="1638"/>
         <source>G19 Working plane - YZ</source>
         <translation>Plan de travail G19 - YZ</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1311"/>
+        <location filename="../cn5X.py" line="1646"/>
         <source>G20 - Work units in inches</source>
         <translation>G20 - Unités de travail en pouces</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1314"/>
+        <location filename="../cn5X.py" line="1649"/>
         <source>G21 - Work units in millimeters</source>
         <translation>G21 - Unités de travail en millimètres</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1322"/>
+        <location filename="../cn5X.py" line="1657"/>
         <source>G90 - Absolute coordinates movements</source>
         <translation>G90 - Déplacements en coordonnées absolues</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1325"/>
+        <location filename="../cn5X.py" line="1660"/>
         <source>G91 - relative coordinates movements</source>
         <translation>G91 - Déplacements en coordonnées relatives</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1398"/>
+        <location filename="../cn5X.py" line="1753"/>
         <source>Use system language</source>
         <translation>Utiliser la langue système</translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="748"/>
+        <source>on_btnProbeZ(): Error when executing G91 GCode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="794"/>
+        <source>on_btnProbeZ(): G38.3F{}X0Y0Z-{} no response from probe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="800"/>
+        <source>on_btnProbeZ(): G38.3F{}X0Y0Z-{} Probe error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="778"/>
+        <source>on_btnProbeZ(): Error when retracting {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="848"/>
+        <source>on_btnG49(): No initial Z probe result, can&apos;t get initial tool length probe!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="875"/>
+        <source>Error !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="849"/>
+        <source>No initial Z probe result, can&apos;t get initial tool length probe!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="849"/>
+        <source>There was no Z probing previously performed..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="849"/>
+        <source>You must first perform a Z probing of the initial tool to initialize its length.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="874"/>
+        <source>on_btnG43_1(): No initial tool length, can&apos;t calculate length offset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="875"/>
+        <source>No initial tool length, can&apos;t calculate length offset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="875"/>
+        <source>Initial tool length calculation was not performed..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="875"/>
+        <source>You must first perform a Z probing of the initial tool to initialize its length,
+then click on the &quot;Reset/G49&quot; button,
+then probing the new tool,
+and finally, click on the &quot;Send/G43.1&quot; button.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="679"/>
+        <source>Restore previously saved G92 offsets:
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="691"/>
+        <source>Restore G92 offsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="691"/>
+        <source>Actuals G92 offsets will be lost.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -26,7 +26,7 @@
 # Pour mettre à jour les sources de traduction.
 
 SOURCES += ../cn5X.py \
-	../cn5Xapropos.py \
+	../cn5X_apropos.py \
 	../cn5X_config.py \
 	../cn5X_gcodeFile.py \
 	../cn5X_rc.py \

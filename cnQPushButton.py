@@ -57,7 +57,7 @@ class cnQPushButton(QtWidgets.QPushButton):
     '''
     if event.type() == QtCore.QEvent.DynamicPropertyChange:
       self.__myName = object.objectName()
-      pictureBaseName = self.__imagePath + self.__myName
+      pictureBaseName = self.__imagePath + self.__myName.split("_")[0]
 
       if QtCore.QResource(pictureBaseName + ".svg").isValid():
         self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -69,9 +69,10 @@ class cnQPushButton(QtWidgets.QPushButton):
           self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         else:
           self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.__imagesOk = True
       else:
-        print(self.tr("Image resource of button ({}) not found").format(pictureBaseName + ".svg"))
-      self.__imagesOk = True
+        #print(self.tr("Image resource of button ({}) not found").format(pictureBaseName + ".svg"))
+        pass
 
     if event.type() == QtCore.QEvent.EnabledChange:
       if self.__imagesOk:
@@ -83,13 +84,24 @@ class cnQPushButton(QtWidgets.QPushButton):
         else:
           self.setIcon(self.icon)
 
+    if event.type() == QtCore.QEvent.Resize:
+      self.setIconSize(QtCore.QSize(self.size().width()-2, self.size().height()-2))
+    
     return False
+
+
+  def changeIcon(self, icon):
+    newIcon = QtGui.QIcon()
+    newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    self.setIcon(newIcon)
+
 
   def mousePressEvent(self, e):
     super(cnQPushButton, self).mousePressEvent(e)
     if e.button() == QtCore.Qt.LeftButton:
       self.__mouseIsDown = True
-      self.setIcon(self.iconDown)
+      if self.__imagesOk:
+        self.setIcon(self.iconDown)
       self.mousePress.emit(self, e)
 
   def mouseReleaseEvent(self, e):
@@ -98,25 +110,27 @@ class cnQPushButton(QtWidgets.QPushButton):
       self.__mouseIsDown = False
       if self.isCheckable():
         self.__buttonStatus = True
-      if self.isEnabled():
-        if self.__buttonStatus:
-          self.setIcon(self.iconLight)
+      if self.__imagesOk:
+        if self.isEnabled():
+          if self.__buttonStatus:
+            self.setIcon(self.iconLight)
+          else:
+            self.setIcon(self.icon)
         else:
           self.setIcon(self.icon)
-      else:
-        self.setIcon(self.icon)
       self.mouseRelease.emit(self, e)
 
   def setButtonStatus(self, value: bool):
     self.__buttonStatus = value
     if not self.__mouseIsDown:
-      if self.isEnabled():
-        if self.__buttonStatus:
-          self.setIcon(self.iconLight)
+      if self.__imagesOk:
+        if self.isEnabled():
+          if self.__buttonStatus:
+            self.setIcon(self.iconLight)
+          else:
+            self.setIcon(self.icon)
         else:
           self.setIcon(self.icon)
-      else:
-        self.setIcon(self.icon)
 
   def isMouseDown(self):
     return self.__mouseIsDown

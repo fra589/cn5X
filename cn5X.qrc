@@ -1,12 +1,27 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/origine.svg</file>
     <file>images/btnEmergency.svg</file>
-    <file>images/btnProbeMoinsX.svg</file>
-    <file>images/btnProbeMoinsY.svg</file>
-    <file>images/btnProbeMoinsZ.svg</file>
-    <file>images/btnProbePlusX.svg</file>
-    <file>images/btnProbePlusY.svg</file>
     <file>images/btnEmergencyOff.svg</file>
+    <file>images/btnProbeInCercle.svg</file>
+    <file>images/btnProbeInX+.svg</file>
+    <file>images/btnProbeInX-.svg</file>
+    <file>images/btnProbeInX+Y+.svg</file>
+    <file>images/btnProbeInX+Y-.svg</file>
+    <file>images/btnProbeInX-Y+.svg</file>
+    <file>images/btnProbeInX-Y-.svg</file>
+    <file>images/btnProbeInY+.svg</file>
+    <file>images/btnProbeInY-.svg</file>
+    <file>images/btnProbeOutCercle.svg</file>
+    <file>images/btnProbeOutX+.svg</file>
+    <file>images/btnProbeOutX-.svg</file>
+    <file>images/btnProbeOutX+Y+.svg</file>
+    <file>images/btnProbeOutX+Y-.svg</file>
+    <file>images/btnProbeOutX-Y+.svg</file>
+    <file>images/btnProbeOutX-Y-.svg</file>
+    <file>images/btnProbeOutY+.svg</file>
+    <file>images/btnProbeOutY-.svg</file>
+    <file>images/btnProbeZ-.svg</file>
     <file>images/btnJogMoinsC.svg</file>
     <file>images/btnJogPlusC.svg</file>
     <file>images/ledRougeAlumee.svg</file>

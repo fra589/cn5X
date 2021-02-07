@@ -159,7 +159,7 @@ class grblConfig(QObject):
     self.__dlgConfig.setWindowFlags(Qt.Dialog)
     self.__getGrblParams()
     RC = self.__dlgConfig.exec()
-    return(RC)
+    return RC
 
 
   def __getGrblParams(self):
