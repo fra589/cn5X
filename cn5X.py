@@ -359,15 +359,19 @@ class winMain(QtWidgets.QMainWindow):
 
   def populatePortList(self):
     ''' Rempli la liste des ports serie '''
+    # Récupère le dernier utilisé dans les settings
+    lastPort = self.__settings.value("grblDevice", "")
     self.ui.cmbPort.clear()
     self.ui.cmbPort.addItem("")
     ports = serial.tools.list_ports.comports(True)
     if len(ports) > 0:
       for p in ports:
         self.ui.cmbPort.addItem(p.device + ' - ' + p.description)
-        if self.__args.port != None:
+        if self.__args.port is not None:
           if self.__args.port == p.device:
             self.ui.cmbPort.setCurrentIndex(len(self.ui.cmbPort)-1)
+        elif lastPort == p.device:
+          self.ui.cmbPort.setCurrentIndex(len(self.ui.cmbPort)-1)
     else:
       m = msgBox(
                   title  = self.tr("Warning !"),
@@ -960,6 +964,8 @@ class winMain(QtWidgets.QMainWindow):
       baudRate = int(self.ui.cmbBauds.currentText())
       # Demarrage du communicator
       self.__grblCom.startCom(serialDevice, baudRate)
+      # Mémorise le dernier port série utilisé
+      self.__settings.setValue("grblDevice", serialDevice)
     else:
       # Arret du comunicator
       self.__grblCom.stopCom()
