@@ -52,14 +52,14 @@ class grblCom(QObject):
   sig_serialLock = pyqtSignal(bool)     # Emis a chaque changement de self.__okToSendGCode
 
   # Signaux de pilotage a envoyer au thread
-  sig_abort        = pyqtSignal()
+  ###sig_abort        = pyqtSignal()
   ###sig_gcodeInsert  = pyqtSignal(str, object)
   ###sig_gcodePush    = pyqtSignal(str, object)
   ###sig_realTimePush = pyqtSignal(str, object)
-  sig_clearCom     = pyqtSignal()
-  sig_startPooling = pyqtSignal()
-  sig_stopPooling  = pyqtSignal()
-  sig_resetSerial  = pyqtSignal(str)
+  ###sig_clearCom     = pyqtSignal()
+  ###sig_startPooling = pyqtSignal()
+  ###sig_stopPooling  = pyqtSignal()
+  ###sig_resetSerial  = pyqtSignal(str)
 
 
   def __init__(self):
@@ -124,14 +124,14 @@ class grblCom(QObject):
     newComSerial.sig_serialLock.connect(self.sig_serialLock.emit)
 
     # Signaux de pilotage a envoyer au thread
-    self.sig_abort.connect(newComSerial.abort)
+    ###self.sig_abort.connect(newComSerial.abort)
     ###self.sig_gcodeInsert.connect(newComSerial.gcodeInsert)
     ###self.sig_gcodePush.connect(newComSerial.gcodePush)
     ###self.sig_realTimePush.connect(newComSerial.realTimePush)
-    self.sig_clearCom.connect(newComSerial.clearCom)
-    self.sig_startPooling.connect(newComSerial.startPooling)
-    self.sig_stopPooling.connect(newComSerial.stopPooling)
-    self.sig_resetSerial.connect(newComSerial.resetSerial)
+    ###self.sig_clearCom.connect(newComSerial.clearCom)
+    ###self.sig_startPooling.connect(newComSerial.startPooling)
+    ###self.sig_stopPooling.connect(newComSerial.stopPooling)
+    ###self.sig_resetSerial.connect(newComSerial.resetSerial)
 
     # Start the thread...
     thread.started.connect(newComSerial.run)
@@ -189,8 +189,10 @@ class grblCom(QObject):
     self.sig_debug.emit("grblCom.stopCom(self)")
     ''' Stop le thread des communications serie '''
     self.clearCom() # Vide la file d'attente
-    self.sig_log.emit(logSeverity.info.value, self.tr("Sending sig_abort signal to serial communications thread..."))
-    self.sig_abort.emit()
+    ###self.sig_log.emit(logSeverity.info.value, self.tr("Sending sig_abort signal to serial communications thread..."))
+    self.sig_log.emit(logSeverity.info.value, self.tr("Sending abort to serial communications thread..."))
+    ###self.sig_abort.emit()
+    self.__Com.abort()
     # Attente de la fin du (des) thread(s)
     for thread, worker in self.__threads:
         thread.quit()  # this will quit **as soon as thread event loop unblocks**
@@ -233,24 +235,28 @@ class grblCom(QObject):
 
 
   def clearCom(self):
-    self.sig_clearCom.emit()
+    ###self.sig_clearCom.emit()
+    self.__Com.clearCom()
 
 
   @pyqtSlot()
   def startPooling(self):
     self.__pooling = True
-    self.sig_startPooling.emit()
+    ###self.sig_startPooling.emit()
+    self.__Com.startPooling()
 
 
   @pyqtSlot()
   def stopPooling(self):
     self.__pooling = False
-    self.sig_stopPooling.emit()
+    ###self.sig_stopPooling.emit()
+    self.__Com.stopPooling()
 
   def isOpen(self):
     return self.__connectStatus
 
 
   @pyqtSlot(str)
-  def resetSerial(self, buff: str):
-    self.sig_resetSerial.emit(buff)
+  def resetSerial(self):
+    ###self.sig_resetSerial.emit(buff)
+    self.__Com.resetSerial()

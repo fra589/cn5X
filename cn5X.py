@@ -1364,7 +1364,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuResetSerial(self):
     ''' Force l'envoi de \n pour déblocage communication
     '''
-    self.__grblCom.resetSerial(self.ui.txtGCode.text() + "\n")
+    self.__grblCom.resetSerial()
 
   @pyqtSlot()
   def on_mnuA_propos(self):

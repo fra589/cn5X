@@ -120,7 +120,7 @@ class grblComSerial(QObject):
 
 
   @pyqtSlot(str)
-  def resetSerial(self, buff: str):
+  def resetSerial(self):
     ''' Reinitialisation de la communication série '''
     self.__realTimeStack.clear()
     self.__mainStack.clear()
@@ -387,7 +387,8 @@ class grblComSerial(QObject):
         QCoreApplication.processEvents()
 
       if self.__abort:
-        self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): sig_abort received, closing the thread..."))
+        ###self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): sig_abort received, closing the thread..."))
+        self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): Abort received, closing the thread..."))
         break # Sortie de la boucle principale
 
       # Pooling : Interrogations de Grbl a interval regulier selon la sequence definie par self.__querySequence
