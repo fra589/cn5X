@@ -216,7 +216,7 @@ class grblCom(QObject):
     if self.__connectStatus and self.__grblInit:
       ###self.sig_gcodePush.emit(buff, flag)
       self.__Com.gcodePush(buff, flag)
-      QCoreApplication.processEvents()
+      ###QCoreApplication.processEvents()
       # Vérifie si la commande passée modifie les paramètres GCode (resultat de $#)
       for cmd in GCODE_PARAMETER_OUTPUT_CHANGE_CMD:
         if cmd in buff:

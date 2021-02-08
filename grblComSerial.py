@@ -70,7 +70,7 @@ class grblComSerial(QObject):
     self.__querySequence    = [
       REAL_TIME_REPORT_QUERY,
       REAL_TIME_REPORT_QUERY,
-      #CMD_GRBL_GET_GCODE_PARAMATERS + '\n',
+      ###CMD_GRBL_GET_GCODE_PARAMATERS + '\n',
       REAL_TIME_REPORT_QUERY,
       REAL_TIME_REPORT_QUERY,
       CMD_GRBL_GET_GCODE_STATE + '\n'

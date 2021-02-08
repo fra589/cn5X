@@ -156,7 +156,7 @@ class grblConfig(QObject):
     self.__dlgConfig.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
     self.__dlgConfig.setFixedSize(self.__dlgConfig.geometry().width(),self.__dlgConfig.geometry().height())
     self.__dlgConfig.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
-    self.__dlgConfig.setWindowFlags(Qt.Dialog)
+    self.__dlgConfig.setWindowFlags(Qt.Window | Qt.Dialog)
     self.__getGrblParams()
     RC = self.__dlgConfig.exec()
     return RC

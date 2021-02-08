@@ -125,7 +125,7 @@ class dlgG92(QObject):
     myHeight = self.__dlgG92.geometry().height()
     self.__dlgG92.setFixedSize(self.__dlgG92.geometry().width(),self.__dlgG92.geometry().height())
     self.__dlgG92.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
-    ###self.__dlgG92.setWindowFlags(Qt.Dialog)
+    self.__dlgG92.setWindowFlags(Qt.Window | Qt.Dialog)
 
     RC = self.__dlgG92.exec()
     return RC

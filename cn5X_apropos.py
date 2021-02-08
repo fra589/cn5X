@@ -28,7 +28,6 @@ from cn5X_config import *
 from grblCom import grblCom
 from dlgAPropos import *
 from msgbox import *
-###from compilOptions import grblCompilOptions
 
 class cn5XAPropos(QObject):
   ''' Classe assurant la gestion de la boite de dialogue A Propos '''
@@ -53,7 +52,7 @@ class cn5XAPropos(QObject):
     myHeight = self.__dlgApropos.geometry().height()
     self.__dlgApropos.setFixedSize(self.__dlgApropos.geometry().width(),self.__dlgApropos.geometry().height())
     self.__dlgApropos.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
-    self.__dlgApropos.setWindowFlags(Qt.Dialog)
+    self.__dlgApropos.setWindowFlags(Qt.Window | Qt.Dialog)
 
     RC = self.__dlgApropos.exec()
     return RC

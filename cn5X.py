@@ -717,12 +717,12 @@ class winMain(QtWidgets.QMainWindow):
     oldG90_91 = self.ui.lblCoord.text()
     print(">{}<".format(oldG90_91))
     if oldG90_91 != "G91":
-      # On force le mode relatif
       self.__trapOK           = False
       self.__trapError        = False
       self.__trapAlarm        = False
+      # On force le mode relatif
       self.__grblCom.gcodePush("G91")
-      time.sleep(0.5)
+      ###time.sleep(0.5)
       while (self.__trapOK == False) and (self.__trapError == False) and (self.__trapAlarm == False):
         # Attend le traitement de G91
         QCoreApplication.processEvents()
@@ -751,7 +751,7 @@ class winMain(QtWidgets.QMainWindow):
       retractGCode = "G91G1Z{}F{}".format(probePullOff, probeSeekRate)
       self.__trapError = False
       self.__grblCom.gcodePush(retractGCode)
-      time.sleep(0.5)
+      ###time.sleep(0.5)
       while self.decode.get_etatMachine() != GRBL_STATUS_IDLE:
         # Process events to receive signals en attendant que le GCode soit traité
         QCoreApplication.processEvents()
