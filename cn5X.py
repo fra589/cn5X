@@ -147,7 +147,6 @@ class winMain(QtWidgets.QMainWindow):
     # On traite la langue.
     if self.__args.lang != None:
       # l'argument sur la ligne de commande est prioritaire.
-      #print("Locale demandee : {}".format(self.__args.lang))
       locale = QLocale(self.__args.lang)
     else:
       # Si une langue est définie dans les settings, on l'applique
@@ -614,6 +613,7 @@ class winMain(QtWidgets.QMainWindow):
     dlgConfig = grblConfig(self.__grblCom, self.__nbAxis, self.__axisNames)
     dlgConfig.setParent(self)
     dlgConfig.sig_config_changed.connect(self.on_sig_config_changed)
+    dlgConfig.sig_log.connect(self.on_sig_log)
     dlgConfig.showDialog()
     self.__grblConfigLoaded = False
     # Rafraichi la config
@@ -623,7 +623,6 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_mnuG5X_origine(self, axisNum: int):
-    print("on_mnuG5X_origine({})".format(axisNum))
     if axisNum > 0:
       axisNum -= 1
       self.__grblCom.gcodePush("G10P0L20{}0".format(self.__axisNames[axisNum]))
@@ -652,7 +651,6 @@ class winMain(QtWidgets.QMainWindow):
       if value is not None:
         self.__settings.setValue("G92/axis_{}".format(i), value)
       else:
-        print("Valeur({}) is None".format(i))
         self.__settings.setValue("G92/axis_{}".format(i), None)
 
 
@@ -690,7 +688,6 @@ class winMain(QtWidgets.QMainWindow):
             newAxisWpos = self.decode.getMpos(i) - newValue[i] - self.decode.getOffsetG5x(i)
             restoreGcode += "{}{}".format(self.__axisNames[i], newAxisWpos)
             axesTraites.append(self.__axisNames[i])
-      print(restoreGcode)
       self.__grblCom.gcodePush(restoreGcode)
 
 
@@ -715,7 +712,6 @@ class winMain(QtWidgets.QMainWindow):
 
     # On mémorise le mode G90/G91 actif
     oldG90_91 = self.ui.lblCoord.text()
-    print(">{}<".format(oldG90_91))
     if oldG90_91 != "G91":
       self.__trapOK           = False
       self.__trapError        = False
@@ -790,7 +786,6 @@ class winMain(QtWidgets.QMainWindow):
     if self.ui.rbtRetractAfterZ.isChecked():
       # On retract d'une distance probeRetract
       retractGCode = "G91G1Z{}F{}".format(probeRetract, probeSeekRate)
-      print(retractGCode)
       self.__grblCom.gcodePush(retractGCode)
 
     if oldG90_91 != "G91":
@@ -801,12 +796,9 @@ class winMain(QtWidgets.QMainWindow):
       self.__initialProbeZ = True
       if self.__initialToolLenght:
         self.calculateToolOffset()
-
-      print("Probe result OK           = {}".format(self.__probeResult.isProbeOK()))
       aNum = 0
       for a in self.__axisNames:
         value = self.__probeResult.getAxis(aNum)
-        print("Probe value of Axis_{} ({}) = {}".format(aNum, a, value))
         aNum += 1
 
 
@@ -1724,7 +1716,7 @@ class winMain(QtWidgets.QMainWindow):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
     if not translator.load(locale, "{}/i18n/cn5X".format(app_path), "."):
-      print("Locale ({}) not usable, using default to english".format(locale.name()))
+      self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(locale.name()))
       #locale = QLocale(QLocale.French, QLocale.France)
       locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
       translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")

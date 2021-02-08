@@ -92,11 +92,9 @@ class qwEditMask(QtWidgets.QWidget):
       self.__changeEnCours = True
       try:
         newVal = int(txt)
-      except ValueError:
+      except ValueError as e:
         self.lneMask.setText("0")
         newVal = 0
-      except:
-        print("Unexpected error:", sys.exc_info()[0])
       for i in range(6):
         if newVal & 2**i:
           self.chk[i].setCheckState(Qt.Checked)

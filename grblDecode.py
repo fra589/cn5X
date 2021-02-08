@@ -352,7 +352,7 @@ class grblDecode(QObject):
       ''' Push Messages: '''
       if grblOutput[1:4] in self.__validG5x: # ["G28", "G30", "G54","G55","G56","G57","G58","G59", "G92"]
         '''
-        messages indicate the parameter data printout from a "$#" (CMD_GRBL_GET_GCODE_PARAMATERS) user query.
+        messages indicate the parameter data output from a "$#" (CMD_GRBL_GET_GCODE_PARAMATERS) user query.
         '''
         num=int(grblOutput[2:4])
         values=grblOutput[5:-1].split(",")

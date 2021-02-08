@@ -50,7 +50,8 @@ class grblConfig(QObject):
   # dsbStepsX dsbStepsY dsbStepsZ dsbStepsA dsbStepsB dsbStepsC dsbTravelX dsbTravelY dsbTravelZ dsbTravelA dsbTravelB dsbTravelC
   # dsbMaxRateX dsbMaxRateY dsbMaxRateZ dsbMaxRateA dsbMaxRateB dsbMaxRateC dsbAccelX dsbAccelY dsbAccelZ dsbAccelA dsbAccelB dsbAccelC
 
-  sig_config_changed  = pyqtSignal(str)
+  sig_config_changed = pyqtSignal(str)
+  sig_log            = pyqtSignal(int, str) # Pour renvoyer les erreurs dans la log cn5X++
 
   def __init__(self, grbl: grblCom, nbAxis: int, axisNames: list):
     super().__init__()
@@ -326,13 +327,11 @@ class grblConfig(QObject):
         if len(decodeVer) == 3: # standard grbl(Mega-5X version is <major>.<minor>.<buildDate>
           self.__di.lblGrblDate.setText(decodeVer[2])
         else:
-          # No build date ? not 5X standard, but...
+          # No build date ? not 5X standard, but trying to use it anyway...
           self.__di.lblGrblDate.setText("<unknow>")
         self.__di.lneEEPROM.setText(data[1:-1].split(":")[2])
       except IndexError as e:
-        print("File \"/home/pi/cn5X/grblConfig.py\", line 330, in on_sig_config")
-        print("self.__di.lneEEPROM.setText(data[1:-1].split(\":\")[2])")
-        print("IndexError: list index out of range")
+        self.sig_log.emit(logSeverity.error.value, self.tr("grblConfig.on_sig_config(): IndexError: list index out of range in Grbl's version string <{}>").format(data))
     elif data[:5] == "[AXS:":
       self.__di.lblGrblNbAxes.setText(data[:-1].split(":")[1])
       self.__di.lblAxisName.setText(data[:-1].split(":")[2])
@@ -670,8 +669,6 @@ class grblConfig(QObject):
     if self.__di.dsbAccelC.objectName() in self.__changedParams:
       self.sig_config_changed.emit("$125={}".format(self.__di.dsbAccelC.value()))
       self.__grblCom.gcodePush("$125={}".format(self.__di.dsbAccelC.value()))
-
-    #self.__dlgConfig.done(QDialog.Accepted)
 
 
   @pyqtSlot()

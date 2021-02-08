@@ -146,7 +146,7 @@ class dlgG92(QObject):
     if self.di.chkDefineA.isChecked(): originGcode += "A{}".format(float(self.di.dsbG92valeurA.value()))
     if self.di.chkDefineB.isChecked(): originGcode += "B{}".format(float(self.di.dsbG92valeurB.value()))
     if self.di.chkDefineC.isChecked(): originGcode += "C{}".format(float(self.di.dsbG92valeurC.value()))
-    print(originGcode)
+
     # Envoi du changement d'origine à Grbl
     self.__grblCom.gcodePush(originGcode)
     if self.di.chkAutoclose.isChecked():

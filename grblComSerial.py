@@ -365,14 +365,12 @@ class grblComSerial(QObject):
           if l.find('ok') >= 0 or l.find('error') >= 0 or l.find('ALARM') >= 0:
             self.__okToSendGCode = True # Accuse de reception, erreur ou ALARME de la derniere commande GCode envoyee
             self.sig_serialLock.emit(self.__okToSendGCode)
-          '''
           if l.find('ok') >= 0:
-            print ("grblComSerial: __mainLoop(): ok recu")
+            self.sig_debug.emit(self.tr("grblComSerial: __mainLoop(): ok received"))
           if l.find('error') >= 0:
-            print ("grblComSerial: __mainLoop(): error Grbl received [{}].".format(l))
+            self.sig_debug.emit(self.tr("grblComSerial: __mainLoop(): error Grbl received [{}].").format(l))
           if l.find('ALARM') >= 0:
-            print ("grblComSerial: __mainLoop(): ALARM Grbl received [{}].".format(l))
-          '''
+            self.sig_debug.emit(self.tr("grblComSerial: __mainLoop(): ALARM Grbl received [{}].").format(l))
           if l !='':
             self.__traileLaLigne(l, flag)
         except serial.SerialTimeoutException:
