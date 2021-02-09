@@ -646,6 +646,10 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_mnuSaveG92(self):
+    ''' Sauvegarde les valeurs d'offset G92 dans les settings '''
+    # Sauvegarde de la topologie machine
+    self.__settings.setValue("G92/axisNumber", self.__nbAxis)
+    self.__settings.setValue("G92/axisList", "".join(self.__axisNames))
     for i in range(6):
       value = self.decode.getOffsetG92(i)
       if value is not None:
@@ -656,6 +660,22 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_mnuRestoreG92(self):
+    ''' Restaure les valeurs d'offset G92 depuis les settings'''
+    # Vérifie que la topologie est la même (axisNames identique à la définition en cours)
+    axisNamesNbSav = self.__settings.value("G92/axisNumber", 0, type=int)
+    axisNamesSaved = self.__settings.value("G92/axisList", "<Unknown>")
+    if (axisNamesNbSav != self.__nbAxis) or (axisNamesSaved != "".join(self.__axisNames)):
+      m = msgBox(
+                  title  = self.tr("Error !"),
+                  text   = self.tr("Saved axis definition is not identical to the current one!"),
+                  info   = "[AXS:{}:{}] != [AXS:{}:{}]".format(axisNamesNbSav, axisNamesSaved, self.__nbAxis, "".join(self.__axisNames)),
+                  icon   = msgIconList.Critical,
+                  detail = self.tr("Can't restore G92 offsets if the current axis definition (axis number and names) is not the same as the saved one."),
+                  stdButton = msgButtonList.Close
+                )
+      m.afficheMsg()
+      ###return
+      
     txtMsg = self.tr("Restore previously saved G92 offsets:\n")
     newValue = [0.0 ,0.0 ,0.0 ,0.0 , 0.0, 0.0]
     axesTraites = []
