@@ -23,7 +23,8 @@
 
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets, QtCore #, QtGui,
-from PyQt5.QtCore import QCoreApplication, QObject
+from PyQt5.QtCore import QCoreApplication, QObject, QEventLoop, pyqtSignal, pyqtSlot
+
 from grblError import grblError
 from speedOverrides import *
 from grblCom import grblCom
@@ -803,4 +804,20 @@ class grblDecode(QObject):
     else:
       self.ui.btnJogMoinsC.setEnabled(False)
       self.ui.btnJogPlusC.setEnabled(False)
+
+
+  @pyqtSlot()
+  def waitForGrblReply(self):
+    ''' Attente d'une réponse de Grbl, OK ou error ou Alarm '''
+    loop = QtCore.QEventLoop()
+    self.__grblCom.sig_ok.connect(loop.quit)
+    self.__grblCom.sig_error.connect(loop.quit)
+    self.__grblCom.sig_alarm.connect(loop.quit)
+    loop.exec()
+    self.__grblCom.sig_ok.disconnect(loop.quit)
+    self.__grblCom.sig_error.disconnect(loop.quit)
+    self.__grblCom.sig_alarm.disconnect(loop.quit)
+
+
+
 

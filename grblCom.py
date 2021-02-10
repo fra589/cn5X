@@ -64,7 +64,7 @@ class grblCom(QObject):
 
   def __init__(self):
     super().__init__()
-    self.__decode          = None
+    self.__decode        = None
     self.__threads       = None
     self.__Com           = None
     self.__connectStatus = False
@@ -260,3 +260,8 @@ class grblCom(QObject):
   def resetSerial(self):
     ###self.sig_resetSerial.emit(buff)
     self.__Com.resetSerial()
+
+
+
+
+

@@ -54,7 +54,7 @@ class grblComSerial(QObject):
 
   def __init__(self, decodeur, comPort: str, baudRate: int, pooling: bool):
     super().__init__()
-    self.decode = decodeur
+    self.__decode = decodeur
 
     self.__abort            = False
     self.__portName         = comPort
@@ -151,7 +151,7 @@ class grblComSerial(QObject):
         self.sig_debug.emit(">>> " + buff)
     # Force l'etat "Home" car grbl bloque la commande ? pendant le Homing
     if buff[0:2] == CMD_GRBL_RUN_HOME_CYCLE:
-      self.decode.set_etatMachine(GRBL_STATUS_HOME)
+      self.__decode.set_etatMachine(GRBL_STATUS_HOME)
       self.__grblStatus = GRBL_STATUS_HOME
     # Force l'etat RUN en cas de Probe pour éviter le téléscopage avec les réponses de $#
     if "G38" in buff:

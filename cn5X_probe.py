@@ -119,42 +119,54 @@ class grblProbe(QObject):
       return
     if (X is not None) and ('X' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'X' is not in the axisNames list."))
+      raise ValueError('X')
       return
     if (Y is not None) and ('Y' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'Y' is not in the axisNames list."))
+      raise ValueError('Y')
       return
     if (Z is not None) and ('Z' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'Z' is not in the axisNames list."))
+      raise ValueError('Z')
       return
     if (A is not None) and ('A' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'A' is not in the axisNames list."))
+      raise ValueError('A')
       return
     if (B is not None) and ('B' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'B' is not in the axisNames list."))
+      raise ValueError('B')
       return
     if (C is not None) and ('C' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'C' is not in the axisNames list."))
+      raise ValueError('C')
       return
     if (U is not None) and ('U' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'U' is not in the axisNames list."))
+      raise ValueError('U')
       return
     if (V is not None) and ('V' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'V' is not in the axisNames list."))
+      raise ValueError('V')
       return
     if (W is not None) and ('W' not in self.__axisNames):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: 'W' is not in the axisNames list."))
+      raise ValueError('W')
       return
     if F <= 0:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): ArgumentError: Probe speed: F undefinied or null."))
+      raise speedError
       return
     # Vérification que Grl est bien connecté et initialisé 
     if (not self.__grblCom.isOpen) or (not self.__grblCom.grblInitStatus):
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Error: Grbl is not connected or not initialized."))
+      raise ConnectionError
       return
     # Récupération et vérification du décodeur
     self.__decode = self.__grblCom.getDecoder()
     if self.__decode is None:
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): cn5X++ error: no active Grbl decoder, this should never happen!?!?"))
+      raise InternalError
       return
 
     # Construction de l'ordre probe
@@ -198,12 +210,15 @@ class grblProbe(QObject):
       QCoreApplication.processEvents()
       if (self.__ok_recu or self.__error_recu or self.__alarm_recu) and (not self.__probe_recu):
         self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Probe error: No probe response before OK, error or Alarm!"))
+        raise probeError(probeGCode)
         return
 
     self.sig_log.emit(logSeverity.info.value, self.tr("grblProbe.g38(): Response probe received."))
 
     if not self.__lastProbe.isProbeOK():
       self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Error: Last probe failure"))
+      raise probeFailed(probeGCode)
+      return
 
     else: # Probe OK.
       # Déplacement éventuel après probe OK pour revenir au point exact.
@@ -240,13 +255,7 @@ class probeResult(QObject):
   
   def __init__(self):
     super().__init__()
-    self.__axis = [None,None,None,None,None,None]
-    '''self.__axis[0] = None
-    self.__axis[1] = None
-    self.__axis[2] = None
-    self.__axis[3] = None
-    self.__axis[4] = None
-    self.__axis[5] = None'''
+    self.__axis = [None, None, None, None, None, None]
     self.__probeOK = False
     self.__axisNames = ""
 
@@ -282,5 +291,41 @@ class probeResult(QObject):
     return self.__probeOK
 
 
-#
+class InternalError(Exception):
+  ''' Exception lors des palpages '''
+  # Impossible de retrouver le décodeur Grbl
+  pass
+
+
+class probeError(Exception):
+  ''' Exception lors des palpages '''
+  # No probe response before OK, error or Alarm
+  pass
+
+
+class probeFailed(Exception):
+  ''' Exception lors des palpages '''
+  # Palpage terminé mais probe non atteint
+  pass
+  
+
+class speedError(Exception):
+  ''' Vitesse F non définie, nulle ou négative '''
+  pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

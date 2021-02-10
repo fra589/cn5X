@@ -28,7 +28,7 @@ import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette
-from PyQt5.QtWidgets import QDialog, QAbstractItemView
+from PyQt5.QtWidgets import QDialog, QAbstractItemView, QMessageBox
 from cn5X_config import *
 from msgbox import *
 from speedOverrides import *
@@ -37,7 +37,7 @@ from grblDecode import grblDecode
 from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
-from cn5X_probe import grblProbe, probeResult
+from cn5X_probe import *
 from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
@@ -91,7 +91,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
     self.logCn5X.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
-    self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)               # Active le tab de la log cn5X++
+    self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)               # Active le tab de la log cn5X++
 
     self.__gcodeFile = gcodeFile(self.ui.gcodeTable)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
@@ -114,8 +114,8 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_activity.connect(self.on_sig_activity)
     self.__grblCom.sig_serialLock.connect(self.on_sig_activity)
 
-    self.decode = grblDecode(self.ui, self.log, self.__grblCom)
-    self.__grblCom.setDecodeur(self.decode)
+    self.__decode = grblDecode(self.ui, self.log, self.__grblCom)
+    self.__grblCom.setDecodeur(self.__decode)
 
     self.__jog = grblJog(self.__grblCom)
     self.ui.dsbJogSpeed.setValue(DEFAULT_JOG_SPEED)
@@ -134,13 +134,10 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblConfigLoaded = False
     self.__nbAxis           = DEFAULT_NB_AXIS
     self.__axisNames        = DEFAULT_AXIS_NAMES
-    self.decode.updateAxisDefinition()
+    self.__decode.updateAxisDefinition()
     self.__maxTravel        = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__firstGetSettings = False
     self.__jogModContinue   = False
-    self.__trapOK           = False
-    self.__trapError        = False
-    self.__trapAlarm        = False
 
     '''---------- Preparation de l'interface ----------'''
 
@@ -202,6 +199,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuG5X_origine_4.triggered.connect(lambda: self.on_mnuG5X_origine(4))
     self.ui.mnuG5X_origine_5.triggered.connect(lambda: self.on_mnuG5X_origine(5))
     self.ui.mnuG5X_origine_6.triggered.connect(lambda: self.on_mnuG5X_origine(6))
+    self.ui.mnuG5X_reset.triggered.connect(self.on_mnuG5X_reset)
     self.ui.mnuG92.triggered.connect(self.on_mnuG92)
     self.ui.mnuSaveG92.triggered.connect(self.on_mnuSaveG92)
     self.ui.mnuRestoreG92.triggered.connect(self.on_mnuRestoreG92)
@@ -278,6 +276,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStart.clicked.connect(self.startCycle)
     self.ui.btnPause.clicked.connect(self.pauseCycle)
     self.ui.btnStop.clicked.connect(self.stopCycle)
+    self.ui.btnG28.clicked.connect(self.on_btnG28)
+    self.ui.btnG30.clicked.connect(self.on_btnG30)
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
     QtWidgets.QShortcut(QtCore.Qt.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
     QtWidgets.QShortcut(QtCore.Qt.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
@@ -307,14 +307,15 @@ class winMain(QtWidgets.QMainWindow):
 
     self.ui.rbtProbeInsideXY.toggled.connect(self.on_rbtProbeInsideXY_toggled)
     
+    # Changement d'onglets
+    self.__currentQTabMainIndex = self.ui.qtabMain.currentIndex()
+    self.ui.qtabMain.currentChanged.connect(self.on_qtabMain_currentChanged)
     # Boutons de probe
     self.ui.btnProbeZ.clicked.connect(self.on_btnProbeZ)
     self.ui.btnGoToSensor.clicked.connect(self.on_btnGoToSensor)
     self.ui.btnG49.clicked.connect(self.on_btnG49)
     self.ui.btnG43_1.clicked.connect(self.on_btnG43_1)
     self.ui.btnSetOriginZ.clicked.connect(self.on_btnSetOriginZ)
-    ###self.ui.rbtDefineOriginZ_G54.clicked.connect(self.on_rbtDefineOriginZ_G54)
-    ###self.ui.rbtDefineOriginZ_G92.clicked.connect(self.on_rbtDefineOriginZ_G92)
     self.ui.chkSeekZ.clicked.connect(self.on_chkSeekZ)
     
     
@@ -333,12 +334,12 @@ class winMain(QtWidgets.QMainWindow):
       if RC:
         # Selectionne l'onglet du fichier sauf en cas de debug actif
         if not self.ui.btnDebug.isChecked():
-          self.ui.grpConsole.setCurrentIndex(CN5X_TAB_FILE)
+          self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_FILE)
         self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.fileName())
       else:
         # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
-          self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)
+          self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
       # Restore le curseur de souris
       self.setCursor(Qt.ArrowCursor)
 
@@ -543,12 +544,12 @@ class winMain(QtWidgets.QMainWindow):
       if RC:
         # Selectionne l'onglet du fichier sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
-          self.ui.grpConsole.setCurrentIndex(CN5X_TAB_FILE)
+          self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_FILE)
         self.setWindowTitle(APP_NAME + " - " + self.__gcodeFile.fileName())
       else:
         # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
-          self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)
+          self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
     # Restore le curseur de souris
@@ -637,9 +638,23 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
+  def on_mnuG5X_reset(self):
+    ''' Annulation de tous les offsets G5X '''
+    axesTraites = []
+    gcodeString = "G10P0L20"
+    # Position machine actuelle
+    for a in self.__axisNames:
+      if a not in axesTraites:
+        MPos = self.__decode.getMpos(a)
+        gcodeString += "{}{}".format(a, MPos)
+        axesTraites.append(a)
+    self.__grblCom.gcodePush(gcodeString)
+
+
+  @pyqtSlot()
   def on_mnuG92(self):
     ''' Appel de la boite de dialogue G92 '''
-    dlg = dlgG92(self.__grblCom, self.decode, self.__nbAxis, self.__axisNames)
+    dlg = dlgG92(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
     dlg.setParent(self)
     dlg.showDialog()
 
@@ -651,7 +666,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__settings.setValue("G92/axisNumber", self.__nbAxis)
     self.__settings.setValue("G92/axisList", "".join(self.__axisNames))
     for i in range(6):
-      value = self.decode.getOffsetG92(i)
+      value = self.__decode.getOffsetG92(i)
       if value is not None:
         self.__settings.setValue("G92/axis_{}".format(i), value)
       else:
@@ -702,10 +717,10 @@ class winMain(QtWidgets.QMainWindow):
       axesTraites = []
       restoreGcode = "G92"
       for i in range(6):
-        actualValue = self.decode.getOffsetG92(i)
+        actualValue = self.__decode.getOffsetG92(i)
         if actualValue is not None:
           if self.__axisNames[i] not in axesTraites:
-            newAxisWpos = self.decode.getMpos(i) - newValue[i] - self.decode.getOffsetG5x(i)
+            newAxisWpos = self.__decode.getMpos(i) - newValue[i] - self.__decode.getOffsetG5x(i)
             restoreGcode += "{}{}".format(self.__axisNames[i], newAxisWpos)
             axesTraites.append(self.__axisNames[i])
       self.__grblCom.gcodePush(restoreGcode)
@@ -718,96 +733,127 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
+  def on_btnG28(self):
+    '''
+    Make a rapid move from current location to the position defined by the last G28.1
+    If no positions are stored with G28.1 then all axes will go to the machine origin.
+    '''
+    self.__grblCom.gcodePush("G28")
+
+
+  @pyqtSlot()
+  def on_btnG30(self):
+    '''
+    Make a rapid move from current location to the position defined by the last G30.1
+    If no positions are stored with G30.1 then all axes will go to the machine origin.
+    '''
+    self.__grblCom.gcodePush("G30")
+
+
+  @pyqtSlot(int)
+  def on_qtabMain_currentChanged(self, tabIndex):
+    ''' Restore les paramètres de probe à l'activation du Tab concerné '''
+    if self.__currentQTabMainIndex != tabIndex:
+      if tabIndex == CN5X_TAB_MAIN:
+        pass
+      elif tabIndex == CN5X_TAB_PROBE_XY:
+        pass
+      elif tabIndex == CN5X_TAB_PROBE_Z:
+        self.ui.dsbDistanceZ.setValue(self.__settings.value("Probe/DistanceZ", DEFAULT_PROBE_DISTANCE_Z, type=float))
+        self.ui.dsbFeedRateZ.setValue(self.__settings.value("Probe/FeedRateZ", DEFAULT_PROBE_FEED_RATE, type=float))
+        self.ui.chkSeekZ.setChecked(self.__settings.value("Probe/Seek", DEFAULT_PROBE_SEEK, type=bool))
+        self.on_chkSeekZ()
+        self.ui.dbsSeekRateZ.setValue(self.__settings.value("Probe/SeekRateZ", DEFAULT_PROBE_SEEK_RATE, type=float))
+        self.ui.dsbPullOffZ.setValue(self.__settings.value("Probe/PullOffZ", DEFAULT_PROBE_PULL_OFF_DISTANCE_Z, type=float))
+        self.ui.gbMoveAfterZ.setChecked(self.__settings.value("Probe/MoveAfterZ", DEFAULT_PROBE_MOVE_AFTER_Z, type=bool))
+        self.ui.rbtMove2PointAfterZ.setChecked(self.__settings.value("Probe/Move2PointAfterZ", DEFAULT_PROBE_MOVE_2_POINT_AFTER_Z, type=bool))
+        self.ui.rbtRetractAfterZ.setChecked(self.__settings.value("Probe/RetractAfterZ", DEFAULT_PROBE_RETRACT_AFTER_Z, type=bool))
+        self.ui.dsbRetractZ.setValue(self.__settings.value("Probe/RetractDistanceZ", DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_Z, type=float))
+        self.ui.rbtDefineOriginZ_G54.setChecked(self.__settings.value("Probe/DefineOriginZ_G54", DEFAULT_PROBE_ORIGINE_G54_Z, type=bool))
+        self.ui.rbtDefineOriginZ_G92.setChecked(self.__settings.value("Probe/DefineOriginZ_G92", DEFAULT_PROBE_ORIGINE_G92_Z, type=bool))
+        self.ui.dsbOriginOffsetZ.setValue(self.__settings.value("Probe/OriginOffsetZ", DEFAULT_PROBE_ORIGINE_OFFSET_Z, type=float))
+        self.ui.dsbToolLengthSensorX.setValue(self.__settings.value("Probe/ToolSensorPositionX", DEFAULT_TOOLSENSOR_POSITION_X, type=float))
+        self.ui.dsbToolLengthSensorY.setValue(self.__settings.value("Probe/ToolSensorPositionY", DEFAULT_TOOLSENSOR_POSITION_Y, type=float))
+
+
+  @pyqtSlot()
   def on_btnProbeZ(self):
     ''' Z probing '''
     # Récupération des paramètres définis dans l'interface graphique
-    probeDistance =     self.ui.dsbDistanceZ.value()
-    probeFeedRate =     self.ui.dsbFeedRateZ.value()
-    probeSeekRate =     self.ui.dbsSeekRateZ.value()
+    probeDistance = self.ui.dsbDistanceZ.value()
+    probeFeedRate = self.ui.dsbFeedRateZ.value()
+    probeSeekRate = self.ui.dbsSeekRateZ.value()
+    probePullOff  = self.ui.dsbPullOffZ.value()
+    probeRetract  = self.ui.dsbRetractZ.value()
+    doubleProbe   = self.ui.chkSeekZ.isChecked()
     if probeSeekRate < probeFeedRate:
       probeSeekRate = probeFeedRate
-    probePullOff =      self.ui.dsbPullOffZ.value()
-    probeRetract =      self.ui.dsbRetractZ.value()
-    probeOriginOffset = self.ui.dsbOriginOffsetZ.value()
 
     # On mémorise le mode G90/G91 actif
     oldG90_91 = self.ui.lblCoord.text()
     if oldG90_91 != "G91":
-      self.__trapOK           = False
-      self.__trapError        = False
-      self.__trapAlarm        = False
       # On force le mode relatif
       self.__grblCom.gcodePush("G91")
-      ###time.sleep(0.5)
-      while (self.__trapOK == False) and (self.__trapError == False) and (self.__trapAlarm == False):
-        # Attend le traitement de G91
-        QCoreApplication.processEvents()
-      if not self.__trapOK:
-        self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): Error when executing G91 GCode"))
-        return
-    
-    if self.ui.chkSeekZ.isChecked(): 
-      # On effectue un premier probe G38.3 rapide
-      self.__probeResult = self.__probe.g38(P=3, F=probeSeekRate, Z=-probeDistance, g2p=False)
-      if self.__probeResult is None:
-        self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): G38.3F{}X0Y0Z-{} no response from probe").format(probeSeekRate, probeDistance))
-        if oldG90_91 != "G91":
-          # On restore le mode relatif ou absolu
-          self.__grblCom.gcodePush(oldG90_91)
-        return
-      if not self.__probeResult.isProbeOK():
-        self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): G38.3F{}X0Y0Z-{} Probe error").format(probeSeekRate, probeDistance))
-        if oldG90_91 != "G91":
-          # On restore le mode relatif ou absolu
-          self.__grblCom.gcodePush(oldG90_91)
-        return
-      # On mémorise le résultat rapide
+      # Attend le traitement de G91 par Grbl
+      self.__decode.waitForGrblReply()
+
+    try:
+      if doubleProbe:
+        # Le probe se fait en 2 fois, dabord rapide à la vitesse probeSeekRate
+        # puis plus lentement à la vitesse probeFeedRate.
+        # On effectue le premier probe G38.3 (rapide)
+        self.__probeResult = self.__probe.g38(P=3, F=probeSeekRate, Z=-probeDistance, g2p=False)
+        # On mémorise le résultat
+        self.ui.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
+        # On retract d'une distance probePullOff
+        retractGCode = "G0Z{:+0.3f}".format(probePullOff)
+        self.__grblCom.gcodePush(retractGCode)
+        # Pause pour laisser le temps à Grbl de lancer le mouvement de retract
+        time.sleep(0.1)
+        while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+          # Process events to receive signals en attendant que le GCode soit traité
+          QCoreApplication.processEvents()
+        # En cas de probe en 2 fois, le second probe ne nécessite que la distance de pull off
+        fineProbeDistance = probePullOff
+      else: # doubleProbe == False
+        # En cas de probe en une fois, la distance à utiliser est probeDistance.
+        fineProbeDistance = probeDistance
+
+      # Si repositionnement après probe...
+      if self.ui.gbMoveAfterZ.isChecked():
+        # On aura au moins un retour au point précis,
+        # donc, on le demande à la fonction self.__probe.g38()
+        go2point = True
+      else:
+        go2point = False
+
+      # On effectue le probe G38.3 précis
+      self.__probeResult = self.__probe.g38(P=3, F=probeFeedRate, Z=-fineProbeDistance, g2p=go2point)
+      # On mémorise le résultat précis
       self.ui.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
-      # On retract d'une distance probePullOff
-      retractGCode = "G91G1Z{}F{}".format(probePullOff, probeSeekRate)
-      self.__trapError = False
-      self.__grblCom.gcodePush(retractGCode)
-      ###time.sleep(0.5)
-      while self.decode.get_etatMachine() != GRBL_STATUS_IDLE:
-        # Process events to receive signals en attendant que le GCode soit traité
-        QCoreApplication.processEvents()
-      if self.__trapError:
-        # Une erreur est apparue pendant le jog de retractation : On Arrête
-        self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): Error when retracting {}").format(retractGCode))
-        return
-      fineProbeDistance = probePullOff
-    else: # self.ui.chkSeekZ.isChecked() == False
-      fineProbeDistance = probeDistance
 
-    # En cas de repositionnement après probe...
-    if self.ui.gbMoveAfterZ.isChecked():
-      # On aura au moins un retour au point précis
-      go2point = True
-    else:
-      go2point = False
-
-    # On effectue le probe G38.3 précis
-    self.__probeResult = self.__probe.g38(P=3, F=probeFeedRate, Z=-fineProbeDistance, g2p=go2point)
-    if self.__probeResult is None:
-      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): G38.3F{}X0Y0Z-{} no response from probe").format(probeFeedRate, probePullOff))
-      if oldG90_91 != "G91":
-        # On restore le mode relatif ou absolu
-        self.__grblCom.gcodePush(oldG90_91)
-      return      
-    if not self.__probeResult.isProbeOK():
-      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): G38.3F{}X0Y0Z-{} Probe error").format(probeFeedRate, probePullOff))
-      if oldG90_91 != "G91":
-        # On restore le mode relatif ou absolu
-        self.__grblCom.gcodePush(oldG90_91)
-      return
-    # On mémorise le résultat précis
-    self.ui.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
-
-    if self.ui.rbtRetractAfterZ.isChecked():
-      # On retract d'une distance probeRetract
-      retractGCode = "G91G1Z{}F{}".format(probeRetract, probeSeekRate)
-      self.__grblCom.gcodePush(retractGCode)
-
+      if self.ui.rbtRetractAfterZ.isChecked():
+        # On retract d'une distance probeRetract
+        retractGCode = "G0Z{:+0.3f}".format(probeRetract)
+        self.__grblCom.gcodePush(retractGCode)
+    except ValueError as e:
+      # Erreur arguments d'appel de self.__probe.g38()
+      # L'axe demandé n'est pas dans la liste de self.__axisNames
+      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): L'axe demandé ({}) n'est pas dans la liste des axes de cette machine").format(e))
+      pass
+    except probeError as e:
+      # Reception de OK, error ou alarm avant le résultat de probe
+      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): {} no response from probe").format(e))
+      pass
+    except probeFailed as e:
+      # Probe action terminée mais sans que la sonde ne touche
+      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): {} Probe error").format(e))
+      pass
+    except speedError as e:
+      # Vitesse F non définie, nulle ou négative
+      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): F Speed undefined or less or equal to zero").format(e))
+      pass
+    
     if oldG90_91 != "G91":
       # On restore le mode relatif ou absolu
       self.__grblCom.gcodePush(oldG90_91)
@@ -821,6 +867,17 @@ class winMain(QtWidgets.QMainWindow):
         value = self.__probeResult.getAxis(aNum)
         aNum += 1
 
+    # Pour finir, on sauvegarde les derniers paramètres de probe dans les settings
+    self.__settings.setValue("Probe/DistanceZ", self.ui.dsbDistanceZ.value())
+    self.__settings.setValue("Probe/FeedRateZ", self.ui.dsbFeedRateZ.value())
+    self.__settings.setValue("Probe/Seek", self.ui.chkSeekZ.isChecked())
+    self.__settings.setValue("Probe/SeekRateZ", self.ui.dbsSeekRateZ.value())
+    self.__settings.setValue("Probe/PullOffZ", self.ui.dsbPullOffZ.value())
+    self.__settings.setValue("Probe/MoveAfterZ", self.ui.gbMoveAfterZ.isChecked())
+    self.__settings.setValue("Probe/Move2PointAfterZ", self.ui.rbtMove2PointAfterZ.isChecked())
+    self.__settings.setValue("Probe/RetractAfterZ", self.ui.rbtRetractAfterZ.isChecked())
+    self.__settings.setValue("Probe/RetractDistanceZ", self.ui.dsbRetractZ.value())
+
 
   @pyqtSlot()
   def on_btnGoToSensor(self):
@@ -830,6 +887,9 @@ class winMain(QtWidgets.QMainWindow):
     posY = self.ui.dsbToolLengthSensorY.value()
     deplacementGCode = "G53G0X{}Y{}".format(posX, posY)
     self.__grblCom.gcodePush(deplacementGCode)
+    # Memorise la position dans les settings
+    self.__settings.setValue("Probe/ToolSensorPositionX", posX)
+    self.__settings.setValue("Probe/ToolSensorPositionY", posY)
 
 
   @pyqtSlot()
@@ -898,17 +958,23 @@ class winMain(QtWidgets.QMainWindow):
       positionZ = float(self.ui.lblPosZ.text().replace(' ', '')) + float(self.ui.lblWcoZ.text().replace(' ', ''))
     # Offset à ajouter
     offsetZ = self.ui.dsbOriginOffsetZ.value()
+    # Correction si déplacement depuis le probe
+    correction = positionZ - lastProbe
     if self.ui.rbtDefineOriginZ_G54.isChecked():
       # Définit l'origine à l'aide du dégalage courant (G54 à G59)
       # Utilisation de G10L2P0Z<absolute Z> ne permet pas de composer avec G92...
       # donc, on utilise G10L20P0Z...
-      newZoffset = lastProbe - positionZ + offsetZ
-      originGcode = "G10L20P0Z{}".format(newZoffset)
+      newZoffset = positionZ - lastProbe + offsetZ
+      originGcode = "G10L20P0Z{:+0.3f}".format(newZoffset)
     else: # rbtDefineOriginZ_G92.isChecked() = True
-      newCurrentZ = lastProbe - positionZ + offsetZ
-      originGcode = "G92Z{}".format(newCurrentZ)
+      newCurrentZ = positionZ - lastProbe + offsetZ
+      originGcode = "G92Z{:+0.3f}".format(newCurrentZ)
     # Envoi du changement d'origine à Grbl
     self.__grblCom.gcodePush(originGcode)
+    # Sauvegarde des derniers paramètres utilisés dans les settings
+    self.__settings.setValue("Probe/DefineOriginZ_G54", self.ui.rbtDefineOriginZ_G54.isChecked())
+    self.__settings.setValue("Probe/DefineOriginZ_G92", self.ui.rbtDefineOriginZ_G92.isChecked())
+    self.__settings.setValue("Probe/OriginOffsetZ", self.ui.dsbOriginOffsetZ.value())
 
 
   @pyqtSlot()
@@ -968,7 +1034,7 @@ class winMain(QtWidgets.QMainWindow):
     if not self.__connectionStatus:
       # Force l'onglet "Grbl output" sauf en cas de debug
       if not self.ui.btnDebug.isChecked():
-        self.ui.grpConsole.setCurrentIndex(CN5X_TAB_GRBL)
+        self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_GRBL)
       # Recupere les coordonnees et parametres du port a connecter
       serialDevice = self.ui.cmbPort.currentText()
       serialDevice = serialDevice.split("-")
@@ -985,7 +1051,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.btnConnect.setText(self.tr("Connect")) # La prochaine action du bouton sera pour connecter
       # Force l'onglet "log" sauf en cas de debug
       if not self.ui.btnDebug.isChecked():
-        self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)
+        self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
 
 
   @pyqtSlot()
@@ -1059,11 +1125,11 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(cnQPushButton, QtGui.QMouseEvent)
   def on_jog(self, cnButton, e):
     # Jogging seulement si Idle
-    if self.decode.get_etatMachine() != GRBL_STATUS_IDLE:
+    if self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
       return
 
     # On anticipe l'état GRBL_STATUS_JOG
-    self.decode.set_etatMachine(GRBL_STATUS_JOG)
+    self.__decode.set_etatMachine(GRBL_STATUS_JOG)
 
     jogDistance = 0
     for qrb in [self.ui.rbtJog0000, self.ui.rbtJog0001, self.ui.rbtJog0010, self.ui.rbtJog0100, self.ui.rbtJog1000]:
@@ -1123,24 +1189,24 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_btnFloodM7(self):
-    if self.decode.get_etatArrosage() != "M7" and self.decode.get_etatArrosage() != "M78":
+    if self.__decode.get_etatArrosage() != "M7" and self.__decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M7")
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
 
 
   @pyqtSlot()
   def on_btnFloodM8(self):
-    if self.decode.get_etatArrosage() != "M8" and self.decode.get_etatArrosage() != "M78":
+    if self.__decode.get_etatArrosage() != "M8" and self.__decode.get_etatArrosage() != "M78":
       # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M8")
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
 
   @pyqtSlot()
   def on_btnFloodM9(self):
-    if self.decode.get_etatArrosage() == "M7" or self.decode.get_etatArrosage() == "M78":
+    if self.__decode.get_etatArrosage() == "M7" or self.__decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command"
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
-    if self.decode.get_etatArrosage() == "M8" or self.decode.get_etatArrosage() == "M78":
+    if self.__decode.get_etatArrosage() == "M8" or self.__decode.get_etatArrosage() == "M78":
       # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M9")
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
@@ -1169,13 +1235,13 @@ class winMain(QtWidgets.QMainWindow):
   def sendCmd(self):
     if self.ui.txtGCode.text() != "":
       if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
-        self.decode.getNextStatus()
+        self.__decode.getNextStatus()
       if self.ui.txtGCode.text() == CMD_GRBL_GET_GCODE_PARAMATERS:
-        self.decode.getNextGCodeParams()
+        self.__decode.getNextGCodeParams()
       if self.ui.txtGCode.text() == CMD_GRBL_GET_GCODE_STATE:
-        self.decode.getNextGCodeState()
+        self.__decode.getNextGCodeState()
       if "G38" in self.ui.txtGCode.text():
-        self.decode.getNextProbe()
+        self.__decode.getNextProbe()
       self.__grblCom.gcodePush(self.ui.txtGCode.text())
     else:
       self.__grblCom.realTimePush("\r\n")
@@ -1191,7 +1257,7 @@ class winMain(QtWidgets.QMainWindow):
   def txtGCode_on_Change(self):
     if self.ui.txtGCode.text() == REAL_TIME_REPORT_QUERY:
       self.logGrbl.append(REAL_TIME_REPORT_QUERY)
-      self.decode.getNextStatus()
+      self.__decode.getNextStatus()
       self.__grblCom.realTimePush(REAL_TIME_REPORT_QUERY) # Envoi direct ? sans attendre le retour chariot.
       self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
     if not self.__gcode_recall_flag:
@@ -1242,12 +1308,12 @@ class winMain(QtWidgets.QMainWindow):
       self.logCn5X.setTextColor(TXT_COLOR_ORANGE)
       self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Warning : " + data)
       if not self.ui.btnDebug.isChecked():
-        self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)
+        self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
     elif severity == logSeverity.error.value:
       self.logCn5X.setTextColor(TXT_COLOR_RED)
       self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Error   : " + data)
       if not self.ui.btnDebug.isChecked():
-        self.ui.grpConsole.setCurrentIndex(CN5X_TAB_LOG)
+        self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
   def log(self, severity: int, data: str):
     self.on_sig_log(severity, data)
 
@@ -1268,32 +1334,29 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_sig_ok(self):
     self.logGrbl.append("ok")
-    self.__trapOK = True
 
 
   @pyqtSlot(int)
   def on_sig_error(self, errNum: int):
-    self.logGrbl.append(self.decode.errorMessage(errNum))
-    self.__trapError = True
+    self.logGrbl.append(self.__decode.errorMessage(errNum))
 
 
   @pyqtSlot(int)
   def on_sig_alarm(self, alarmNum: int):
-    self.logGrbl.append(self.decode.alarmMessage(alarmNum))
-    self.decode.set_etatMachine(GRBL_STATUS_ALARM)
-    self.__trapAlarm = True
+    self.logGrbl.append(self.__decode.alarmMessage(alarmNum))
+    self.__decode.set_etatMachine(GRBL_STATUS_ALARM)
 
 
   @pyqtSlot(str)
   def on_sig_status(self, data: str):
-    retour = self.decode.decodeGrblStatus(data)
+    retour = self.__decode.decodeGrblStatus(data)
     if retour != "":
       self.logGrbl.append(retour)
 
 
   @pyqtSlot(str)
   def on_sig_data(self, data: str):
-    retour = self.decode.decodeGrblData(data)
+    retour = self.__decode.decodeGrblData(data)
     if retour is not None and retour != "":
       self.logGrbl.append(retour)
 
@@ -1309,7 +1372,7 @@ class winMain(QtWidgets.QMainWindow):
         # implémente l'option REPORT_VALUE_FOR_AXIS_NAME_ONCE
         self.__nbAxis = len(self.__axisNames);
       '''self.updateAxisNumber()
-      self.decode.setNbAxis(self.__nbAxis)'''
+      self.__decode.setNbAxis(self.__nbAxis)'''
       # Mise à jour classe grblProbe
       self.__probe.setAxisNames(self.__axisNames)
       
@@ -1328,7 +1391,7 @@ class winMain(QtWidgets.QMainWindow):
       self.__maxTravel[5] = float(data[5:])
 
     if not self.__grblConfigLoaded:
-      retour = self.decode.decodeGrblData(data)
+      retour = self.__decode.decodeGrblData(data)
       if retour is not None and retour != "":
         self.logGrbl.append(retour)
       else:
@@ -1588,10 +1651,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction(self.tr("Place the {} origin of axis {} here").format(self.decode.getG5actif(), self.__axisNames[axis]), self)
+    resetX = QtWidgets.QAction(self.tr("Place the {} origin of axis {} here").format(self.__decode.getG5actif(), self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10P0L20{}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Place the {} origin of all axis here").format(self.decode.getG5actif()), self)
+    resetAll = QtWidgets.QAction(self.tr("Place the {} origin of all axis here").format(self.__decode.getG5actif()), self)
     axesTraites = []
     gcodeString = "G10P0L20"
     for a in self.__axisNames:
@@ -1601,11 +1664,11 @@ class winMain(QtWidgets.QMainWindow):
     resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction(self.tr("Jog axis {} to {} origin").format(self.__axisNames[axis], self.decode.getG5actif()), self)
+    resetX = QtWidgets.QAction(self.tr("Jog axis {} to {} origin").format(self.__axisNames[axis], self.__decode.getG5actif()), self)
     cmdJog1 = CMD_GRBL_JOG + "G90G21F{}{}0".format(self.ui.dsbJogSpeed.value(), self.__axisNames[axis])
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog1))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Jog all axis to {} origin").format(self.decode.getG5actif()), self)
+    resetAll = QtWidgets.QAction(self.tr("Jog all axis to {} origin").format(self.__decode.getG5actif()), self)
     axesTraites = []
     cmdJog = CMD_GRBL_JOG + "G90G21F{}".format(self.ui.dsbJogSpeed.value())
     for a in self.__axisNames:

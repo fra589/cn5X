@@ -116,8 +116,48 @@ COM_FLAG_NO_FLAG  = 0
 COM_FLAG_NO_OK    = 1
 COM_FLAG_NO_ERROR = 2
 
-CN5X_TAB_GRBL  = 0
-CN5X_TAB_FILE  = 1
-CN5X_TAB_LOG   = 2
-CN5X_TAB_DEBUG = 3
+''' qtabMain indexes '''
+CN5X_TAB_MAIN     = 0
+CN5X_TAB_PROBE_XY = 1
+CN5X_TAB_PROBE_Z  = 2
+
+''' qtabConsole indexes '''
+CN5X_TAB_GRBL     = 0
+CN5X_TAB_FILE     = 1
+CN5X_TAB_LOG      = 2
+CN5X_TAB_DEBUG    = 3
+
+''' Probe defaults parameters '''
+DEFAULT_PROBE_DISTANCE_Z               = 15
+DEFAULT_PROBE_FEED_RATE                = 25
+DEFAULT_PROBE_SEEK                     = True
+DEFAULT_PROBE_SEEK_RATE                = 75
+DEFAULT_PROBE_PULL_OFF_DISTANCE_Z      = 3
+DEFAULT_PROBE_MOVE_AFTER_Z             = True
+DEFAULT_PROBE_MOVE_2_POINT_AFTER_Z     = True
+DEFAULT_PROBE_RETRACT_AFTER_Z          = False
+DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_Z = 5
+DEFAULT_PROBE_ORIGINE_G54_Z            = True
+DEFAULT_PROBE_ORIGINE_G92_Z            = False
+DEFAULT_PROBE_ORIGINE_OFFSET_Z         = 0.0
+DEFAULT_TOOLSENSOR_POSITION_X          = -5
+DEFAULT_TOOLSENSOR_POSITION_Y          = -5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

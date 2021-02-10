@@ -45,12 +45,6 @@
     <height>600</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>16777215</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string notr="true">cn5X++</string>
   </property>
@@ -5366,6 +5360,74 @@ color: rgb(0, 0, 63);
                 </property>
                </spacer>
               </item>
+              <item>
+               <widget class="QWidget" name="frmG28_G30" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="visible">
+                 <bool>false</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_28">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QPushButton" name="btnG28">
+                   <property name="toolTip">
+                    <string>Make a rapid move from current location to the position defined by the last G28.1
+If no positions are stored with G28.1 then all axes will go to the machine origin.</string>
+                   </property>
+                   <property name="text">
+                    <string>G28</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btnG30">
+                   <property name="toolTip">
+                    <string>Make a rapid move from current location to the position defined by the last G30.1
+If no positions are stored with G30.1 then all axes will go to the machine origin.</string>
+                   </property>
+                   <property name="text">
+                    <string>G30</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_32">
+                <property name="visible">
+                 <bool>false</bool>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>24</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
            </item>
@@ -8637,7 +8699,7 @@ G43.1</string>
         </widget>
        </item>
        <item>
-        <widget class="QTabWidget" name="grpConsole">
+        <widget class="QTabWidget" name="qtabConsole">
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -9000,6 +9062,7 @@ G43.1</string>
      <addaction name="mnuG5X_origine_5"/>
      <addaction name="mnuG5X_origine_6"/>
      <addaction name="mnuG5X_origine_0"/>
+     <addaction name="mnuG5X_reset"/>
      <addaction name="separator"/>
      <addaction name="mnuG92"/>
      <addaction name="mnuSaveG92"/>
@@ -9167,6 +9230,11 @@ G43.1</string>
   <action name="mnuRestoreG92">
    <property name="text">
     <string>Restore saved G92 offset</string>
+   </property>
+  </action>
+  <action name="mnuG5X_reset">
+   <property name="text">
+    <string>Turn off and reset G54 offsets of all axis</string>
    </property>
   </action>
  </widget>
