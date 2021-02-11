@@ -42,6 +42,7 @@ from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
 from grblG92 import dlgG92
+from grblG28_30_1 import dlgG28_30_1
 from xml.dom.minidom import parse, Node, Element
 
 class upperCaseValidator(QValidator):
@@ -186,6 +187,13 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuAppEnregistrer.triggered.connect(self.on_mnuAppEnregistrer)
     self.ui.mnuAppEnregistrerSous.triggered.connect(self.on_mnuAppEnregistrerSous)
     self.ui.mnuAppFermerGCode.triggered.connect(self.on_mnuAppFermerGCode)
+
+    self.ui.mnuPreferences.aboutToShow.connect(self.on_mnuPreferences)
+    self.ui.mnuConfirm_Go_to_G28.triggered.connect(self.on_mnuConfirm_Go_to_G28)
+    self.ui.mnuConfirm_Go_to_G30.triggered.connect(self.on_mnuConfirm_Go_to_G30)
+    self.ui.mnuConfirm_define_G28.triggered.connect(self.on_mnuConfirm_define_G28)
+    self.ui.mnuConfirm_define_G30.triggered.connect(self.on_mnuConfirm_define_G30)
+    
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
 
     self.ui.mnu_GrblConfig.triggered.connect(self.on_mnu_GrblConfig)
@@ -204,6 +212,26 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuSaveG92.triggered.connect(self.on_mnuSaveG92)
     self.ui.mnuRestoreG92.triggered.connect(self.on_mnuRestoreG92)
     self.ui.mnuG92_1.triggered.connect(self.on_mnuG92_1)
+
+    # Sous-menu G28/G30
+    self.ui.mnuPredefinedLocations.aboutToShow.connect(self.on_mnuPredefinedLocations)
+    self.ui.mnuGoToG28.triggered.connect(self.on_gotoG28)
+    self.ui.mnuGoToG30.triggered.connect(self.on_gotoG30)
+    self.ui.mnuDefineG28.triggered.connect(self.on_mnuDefineG28)
+    self.ui.mnuDefineG30.triggered.connect(self.on_mnuDefineG30)
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
     self.ui.mnuResetSerial.triggered.connect(self.on_mnuResetSerial)
@@ -276,8 +304,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStart.clicked.connect(self.startCycle)
     self.ui.btnPause.clicked.connect(self.pauseCycle)
     self.ui.btnStop.clicked.connect(self.stopCycle)
-    self.ui.btnG28.clicked.connect(self.on_btnG28)
-    self.ui.btnG30.clicked.connect(self.on_btnG30)
+    self.ui.btnG28.clicked.connect(self.on_gotoG28)
+    self.ui.btnG30.clicked.connect(self.on_gotoG30)
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
     QtWidgets.QShortcut(QtCore.Qt.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
     QtWidgets.QShortcut(QtCore.Qt.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
@@ -518,15 +546,18 @@ class winMain(QtWidgets.QMainWindow):
       if self.__arretUrgence:
         self.ui.mnu_GrblConfig.setEnabled(True)
         self.ui.mnuSet_origine.setEnabled(False)
+        self.ui.mnuPredefinedLocations.setEnabled(False)
         self.ui.mnuJog_to.setEnabled(False)
       else:
         self.ui.mnu_GrblConfig.setEnabled(False)
         self.ui.mnuSet_origine.setEnabled(True)
+        self.ui.mnuPredefinedLocations.setEnabled(True)
         self.ui.mnuJog_to.setEnabled(True)
     else:
       self.ui.mnu_MPos.setEnabled(False)
       self.ui.mnu_WPos.setEnabled(False)
       self.ui.mnuSet_origine.setEnabled(False)
+      self.ui.mnuPredefinedLocations.setEnabled(False)
       self.ui.mnuJog_to.setEnabled(False)
       self.ui.mnuResetSerial.setEnabled(False)
       self.ui.mnu_GrblConfig.setEnabled(False)
@@ -572,6 +603,34 @@ class winMain(QtWidgets.QMainWindow):
     self.__gcodeFile.closeFile()
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
+
+
+  @pyqtSlot()
+  def on_mnuPreferences(self):
+    self.ui.mnuConfirm_Go_to_G28.setChecked(not self.__settings.value("dontConfirmG28", False, type=bool))
+    self.ui.mnuConfirm_Go_to_G30.setChecked(not self.__settings.value("dontConfirmG30", False, type=bool))
+    self.ui.mnuConfirm_define_G28.setChecked(not self.__settings.value("dontConfirmG28.1", False, type=bool))
+    self.ui.mnuConfirm_define_G30.setChecked(not self.__settings.value("dontConfirmG30.1", False, type=bool))
+
+
+  @pyqtSlot()
+  def on_mnuConfirm_Go_to_G28(self):
+    self.__settings.setValue("dontConfirmG28", not self.ui.mnuConfirm_Go_to_G28.isChecked())
+
+
+  @pyqtSlot()
+  def on_mnuConfirm_Go_to_G30(self):
+    self.__settings.setValue("dontConfirmG30", not self.ui.mnuConfirm_Go_to_G30.isChecked())
+
+
+  @pyqtSlot()
+  def on_mnuConfirm_define_G28(self):
+    self.__settings.setValue("dontConfirmG28.1", not self.ui.mnuConfirm_define_G28.isChecked())
+
+
+  @pyqtSlot()
+  def on_mnuConfirm_define_G30(self):
+    self.__settings.setValue("dontConfirmG30.1", not self.ui.mnuConfirm_define_G30.isChecked())
 
 
   @pyqtSlot()
@@ -733,21 +792,92 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
-  def on_btnG28(self):
+  def on_mnuPredefinedLocations(self):
+    if self.__settings.value("dontConfirmG28", False, type=bool):
+      self.ui.mnuGoToG28.setText("Go to G28 location")
+    else:
+      self.ui.mnuGoToG28.setText("Go to G28 location...")
+    if self.__settings.value("dontConfirmG30", False, type=bool):
+      self.ui.mnuGoToG30.setText("Go to G30 location")
+    else:
+      self.ui.mnuGoToG30.setText("Go to G30 location...")
+
+
+  @pyqtSlot()
+  def on_gotoG28(self):
     '''
     Make a rapid move from current location to the position defined by the last G28.1
     If no positions are stored with G28.1 then all axes will go to the machine origin.
     '''
-    self.__grblCom.gcodePush("G28")
-
+    if not self.__settings.value("dontConfirmG28", False, type=bool):
+      # Confirmation :
+      m = msgBox(
+          title     = self.tr("Go to G28 location?"),
+          text      = self.tr("Make a rapid move from current location to the position defined by the last G28.1?"),
+          info      = self.tr("If no positions are stored with G28.1 then all axes will go to the machine origin."),
+          icon      = msgIconList.Question,
+          stdButton = msgButtonList.Yes | msgButtonList.Cancel,
+          defButton = msgButtonList.Cancel,
+          escButton = msgButtonList.Cancel,
+          dontShowAgain = True,
+          dontShowChecked = self.__settings.value("dontConfirmG28", False, type=bool)
+      )
+      if m.afficheMsg() == msgButtonList.Yes:
+        # traitement si confirmé
+        self.__grblCom.gcodePush("G28")
+        # Mémorise le choix d'affichage de la boite de confirmation
+        self.__settings.setValue("dontConfirmG28", m.chkDontShow.isChecked())
+    else:
+      # Envoi sans confirmation
+      self.__grblCom.gcodePush("G28")
 
   @pyqtSlot()
-  def on_btnG30(self):
+  def on_gotoG30(self):
     '''
     Make a rapid move from current location to the position defined by the last G30.1
     If no positions are stored with G30.1 then all axes will go to the machine origin.
     '''
-    self.__grblCom.gcodePush("G30")
+    if not self.__settings.value("dontConfirmG30", False, type=bool):
+      # Confirmation :
+      m = msgBox(
+          title     = self.tr("Go to G30 location?"),
+          text      = self.tr("Make a rapid move from current location to the position defined by the last G30.1?"),
+          info      = self.tr("If no positions are stored with G30.1 then all axes will go to the machine origin."),
+          icon      = msgIconList.Question,
+          stdButton = msgButtonList.Yes | msgButtonList.Cancel,
+          defButton = msgButtonList.Cancel,
+          escButton = msgButtonList.Cancel,
+          dontShowAgain = True,
+          dontShowChecked = self.__settings.value("dontConfirmG30", False, type=bool)
+      )
+      if m.afficheMsg() == msgButtonList.Yes:
+        # traitement si confirmé
+        self.__grblCom.gcodePush("G30")
+        # Mémorise le choix d'affichage de la boite de confirmation
+        self.__settings.setValue("dontConfirmG30", m.chkDontShow.isChecked())
+    else:
+      # Envoi sans confirmation
+      self.__grblCom.gcodePush("G30")
+
+
+  @pyqtSlot()
+  def on_mnuDefineG28(self):
+    ''' Appel de la boite de dialogue G28.1 '''
+    dlg = dlgG28_30_1("G28", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg.setParent(self)
+    dlg.showDialog()
+
+
+  @pyqtSlot()
+  def on_mnuDefineG30(self):
+    ''' Appel de la boite de dialogue G30.1 '''
+    dlg = dlgG28_30_1("G30", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg.setParent(self)
+    dlg.showDialog()
+
+
+
+
 
 
   @pyqtSlot(int)

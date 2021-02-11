@@ -5390,7 +5390,7 @@ color: rgb(0, 0, 63);
                  <item>
                   <widget class="QPushButton" name="btnG28">
                    <property name="toolTip">
-                    <string>Make a rapid move from current location to the position defined by the last G28.1
+                    <string>Make a rapid move from current location to the machine position defined by the last G28.1
 If no positions are stored with G28.1 then all axes will go to the machine origin.</string>
                    </property>
                    <property name="text">
@@ -5401,7 +5401,7 @@ If no positions are stored with G28.1 then all axes will go to the machine origi
                  <item>
                   <widget class="QPushButton" name="btnG30">
                    <property name="toolTip">
-                    <string>Make a rapid move from current location to the position defined by the last G30.1
+                    <string>Make a rapid move from current location to the machine position defined by the last G30.1
 If no positions are stored with G30.1 then all axes will go to the machine origin.</string>
                    </property>
                    <property name="text">
@@ -9033,17 +9033,29 @@ G43.1</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="mnuPreferences">
+     <property name="title">
+      <string>Preferences...</string>
+     </property>
+     <addaction name="mnuConfirm_Go_to_G28"/>
+     <addaction name="mnuConfirm_Go_to_G30"/>
+     <addaction name="separator"/>
+     <addaction name="mnuConfirm_define_G28"/>
+     <addaction name="mnuConfirm_define_G30"/>
+    </widget>
     <addaction name="mnuAppOuvrir"/>
     <addaction name="mnuAppEnregistrer"/>
     <addaction name="mnuAppEnregistrerSous"/>
     <addaction name="mnuAppFermerGCode"/>
+    <addaction name="separator"/>
+    <addaction name="mnuPreferences"/>
     <addaction name="separator"/>
     <addaction name="mnuAppQuitter"/>
    </widget>
@@ -9069,6 +9081,16 @@ G43.1</string>
      <addaction name="mnuRestoreG92"/>
      <addaction name="mnuG92_1"/>
     </widget>
+    <widget class="QMenu" name="mnuPredefinedLocations">
+     <property name="title">
+      <string>Predefined locations</string>
+     </property>
+     <addaction name="mnuGoToG28"/>
+     <addaction name="mnuGoToG30"/>
+     <addaction name="separator"/>
+     <addaction name="mnuDefineG28"/>
+     <addaction name="mnuDefineG30"/>
+    </widget>
     <addaction name="separator"/>
     <addaction name="mnu_GrblConfig"/>
     <addaction name="separator"/>
@@ -9076,6 +9098,7 @@ G43.1</string>
     <addaction name="mnu_MPos"/>
     <addaction name="separator"/>
     <addaction name="mnuSet_origine"/>
+    <addaction name="mnuPredefinedLocations"/>
     <addaction name="mnuJog_to"/>
     <addaction name="separator"/>
     <addaction name="mnuDebug_mode"/>
@@ -9235,6 +9258,78 @@ G43.1</string>
   <action name="mnuG5X_reset">
    <property name="text">
     <string>Turn off and reset G54 offsets of all axis</string>
+   </property>
+  </action>
+  <action name="mnuGoToG28">
+   <property name="text">
+    <string>Go to G28 location...</string>
+   </property>
+   <property name="toolTip">
+    <string>Make a rapid move from current location to the machine position defined by the last G28.1
+If no positions are stored with G28.1 then all axes will go to the machine origin.</string>
+   </property>
+  </action>
+  <action name="mnuGoToG30">
+   <property name="text">
+    <string>Go to G30 location...</string>
+   </property>
+   <property name="toolTip">
+    <string>Make a rapid move from current location to the machine position defined by the last G30.1
+If no positions are stored with G30.1 then all axes will go to the machine origin.</string>
+   </property>
+  </action>
+  <action name="mnuDefineG28">
+   <property name="text">
+    <string>Define G28 location...</string>
+   </property>
+  </action>
+  <action name="mnuDefineG30">
+   <property name="text">
+    <string>Define G30 location...</string>
+   </property>
+  </action>
+  <action name="mnuConfirm_Go_to_G28">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Confirm Go to G28</string>
+   </property>
+  </action>
+  <action name="mnuConfirm_Go_to_G30">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Confirm Go to G30</string>
+   </property>
+  </action>
+  <action name="mnuConfirm_define_G28">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Confirm define G28.1 location</string>
+   </property>
+  </action>
+  <action name="mnuConfirm_define_G30">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Confirm define G30.1 location</string>
    </property>
   </action>
  </widget>

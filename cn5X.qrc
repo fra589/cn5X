@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="cn5X">
     <file>images/origine.svg</file>
+    <file>images/questionG28.1.svg</file>
+    <file>images/questionG33.1.svg</file>
     <file>images/btnEmergency.svg</file>
     <file>images/btnEmergencyOff.svg</file>
     <file>images/btnProbeInCercle.svg</file>

@@ -21,7 +21,7 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QCheckBox
 
 class msgIconList:
   NoIcon = QMessageBox.NoIcon           # 0 the message box does not have any icon.
@@ -60,7 +60,9 @@ class msgBox:
          icon=QMessageBox.NoIcon,
          stdButton=QMessageBox.Ok,
          defButton=QMessageBox.NoButton,
-         escButton=QMessageBox.NoButton
+         escButton=QMessageBox.NoButton,
+         dontShowAgain=False,
+         dontShowChecked=False
         ):
     self.msg = QMessageBox()
     self.msg.setWindowTitle(title)
@@ -68,6 +70,11 @@ class msgBox:
     self.msg.setInformativeText(info)
     self.msg.setDetailedText(detail)
     self.msg.setIcon(icon)
+    self.chkDontShow = QCheckBox("Don't show confirmation again")
+    self.chkDontShow.setChecked(dontShowChecked)
+    self.chkDontShow.blockSignals(True)
+    if dontShowAgain:
+      self.msg.addButton(self.chkDontShow, QMessageBox.ResetRole)
     self.msg.setStandardButtons(stdButton)
     self.msg.setDefaultButton(defButton)
     self.msg.setEscapeButton(escButton)
