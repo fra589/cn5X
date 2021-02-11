@@ -58,7 +58,7 @@ setup(name='cn5X++',
   install_requires = [
     'pyqt5',
     'pyserial',
-    ]
+    ],
   options = dict(build_exe = buildOptions),
   executables = executables
   )
