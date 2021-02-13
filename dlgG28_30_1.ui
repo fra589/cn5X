@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>387</width>
-    <height>313</height>
+    <width>403</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <iconset resource="cn5X.qrc">
     <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
     <number>4</number>
    </property>
@@ -34,7 +34,7 @@
     <number>4</number>
    </property>
    <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lblPosition">
      <property name="text">
       <string>Current machine position (MPos)</string>
      </property>
@@ -61,7 +61,7 @@ color: rgb(0, 0, 63);</string>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QGridLayout" name="gridLayout">
       <property name="leftMargin">
        <number>4</number>
       </property>
@@ -69,7 +69,7 @@ color: rgb(0, 0, 63);</string>
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>4</number>
+       <number>0</number>
       </property>
       <property name="bottomMargin">
        <number>0</number>
@@ -97,9 +97,6 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">X</string>
         </property>
@@ -125,14 +122,52 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QCheckBox" name="chkPosX">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -155,9 +190,6 @@ color: rgb(0, 0, 63);</string>
           <family>LED Calculator</family>
           <pointsize>20</pointsize>
          </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
         </property>
         <property name="text">
          <string notr="true">Y</string>
@@ -184,14 +216,52 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="chkPosY">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -214,9 +284,6 @@ color: rgb(0, 0, 63);</string>
           <family>LED Calculator</family>
           <pointsize>20</pointsize>
          </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
         </property>
         <property name="text">
          <string notr="true">Z</string>
@@ -243,14 +310,52 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="chkPosZ">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -273,9 +378,6 @@ color: rgb(0, 0, 63);</string>
           <family>LED Calculator</family>
           <pointsize>20</pointsize>
          </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
         </property>
         <property name="text">
          <string notr="true">A</string>
@@ -302,14 +404,52 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QCheckBox" name="chkPosA">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -332,9 +472,6 @@ color: rgb(0, 0, 63);</string>
           <family>LED Calculator</family>
           <pointsize>20</pointsize>
          </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
         </property>
         <property name="text">
          <string notr="true">B</string>
@@ -361,14 +498,52 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QCheckBox" name="chkPosB">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -391,9 +566,6 @@ color: rgb(0, 0, 63);</string>
           <family>LED Calculator</family>
           <pointsize>20</pointsize>
          </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
         </property>
         <property name="text">
          <string notr="true">C</string>
@@ -420,9 +592,6 @@ color: rgb(0, 0, 63);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
         <property name="text">
          <string notr="true">+00000.000</string>
         </property>
@@ -431,11 +600,52 @@ color: rgb(0, 0, 63);</string>
         </property>
        </widget>
       </item>
+      <item row="5" column="2">
+       <widget class="QCheckBox" name="chkPosC">
+        <property name="font">
+         <font>
+          <family>LED Calculator</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Uncheck to keep this axis at its current position</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox{margin-left: 6px;}
+QCheckBox::indicator{
+	width: 24px;
+	height: 24px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:/cn5X/images/chkBoxChecked.svg);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="imageDeco">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -447,7 +657,7 @@ color: rgb(0, 0, 63);</string>
      </property>
      <property name="icon">
       <iconset resource="cn5X.qrc">
-       <normaloff>:/cn5X/images/questionG28.1.svg</normaloff>:/cn5X/images/questionG28.1.svg</iconset>
+       <normaloff>:/cn5X/images/questionG28.svg</normaloff>:/cn5X/images/questionG28.svg</iconset>
      </property>
      <property name="iconSize">
       <size>

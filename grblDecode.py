@@ -637,6 +637,28 @@ class grblDecode(QObject):
       return self.__offsetG92
 
 
+  def getG28(self, axis=None):
+    if axis is not None:
+      if axis in self.__axisNames:
+        return self.__G5x[28][self.__axisNames.index(axis)]
+      elif isinstance(axis, int):
+        if axis >= 0 and axis < self.__nbAxis:
+          return self.__G5x[28][axis]
+    else:
+      return self.__G5x[28]
+
+
+  def getG30(self, axis=None):
+    if axis is not None:
+      if axis in self.__axisNames:
+        return self.__G5x[30][self.__axisNames.index(axis)]
+      elif isinstance(axis, int):
+        if axis >= 0 and axis < self.__nbAxis:
+          return self.__G5x[30][axis]
+    else:
+      return self.__G5x[30]
+
+
   def grblSetting(self, num):
     ''' Renvoi la description d'un setting de Grbl en fonction de son numéro '''
     # "$-Code"," Setting"," Units"," Setting Description"

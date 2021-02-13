@@ -1,9 +1,17 @@
 <RCC>
   <qresource prefix="cn5X">
-    <file>images/origine.svg</file>
     <file>images/questionG28.1.svg</file>
-    <file>images/questionG33.1.svg</file>
+    <file>images/questionG28.svg</file>
+    <file>images/questionG30.1.svg</file>
+    <file>images/questionG30.svg</file>
+    <file>images/origine.svg</file>
     <file>images/btnEmergency.svg</file>
+    <file>images/chkBoxChecked.svg</file>
+    <file>images/chkBoxDisabledChecked.svg</file>
+    <file>images/chkBoxDisabledUnChecked.svg</file>
+    <file>images/chkBoxUnChecked.svg</file>
+    <file>images/questionG28.svg</file>
+    <file>images/questionG30.svg</file>
     <file>images/btnEmergencyOff.svg</file>
     <file>images/btnProbeInCercle.svg</file>
     <file>images/btnProbeInX+.svg</file>

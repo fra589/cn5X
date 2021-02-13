@@ -809,6 +809,7 @@ class winMain(QtWidgets.QMainWindow):
     Make a rapid move from current location to the position defined by the last G28.1
     If no positions are stored with G28.1 then all axes will go to the machine origin.
     '''
+    '''
     if not self.__settings.value("dontConfirmG28", False, type=bool):
       # Confirmation :
       m = msgBox(
@@ -830,12 +831,19 @@ class winMain(QtWidgets.QMainWindow):
     else:
       # Envoi sans confirmation
       self.__grblCom.gcodePush("G28")
+    '''
+    ''' Appel de la boite de dialogue G28 '''
+    dlg = dlgG28_30_1("G28", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg.setParent(self)
+    dlg.showDialog()
+
 
   @pyqtSlot()
   def on_gotoG30(self):
     '''
     Make a rapid move from current location to the position defined by the last G30.1
     If no positions are stored with G30.1 then all axes will go to the machine origin.
+    '''
     '''
     if not self.__settings.value("dontConfirmG30", False, type=bool):
       # Confirmation :
@@ -858,12 +866,17 @@ class winMain(QtWidgets.QMainWindow):
     else:
       # Envoi sans confirmation
       self.__grblCom.gcodePush("G30")
+    '''
+    ''' Appel de la boite de dialogue G30 '''
+    dlg = dlgG28_30_1("G30", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg.setParent(self)
+    dlg.showDialog()
 
 
   @pyqtSlot()
   def on_mnuDefineG28(self):
     ''' Appel de la boite de dialogue G28.1 '''
-    dlg = dlgG28_30_1("G28", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg = dlgG28_30_1("G28.1", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
     dlg.setParent(self)
     dlg.showDialog()
 
@@ -871,7 +884,7 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_mnuDefineG30(self):
     ''' Appel de la boite de dialogue G30.1 '''
-    dlg = dlgG28_30_1("G30", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    dlg = dlgG28_30_1("G30.1", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
     dlg.setParent(self)
     dlg.showDialog()
 
