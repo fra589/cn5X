@@ -107,13 +107,48 @@ class dlgG92(QObject):
     self.di.chkDefineB.toggled.connect(lambda: self.on_chkDefine_toogle('B'))
     self.di.chkDefineC.toggled.connect(lambda: self.on_chkDefine_toogle('C'))
 
-    self.di.dsbG92valeurX.valueChanged.connect(lambda: self.di.chkDefineX.setChecked(True))
-    self.di.dsbG92valeurY.valueChanged.connect(lambda: self.di.chkDefineY.setChecked(True))
-    self.di.dsbG92valeurZ.valueChanged.connect(lambda: self.di.chkDefineZ.setChecked(True))
-    self.di.dsbG92valeurA.valueChanged.connect(lambda: self.di.chkDefineA.setChecked(True))
-    self.di.dsbG92valeurB.valueChanged.connect(lambda: self.di.chkDefineB.setChecked(True))
-    self.di.dsbG92valeurC.valueChanged.connect(lambda: self.di.chkDefineC.setChecked(True))
+    self.di.chkDefineX.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineX, 0))
+    self.di.chkDefineY.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineY, 1))
+    self.di.chkDefineZ.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineZ, 2))
+    self.di.chkDefineA.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineA, 3))
+    self.di.chkDefineB.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineB, 4))
+    self.di.chkDefineC.stateChanged.connect(lambda: self.on_chkDefine_changed(self.di.chkDefineC, 5))
+
+    self.di.dsbG92valeurX.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurX, self.di.chkDefineX, 0))
+    self.di.dsbG92valeurY.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurY, self.di.chkDefineY, 1))
+    self.di.dsbG92valeurZ.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurZ, self.di.chkDefineZ, 2))
+    self.di.dsbG92valeurA.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurA, self.di.chkDefineA, 3))
+    self.di.dsbG92valeurB.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurB, self.di.chkDefineB, 4))
+    self.di.dsbG92valeurC.valueChanged.connect(lambda: self.on_dsbG92valeur_changed(self.di.dsbG92valeurC, self.di.chkDefineC, 5))
     
+
+  def on_dsbG92valeur_changed(self, dbsChanged, chkDefine, axisNumChanged):
+    # Coche la case correspondante
+    chkDefine.setChecked(True)
+    # Vérifie si 2 axes ont le même nom, et dans ce cas, assure que les 2 valeurs soient la même
+    i = 0
+    for dbs in [self.di.dsbG92valeurX, self.di.dsbG92valeurY, self.di.dsbG92valeurZ, self.di.dsbG92valeurA, self.di.dsbG92valeurB, self.di.dsbG92valeurC]:
+      if dbs != dbsChanged:
+        if i >= self.__nbAxis:
+          break
+        if self.__axisNames[i] == self.__axisNames[axisNumChanged]:
+          # Force le même état des 2 checkBox 
+          dbs.setValue(dbsChanged.value())
+      i += 1
+
+
+  def on_chkDefine_changed(self, chkChanged, axisNumChanged):
+    ''' Vérifie si 2 axes ont le même nom, et dans ce cas, assure que les 2 axes soit cochée ou décochés de la même manière '''
+    i = 0
+    for chk in [self.di.chkDefineX, self.di.chkDefineY, self.di.chkDefineZ, self.di.chkDefineA, self.di.chkDefineB, self.di.chkDefineC]:
+      if chk != chkChanged:
+        if i >= self.__nbAxis:
+          break
+        if self.__axisNames[i] == self.__axisNames[axisNumChanged]:
+          # Force le même état des 2 checkBox 
+          chk.setChecked(chkChanged.isChecked())
+      i += 1
+
 
   def showDialog(self):
     # Centrage de la boite de dialogue sur la fenetre principale
