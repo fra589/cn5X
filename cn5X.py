@@ -5,7 +5,7 @@
 '                                                                         '
 ' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                             '
+' This file: cn5X.py is part of cn5X++                                    '
 '                                                                         '
 ' cn5X++ is free software: you can redistribute it and/or modify it       '
 ' under the terms of the GNU General Public License as published by       '
@@ -37,6 +37,7 @@ from grblDecode import grblDecode
 from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
+from grblProbe import *
 from cn5X_probe import *
 from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
@@ -219,19 +220,6 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuGoToG30.triggered.connect(self.on_gotoG30)
     self.ui.mnuDefineG28.triggered.connect(self.on_mnuDefineG28)
     self.ui.mnuDefineG30.triggered.connect(self.on_mnuDefineG30)
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
     self.ui.mnuResetSerial.triggered.connect(self.on_mnuResetSerial)

@@ -230,9 +230,7 @@ class dlgG28_30_1(QObject):
 
 
   def enableDisableAxis(self, axis: str, enabling: bool):
-    
-    print("Enabling axis {}: {}".format(axis, enabling))
-    
+
     activeColor   = self.di.lblLblPosX.palette().color(QPalette.Active, QPalette.WindowText).name()   # #000000
     disabledColor = self.di.lblLblPosX.palette().color(QPalette.Disabled, QPalette.WindowText).name() # #bebebe
     
@@ -255,7 +253,7 @@ class dlgG28_30_1(QObject):
     self.enableDisableChkPos(axis, enabling)
 
   def enableDisableChkPos(self, axis: str, enabling: bool):
-    
+
     enabledStyle   = "QCheckBox{margin-left: 6px;}"
     enabledStyle  += "QCheckBox::indicator{width: 24px;	height: 24px;}"
     enabledStyle  += "QCheckBox::indicator:unchecked {image: url(:/cn5X/images/chkBoxUnChecked.svg);}"

@@ -128,6 +128,7 @@ class grblComSerial(QObject):
     self.__okToSendGCode = True
     self.sig_serialLock.emit(self.__okToSendGCode)
 
+
   @pyqtSlot(str)
   @pyqtSlot(str, object)
   def gcodeInsert(self, buff: str, flag = COM_FLAG_NO_FLAG):
@@ -411,6 +412,7 @@ class grblComSerial(QObject):
     self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): End."))
 
 
+  @pyqtSlot()
   def run(self):
     ''' Demarre la communication avec le port serie dans un thread separe '''
 
