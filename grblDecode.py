@@ -831,15 +831,67 @@ class grblDecode(QObject):
   @pyqtSlot()
   def waitForGrblReply(self):
     ''' Attente d'une réponse de Grbl, OK ou error ou Alarm '''
+    recu = None
+    def quitOnOk():
+      print("waitForGrblReply(): Reponse OK recue")
+      recu = SIG_OK
+      loop.quit()
+    def quitOnError():
+      print("waitForGrblReply(): Reponse error recue")
+      recu = SIG_ERROR
+      loop.quit()
+    def quitOnAlarm():
+      print("waitForGrblReply(): Reponse Alarm recue")      
+      recu = SIG_ALARM
+      loop.quit()
     loop = QtCore.QEventLoop()
-    self.__grblCom.sig_ok.connect(loop.quit)
-    self.__grblCom.sig_error.connect(loop.quit)
-    self.__grblCom.sig_alarm.connect(loop.quit)
+    self.__grblCom.sig_ok.connect(quitOnOk)
+    self.__grblCom.sig_error.connect(quitOnError)
+    self.__grblCom.sig_alarm.connect(quitOnAlarm)
     loop.exec()
-    self.__grblCom.sig_ok.disconnect(loop.quit)
-    self.__grblCom.sig_error.disconnect(loop.quit)
-    self.__grblCom.sig_alarm.disconnect(loop.quit)
+    self.__grblCom.sig_ok.disconnect(quitOnOk)
+    self.__grblCom.sig_error.disconnect(quitOnError)
+    self.__grblCom.sig_alarm.disconnect(quitOnAlarm)
+    return recu
 
 
+  @pyqtSlot()
+  def waitForGrblProbe(self):
+    ''' Attente d'une réponse de Grbl, Probe ou error ou Alarm '''
+    self.__probeRecu = "Coucou"
+    
+    def quitOnProbe(data: str):
+      print("waitForGrblProbe(): Reponse Probe recue")
+      print(data)
+      resultatProbe = []
+      tblData   = data.split(":")
+      tblValues = tblData[1].split(",")
+      resultatProbe.append(tblData[2] == "1]")
+      resultatProbe.append([])
+      for v in tblValues:
+        resultatProbe[1].append(float(v))
+      resultatProbe.append(SIG_PROBE)
+      self.__probeRecu = resultatProbe
+      loop.quit()
 
+    def quitOnError():
+      print("waitForGrblProbe(): Reponse error recue, renvoi SIG_ERROR({})".format(SIG_ERROR))
+      self.__probeRecu = [False, [], SIG_ERROR]
+      loop.quit()
+
+    def quitOnAlarm():
+      print("waitForGrblProbe(): Reponse Alarm recue")      
+      self.__probeRecu = [False, [], SIG_ALARM]
+      loop.quit()
+
+    loop = QtCore.QEventLoop()
+    self.__grblCom.sig_probe.connect(quitOnProbe)
+    self.__grblCom.sig_error.connect(quitOnError)
+    self.__grblCom.sig_alarm.connect(quitOnAlarm)
+    loop.exec()
+    self.__grblCom.sig_probe.disconnect(quitOnProbe)
+    self.__grblCom.sig_error.disconnect(quitOnError)
+    self.__grblCom.sig_alarm.disconnect(quitOnAlarm)
+    
+    return self.__probeRecu
 

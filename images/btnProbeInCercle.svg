@@ -15,7 +15,7 @@
    version="1.1"
    id="svg4154"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="btnProbeCercleInt.svg">
+   sodipodi:docname="btnProbeInCercle.svg">
   <defs
      id="defs4148" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.5"
-     inkscape:cx="30"
-     inkscape:cy="30"
+     inkscape:zoom="7.5314938"
+     inkscape:cx="13.078517"
+     inkscape:cy="22.871479"
      inkscape:document-units="px"
      inkscape:current-layer="g4796"
      showgrid="true"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,7 +62,7 @@
        id="g4796">
       <circle
          r="28.491228"
-         style="fill:#e0e0e0;fill-opacity:1;stroke:#000000;stroke-width:1.01754391;stroke-opacity:1"
+         style="fill:#e0e0e0;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
          cy="311.125"
          cx="30"
          id="path3984" />
@@ -71,7 +71,7 @@
          id="circle4791"
          cx="30"
          cy="311.125"
-         style="fill:#3f3f3f;fill-opacity:1;stroke:#000000;stroke-width:0.87719309;stroke-opacity:1" />
+         style="fill:#7f7f7f;fill-opacity:1;stroke:#000000;stroke-width:0.87719309;stroke-opacity:1" />
       <circle
          style="fill:#e40000;fill-opacity:1;stroke:#800000;stroke-opacity:1"
          r="2.5"

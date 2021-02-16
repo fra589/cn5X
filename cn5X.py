@@ -175,8 +175,11 @@ class winMain(QtWidgets.QMainWindow):
     self.__statusText = ""
     self.ui.statusBar.showMessage(self.__statusText)
 
-    # Positionne l'etat d'activation des controles
-    self.setEnableDisableGroupes()
+    # flag pour mise à jour de l'interface résultats probe XY
+    self.xMin = False
+    self.xMax = False
+    self.yMin = False
+    self.yMax = False
 
     '''---------- Connections des evennements de l'interface graphique ----------'''
     
@@ -326,15 +329,35 @@ class winMain(QtWidgets.QMainWindow):
     # Changement d'onglets
     self.__currentQTabMainIndex = self.ui.qtabMain.currentIndex()
     self.ui.qtabMain.currentChanged.connect(self.on_qtabMain_currentChanged)
-    # Boutons de probe
+
+    # Boutons de probe Z
     self.ui.btnProbeZ.clicked.connect(self.on_btnProbeZ)
     self.ui.btnGoToSensor.clicked.connect(self.on_btnGoToSensor)
     self.ui.btnG49.clicked.connect(self.on_btnG49)
     self.ui.btnG43_1.clicked.connect(self.on_btnG43_1)
     self.ui.btnSetOriginZ.clicked.connect(self.on_btnSetOriginZ)
     self.ui.chkSeekZ.clicked.connect(self.on_chkSeekZ)
-    
-    
+    self.ui.chkSeekXY.clicked.connect(self.on_chkSeekXY)
+
+    # Boutons probe XY
+    self.ui.btnProbeXY_0.clicked.connect(lambda: self.on_btnProbeXY(0))
+    self.ui.btnProbeXY_1.clicked.connect(lambda: self.on_btnProbeXY(1))
+    self.ui.btnProbeXY_2.clicked.connect(lambda: self.on_btnProbeXY(2))
+    self.ui.btnProbeXY_3.clicked.connect(lambda: self.on_btnProbeXY(3))
+    self.ui.btnProbeXY_4.clicked.connect(lambda: self.on_btnProbeXY(4))
+    self.ui.btnProbeXY_5.clicked.connect(lambda: self.on_btnProbeXY(5))
+    self.ui.btnProbeXY_6.clicked.connect(lambda: self.on_btnProbeXY(6))
+    self.ui.btnProbeXY_7.clicked.connect(lambda: self.on_btnProbeXY(7))
+    self.ui.btnProbeXY_8.clicked.connect(lambda: self.on_btnProbeXY(8))
+    self.ui.btnHomeMoinsX.clicked.connect(lambda: self.on_btnHomeXY("moinsX"))
+    self.ui.btnHomeMoinsY.clicked.connect(lambda: self.on_btnHomeXY("moinsY"))
+    self.ui.btnHomeCenterXY.clicked.connect(lambda: self.on_btnHomeXY("centerXY"))
+    self.ui.btnHomeCenterX.clicked.connect(lambda: self.on_btnHomeXY("centerX"))
+    self.ui.btnHomeCenterY.clicked.connect(lambda: self.on_btnHomeXY("centerY"))
+    self.ui.btnHomePlusX.clicked.connect(lambda: self.on_btnHomeXY("plusX"))
+    self.ui.btnHomePlusY.clicked.connect(lambda: self.on_btnHomeXY("plusY"))
+    self.ui.btnResetResults.clicked.connect(self.on_btnResetResults)
+
     #--------------------------------------------------------------------------------------
     # Traitement des arguments de la ligne de commande
     #--------------------------------------------------------------------------------------
@@ -369,8 +392,6 @@ class winMain(QtWidgets.QMainWindow):
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
 
-
-    ### GBGB ### Tests
 
 
   def populatePortList(self):
@@ -410,40 +431,69 @@ class winMain(QtWidgets.QMainWindow):
     '''Change probe XY interface intérieur ou extérieur'''
     if self.ui.rbtProbeInsideXY.isChecked():
       self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeInCercle.svg")
-      self.ui.btnProbeXY_0.setToolTip("Run probe in X+, X-, Y+ and Y- direction to find center.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+, X-, Y+ and Y- direction to find inside center.</p>'
+      toolTip += '<p><img src=":/doc/doc/probeInsideCenter.svg"/></p></body></html>'
+      self.ui.btnProbeXY_0.setToolTip(toolTip)
       self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeInX-Y+.svg")
-      self.ui.btnProbeXY_1.setToolTip("Run probe in X- and Y+ direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y+ direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_1.setToolTip(toolTip)
       self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeInY+.svg")
       self.ui.btnProbeXY_2.setToolTip("Run probe in Y+ direction.")
       self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeInX+Y+.svg")
-      self.ui.btnProbeXY_3.setToolTip("Run probe in X+ and Y+ direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y+ direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_3.setToolTip(toolTip)
       self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeInX+.svg")
       self.ui.btnProbeXY_4.setToolTip("Run probe in X+ direction.")
       self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeInX+Y-.svg")
-      self.ui.btnProbeXY_5.setToolTip("Run probe in X+ and Y- direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y- direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_5.setToolTip(toolTip)
       self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeInY-.svg")
       self.ui.btnProbeXY_6.setToolTip("Run probe in Y- direction.")
       self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeInX-Y-.svg")
-      self.ui.btnProbeXY_7.setToolTip("Run probe in X- and Y- direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y- direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_7.setToolTip(toolTip)
       self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeInX-.svg")
       self.ui.btnProbeXY_8.setToolTip("Run probe in X- direction.")
+    
     else: # self.ui.rbtProbeOutsideXY.isChecked()
       self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeOutCercle.svg")
-      self.ui.btnProbeXY_0.setToolTip("Run probe in X+, X-, Y+ and Y- direction to find center.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+, X-, Y+ and Y- direction to find outside center.</p>'
+      toolTip += '<p><img src=":/doc/doc/probeOutsideCenter.svg"/></p></body></html>'
+      self.ui.btnProbeXY_0.setToolTip(toolTip)
       self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeOutX+Y-.svg")
-      self.ui.btnProbeXY_1.setToolTip("Run probe in X+ and Y- direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y- direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_1.setToolTip(toolTip)
       self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeOutY-.svg")
       self.ui.btnProbeXY_2.setToolTip("Run probe in Y- direction.")
       self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeOutX-Y-.svg")
-      self.ui.btnProbeXY_3.setToolTip("Run probe in X- and Y- direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y- direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_3.setToolTip(toolTip)
       self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeOutX-.svg")
       self.ui.btnProbeXY_4.setToolTip("Run probe in X- direction.")
       self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeOutX-Y+.svg")
-      self.ui.btnProbeXY_5.setToolTip("Run probe in X- and Y+ direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y+ direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_5.setToolTip(toolTip)
       self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeOutY+.svg")
       self.ui.btnProbeXY_6.setToolTip("Run probe in Y+ direction.")
       self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeOutX+Y+.svg")
-      self.ui.btnProbeXY_7.setToolTip("Run probe in X+ and Y+ direction.")
+      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y+ direction.</p>'
+      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
+      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
+      self.ui.btnProbeXY_7.setToolTip(toolTip)
       self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeOutX+.svg")
       self.ui.btnProbeXY_8.setToolTip("Run probe in X+ direction.")
     
@@ -877,10 +927,6 @@ class winMain(QtWidgets.QMainWindow):
     dlg.showDialog()
 
 
-
-
-
-
   @pyqtSlot(int)
   def on_qtabMain_currentChanged(self, tabIndex):
     ''' Restore les paramètres de probe à l'activation du Tab concerné '''
@@ -888,16 +934,29 @@ class winMain(QtWidgets.QMainWindow):
       if tabIndex == CN5X_TAB_MAIN:
         pass
       elif tabIndex == CN5X_TAB_PROBE_XY:
-        pass
+        self.ui.dsbToolDiameter.setValue(self.__settings.value("Probe/ToolDiameter", DEFAULT_TOOL_DIAMATER, type=float))
+        self.ui.dsbDistanceXY.setValue(self.__settings.value("Probe/DistanceXY", DEFAULT_PROBE_DISTANCE, type=float))
+        self.ui.dsbClearanceXY.setValue(self.__settings.value("Probe/ClearanceXY", DEFAULT_CLEARANCE_XY, type=float))
+        self.ui.dsbClearanceZ.setValue(self.__settings.value("Probe/ClearanceZ", DEFAULT_CLEARANCE_Z, type=float))
+        self.ui.dsbFeedRateXY.setValue(self.__settings.value("Probe/FeedRateXY", DEFAULT_PROBE_FEED_RATE, type=float))
+        self.ui.chkSeekXY.setChecked(self.__settings.value("Probe/DoubleProbeXY", DEFAULT_PROBE_SEEK, type=bool))
+        self.on_chkSeekXY()
+        self.ui.dbsSeekRateXY.setValue(self.__settings.value("Probe/SeekRateXY", DEFAULT_PROBE_SEEK_RATE, type=float))
+        self.ui.dsbPullOffXY.setValue(self.__settings.value("Probe/PullOffXY", DEFAULT_PROBE_PULL_OFF_DISTANCE_XY, type=float))
+        self.ui.gbMoveAfterXY.setChecked(self.__settings.value("Probe/MoveAfterXY", DEFAULT_PROBE_MOVE_AFTER_XY, type=bool))
+        self.ui.rbtMove2PointAfterXY.setChecked(self.__settings.value("Probe/go2PointXY", DEFAULT_PROBE_GO_2_POINT_AFTER_XY, type=bool))
+        self.ui.rbtRetractAfterXY.setChecked(self.__settings.value("Probe/RetractAfterXY", DEFAULT_PROBE_RETRACT_AFTER_XY, type=bool))
+        self.ui.dsbRetractXY.setValue(self.__settings.value("Probe/RetractDistanceXY", DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_XY, type=float))
+
       elif tabIndex == CN5X_TAB_PROBE_Z:
-        self.ui.dsbDistanceZ.setValue(self.__settings.value("Probe/DistanceZ", DEFAULT_PROBE_DISTANCE_Z, type=float))
+        self.ui.dsbDistanceZ.setValue(self.__settings.value("Probe/DistanceZ", DEFAULT_PROBE_DISTANCE, type=float))
         self.ui.dsbFeedRateZ.setValue(self.__settings.value("Probe/FeedRateZ", DEFAULT_PROBE_FEED_RATE, type=float))
-        self.ui.chkSeekZ.setChecked(self.__settings.value("Probe/Seek", DEFAULT_PROBE_SEEK, type=bool))
+        self.ui.chkSeekZ.setChecked(self.__settings.value("Probe/DoubleProbeZ", DEFAULT_PROBE_SEEK, type=bool))
         self.on_chkSeekZ()
         self.ui.dbsSeekRateZ.setValue(self.__settings.value("Probe/SeekRateZ", DEFAULT_PROBE_SEEK_RATE, type=float))
         self.ui.dsbPullOffZ.setValue(self.__settings.value("Probe/PullOffZ", DEFAULT_PROBE_PULL_OFF_DISTANCE_Z, type=float))
         self.ui.gbMoveAfterZ.setChecked(self.__settings.value("Probe/MoveAfterZ", DEFAULT_PROBE_MOVE_AFTER_Z, type=bool))
-        self.ui.rbtMove2PointAfterZ.setChecked(self.__settings.value("Probe/Move2PointAfterZ", DEFAULT_PROBE_MOVE_2_POINT_AFTER_Z, type=bool))
+        self.ui.rbtMove2PointAfterZ.setChecked(self.__settings.value("Probe/go2PointZ", DEFAULT_PROBE_GO_2_POINT_AFTER_Z, type=bool))
         self.ui.rbtRetractAfterZ.setChecked(self.__settings.value("Probe/RetractAfterZ", DEFAULT_PROBE_RETRACT_AFTER_Z, type=bool))
         self.ui.dsbRetractZ.setValue(self.__settings.value("Probe/RetractDistanceZ", DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_Z, type=float))
         self.ui.rbtDefineOriginZ_G54.setChecked(self.__settings.value("Probe/DefineOriginZ_G54", DEFAULT_PROBE_ORIGINE_G54_Z, type=bool))
@@ -919,14 +978,13 @@ class winMain(QtWidgets.QMainWindow):
     doubleProbe   = self.ui.chkSeekZ.isChecked()
     if probeSeekRate < probeFeedRate:
       probeSeekRate = probeFeedRate
+      self.ui.dbsSeekRateZ.setValue(probeSeekRate)
 
     # On mémorise le mode G90/G91 actif
     oldG90_91 = self.ui.lblCoord.text()
     if oldG90_91 != "G91":
       # On force le mode relatif
       self.__grblCom.gcodePush("G91")
-      # Attend le traitement de G91 par Grbl
-      self.__decode.waitForGrblReply()
 
     try:
       if doubleProbe:
@@ -940,7 +998,7 @@ class winMain(QtWidgets.QMainWindow):
         retractGCode = "G0Z{:+0.3f}".format(probePullOff)
         self.__grblCom.gcodePush(retractGCode)
         # Pause pour laisser le temps à Grbl de lancer le mouvement de retract
-        time.sleep(0.1)
+        time.sleep(0.25)
         while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
           # Process events to receive signals en attendant que le GCode soit traité
           QCoreApplication.processEvents()
@@ -967,19 +1025,23 @@ class winMain(QtWidgets.QMainWindow):
         # On retract d'une distance probeRetract
         retractGCode = "G0Z{:+0.3f}".format(probeRetract)
         self.__grblCom.gcodePush(retractGCode)
+
     except ValueError as e:
       # Erreur arguments d'appel de self.__probe.g38()
       # L'axe demandé n'est pas dans la liste de self.__axisNames
-      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): L'axe demandé ({}) n'est pas dans la liste des axes de cette machine").format(e))
+      self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): The requested axis ({}) is not in the axis list of this machine").format(e))
       pass
+
     except probeError as e:
       # Reception de OK, error ou alarm avant le résultat de probe
       self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): {} no response from probe").format(e))
       pass
+
     except probeFailed as e:
       # Probe action terminée mais sans que la sonde ne touche
       self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): {} Probe error").format(e))
       pass
+
     except speedError as e:
       # Vitesse F non définie, nulle ou négative
       self.log(logSeverity.error.value, self.tr("on_btnProbeZ(): F Speed undefined or less or equal to zero").format(e))
@@ -993,19 +1055,15 @@ class winMain(QtWidgets.QMainWindow):
       self.__initialProbeZ = True
       if self.__initialToolLenght:
         self.calculateToolOffset()
-      aNum = 0
-      for a in self.__axisNames:
-        value = self.__probeResult.getAxis(aNum)
-        aNum += 1
 
     # Pour finir, on sauvegarde les derniers paramètres de probe dans les settings
     self.__settings.setValue("Probe/DistanceZ", self.ui.dsbDistanceZ.value())
     self.__settings.setValue("Probe/FeedRateZ", self.ui.dsbFeedRateZ.value())
-    self.__settings.setValue("Probe/Seek", self.ui.chkSeekZ.isChecked())
+    self.__settings.setValue("Probe/DoubleProbeZ", self.ui.chkSeekZ.isChecked())
     self.__settings.setValue("Probe/SeekRateZ", self.ui.dbsSeekRateZ.value())
     self.__settings.setValue("Probe/PullOffZ", self.ui.dsbPullOffZ.value())
     self.__settings.setValue("Probe/MoveAfterZ", self.ui.gbMoveAfterZ.isChecked())
-    self.__settings.setValue("Probe/Move2PointAfterZ", self.ui.rbtMove2PointAfterZ.isChecked())
+    self.__settings.setValue("Probe/go2PointZ", self.ui.rbtMove2PointAfterZ.isChecked())
     self.__settings.setValue("Probe/RetractAfterZ", self.ui.rbtRetractAfterZ.isChecked())
     self.__settings.setValue("Probe/RetractDistanceZ", self.ui.dsbRetractZ.value())
 
@@ -1118,6 +1176,368 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dbsSeekRateZ.setEnabled(False)
       self.ui.lblPullOffZ.setEnabled(False)
       self.ui.dsbPullOffZ.setEnabled(False)
+
+
+  def on_btnResetResults(self):
+    # Remise à 0 des résultats probe XY en gris
+    self.ui.qfProbeResultXmax.setText("+0000.000")
+    self.ui.qfProbeResultXmax.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultYmax.setText("+0000.000")
+    self.ui.qfProbeResultYmax.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultXcenter.setText("+0000.000")
+    self.ui.qfProbeResultXcenter.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultYcenter.setText("+0000.000")
+    self.ui.qfProbeResultYcenter.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultXmin.setText("+0000.000")
+    self.ui.qfProbeResultXmin.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultYmin.setText("+0000.000")
+    self.ui.qfProbeResultYmin.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultXlength.setText("+0000.000")
+    self.ui.qfProbeResultXlength.setStyleSheet("color: #808080;")
+    self.ui.qfProbeResultYlength.setText("+0000.000")
+    self.ui.qfProbeResultYlength.setStyleSheet("color: #808080;")
+    # flag pour mise à jour de l'interface résultats probe XY
+    self.xMin = False
+    self.xMax = False
+    self.yMin = False
+    self.yMax = False
+    # Desactivation des boutons de définition origine
+    self.ui.btnHomeCenterX.setEnabled(False)
+    self.ui.btnHomeCenterXY.setEnabled(False)
+    self.ui.btnHomeCenterY.setEnabled(False)
+    self.ui.btnHomeMoinsX.setEnabled(False)
+    self.ui.btnHomeMoinsY.setEnabled(False)
+    self.ui.btnHomePlusX.setEnabled(False)
+    self.ui.btnHomePlusY.setEnabled(False)
+
+
+  def on_btnProbeXY(self, btnNum: int):
+    ''' Déclenchement du probe X ou Y en fonction du bouton et du sens inside ou outside '''
+
+    # Récupération des paramètres définis dans l'interface graphique
+    probeInside    = self.ui.rbtProbeInsideXY.isChecked()
+    probeOutside   = self.ui.rbtProbeOutsideXY.isChecked()
+    toolDiameter   = self.ui.dsbToolDiameter.value()
+    probeDistance  = self.ui.dsbDistanceXY.value()
+    clearanceXY    = self.ui.dsbClearanceXY.value()
+    clearanceZ     = self.ui.dsbClearanceZ.value()
+    feedRateXY     = self.ui.dsbFeedRateXY.value()
+    doubleProbeXY  = self.ui.chkSeekXY.isChecked()
+    seekRateXY     = self.ui.dbsSeekRateXY.value()
+    if seekRateXY < feedRateXY:
+      seekRateXY = feedRateXY
+      self.ui.dbsSeekRateXY.setValue(seekRateXY)
+    pullOffXY      = self.ui.dsbPullOffXY.value()
+    moveAfterXY    = self.ui.gbMoveAfterXY.isChecked()
+    go2pointXY     = self.ui.rbtMove2PointAfterXY.isChecked()
+    retractAfterXY = self.ui.rbtRetractAfterXY.isChecked()
+    retractXY      = self.ui.dsbRetractXY.value()
+
+    # On mémorise le mode G90/G91 actif
+    oldG90_91 = self.ui.lblCoord.text()
+    if oldG90_91 != "G91":
+      # On force le mode de déplacement relatif
+      self.__grblCom.gcodePush("G91")
+
+    def probeXplus(length = probeDistance):
+      if doubleProbeXY:
+        pr = self.__probe.g38(P=3, F=seekRateXY, X=length, g2p=False)
+        if probeInside:
+          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
+          self.xMax = True
+        else:
+          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
+          self.xMin = True
+        self.calculateCenterXY()
+        self.__grblCom.gcodePush("G0X{}".format(-pullOffXY))
+        time.sleep(0.25)
+        while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+          QCoreApplication.processEvents()
+        fineProbeDistance = pullOffXY
+      else:
+        fineProbeDistance = length
+      if self.ui.gbMoveAfterXY.isChecked():
+        go2point = True
+      else:
+        go2point = False
+      pr = self.__probe.g38(P=3, F=feedRateXY, X=fineProbeDistance, g2p=go2point)
+      if probeInside:
+        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
+        self.xMax = True
+      else:
+        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
+        self.xMin = True
+      self.calculateCenterXY()
+    
+    def probeXmoins(length = probeDistance):
+      if doubleProbeXY:
+        pr = self.__probe.g38(P=3, F=seekRateXY, X=-length, g2p=False)
+        if probeInside:
+          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
+          self.xMin = True
+        else:
+          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
+          self.xMax = True
+        self.calculateCenterXY()
+        self.__grblCom.gcodePush("G0X{}".format(pullOffXY))
+        time.sleep(0.25)
+        while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+          QCoreApplication.processEvents()
+        fineProbeDistance = pullOffXY
+      else:
+        fineProbeDistance = length
+      if self.ui.gbMoveAfterXY.isChecked():
+        go2point = True
+      else:
+        go2point = False
+      pr = self.__probe.g38(P=3, F=feedRateXY, X=-fineProbeDistance, g2p=go2point)
+      if probeInside:
+        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
+        self.xMin = True
+      else:
+        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
+        self.xMax = True
+      self.calculateCenterXY()
+
+    def probeYplus(length = probeDistance):
+      if doubleProbeXY:
+        pr = self.__probe.g38(P=3, F=seekRateXY, Y=length, g2p=False)
+        if probeInside:
+          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
+          self.yMax = True
+        else:
+          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
+          self.yMin = True
+        self.calculateCenterXY()
+        self.__grblCom.gcodePush("G0Y{}".format(-pullOffXY))
+        time.sleep(0.25)
+        while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+          QCoreApplication.processEvents()
+        fineProbeDistance = pullOffXY
+      else:
+        fineProbeDistance = length
+      if self.ui.gbMoveAfterXY.isChecked():
+        go2point = True
+      else:
+        go2point = False
+      pr = self.__probe.g38(P=3, F=feedRateXY, Y=fineProbeDistance, g2p=go2point)
+      if probeInside:
+        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
+        self.yMax = True
+      else:
+        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
+        self.yMin = True
+      self.calculateCenterXY()
+
+    def probeYmoins(length = probeDistance):
+      if doubleProbeXY:
+        pr = self.__probe.g38(P=3, F=seekRateXY, Y=-length, g2p=False)
+        if probeInside:
+          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
+          self.yMin = True
+        else:
+          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
+          self.yMax = True
+        self.calculateCenterXY()
+        self.__grblCom.gcodePush("G0Y{}".format(pullOffXY))
+        time.sleep(0.25)
+        while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+          QCoreApplication.processEvents()
+        fineProbeDistance = pullOffXY
+      else:
+        fineProbeDistance = length
+      if self.ui.gbMoveAfterXY.isChecked():
+        go2point = True
+      else:
+        go2point = False
+      pr = self.__probe.g38(P=3, F=feedRateXY, Y=-fineProbeDistance, g2p=go2point)
+      if probeInside:
+        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
+        self.yMin = True
+      else:
+        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
+        self.yMax = True
+      self.calculateCenterXY()
+
+    try:
+
+      if btnNum == 4 and probeInside \
+      or btnNum == 8 and probeOutside: # inside X+, outside X+
+        probeXplus()
+        if retractAfterXY:
+          self.__grblCom.gcodePush("G0X{}".format(-retractXY))
+
+      elif btnNum == 8 and probeInside \
+      or   btnNum == 4 and probeOutside: # inside X-, outside X-
+        probeXmoins()
+        if retractAfterXY:
+          self.__grblCom.gcodePush("G0X{}".format(retractXY))
+
+      elif btnNum == 2 and probeInside \
+      or   btnNum == 6 and probeOutside: # inside Y+, outside Y+
+        probeYplus()
+        if retractAfterXY:
+          self.__grblCom.gcodePush("G0Y{}".format(-retractXY))
+
+      elif btnNum == 6 and probeInside \
+      or   btnNum == 2 and probeOutside: # inside Y-, outside Y-
+        probeYmoins()
+        if retractAfterXY:
+          self.__grblCom.gcodePush("G0Y{}".format(retractXY))
+
+      elif btnNum == 3 and probeInside: # inside X+, Y+
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXplus(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance, probeDistance - clearanceXY))
+        print("Envoi 2eme probe")
+        probeYplus(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY))
+
+      elif btnNum == 7 and probeOutside: # outside X+, Y+
+        pass
+      elif btnNum == 5 and probeInside \
+      or   btnNum == 1 and probeOutside: # inside X+, Y-, outside X+, Y-
+        pass
+      elif btnNum == 1 and probeInside \
+      or   btnNum == 5 and probeOutside: # inside X-, Y+, outside X-, Y+
+        pass
+      elif btnNum == 7 and probeInside \
+      or  btnNum == 3 and probeOutside: # inside X-, Y-, outside X-, Y-
+        pass
+      elif btnNum == 0 and probeInside: # inside Full center 
+        pass
+      elif btnNum == 0 and probeOutside: # outside Full center 
+        pass
+
+    except ValueError as e:
+      # Erreur arguments d'appel de self.__probe.g38()
+      # L'axe demandé n'est pas dans la liste de self.__axisNames
+      self.log(logSeverity.error.value, self.tr("on_btnProbeXY(): The requested axis ({}) is not in the axis list of this machine").format(e))
+      pass
+
+    except probeError as e:
+      # Reception de OK, error ou alarm avant le résultat de probe
+      self.log(logSeverity.error.value, self.tr("on_btnProbeXY(): {} no response from probe").format(e))
+      pass
+
+    except probeFailed as e:
+      # Probe action terminée mais sans que la sonde ne touche
+      self.log(logSeverity.error.value, self.tr("on_btnProbeXY(): {} Probe error").format(e))
+      pass
+
+    except speedError as e:
+      # Vitesse F non définie, nulle ou négative
+      self.log(logSeverity.error.value, self.tr("on_btnProbeXY(): F Speed undefined or less or equal to zero").format(e))
+      pass
+    
+    if oldG90_91 != "G91":
+      # On restore le mode relatif ou absolu
+      self.__grblCom.gcodePush(oldG90_91)
+
+    # Pour finir, on sauvegarde les derniers paramètres de probe dans les settings
+    self.__settings.setValue("Probe/ToolDiameter", self.ui.dsbToolDiameter.value())
+    self.__settings.setValue("Probe/DistanceXY", self.ui.dsbDistanceXY.value())
+    self.__settings.setValue("Probe/ClearanceXY", self.ui.dsbClearanceXY.value())
+    self.__settings.setValue("Probe/ClearanceZ", self.ui.dsbClearanceZ.value())
+    self.__settings.setValue("Probe/FeedRateXY", self.ui.dsbFeedRateXY.value())
+    self.__settings.setValue("Probe/DoubleProbeXY", self.ui.chkSeekXY.isChecked())
+    self.__settings.setValue("Probe/SeekRateXY", self.ui.dbsSeekRateXY.value())
+    self.__settings.setValue("Probe/PullOffXY", self.ui.dsbPullOffXY.value())
+    self.__settings.setValue("Probe/MoveAfterXY", self.ui.gbMoveAfterXY.isChecked())
+    self.__settings.setValue("Probe/go2PointXY", self.ui.rbtMove2PointAfterXY.isChecked())
+    self.__settings.setValue("Probe/RetractAfterXY", self.ui.rbtRetractAfterXY.isChecked())
+    self.__settings.setValue("Probe/RetractDistanceXY", self.ui.dsbRetractXY.value())
+
+
+  def calculateCenterXY(self):
+    if self.xMin and self.xMax:
+      self.ui.qfProbeResultXcenter.setText('{:+0.3f}'.format((float(self.ui.qfProbeResultXmax.text())+float(self.ui.qfProbeResultXmin.text()))/2))
+      self.ui.qfProbeResultXcenter.setStyleSheet("color: #000020;")
+      self.ui.qfProbeResultXlength.setText('{:+0.3f}'.format(float(self.ui.qfProbeResultXmax.text())-float(self.ui.qfProbeResultXmin.text())))
+      self.ui.qfProbeResultXlength.setStyleSheet("color: #000020;")
+      self.ui.btnHomeCenterX.setEnabled(True)
+    if self.yMin and self.yMax:
+      self.ui.qfProbeResultYcenter.setText('{:+0.3f}'.format((float(self.ui.qfProbeResultYmax.text())+float(self.ui.qfProbeResultYmin.text()))/2))
+      self.ui.qfProbeResultYcenter.setStyleSheet("color: #000020;")
+      self.ui.qfProbeResultYlength.setText('{:+0.3f}'.format(float(self.ui.qfProbeResultYmax.text())-float(self.ui.qfProbeResultYmin.text())))
+      self.ui.qfProbeResultYlength.setStyleSheet("color: #000020;")
+      self.ui.btnHomeCenterY.setEnabled(True)
+    if self.xMin:
+      self.ui.btnHomeMoinsX.setEnabled(True)
+    if self.xMax:
+      self.ui.btnHomePlusX.setEnabled(True)
+    if self.yMin:
+      self.ui.btnHomeMoinsY.setEnabled(True)
+    if self.yMax:
+      self.ui.btnHomePlusY.setEnabled(True)
+    if self.xMin and self.xMax and self.yMin and self.yMax:
+      self.ui.btnHomeCenterXY.setEnabled(True)
+
+
+  def on_btnHomeXY(self, action: str):
+    ''' XY Origin definition '''
+    
+    # Récupération des paramètres définis dans l'interface graphique
+    self.ui.rbtDefineOriginXY_G54
+    self.ui.rbtDefineOriginXY_G92
+    self.ui.dsbOriginOffsetX
+    self.ui.dsbOriginOffsetY
+
+    if  action == "moinsX":
+      pass
+    elif action == "moinsY":
+      pass
+    elif action == "centerXY":
+      pass
+    elif action == "centerX":
+      pass
+    elif action == "centerY":
+      pass
+    elif action == "plusX":
+      pass
+    elif action == "plusY":
+      pass
+
+
+  @pyqtSlot()
+  def on_chkSeekXY(self):
+    if self.ui.chkSeekXY.isChecked():
+      self.ui.dbsSeekRateXY.setEnabled(True)
+      self.ui.lblPullOffXY.setEnabled(True)
+      self.ui.dsbPullOffXY.setEnabled(True)
+    else:
+      self.ui.dbsSeekRateXY.setEnabled(False)
+      self.ui.lblPullOffXY.setEnabled(False)
+      self.ui.dsbPullOffXY.setEnabled(False)
+
+
+
+
+
+
+
+
 
 
   @pyqtSlot()

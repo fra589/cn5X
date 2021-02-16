@@ -5457,7 +5457,7 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="spacing">
             <number>0</number>
@@ -5470,7 +5470,7 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>4</height>
+               <height>2</height>
               </size>
              </property>
             </spacer>
@@ -5608,7 +5608,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="6" column="0">
-                  <widget class="QLabel" name="label_30">
+                  <widget class="QLabel" name="lblPullOffXY">
                    <property name="toolTip">
                     <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
                    </property>
@@ -5618,7 +5618,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="3" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY_4">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceZ">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5662,7 +5662,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="1" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY_5">
+                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5735,12 +5735,12 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                     <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
                    </property>
                    <property name="text">
-                    <string>Probe distance</string>
+                    <string>Length</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
+                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5774,7 +5774,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="2" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY_3">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5823,7 +5823,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                     <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
                    </property>
                    <property name="text">
-                    <string>Probe diameter</string>
+                    <string>Tool diameter</string>
                    </property>
                   </widget>
                  </item>
@@ -5970,13 +5970,23 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
               <property name="bottomMargin">
                <number>0</number>
               </property>
-              <property name="spacing">
+              <property name="horizontalSpacing">
+               <number>4</number>
+              </property>
+              <property name="verticalSpacing">
                <number>0</number>
               </property>
               <item row="0" column="0">
                <widget class="QLabel" name="label_5">
                 <property name="text">
-                 <string>Results</string>
+                 <string>Results&lt;br /&gt;
+&lt;i&gt;(machine coordinates)&lt;/i&gt;</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::RichText</enum>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -6017,7 +6027,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   <number>6</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QWidget" name="qfProbeResultXmax" native="true">
+                  <widget class="QWidget" name="qwResultsXY_2" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_18">
                     <property name="spacing">
                      <number>0</number>
@@ -6035,7 +6045,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_3">
+                     <widget class="QLabel" name="lblLblPosX_2">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6054,16 +6064,13 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
-                      </property>
                       <property name="text">
                        <string notr="true">X+</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="lblLastProbZ_2">
+                     <widget class="QLabel" name="qfProbeResultXmax">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>3</horstretch>
@@ -6082,8 +6089,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6097,7 +6104,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QWidget" name="qfProbeZResult_3" native="true">
+                  <widget class="QWidget" name="qwResultsXY_3" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_19">
                     <property name="spacing">
                      <number>0</number>
@@ -6115,7 +6122,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_4">
+                     <widget class="QLabel" name="lblLblPosY_2">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6133,9 +6140,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">Y+</string>
@@ -6162,8 +6166,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6177,7 +6181,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QWidget" name="qfProbeZResult_5" native="true">
+                  <widget class="QWidget" name="qwResultsXY_4" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_21">
                     <property name="spacing">
                      <number>0</number>
@@ -6195,7 +6199,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_6">
+                     <widget class="QLabel" name="lblLblPosX_3">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6213,9 +6217,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">X center</string>
@@ -6242,8 +6243,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6257,7 +6258,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QWidget" name="qfProbeZResult_4" native="true">
+                  <widget class="QWidget" name="qwResultsXY_5" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_20">
                     <property name="spacing">
                      <number>0</number>
@@ -6275,7 +6276,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_5">
+                     <widget class="QLabel" name="lblLblPosY_3">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6293,9 +6294,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">Y center</string>
@@ -6322,8 +6320,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6337,7 +6335,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="2" column="0">
-                  <widget class="QWidget" name="qfProbeZResult_7" native="true">
+                  <widget class="QWidget" name="qwResultsXY_6" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_23">
                     <property name="spacing">
                      <number>0</number>
@@ -6355,7 +6353,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_8">
+                     <widget class="QLabel" name="lblLblPosX_4">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6373,9 +6371,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">X-</string>
@@ -6402,8 +6397,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6417,7 +6412,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QWidget" name="qfProbeZResult_6" native="true">
+                  <widget class="QWidget" name="qwResultsXY_7" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_22">
                     <property name="spacing">
                      <number>0</number>
@@ -6435,7 +6430,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_7">
+                     <widget class="QLabel" name="lblLblPosY_4">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6453,9 +6448,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">Y-</string>
@@ -6482,8 +6474,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6497,7 +6489,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="3" column="0">
-                  <widget class="QWidget" name="qfProbeZResult_8" native="true">
+                  <widget class="QWidget" name="qwResultsXY_8" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_24">
                     <property name="spacing">
                      <number>0</number>
@@ -6515,7 +6507,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_9">
+                     <widget class="QLabel" name="lblLblPosX_5">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6533,9 +6525,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">X length</string>
@@ -6562,8 +6551,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6577,7 +6566,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="3" column="1">
-                  <widget class="QWidget" name="qfProbeZResult_9" native="true">
+                  <widget class="QWidget" name="qwResultsXY_9" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_25">
                     <property name="spacing">
                      <number>0</number>
@@ -6595,7 +6584,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="lblLblPosZ_10">
+                     <widget class="QLabel" name="lblLblPosY_5">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>1</horstretch>
@@ -6613,9 +6602,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <family>LED Calculator</family>
                         <pointsize>14</pointsize>
                        </font>
-                      </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
                       </property>
                       <property name="text">
                        <string notr="true">Y length</string>
@@ -6642,8 +6628,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
-                      <property name="contextMenuPolicy">
-                       <enum>Qt::CustomContextMenu</enum>
+                      <property name="styleSheet">
+                       <string notr="true">color: #808080;</string>
                       </property>
                       <property name="text">
                        <string notr="true">+0000.000</string>
@@ -6657,6 +6643,13 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="btnResetResults">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
                </widget>
               </item>
              </layout>
@@ -6735,7 +6728,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="toolTip">
-                 <string>Run probe in X- and Y+ direction.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X- and Y+ direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -6811,7 +6804,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="toolTip">
-                 <string>Run probe in X+ and Y+ direction.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+ and Y+ direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -6887,7 +6880,10 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="toolTip">
-                 <string>Run probe in X+, X-, Y+ and Y- direction to find center.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+, X-, Y+ and Y- direction to find center.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideCenter.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -6963,7 +6959,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="toolTip">
-                 <string>Run probe in X- and Y- direction.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X- and Y- direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -7039,7 +7035,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="toolTip">
-                 <string>Run probe in X+ and Y- direction.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+ and Y- direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -7290,7 +7286,10 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   <number>0</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QPushButton" name="pbHomeMoinsX">
+                  <widget class="QPushButton" name="btnHomeMoinsX">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -7306,7 +7305,10 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                   </widget>
                  </item>
                  <item row="0" column="1" rowspan="2">
-                  <widget class="QPushButton" name="pbHomeCenterXY">
+                  <widget class="QPushButton" name="btnHomeCenterXY">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -7324,7 +7326,10 @@ center</string>
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QPushButton" name="pbHomeCenterX">
+                  <widget class="QPushButton" name="btnHomeCenterX">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -7340,7 +7345,10 @@ center</string>
                   </widget>
                  </item>
                  <item row="0" column="3">
-                  <widget class="QPushButton" name="pbHomePlusX">
+                  <widget class="QPushButton" name="btnHomePlusX">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -7356,7 +7364,10 @@ center</string>
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QPushButton" name="pbHomeMoinsY">
+                  <widget class="QPushButton" name="btnHomeMoinsY">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -7372,7 +7383,10 @@ center</string>
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QPushButton" name="pbHomeCenterY">
+                  <widget class="QPushButton" name="btnHomeCenterY">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -7388,7 +7402,10 @@ center</string>
                   </widget>
                  </item>
                  <item row="1" column="3">
-                  <widget class="QPushButton" name="pbHomePlusY">
+                  <widget class="QPushButton" name="btnHomePlusY">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>

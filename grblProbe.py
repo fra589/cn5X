@@ -39,6 +39,7 @@ class grblProbe(QObject):
     self.__axisNames = []
     self.__lastProbe = probeResult()
 
+    '''
     self.__ok_recu       = False
     self.__error_recu    = False
     self.__alarm_recu    = False
@@ -49,8 +50,9 @@ class grblProbe(QObject):
     self.__grblCom.sig_error.connect(self.on_sig_error)
     self.__grblCom.sig_alarm.connect(self.on_sig_alarm)
     self.__grblCom.sig_probe.connect(self.on_sig_probe)
+    '''
 
-
+  '''
   @pyqtSlot()
   def on_sig_ok(self):
     self.__ok_recu    = True
@@ -84,7 +86,8 @@ class grblProbe(QObject):
         num += 1
       self.__probe_attendu = False
       self.__probe_recu = True
-
+      print("on_sig_probe(): Probe reçu")
+  '''
 
   def setAxisNames(self, axisNames:list):
     self.__axisNames = axisNames
@@ -190,64 +193,72 @@ class grblProbe(QObject):
     if W is not None:
       probeGCode += "W{}".format(W)
 
-    # On se prépare à attendre la réponse...
-    self.__probe_attendu = True
-    self.__ok_recu       = False
-    self.__error_recu    = False
-    self.__alarm_recu    = False
-    self.__probe_recu    = False
-    self.__lastProbe.setProbeOK(False)
-    
     # On prévient le communicator qu'on attend le résultat
     self.__grblCom.getDecoder().getNextProbe()
     
     # Envoi du GCode à Grbl
     self.__grblCom.gcodePush(probeGCode)
+    print("g38(): Probe envoyé")
+
+    # Attente Resultat du probe
+    RC = self.__decode.waitForGrblProbe()
+    print("g38(): Réponse probe = {}".format(RC))
     
-    # Attente du résultat
-    while not self.__probe_recu:
-      # Process events to receive signals;
-      QCoreApplication.processEvents()
-      if (self.__ok_recu or self.__error_recu or self.__alarm_recu) and (not self.__probe_recu):
-        self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Probe error: No probe response before OK, error or Alarm!"))
+    # Probe reçu, on récupère les données
+    num = 0
+    for v in RC[1]:
+      if num > 5:
+        self.sig_log.emit(logSeverity.warning.value, self.tr("grblProbe.on_sig_probe(): Warning: Grbl probe response have more than 6 axis. Values of axis number > 6 are ommited!"))
+        break
+      self.__lastProbe.setAxis(num, v)
+      num += 1
+    self.sig_log.emit(logSeverity.info.value, self.tr("grblProbe.g38(): Response probe received."))
+    
+    if RC[0]:
+      # Le probe s'est bien passé
+      self.__lastProbe.setProbeOK(True)
+    else:
+      # Le probe s'est mal passé, on génère l'erreur et on quitte
+      if RC[2]   == SIG_ERROR:
+        self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Probe error: error received!"))
         raise probeError(probeGCode)
         return
+      elif RC[2] == SIG_ALARM:
+        self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Probe error: Alarm! received"))
+        raise probeError(probeGCode)
+        return
+      elif RC[2] == SIG_PROBE:
+        self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Error: Last probe failure"))
+        raise probeFailed(probeGCode)
+        return
+    
+    # Déplacement éventuel après probe OK pour revenir au point exact.
+    # Le probe renvoie les coordonnées machine du point, d'ou l'utilisation de G53
+    if g2p:
+      retractGCode = "G53G0"
+      if X is not None: # On ne se déplace que sur le(s) axe(s) utilisé(s) par le palpage
+        retractGCode += "X{}".format(self.__lastProbe.getAxisByName("X"))
+      if Y is not None:
+        retractGCode += "Y{}".format(self.__lastProbe.getAxisByName("Y"))
+      if Z is not None:
+        retractGCode += "Z{}".format(self.__lastProbe.getAxisByName("Z"))
+      if A is not None:
+        retractGCode += "A{}".format(self.__lastProbe.getAxisByName("A"))
+      if B is not None:
+        retractGCode += "B{}".format(self.__lastProbe.getAxisByName("B"))
+      if C is not None:
+        retractGCode += "C{}".format(self.__lastProbe.getAxisByName("C"))
+      if U is not None:
+        retractGCode += "U{}".format(self.__lastProbe.getAxisByName("U"))
+      if V is not None:
+        retractGCode += "V{}".format(self.__lastProbe.getAxisByName("V"))
+      if W is not None:
+        retractGCode += "W{}".format(self.__lastProbe.getAxisByName("W"))
 
-    self.sig_log.emit(logSeverity.info.value, self.tr("grblProbe.g38(): Response probe received."))
+      # Envoi du GCode à Grbl
+      self.__grblCom.gcodePush(retractGCode)
 
-    if not self.__lastProbe.isProbeOK():
-      self.sig_log.emit(logSeverity.error.value, self.tr("grblProbe.g38(): Error: Last probe failure"))
-      raise probeFailed(probeGCode)
-      return
-
-    else: # Probe OK.
-      # Déplacement éventuel après probe OK pour revenir au point exact.
-      # Le probe renvoie les coordonnées machine du point, d'ou l'utilisation de G53
-      if g2p:
-        ###retractGCode = "G53G1F{}".format(F)
-        retractGCode = "G53G0"
-        if X is not None: # On ne se déplace que sur les axes utilisés par le palpage
-          retractGCode += "X{}".format(self.__lastProbe.getAxisByName("X"))
-        if Y is not None:
-          retractGCode += "Y{}".format(self.__lastProbe.getAxisByName("Y"))
-        if Z is not None:
-          retractGCode += "Z{}".format(self.__lastProbe.getAxisByName("Z"))
-        if A is not None:
-          retractGCode += "A{}".format(self.__lastProbe.getAxisByName("A"))
-        if B is not None:
-          retractGCode += "B{}".format(self.__lastProbe.getAxisByName("B"))
-        if C is not None:
-          retractGCode += "C{}".format(self.__lastProbe.getAxisByName("C"))
-        if U is not None:
-          retractGCode += "U{}".format(self.__lastProbe.getAxisByName("U"))
-        if V is not None:
-          retractGCode += "V{}".format(self.__lastProbe.getAxisByName("V"))
-        if W is not None:
-          retractGCode += "W{}".format(self.__lastProbe.getAxisByName("W"))
-
-        # Envoi du GCode à Grbl
-        self.__grblCom.gcodePush(retractGCode)
-
+    # Renvoi le résultat du probe
     return self.__lastProbe
 
 
