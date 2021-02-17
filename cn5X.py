@@ -42,6 +42,7 @@ from cn5X_probe import *
 from cn5X_gcodeFile import gcodeFile
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
+from cn5X_helpProbe import cn5XHelpProbe
 from grblG92 import dlgG92
 from grblG28_30_1 import dlgG28_30_1
 from xml.dom.minidom import parse, Node, Element
@@ -227,6 +228,12 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
     self.ui.mnuResetSerial.triggered.connect(self.on_mnuResetSerial)
 
+    # Menu d'aide
+    self.ui.mnuHelpProbe_single_axis.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_SINGLE_AXIS))
+    self.ui.mnuHelpProbe_inside_corner.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_INSIDE_CORNER))
+    self.ui.mnuHelpProbe_outside_corner.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_OUTSIDE_CORNER))
+    self.ui.mnuHelpProbe_inside_center.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_INSIDE_CENTER))
+    self.ui.mnuHelpProbe_outside_center.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_OUTSIDE_CENTER))
     self.ui.mnuA_propos.triggered.connect(self.on_mnuA_propos)
 
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
@@ -324,7 +331,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblG58.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(5))
     self.ui.lblG59.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(6))
 
-    self.ui.rbtProbeInsideXY.toggled.connect(self.on_rbtProbeInsideXY_toggled)
+    self.ui.rbtProbeInsideXY.toggled.connect(self.setProbeButtonsToolTip)
     
     # Changement d'onglets
     self.__currentQTabMainIndex = self.ui.qtabMain.currentIndex()
@@ -427,73 +434,45 @@ class winMain(QtWidgets.QMainWindow):
     self.setEnableDisableConnectControls()
 
 
-  def on_rbtProbeInsideXY_toggled(self):
+  def setProbeButtonsToolTip(self):
     '''Change probe XY interface intérieur ou extérieur'''
     if self.ui.rbtProbeInsideXY.isChecked():
       self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeInCercle.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+, X-, Y+ and Y- direction to find inside center.</p>'
-      toolTip += '<p><img src=":/doc/doc/probeInsideCenter.svg"/></p></body></html>'
-      self.ui.btnProbeXY_0.setToolTip(toolTip)
+      self.ui.btnProbeXY_0.setToolTip(self.tr('Run probe in X+, X-, Y+ and Y- direction to find inside center.'))
       self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeInX-Y+.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y+ direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_1.setToolTip(toolTip)
+      self.ui.btnProbeXY_1.setToolTip(self.tr('Run probe in X- and Y+ direction.'))
       self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeInY+.svg")
       self.ui.btnProbeXY_2.setToolTip("Run probe in Y+ direction.")
       self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeInX+Y+.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y+ direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_3.setToolTip(toolTip)
+      self.ui.btnProbeXY_3.setToolTip(self.tr('Run probe in X+ and Y+ direction.'))
       self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeInX+.svg")
       self.ui.btnProbeXY_4.setToolTip("Run probe in X+ direction.")
       self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeInX+Y-.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y- direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_5.setToolTip(toolTip)
+      self.ui.btnProbeXY_5.setToolTip(self.tr('Run probe in X+ and Y- direction.'))
       self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeInY-.svg")
       self.ui.btnProbeXY_6.setToolTip("Run probe in Y- direction.")
       self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeInX-Y-.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y- direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_7.setToolTip(toolTip)
+      self.ui.btnProbeXY_7.setToolTip(self.tr('Run probe in X- and Y- direction.'))
       self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeInX-.svg")
       self.ui.btnProbeXY_8.setToolTip("Run probe in X- direction.")
     
     else: # self.ui.rbtProbeOutsideXY.isChecked()
       self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeOutCercle.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+, X-, Y+ and Y- direction to find outside center.</p>'
-      toolTip += '<p><img src=":/doc/doc/probeOutsideCenter.svg"/></p></body></html>'
-      self.ui.btnProbeXY_0.setToolTip(toolTip)
+      self.ui.btnProbeXY_0.setToolTip(self.tr('Run probe in X+, X-, Y+ and Y- direction to find outside center.'))
       self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeOutX+Y-.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y- direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_1.setToolTip(toolTip)
+      self.ui.btnProbeXY_1.setToolTip(self.tr('Run probe in X+ and Y- direction.'))
       self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeOutY-.svg")
       self.ui.btnProbeXY_2.setToolTip("Run probe in Y- direction.")
       self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeOutX-Y-.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y- direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_3.setToolTip(toolTip)
+      self.ui.btnProbeXY_3.setToolTip(self.tr('Run probe in X- and Y- direction.'))
       self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeOutX-.svg")
       self.ui.btnProbeXY_4.setToolTip("Run probe in X- direction.")
       self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeOutX-Y+.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X- and Y+ direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_5.setToolTip(toolTip)
+      self.ui.btnProbeXY_5.setToolTip(self.tr('Run probe in X- and Y+ direction.'))
       self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeOutY+.svg")
       self.ui.btnProbeXY_6.setToolTip("Run probe in Y+ direction.")
       self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeOutX+Y+.svg")
-      toolTip  = '<html><head/><body><p align="center">Run probe in X+ and Y+ direction.</p>'
-      toolTip += '<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>'
-      toolTip += '<p><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>'
-      self.ui.btnProbeXY_7.setToolTip(toolTip)
+      self.ui.btnProbeXY_7.setToolTip(self.tr('Run probe in X+ and Y+ direction.'))
       self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeOutX+.svg")
       self.ui.btnProbeXY_8.setToolTip("Run probe in X+ direction.")
     
@@ -934,6 +913,9 @@ class winMain(QtWidgets.QMainWindow):
       if tabIndex == CN5X_TAB_MAIN:
         pass
       elif tabIndex == CN5X_TAB_PROBE_XY:
+        # Ajuste les bulles d'aides
+        self.setProbeButtonsToolTip()
+        # Recharge les dernières valeurs depuis les settings
         self.ui.dsbToolDiameter.setValue(self.__settings.value("Probe/ToolDiameter", DEFAULT_TOOL_DIAMATER, type=float))
         self.ui.dsbDistanceXY.setValue(self.__settings.value("Probe/DistanceXY", DEFAULT_PROBE_DISTANCE, type=float))
         self.ui.dsbClearanceXY.setValue(self.__settings.value("Probe/ClearanceXY", DEFAULT_CLEARANCE_XY, type=float))
@@ -1401,31 +1383,122 @@ class winMain(QtWidgets.QMainWindow):
         if retractAfterXY:
           self.__grblCom.gcodePush("G0Y{}".format(retractXY))
 
-      elif btnNum == 3 and probeInside: # inside X+, Y+
+      elif btnNum == 3 and probeInside: # inside corner X+, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
         print("Envoi 1er probe")
         probeXplus(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
-        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance, probeDistance - clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance + (toolDiameter / 2), probeDistance - clearanceXY))
         print("Envoi 2eme probe")
         probeYplus(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
-        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
 
-      elif btnNum == 7 and probeOutside: # outside X+, Y+
-        pass
-      elif btnNum == 5 and probeInside \
-      or   btnNum == 1 and probeOutside: # inside X+, Y-, outside X+, Y-
-        pass
-      elif btnNum == 1 and probeInside \
-      or   btnNum == 5 and probeOutside: # inside X-, Y+, outside X-, Y+
-        pass
-      elif btnNum == 7 and probeInside \
-      or  btnNum == 3 and probeOutside: # inside X-, Y-, outside X-, Y-
-        pass
+      elif btnNum == 5 and probeInside: # inside X+, Y-
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXplus(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance + (toolDiameter / 2), -probeDistance + clearanceXY))
+        print("Envoi 2eme probe")
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))        
+
+      elif btnNum == 7 and probeInside: # inside X-, Y-
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance - clearanceXY - (toolDiameter / 2), -probeDistance + clearanceXY))
+        print("Envoi 2eme probe")
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
+
+      elif btnNum == 1 and probeInside: # inside X-, Y+
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance - clearanceXY- (toolDiameter / 2), probeDistance - clearanceXY))
+        print("Envoi 2eme probe")
+        probeYplus(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, clearanceXY + (toolDiameter / 2)))
+
+      elif btnNum == 7 and probeOutside: # outside corner X+, Y+
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXplus(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance + clearanceXY + (toolDiameter / 2), -probeDistance - clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 2eme probe")
+        probeYplus(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, clearanceXY + (toolDiameter / 2)))
+
+      elif btnNum == 1 and probeOutside: # outside X+, Y-
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXplus(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance + clearanceXY + (toolDiameter / 2), +probeDistance + clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 2eme probe")
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
+
+      elif  btnNum == 3 and probeOutside: # outside X-, Y-
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter / 2), +probeDistance + clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 2eme probe")
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))
+
+      elif   btnNum == 5 and probeOutside: # outside X-, Y+
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 1er probe")
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter / 2), -probeDistance - clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        print("Envoi 2eme probe")
+        probeYplus(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
+
       elif btnNum == 0 and probeInside: # inside Full center 
+
+
+
         pass
       elif btnNum == 0 and probeOutside: # outside Full center 
         pass
@@ -1997,6 +2070,14 @@ class winMain(QtWidgets.QMainWindow):
     ''' Force l'envoi de \n pour déblocage communication
     '''
     self.__grblCom.resetSerial()
+
+
+  @pyqtSlot(int)
+  def on_mnuHelpProbe(self, helpPage: int):
+    dlgHelp = cn5XHelpProbe(helpPage)
+    dlgHelp.setParent(self)
+    dlgHelp.showDialog()
+
 
   @pyqtSlot()
   def on_mnuA_propos(self):

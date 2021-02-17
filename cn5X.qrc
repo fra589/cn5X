@@ -85,9 +85,10 @@
   </qresource>
   <qresource prefix="doc">
     <file>doc/probeInsideCenter.svg</file>
-    <file>doc/probeOutsideCenter.svg</file>
     <file>doc/probeInsideXY.svg</file>
+    <file>doc/probeOutsideCenter.svg</file>
     <file>doc/probeOutsideXY.svg</file>
+    <file>doc/probeSingleAxis.svg</file>
   </qresource>
   <qresource prefix="i18n">
     <file>i18n/flags/flag_en.svg</file>

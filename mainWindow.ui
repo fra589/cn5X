@@ -5940,15 +5940,15 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="text">
                  <string>Probe inside</string>
                 </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
                </widget>
               </item>
               <item>
                <widget class="QRadioButton" name="rbtProbeOutsideXY">
                 <property name="text">
                  <string>Probe outside</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -6727,9 +6727,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X- and Y+ direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeInX-Y+.svg</normaloff>:/cn5X/images/btnProbeInX-Y+.svg</iconset>
@@ -6764,9 +6761,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>Run probe in Y+ direction.</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -6803,9 +6797,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+ and Y+ direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeInX+Y+.svg</normaloff>:/cn5X/images/btnProbeInX+Y+.svg</iconset>
@@ -6841,9 +6832,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="toolTip">
-                 <string>Run probe in X- direction.</string>
-                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeInX-.svg</normaloff>:/cn5X/images/btnProbeInX-.svg</iconset>
@@ -6878,9 +6866,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+, X-, Y+ and Y- direction to find center.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideCenter.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
@@ -6920,9 +6905,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="toolTip">
-                 <string>Run probe in X+ direction.</string>
-                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeInX+.svg</normaloff>:/cn5X/images/btnProbeInX+.svg</iconset>
@@ -6957,9 +6939,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X- and Y- direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -6996,9 +6975,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
-                <property name="toolTip">
-                 <string>Run probe in Y- direction.</string>
-                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeInY-.svg</normaloff>:/cn5X/images/btnProbeInY-.svg</iconset>
@@ -7033,9 +7009,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Run probe in X+ and Y- direction.&lt;/p&gt;&lt;p&gt;&lt;i&gt;The trajectory of the probe by the example of measurement inside corner X+Y+:&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/doc/doc/probeInsideXY.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -9125,6 +9098,18 @@ G43.1</string>
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <widget class="QMenu" name="menuProbing">
+     <property name="title">
+      <string>Probing</string>
+     </property>
+     <addaction name="mnuHelpProbe_single_axis"/>
+     <addaction name="mnuHelpProbe_inside_corner"/>
+     <addaction name="mnuHelpProbe_outside_corner"/>
+     <addaction name="mnuHelpProbe_inside_center"/>
+     <addaction name="mnuHelpProbe_outside_center"/>
+    </widget>
+    <addaction name="menuProbing"/>
+    <addaction name="separator"/>
     <addaction name="mnuA_propos"/>
    </widget>
    <widget class="QMenu" name="menuLangue">
@@ -9353,6 +9338,31 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    </property>
    <property name="visible">
     <bool>false</bool>
+   </property>
+  </action>
+  <action name="mnuHelpProbe_single_axis">
+   <property name="text">
+    <string>Probe single axis...</string>
+   </property>
+  </action>
+  <action name="mnuHelpProbe_inside_corner">
+   <property name="text">
+    <string>Probe inside corner...</string>
+   </property>
+  </action>
+  <action name="mnuHelpProbe_outside_corner">
+   <property name="text">
+    <string>probe outside corner...</string>
+   </property>
+  </action>
+  <action name="mnuHelpProbe_inside_center">
+   <property name="text">
+    <string>Probe inside center...</string>
+   </property>
+  </action>
+  <action name="mnuHelpProbe_outside_center">
+   <property name="text">
+    <string>Probe outside center...</string>
    </property>
   </action>
  </widget>
