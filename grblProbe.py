@@ -39,55 +39,6 @@ class grblProbe(QObject):
     self.__axisNames = []
     self.__lastProbe = probeResult()
 
-    '''
-    self.__ok_recu       = False
-    self.__error_recu    = False
-    self.__alarm_recu    = False
-    self.__probe_recu    = False
-    self.__probe_attendu = False
-
-    self.__grblCom.sig_ok.connect(self.on_sig_ok)
-    self.__grblCom.sig_error.connect(self.on_sig_error)
-    self.__grblCom.sig_alarm.connect(self.on_sig_alarm)
-    self.__grblCom.sig_probe.connect(self.on_sig_probe)
-    '''
-
-  '''
-  @pyqtSlot()
-  def on_sig_ok(self):
-    self.__ok_recu    = True
-
-
-  @pyqtSlot(int)
-  def on_sig_error(self, errNum: int):
-    self.__error_recu = True
-
-
-  @pyqtSlot(int)
-  def on_sig_alarm(self, alarmNum: int):
-    self.__alarm_recu = True
-
-
-  @pyqtSlot(str)
-  def on_sig_probe(self, data: str):
-    if self.__probe_attendu:
-      tblData   = data.split(":")
-      tblValues = tblData[1].split(",")
-      if tblData[2] == "1]":
-        self.__lastProbe.setProbeOK(True)
-      else:
-        self.__lastProbe.setProbeOK(False)
-      num = 0
-      for v in tblValues:
-        if num > 5:
-          self.sig_log.emit(logSeverity.warning.value, self.tr("grblProbe.on_sig_probe(): Warning: Grbl probe response have more than 6 axis. Values of axis number > 6 are ommited!"))
-          break
-        self.__lastProbe.setAxis(num, v)
-        num += 1
-      self.__probe_attendu = False
-      self.__probe_recu = True
-      print("on_sig_probe(): Probe reçu")
-  '''
 
   def setAxisNames(self, axisNames:list):
     self.__axisNames = axisNames
@@ -198,11 +149,9 @@ class grblProbe(QObject):
     
     # Envoi du GCode à Grbl
     self.__grblCom.gcodePush(probeGCode)
-    print("g38(): Probe envoyé")
 
     # Attente Resultat du probe
     RC = self.__decode.waitForGrblProbe()
-    print("g38(): Réponse probe = {}".format(RC))
     
     # Probe reçu, on récupère les données
     num = 0

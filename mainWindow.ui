@@ -174,7 +174,7 @@ to unlock urgent stop</string>
           <item row="0" column="1" rowspan="2">
            <widget class="QFrame" name="frmControleVitesse">
             <property name="frameShape">
-             <enum>QFrame::Box</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_35">
              <property name="spacing">
@@ -552,6 +552,9 @@ to unlock urgent stop</string>
              </item>
              <item>
               <widget class="Line" name="line">
+               <property name="styleSheet">
+                <string notr="true">color: #c0c0c0</string>
+               </property>
                <property name="frameShadow">
                 <enum>QFrame::Plain</enum>
                </property>
@@ -563,7 +566,7 @@ to unlock urgent stop</string>
              <item>
               <widget class="QGroupBox" name="grpVitesseRapide">
                <property name="title">
-                <string>Rapid feedrate</string>
+                <string> Rapid feedrate</string>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <property name="spacing">
@@ -624,13 +627,13 @@ to unlock urgent stop</string>
            <widget class="QWidget" name="frmHomeAlarm" native="true">
             <layout class="QVBoxLayout" name="verticalLayout">
              <property name="spacing">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -6729,7 +6732,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX-Y+.svg</normaloff>:/cn5X/images/btnProbeInX-Y+.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6764,7 +6767,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInY+.svg</normaloff>:/cn5X/images/btnProbeInY+.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutY-.svg</normaloff>:/cn5X/images/btnProbeOutY-.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6799,7 +6802,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX+Y+.svg</normaloff>:/cn5X/images/btnProbeInX+Y+.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6834,7 +6837,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX-.svg</normaloff>:/cn5X/images/btnProbeInX-.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6907,7 +6910,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX+.svg</normaloff>:/cn5X/images/btnProbeInX+.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6942,7 +6945,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX-Y-.svg</normaloff>:/cn5X/images/btnProbeInX-Y-.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -6977,7 +6980,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInY-.svg</normaloff>:/cn5X/images/btnProbeInY-.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -7012,7 +7015,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInX+Y-.svg</normaloff>:/cn5X/images/btnProbeInX+Y-.svg</iconset>
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

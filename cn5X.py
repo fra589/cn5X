@@ -176,11 +176,15 @@ class winMain(QtWidgets.QMainWindow):
     self.__statusText = ""
     self.ui.statusBar.showMessage(self.__statusText)
 
-    # flag pour mise à jour de l'interface résultats probe XY
-    self.xMin = False
-    self.xMax = False
-    self.yMin = False
-    self.yMax = False
+    # flag pour mise à jour de l'interface résultats probe XY et valeurs de calcul de centre
+    self.__xMin      = False
+    self.__xMinValue = None
+    self.__xMax      = False
+    self.__xMaxValue = None
+    self.__yMin      = False
+    self.__yMinValue = None
+    self.__yMax      = False
+    self.__yMaxValue = None
 
     '''---------- Connections des evennements de l'interface graphique ----------'''
     
@@ -363,7 +367,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnHomeCenterY.clicked.connect(lambda: self.on_btnHomeXY("centerY"))
     self.ui.btnHomePlusX.clicked.connect(lambda: self.on_btnHomeXY("plusX"))
     self.ui.btnHomePlusY.clicked.connect(lambda: self.on_btnHomeXY("plusY"))
-    self.ui.btnResetResults.clicked.connect(self.on_btnResetResults)
+    self.ui.btnResetResults.clicked.connect(self.resetProbeResults)
 
     #--------------------------------------------------------------------------------------
     # Traitement des arguments de la ligne de commande
@@ -1160,7 +1164,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dsbPullOffZ.setEnabled(False)
 
 
-  def on_btnResetResults(self):
+  def resetProbeResults(self):
     # Remise à 0 des résultats probe XY en gris
     self.ui.qfProbeResultXmax.setText("+0000.000")
     self.ui.qfProbeResultXmax.setStyleSheet("color: #808080;")
@@ -1178,11 +1182,15 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.qfProbeResultXlength.setStyleSheet("color: #808080;")
     self.ui.qfProbeResultYlength.setText("+0000.000")
     self.ui.qfProbeResultYlength.setStyleSheet("color: #808080;")
-    # flag pour mise à jour de l'interface résultats probe XY
-    self.xMin = False
-    self.xMax = False
-    self.yMin = False
-    self.yMax = False
+    # flag pour mise à jour de l'interface résultats probe XY et valeurs de calcul de centre
+    self.__xMin      = False
+    self.__xMinValue = None
+    self.__xMax      = False
+    self.__xMaxValue = None
+    self.__yMin      = False
+    self.__yMinValue = None
+    self.__yMax      = False
+    self.__yMaxValue = None
     # Desactivation des boutons de définition origine
     self.ui.btnHomeCenterX.setEnabled(False)
     self.ui.btnHomeCenterXY.setEnabled(False)
@@ -1225,13 +1233,15 @@ class winMain(QtWidgets.QMainWindow):
       if doubleProbeXY:
         pr = self.__probe.g38(P=3, F=seekRateXY, X=length, g2p=False)
         if probeInside:
-          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.__xMaxValue = float(pr.getAxisByName("X"))
+          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(self.__xMaxValue))
           self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
-          self.xMax = True
+          self.__xMax = True
         else:
-          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.__xMinValue = float(pr.getAxisByName("X"))
+          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(self.__xMinValue))
           self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
-          self.xMin = True
+          self.__xMin = True
         self.calculateCenterXY()
         self.__grblCom.gcodePush("G0X{}".format(-pullOffXY))
         time.sleep(0.25)
@@ -1246,26 +1256,30 @@ class winMain(QtWidgets.QMainWindow):
         go2point = False
       pr = self.__probe.g38(P=3, F=feedRateXY, X=fineProbeDistance, g2p=go2point)
       if probeInside:
-        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.__xMaxValue = float(pr.getAxisByName("X"))
+        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(self.__xMaxValue))
         self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
-        self.xMax = True
+        self.__xMax = True
       else:
-        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.__xMinValue = float(pr.getAxisByName("X"))
+        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(self.__xMinValue))
         self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
-        self.xMin = True
+        self.__xMin = True
       self.calculateCenterXY()
     
     def probeXmoins(length = probeDistance):
       if doubleProbeXY:
         pr = self.__probe.g38(P=3, F=seekRateXY, X=-length, g2p=False)
         if probeInside:
-          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.__xMinValue = float(pr.getAxisByName("X"))
+          self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(self.__xMinValue))
           self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
-          self.xMin = True
+          self.__xMin = True
         else:
-          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+          self.__xMaxValue = float(pr.getAxisByName("X"))
+          self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(self.__xMaxValue))
           self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
-          self.xMax = True
+          self.__xMax = True
         self.calculateCenterXY()
         self.__grblCom.gcodePush("G0X{}".format(pullOffXY))
         time.sleep(0.25)
@@ -1280,26 +1294,30 @@ class winMain(QtWidgets.QMainWindow):
         go2point = False
       pr = self.__probe.g38(P=3, F=feedRateXY, X=-fineProbeDistance, g2p=go2point)
       if probeInside:
-        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.__xMinValue = float(pr.getAxisByName("X"))
+        self.ui.qfProbeResultXmin.setText('{:+0.3f}'.format(self.__xMinValue))
         self.ui.qfProbeResultXmin.setStyleSheet("color: #000020;")
-        self.xMin = True
+        self.__xMin = True
       else:
-        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("X"))))
+        self.__xMaxValue = float(pr.getAxisByName("X"))
+        self.ui.qfProbeResultXmax.setText('{:+0.3f}'.format(self.__xMaxValue))
         self.ui.qfProbeResultXmax.setStyleSheet("color: #000020;")
-        self.xMax = True
+        self.__xMax = True
       self.calculateCenterXY()
 
     def probeYplus(length = probeDistance):
       if doubleProbeXY:
         pr = self.__probe.g38(P=3, F=seekRateXY, Y=length, g2p=False)
         if probeInside:
-          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.__yMaxValue = float(pr.getAxisByName("Y"))
+          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(self.__yMaxValue))
           self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
-          self.yMax = True
+          self.__yMax = True
         else:
-          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.__yMinValue = float(pr.getAxisByName("Y"))
+          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(self.__yMinValue))
           self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
-          self.yMin = True
+          self.__yMin = True
         self.calculateCenterXY()
         self.__grblCom.gcodePush("G0Y{}".format(-pullOffXY))
         time.sleep(0.25)
@@ -1314,26 +1332,30 @@ class winMain(QtWidgets.QMainWindow):
         go2point = False
       pr = self.__probe.g38(P=3, F=feedRateXY, Y=fineProbeDistance, g2p=go2point)
       if probeInside:
-        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.__yMaxValue = float(pr.getAxisByName("Y"))
+        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(self.__yMaxValue))
         self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
-        self.yMax = True
+        self.__yMax = True
       else:
-        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.__yMinValue = float(pr.getAxisByName("Y"))
+        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(self.__yMinValue))
         self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
-        self.yMin = True
+        self.__yMin = True
       self.calculateCenterXY()
 
     def probeYmoins(length = probeDistance):
       if doubleProbeXY:
         pr = self.__probe.g38(P=3, F=seekRateXY, Y=-length, g2p=False)
         if probeInside:
-          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.__yMinValue = float(pr.getAxisByName("Y"))
+          self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(self.__yMinValue))
           self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
-          self.yMin = True
+          self.__yMin = True
         else:
-          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+          self.__yMaxValue = float(pr.getAxisByName("Y"))
+          self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(self.__yMaxValue))
           self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
-          self.yMax = True
+          self.__yMax = True
         self.calculateCenterXY()
         self.__grblCom.gcodePush("G0Y{}".format(pullOffXY))
         time.sleep(0.25)
@@ -1348,13 +1370,15 @@ class winMain(QtWidgets.QMainWindow):
         go2point = False
       pr = self.__probe.g38(P=3, F=feedRateXY, Y=-fineProbeDistance, g2p=go2point)
       if probeInside:
-        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.__yMinValue = float(pr.getAxisByName("Y"))
+        self.ui.qfProbeResultYmin.setText('{:+0.3f}'.format(self.__yMinValue))
         self.ui.qfProbeResultYmin.setStyleSheet("color: #000020;")
-        self.yMin = True
+        self.__yMin = True
       else:
-        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(float(pr.getAxisByName("Y"))))
+        self.__yMaxValue = float(pr.getAxisByName("Y"))
+        self.ui.qfProbeResultYmax.setText('{:+0.3f}'.format(self.__yMaxValue))
         self.ui.qfProbeResultYmax.setStyleSheet("color: #000020;")
-        self.yMax = True
+        self.__yMax = True
       self.calculateCenterXY()
 
     try:
@@ -1386,50 +1410,42 @@ class winMain(QtWidgets.QMainWindow):
       elif btnNum == 3 and probeInside: # inside corner X+, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXplus(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance + (toolDiameter / 2), probeDistance - clearanceXY))
-        print("Envoi 2eme probe")
         probeYplus(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
 
-      elif btnNum == 5 and probeInside: # inside X+, Y-
+      elif btnNum == 5 and probeInside: # inside corner  X+, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXplus(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY - probeDistance + (toolDiameter / 2), -probeDistance + clearanceXY))
-        print("Envoi 2eme probe")
         probeYmoins(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))        
 
-      elif btnNum == 7 and probeInside: # inside X-, Y-
+      elif btnNum == 7 and probeInside: # inside corner  X-, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXmoins(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance - clearanceXY - (toolDiameter / 2), -probeDistance + clearanceXY))
-        print("Envoi 2eme probe")
         probeYmoins(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
 
-      elif btnNum == 1 and probeInside: # inside X-, Y+
+      elif btnNum == 1 and probeInside: # inside corner  X-, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXmoins(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance - clearanceXY- (toolDiameter / 2), probeDistance - clearanceXY))
-        print("Envoi 2eme probe")
         probeYplus(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
@@ -1438,70 +1454,108 @@ class winMain(QtWidgets.QMainWindow):
       elif btnNum == 7 and probeOutside: # outside corner X+, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXplus(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance + clearanceXY + (toolDiameter / 2), -probeDistance - clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 2eme probe")
         probeYplus(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, clearanceXY + (toolDiameter / 2)))
 
-      elif btnNum == 1 and probeOutside: # outside X+, Y-
+      elif btnNum == 1 and probeOutside: # outside corner  X+, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXplus(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance + clearanceXY + (toolDiameter / 2), +probeDistance + clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 2eme probe")
         probeYmoins(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
 
-      elif  btnNum == 3 and probeOutside: # outside X-, Y-
+      elif  btnNum == 3 and probeOutside: # outside corner  X-, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXmoins(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter / 2), +probeDistance + clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 2eme probe")
         probeYmoins(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))
 
-      elif   btnNum == 5 and probeOutside: # outside X-, Y+
+      elif   btnNum == 5 and probeOutside: # outside corner  X-, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 1er probe")
         probeXmoins(clearanceXY)
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter / 2), -probeDistance - clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        print("Envoi 2eme probe")
         probeYplus(clearanceXY)
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
 
       elif btnNum == 0 and probeInside: # inside Full center 
+        # On commence par réinitialiser les résultats
+        self.resetProbeResults
+        # Puis, on bouge
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance + clearanceXY))
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format((2 * probeDistance) - clearanceXY - (toolDiameter / 2)))
+        probeXplus(clearanceXY)
+        # Calcule et se deplace au centre en X
+        centreX = (self.__xMinValue + self.__xMaxValue) / 2
+        self.__grblCom.gcodePush("G53G0X{:+0.3f}".format(centreX))
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-probeDistance + clearanceXY))
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format((2 * probeDistance) - clearanceXY - (toolDiameter / 2)))
+        probeYplus(clearanceXY)
+        # Calcule et se deplace au centre en Y
+        centreY = (self.__yMinValue + self.__yMaxValue) / 2
+        self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
+        # Remonte et c'est fini :-)
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
 
-
-
-        pass
       elif btnNum == 0 and probeOutside: # outside Full center 
-        pass
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance - clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        probeXplus(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY + (toolDiameter / 2)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(2 * (probeDistance + clearanceXY)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        probeXmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY - (toolDiameter / 2)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        # Calcule et se deplace au centre en X
+        centreX = (self.__xMinValue + self.__xMaxValue) / 2
+        self.__grblCom.gcodePush("G53G0X{:+0.3f}".format(centreX))
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-probeDistance - clearanceXY))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        probeYplus(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY + (toolDiameter / 2)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(2 * (probeDistance + clearanceXY)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
+        probeYmoins(clearanceXY)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY - (toolDiameter / 2)))
+        self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        # Calcule et se deplace au centre en Y
+        centreY = (self.__yMinValue + self.__yMaxValue) / 2
+        self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
+
+
+
+
 
     except ValueError as e:
       # Erreur arguments d'appel de self.__probe.g38()
@@ -1544,27 +1598,27 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def calculateCenterXY(self):
-    if self.xMin and self.xMax:
+    if self.__xMin and self.__xMax:
       self.ui.qfProbeResultXcenter.setText('{:+0.3f}'.format((float(self.ui.qfProbeResultXmax.text())+float(self.ui.qfProbeResultXmin.text()))/2))
       self.ui.qfProbeResultXcenter.setStyleSheet("color: #000020;")
       self.ui.qfProbeResultXlength.setText('{:+0.3f}'.format(float(self.ui.qfProbeResultXmax.text())-float(self.ui.qfProbeResultXmin.text())))
       self.ui.qfProbeResultXlength.setStyleSheet("color: #000020;")
       self.ui.btnHomeCenterX.setEnabled(True)
-    if self.yMin and self.yMax:
+    if self.__yMin and self.__yMax:
       self.ui.qfProbeResultYcenter.setText('{:+0.3f}'.format((float(self.ui.qfProbeResultYmax.text())+float(self.ui.qfProbeResultYmin.text()))/2))
       self.ui.qfProbeResultYcenter.setStyleSheet("color: #000020;")
       self.ui.qfProbeResultYlength.setText('{:+0.3f}'.format(float(self.ui.qfProbeResultYmax.text())-float(self.ui.qfProbeResultYmin.text())))
       self.ui.qfProbeResultYlength.setStyleSheet("color: #000020;")
       self.ui.btnHomeCenterY.setEnabled(True)
-    if self.xMin:
+    if self.__xMin:
       self.ui.btnHomeMoinsX.setEnabled(True)
-    if self.xMax:
+    if self.__xMax:
       self.ui.btnHomePlusX.setEnabled(True)
-    if self.yMin:
+    if self.__yMin:
       self.ui.btnHomeMoinsY.setEnabled(True)
-    if self.yMax:
+    if self.__yMax:
       self.ui.btnHomePlusY.setEnabled(True)
-    if self.xMin and self.xMax and self.yMin and self.yMax:
+    if self.__xMin and self.__xMax and self.__yMin and self.__yMax:
       self.ui.btnHomeCenterXY.setEnabled(True)
 
 
