@@ -23,6 +23,7 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import sys, os, time
+from datetime import datetime
 import argparse
 import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -115,7 +116,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_recu.connect(self.on_sig_recu)
     self.__grblCom.sig_debug.connect(self.on_sig_debug)
     self.__grblCom.sig_activity.connect(self.on_sig_activity)
-    self.__grblCom.sig_serialLock.connect(self.on_sig_activity)
+    self.__grblCom.sig_serialLock.connect(self.on_sig_serialLock)
 
     self.__decode = grblDecode(self.ui, self.log, self.__grblCom)
     self.__grblCom.setDecodeur(self.__decode)
@@ -350,7 +351,10 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.chkSeekZ.clicked.connect(self.on_chkSeekZ)
     self.ui.chkSeekXY.clicked.connect(self.on_chkSeekXY)
 
-    # Boutons probe XY
+    # Onglet probe XY
+    self.ui.dsbToolDiameter.valueChanged.connect(self.on_dsbToolDiameterValueChanged)
+    self.ui.chkAddOffsetX.stateChanged.connect(self.on_chkAddOffsetXstateChanged)
+    self.ui.chkAddOffsetY.stateChanged.connect(self.on_chkAddOffsetYstateChanged)
     self.ui.btnProbeXY_0.clicked.connect(lambda: self.on_btnProbeXY(0))
     self.ui.btnProbeXY_1.clicked.connect(lambda: self.on_btnProbeXY(1))
     self.ui.btnProbeXY_2.clicked.connect(lambda: self.on_btnProbeXY(2))
@@ -1133,8 +1137,7 @@ class winMain(QtWidgets.QMainWindow):
       positionZ = float(self.ui.lblPosZ.text().replace(' ', '')) + float(self.ui.lblWcoZ.text().replace(' ', ''))
     # Offset à ajouter
     offsetZ = self.ui.dsbOriginOffsetZ.value()
-    # Correction si déplacement depuis le probe
-    correction = positionZ - lastProbe
+
     if self.ui.rbtDefineOriginZ_G54.isChecked():
       # Définit l'origine à l'aide du dégalage courant (G54 à G59)
       # Utilisation de G10L2P0Z<absolute Z> ne permet pas de composer avec G92...
@@ -1162,6 +1165,22 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dbsSeekRateZ.setEnabled(False)
       self.ui.lblPullOffZ.setEnabled(False)
       self.ui.dsbPullOffZ.setEnabled(False)
+
+
+  @pyqtSlot(float)
+  def on_dsbToolDiameterValueChanged(self, newVal):
+    self.ui.dsbOriginOffsetX.setValue(newVal/2)
+    self.ui.dsbOriginOffsetY.setValue(newVal/2)
+
+
+  @pyqtSlot(int)
+  def on_chkAddOffsetXstateChanged(self, newVal):
+    self.ui.dsbOriginOffsetX.setEnabled(True if newVal != 0 else False)
+
+
+  @pyqtSlot(int)
+  def on_chkAddOffsetYstateChanged(self, newVal):
+    self.ui.dsbOriginOffsetY.setEnabled(True if newVal != 0 else False)
 
 
   def resetProbeResults(self):
@@ -1199,6 +1218,9 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnHomeMoinsY.setEnabled(False)
     self.ui.btnHomePlusX.setEnabled(False)
     self.ui.btnHomePlusY.setEnabled(False)
+    # Desactivation des offsets
+    self.ui.chkAddOffsetX.setChecked(False)
+    self.ui.chkAddOffsetY.setChecked(False)
 
 
   def on_btnProbeXY(self, btnNum: int):
@@ -1388,24 +1410,28 @@ class winMain(QtWidgets.QMainWindow):
         probeXplus()
         if retractAfterXY:
           self.__grblCom.gcodePush("G0X{}".format(-retractXY))
+        self.ui.chkAddOffsetX.setChecked(True)
 
       elif btnNum == 8 and probeInside \
       or   btnNum == 4 and probeOutside: # inside X-, outside X-
         probeXmoins()
         if retractAfterXY:
           self.__grblCom.gcodePush("G0X{}".format(retractXY))
+        self.ui.chkAddOffsetX.setChecked(True)
 
       elif btnNum == 2 and probeInside \
       or   btnNum == 6 and probeOutside: # inside Y+, outside Y+
         probeYplus()
         if retractAfterXY:
           self.__grblCom.gcodePush("G0Y{}".format(-retractXY))
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 6 and probeInside \
       or   btnNum == 2 and probeOutside: # inside Y-, outside Y-
         probeYmoins()
         if retractAfterXY:
           self.__grblCom.gcodePush("G0Y{}".format(retractXY))
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 3 and probeInside: # inside corner X+, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
@@ -1417,6 +1443,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 5 and probeInside: # inside corner  X+, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
@@ -1428,6 +1456,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))        
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 7 and probeInside: # inside corner  X-, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
@@ -1439,6 +1469,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 1 and probeInside: # inside corner  X-, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
@@ -1450,6 +1482,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, clearanceXY + (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 7 and probeOutside: # outside corner X+, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, probeDistance))
@@ -1463,6 +1497,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, clearanceXY + (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 1 and probeOutside: # outside corner  X+, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-clearanceXY, -probeDistance))
@@ -1476,6 +1512,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(-probeDistance, -clearanceXY - (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif  btnNum == 3 and probeOutside: # outside corner  X-, Y-
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, -probeDistance))
@@ -1489,6 +1527,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, -clearanceXY - (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif   btnNum == 5 and probeOutside: # outside corner  X-, Y+
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(clearanceXY, probeDistance))
@@ -1502,6 +1542,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}Y{:+0.3f}".format(probeDistance, clearanceXY + (toolDiameter / 2)))
+        self.ui.chkAddOffsetX.setChecked(True)
+        self.ui.chkAddOffsetY.setChecked(True)
 
       elif btnNum == 0 and probeInside: # inside Full center 
         # On commence par réinitialiser les résultats
@@ -1524,6 +1566,8 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
         # Remonte et c'est fini :-)
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
+        self.ui.chkAddOffsetX.setChecked(False)
+        self.ui.chkAddOffsetY.setChecked(False)
 
       elif btnNum == 0 and probeOutside: # outside Full center 
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance - clearanceXY))
@@ -1552,10 +1596,8 @@ class winMain(QtWidgets.QMainWindow):
         # Calcule et se deplace au centre en Y
         centreY = (self.__yMinValue + self.__yMaxValue) / 2
         self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
-
-
-
-
+        self.ui.chkAddOffsetX.setChecked(False)
+        self.ui.chkAddOffsetY.setChecked(False)
 
     except ValueError as e:
       # Erreur arguments d'appel de self.__probe.g38()
@@ -1626,25 +1668,86 @@ class winMain(QtWidgets.QMainWindow):
     ''' XY Origin definition '''
     
     # Récupération des paramètres définis dans l'interface graphique
-    self.ui.rbtDefineOriginXY_G54
-    self.ui.rbtDefineOriginXY_G92
-    self.ui.dsbOriginOffsetX
-    self.ui.dsbOriginOffsetY
+    addOffsetX = self.ui.chkAddOffsetX.isChecked()
+    offsetX    = self.ui.dsbOriginOffsetX.value()
+    addOffsetY = self.ui.chkAddOffsetY.isChecked()
+    offsetY    = self.ui.dsbOriginOffsetY.value()
 
     if  action == "moinsX":
-      pass
+      position = self.__decode.getMpos('X')
+      probe    = float(self.ui.qfProbeResultXmin.text().replace(' ', ''))
+      offset    = offsetX if addOffsetX else 0
+      valeur = position - probe - offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0X{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92X{:+0.3f}".format(valeur)
+
     elif action == "moinsY":
-      pass
-    elif action == "centerXY":
-      pass
-    elif action == "centerX":
-      pass
-    elif action == "centerY":
-      pass
+      position = self.__decode.getMpos('Y')
+      probe    = float(self.ui.qfProbeResultYmin.text().replace(' ', ''))
+      offset    = offsetY if addOffsetY else 0
+      valeur = position - probe - offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0Y{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92Y{:+0.3f}".format(valeur)
+
     elif action == "plusX":
-      pass
+      position = self.__decode.getMpos('X')
+      probe    = float(self.ui.qfProbeResultXmax.text().replace(' ', ''))
+      offset    = offsetX if addOffsetX else 0
+      valeur = position - probe + offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0X{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92X{:+0.3f}".format(valeur)
+
     elif action == "plusY":
-      pass
+      position = self.__decode.getMpos('Y')
+      probe    = float(self.ui.qfProbeResultYmax.text().replace(' ', ''))
+      offset    = offsetY if addOffsetY else 0
+      valeur = position - probe + offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0Y{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92Y{:+0.3f}".format(valeur)
+
+    elif action == "centerX":
+      position = self.__decode.getMpos('X')
+      probe    = float(self.ui.qfProbeResultXcenter.text().replace(' ', ''))
+      offset    = offsetX if addOffsetX else 0
+      valeur = position - probe + offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0X{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92X{:+0.3f}".format(valeur)
+
+    elif action == "centerY":
+      position = self.__decode.getMpos('Y')
+      probe    = float(self.ui.qfProbeResultYcenter.text().replace(' ', ''))
+      offset    = offsetY if addOffsetY else 0
+      valeur = position - probe - offset
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0Y{:+0.3f}".format(valeur)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92Y{:+0.3f}".format(valeur)
+
+    elif action == "centerXY":
+      positionX = self.__decode.getMpos('X')
+      probeX    = float(self.ui.qfProbeResultXcenter.text().replace(' ', ''))
+      offsetX   = offsetX if addOffsetX else 0
+      valeurX   = positionX - probeX - offsetX
+      positionY = self.__decode.getMpos('Y')
+      probeY    = float(self.ui.qfProbeResultYcenter.text().replace(' ', ''))
+      offsetY   = offsetY if addOffsetY else 0
+      valeurY   = positionY - probeY - offsetY
+      if self.ui.rbtDefineOriginXY_G54.isChecked():
+        originGcode = "G10L20P0X{:+0.3f}Y{:+0.3f}".format(valeurX, valeurY)
+      else: # rbtDefineOriginZ_G92.isChecked() = True
+        originGcode = "G92X{:+0.3f}Y{:+0.3f}".format(valeurX, valeurY)
+
+    self.__grblCom.gcodePush(originGcode)
 
 
   @pyqtSlot()
@@ -1657,14 +1760,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dbsSeekRateXY.setEnabled(False)
       self.ui.lblPullOffXY.setEnabled(False)
       self.ui.dsbPullOffXY.setEnabled(False)
-
-
-
-
-
-
-
-
 
 
   @pyqtSlot()
@@ -2473,6 +2568,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(bool)
   def on_sig_serialLock(self, val: bool):
+    ###print("{}: on_sig_serialLock({})".format(datetime.now().strftime("%H:%M:%S.%f"), val))
     if val:
       # OK to send GCode = True
       self.ui.lblSerialLock.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")

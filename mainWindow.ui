@@ -5462,7 +5462,10 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
            <property name="bottomMargin">
             <number>2</number>
            </property>
-           <property name="spacing">
+           <property name="horizontalSpacing">
+            <number>6</number>
+           </property>
+           <property name="verticalSpacing">
             <number>0</number>
            </property>
            <item row="0" column="2">
@@ -5503,13 +5506,13 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                 </property>
                 <layout class="QGridLayout" name="gridLayout_6">
                  <property name="leftMargin">
-                  <number>0</number>
+                  <number>2</number>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
                  </property>
                  <property name="rightMargin">
-                  <number>0</number>
+                  <number>2</number>
                  </property>
                  <property name="bottomMargin">
                   <number>0</number>
@@ -5517,42 +5520,18 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                  <property name="spacing">
                   <number>0</number>
                  </property>
-                 <item row="4" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_28">
                    <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>10.000000000000000</double>
+                   <property name="text">
+                    <string>Tool diameter</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
+                 <item row="0" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5560,8 +5539,51 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance.</string>
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_40">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Length</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background: palette(Base)</string>
@@ -5582,7 +5604,51 @@ Need to define non nul probe pull-off distance.</string>
                     <double>0.100000000000000</double>
                    </property>
                    <property name="value">
-                    <double>75.000000000000000</double>
+                    <double>15.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_38">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>XY clearance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -5596,31 +5662,7 @@ Need to define non nul probe pull-off distance.</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
-                  <widget class="QCheckBox" name="chkSeekXY">
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance (unit/mn).</string>
-                   </property>
-                   <property name="text">
-                    <string>Seek rate</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QLabel" name="lblPullOffXY">
-                   <property name="toolTip">
-                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
-                   </property>
-                   <property name="text">
-                    <string>Pull-off dist.</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1" colspan="2">
+                 <item row="3" column="1">
                   <widget class="QDoubleSpinBox" name="dsbClearanceZ">
                    <property name="maximumSize">
                     <size>
@@ -5664,8 +5706,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
+                 <item row="4" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -5673,7 +5715,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background: palette(Base)</string>
@@ -5694,11 +5736,70 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                     <double>0.100000000000000</double>
                    </property>
                    <property name="value">
-                    <double>15.000000000000000</double>
+                    <double>10.000000000000000</double>
                    </property>
                   </widget>
                  </item>
-                 <item row="6" column="1" colspan="2">
+                 <item row="5" column="0">
+                  <widget class="QCheckBox" name="chkSeekXY">
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance (unit/mn).</string>
+                   </property>
+                   <property name="text">
+                    <string>Seek rate</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>75.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="lblPullOffXY">
+                   <property name="toolTip">
+                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
+                   </property>
+                   <property name="text">
+                    <string>Pull-off dist.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
                   <widget class="QDoubleSpinBox" name="dsbPullOffXY">
                    <property name="maximumSize">
                     <size>
@@ -5729,104 +5830,6 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                    <property name="value">
                     <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_40">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Length</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1" colspan="2">
-                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_38">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>XY clearance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QLabel" name="label_28">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Tool diameter</string>
                    </property>
                   </widget>
                  </item>
@@ -5962,7 +5965,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
             <widget class="QWidget" name="gbResults" native="true">
              <layout class="QGridLayout" name="gridLayout_18">
               <property name="leftMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
                <number>0</number>
@@ -7119,28 +7122,41 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                  <property name="spacing">
                   <number>0</number>
                  </property>
-                 <item row="0" column="0" colspan="2">
+                 <item row="0" column="0">
                   <widget class="QRadioButton" name="rbtDefineOriginXY_G54">
                    <property name="text">
-                    <string>G54 offset</string>
+                    <string>Use G54</string>
                    </property>
                    <property name="checked">
                     <bool>true</bool>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="2">
+                 <item row="0" column="1">
                   <widget class="QRadioButton" name="rbtDefineOriginXY_G92">
                    <property name="styleSheet">
                     <string notr="true"/>
                    </property>
                    <property name="text">
-                    <string>G92 offset</string>
+                    <string>Use G92</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_31">
+                 <item row="1" column="0" colspan="2">
+                  <widget class="Line" name="line_2">
+                   <property name="styleSheet">
+                    <string notr="true">color: #c0c0c0</string>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Plain</enum>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QCheckBox" name="chkAddOffsetX">
                    <property name="toolTip">
                     <string>Add or subtract X offset to the probed point for the X origin definition.</string>
                    </property>
@@ -7149,8 +7165,11 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1" colspan="2">
+                 <item row="2" column="1">
                   <widget class="QDoubleSpinBox" name="dsbOriginOffsetX">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -7183,8 +7202,8 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_32">
+                 <item row="3" column="0">
+                  <widget class="QCheckBox" name="chkAddOffsetY">
                    <property name="toolTip">
                     <string>Add or subtract Y offset to the probed point for the Y origin definition.</string>
                    </property>
@@ -7193,8 +7212,11 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1" colspan="2">
+                 <item row="3" column="1">
                   <widget class="QDoubleSpinBox" name="dsbOriginOffsetY">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -8694,7 +8716,7 @@ G43.1</string>
        <item>
         <widget class="QTabWidget" name="qtabConsole">
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
           <attribute name="title">
