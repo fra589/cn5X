@@ -166,8 +166,10 @@ class gcodeFile(QObject):
     for I in range(startLine, endLine + 1):
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) != "":
-        com.gcodePush(self.__gcodeFileUiModel.data(idx))
-        com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
+        gcodeLine = self.__gcodeFileUiModel.data(idx)
+        if gcodeLine is not None:
+          com.gcodePush(gcodeLine)
+          com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
 
 
   def delEmptyRow(self):
