@@ -70,7 +70,6 @@ class grblComSerial(QObject):
     self.__querySequence    = [
       REAL_TIME_REPORT_QUERY,
       REAL_TIME_REPORT_QUERY,
-      ###CMD_GRBL_GET_GCODE_PARAMATERS + '\n',
       REAL_TIME_REPORT_QUERY,
       REAL_TIME_REPORT_QUERY,
       CMD_GRBL_GET_GCODE_STATE + '\n'
@@ -386,7 +385,6 @@ class grblComSerial(QObject):
         QCoreApplication.processEvents()
 
       if self.__abort:
-        ###self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): sig_abort received, closing the thread..."))
         self.sig_log.emit(logSeverity.info.value, self.tr("grblComSerial.__mainLoop(): Abort received, closing the thread..."))
         break # Sortie de la boucle principale
 

@@ -22,8 +22,9 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import os, sys
+from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QListView
 from cn5X_config import *
@@ -47,14 +48,17 @@ class gcodeFile(QObject):
 
   sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant
 
-  def __init__(self, gcodeFileUi: QListView):
+  def __init__(self, ui, gcodeFileUi: QListView):
     super().__init__()
     self.__filePath         = ""
+    self.__ui               = ui
     self.__gcodeFileUi      = gcodeFileUi
     self.__gcodeFileUiModel = QStandardItemModel(self.__gcodeFileUi)
     self.__gcodeFileUiModel.itemChanged.connect(self.on_gcodeChanged)
+
     self.__gcodeCharge      = False
     self.__gcodeChanged     = False
+
 
   def showFileOpen(self):
     ''' Affiche la boite de dialogue d'ouverture '''
@@ -91,6 +95,7 @@ class gcodeFile(QObject):
     self.__filePath     = filePath
     self.__gcodeChanged = False
     return True
+
 
   def isFileLoaded(self):
     return self.__gcodeCharge
@@ -161,8 +166,13 @@ class gcodeFile(QObject):
 
   def enQueue(self, com: grblCom, startLine: int = 0, endLine: int = -1):
     """ Envoi des lignes de startLine a endLine dans la file d'attente du grblCom """
+
+    # Force le curseur souris sablier
+    QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+    
     if endLine == -1:
       endLine = self.__gcodeFileUiModel.rowCount()
+
     for I in range(startLine, endLine + 1):
       idx = self.__gcodeFileUiModel.index( I, 0, QModelIndex())
       if self.__gcodeFileUiModel.data(idx) != "":
@@ -170,6 +180,9 @@ class gcodeFile(QObject):
         if gcodeLine is not None:
           com.gcodePush(gcodeLine)
           com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
+
+    # Restore le curseur souris sablier en fin d'initialisation
+    QtWidgets.QApplication.restoreOverrideCursor()
 
 
   def delEmptyRow(self):

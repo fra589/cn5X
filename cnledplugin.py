@@ -47,7 +47,7 @@ ICONEWIDGET = QtGui.QIcon()  # sans image, l'icone est celui de Qt
 modulewidget = __import__(FICHIERWIDGET, fromlist=[NOMCLASSEWIDGET])
 CLASSEWIDGET = getattr(modulewidget, NOMCLASSEWIDGET)
 
-#############################################################################
+# ===========================================================================
 class cnledPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     """classe pour renseigner Designer sur le widget
        nom de classe a renommer selon le widget

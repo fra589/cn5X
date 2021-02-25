@@ -24,6 +24,7 @@
 
 import sys, os, time
 from datetime import datetime
+import locale
 import argparse
 import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -39,8 +40,8 @@ from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
 from grblJog import grblJog
 from grblProbe import *
-from cn5X_probe import *
 from cn5X_gcodeFile import gcodeFile
+from qwprogressbox import *
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
 from cn5X_helpProbe import cn5XHelpProbe
@@ -57,6 +58,10 @@ import mainWindow
 class winMain(QtWidgets.QMainWindow):
 
   def __init__(self, parent=None):
+
+    # Force le curseur souris sablier
+    QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+
     QtWidgets.QMainWindow.__init__(self, parent)
 
     self.ucase = upperCaseValidator(self)
@@ -97,7 +102,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
     self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)               # Active le tab de la log cn5X++
 
-    self.__gcodeFile = gcodeFile(self.ui.gcodeTable)
+    self.__gcodeFile = gcodeFile(self.ui, self.ui.gcodeTable)
     self.__gcodeFile.sig_log.connect(self.on_sig_log)
 
     self.timerDblClic = QtCore.QTimer()
@@ -145,20 +150,20 @@ class winMain(QtWidgets.QMainWindow):
 
     '''---------- Preparation de l'interface ----------'''
 
-    # On traite la langue.
+    # On traite la langue locale.
     if self.__args.lang != None:
       # l'argument sur la ligne de commande est prioritaire.
-      locale = QLocale(self.__args.lang)
+      langue = QLocale(self.__args.lang)
     else:
       # Si une langue est définie dans les settings, on l'applique
       settingsLang = self.__settings.value("lang", "default")
       if settingsLang != "default":
-        locale = QLocale(settingsLang)
+        langue = QLocale(settingsLang)
       else:
         # On prend la locale du système par défaut
-        locale = QLocale()
+        langue = QLocale()
 
-    self.setTranslator(locale)
+    self.setTranslator(langue)
 
     QtGui.QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")  # Police type "LED"
     self.ui.btnConnect.setText(self.tr("Connect"))                            # Label du bouton connect
@@ -382,8 +387,6 @@ class winMain(QtWidgets.QMainWindow):
 
     if self.__args.file != None:
       # Charge le fichier GCode a l'ouverture
-      # Curseur sablier
-      self.setCursor(Qt.WaitCursor)
       RC = self.__gcodeFile.readFile(self.__args.file)
       if RC:
         # Selectionne l'onglet du fichier sauf en cas de debug actif
@@ -394,8 +397,6 @@ class winMain(QtWidgets.QMainWindow):
         # Selectionne l'onglet de la console pour que le message d'erreur s'affiche sauf en cas de debug
         if not self.ui.btnDebug.isChecked():
           self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
-      # Restore le curseur de souris
-      self.setCursor(Qt.ArrowCursor)
 
     if self.__args.noUrgentStop:
       self.__arretUrgence = False
@@ -407,6 +408,17 @@ class winMain(QtWidgets.QMainWindow):
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
 
+    # Initialise la boite de progression d'un fichier programme GCode
+    self.__pBox = qwProgressBox(self)
+    self.__pBoxArmee = False
+
+    # Restore le curseur souris sablier en fin d'initialisation
+    QtWidgets.QApplication.restoreOverrideCursor()
+    
+    ### GBGB tests ###
+    ###print(locale.getlocale(locale.LC_TIME))
+    ###print(datetime.now().strftime("%A %x %H:%M:%S"))
+    ### Pour debug de qwProgressBox ### self.__pBox.start()
 
 
   def populatePortList(self):
@@ -595,7 +607,7 @@ class winMain(QtWidgets.QMainWindow):
     if fileName[0] != "":
       # Lecture du fichier
       # Curseur sablier
-      self.setCursor(Qt.WaitCursor)
+      QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
       RC = self.__gcodeFile.readFile(fileName[0])
       if RC:
         # Selectionne l'onglet du fichier sauf en cas de debug
@@ -609,7 +621,7 @@ class winMain(QtWidgets.QMainWindow):
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
     # Restore le curseur de souris
-    self.setCursor(Qt.ArrowCursor)
+    QtWidgets.QApplication.restoreOverrideCursor()
 
 
   @pyqtSlot()
@@ -665,6 +677,8 @@ class winMain(QtWidgets.QMainWindow):
 
   def closeEvent(self, event):
     self.log(logSeverity.info.value, self.tr("Closing the application..."))
+    if self.__pBox.isVisible():
+      self.__pBox.stop()
     if self.__connectionStatus:
       self.__grblCom.stopCom()
     if not self.__gcodeFile.closeFile():
@@ -773,7 +787,7 @@ class winMain(QtWidgets.QMainWindow):
                   stdButton = msgButtonList.Close
                 )
       m.afficheMsg()
-      ###return
+      return
       
     txtMsg = self.tr("Restore previously saved G92 offsets:\n")
     newValue = [0.0 ,0.0 ,0.0 ,0.0 , 0.0, 0.0]
@@ -1963,14 +1977,14 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_btnFloodM7(self):
     if self.__decode.get_etatArrosage() != "M7" and self.__decode.get_etatArrosage() != "M78":
-      # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M7")
+      # Envoi "Real Time Command"
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
 
 
   @pyqtSlot()
   def on_btnFloodM8(self):
     if self.__decode.get_etatArrosage() != "M8" and self.__decode.get_etatArrosage() != "M78":
-      # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M8")
+      # Envoi "Real Time Command"
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
 
@@ -1980,7 +1994,7 @@ class winMain(QtWidgets.QMainWindow):
       # Envoi "Real Time Command"
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_MIST_COOLANT)
     if self.__decode.get_etatArrosage() == "M8" or self.__decode.get_etatArrosage() == "M78":
-      # Envoi "Real Time Command" plutot que self.__grblCom.enQueue("M9")
+      # Envoi "Real Time Command"
       self.__grblCom.realTimePush(REAL_TIME_TOGGLE_FLOOD_COOLANT)
 
 
@@ -2112,12 +2126,26 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(int)
   def on_sig_error(self, errNum: int):
     self.logGrbl.append(self.__decode.errorMessage(errNum))
+    if self.__cycleRun:
+      self.__grblCom.clearCom() # Vide la file d'attente de communication
+      self.__cycleRun = False
+      self.__cyclePause = False
+      # Masque de la boite de progression
+    if self.__pBox.isVisible():
+      self.__pBox.stop()
 
 
   @pyqtSlot(int)
   def on_sig_alarm(self, alarmNum: int):
     self.logGrbl.append(self.__decode.alarmMessage(alarmNum))
     self.__decode.set_etatMachine(GRBL_STATUS_ALARM)
+    if self.__cycleRun:
+      self.__grblCom.clearCom() # Vide la file d'attente de communication
+      self.__cycleRun = False
+      self.__cyclePause = False
+    # Masque de la boite de progression
+    if self.__pBox.isVisible():
+      self.__pBox.stop()
 
 
   @pyqtSlot(str)
@@ -2125,6 +2153,12 @@ class winMain(QtWidgets.QMainWindow):
     retour = self.__decode.decodeGrblStatus(data)
     if retour != "":
       self.logGrbl.append(retour)
+    if self.__cycleRun and self.__decode.get_etatMachine() == GRBL_STATUS_RUN:
+      self.__pBoxArmee = True
+    # Masque de la boite de progression
+    if (self.__decode.get_etatMachine() == GRBL_STATUS_IDLE) and self.__pBox.isVisible() and self.__pBoxArmee:
+      print(self.__decode.get_etatMachine())
+      self.__pBox.stop()
 
 
   @pyqtSlot(str)
@@ -2185,6 +2219,10 @@ class winMain(QtWidgets.QMainWindow):
             break
           else:
             ligne += 1
+        # Mise à jour de la progressBox
+        self.__pBox.setValue(ligne + 1)
+        if data[:1] == '(' and data[-1:] == ")":
+          self.__pBox.setComment(data)
 
 
   @pyqtSlot(str)
@@ -2270,14 +2308,24 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def startCycle(self, startFrom: int = 0):
+    
+
     if self.ui.gcodeTable.model().rowCount()<=0:
       self.log(logSeverity.warning.value, self.tr("Attempt to start an empty cycle..."))
     else:
       self.log(logSeverity.info.value, self.tr("Starting cycle..."))
+
+      # Affichage de la boite de progression
+      self.__pBox.setRange(startFrom, self.ui.gcodeTable.model().rowCount())
+      self.__pBoxArmee = False
+      self.__pBox.start()
+
       self.__gcodeFile.selectGCodeFileLine(0)
       self.__cycleRun = True
       self.__cyclePause = False
+      
       self.__gcodeFile.enQueue(self.__grblCom, startFrom)
+      
       self.ui.btnStart.setButtonStatus(True)
       self.ui.btnPause.setButtonStatus(False)
       self.ui.btnStop.setButtonStatus(False)
@@ -2330,6 +2378,8 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
     self.__cycleRun = False
     self.__cyclePause = False
+    # Masque de la boite de progression
+    self.__pBox.stop()
     self.ui.btnStart.setButtonStatus(False)
     self.ui.btnPause.setButtonStatus(False)
     self.ui.btnStop.setButtonStatus(True)
@@ -2509,12 +2559,12 @@ class winMain(QtWidgets.QMainWindow):
     translations = root.getElementsByTagName("translation")
 
     l = 0
-    self.locales = []
+    self.langues = []
     self.ui.actionLang = []
     self.ui.iconLang = []
     for translation in translations:
 
-      self.locales.append(translation.getElementsByTagName("locale")[0].childNodes[0].nodeValue)
+      self.langues.append(translation.getElementsByTagName("locale")[0].childNodes[0].nodeValue)
       label = translation.getElementsByTagName("label")[0].childNodes[0].nodeValue
       qm_file = translation.getElementsByTagName("qm_file")[0].childNodes[0].nodeValue
       flag_file = translation.getElementsByTagName("flag_file")[0].childNodes[0].nodeValue
@@ -2525,7 +2575,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.actionLang[l].setIcon(self.ui.iconLang[l])
       self.ui.actionLang[l].setText(label)
       self.ui.actionLang[l].setCheckable(True)
-      self.ui.actionLang[l].setObjectName(self.locales[l])
+      self.ui.actionLang[l].setObjectName(self.langues[l])
       self.ui.menuLangue.addAction(self.ui.actionLang[l])
 
       l += 1
@@ -2542,13 +2592,13 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_menuLangue(self, action):
     if action.objectName() == "actionLangSystem":
-      locale = QLocale()
+      langue = QLocale()
       self.__settings.remove("lang")
     else:
-      locale = QLocale(action.objectName())
+      langue = QLocale(action.objectName())
       self.__settings.setValue("lang", action.objectName())
     # Active la nouvelle langue
-    self.setTranslator(locale)
+    self.setTranslator(langue)
     #for a in self.ui.menuLangue.actions():
     #  if a.objectName() == action.objectName():
     #    a.setChecked(True)
@@ -2568,7 +2618,6 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(bool)
   def on_sig_serialLock(self, val: bool):
-    ###print("{}: on_sig_serialLock({})".format(datetime.now().strftime("%H:%M:%S.%f"), val))
     if val:
       # OK to send GCode = True
       self.ui.lblSerialLock.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")
@@ -2577,14 +2626,14 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.lblSerialLock.setStyleSheet(".QLabel{border-radius: 3px; background: red;}")
 
 
-  def setTranslator(self, locale: QLocale):
+  def setTranslator(self, langue: QLocale):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
-    if not translator.load(locale, "{}/i18n/cn5X".format(app_path), "."):
+    if not translator.load(langue, "{}/i18n/cn5X".format(app_path), "."):
       self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(locale.name()))
-      #locale = QLocale(QLocale.French, QLocale.France)
-      locale = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
+      #langue = QLocale(QLocale.French, QLocale.France)
+      langue = QLocale(QLocale.English, QLocale.UnitedKingdom)
+      translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
 
     # Install le traducteur et l'exécute sur les éléments déjà chargés
     QtCore.QCoreApplication.installTranslator(translator)
@@ -2601,7 +2650,7 @@ class winMain(QtWidgets.QMainWindow):
           a.setChecked(False)
       else:
         la = QLocale(a.objectName())
-        if la.language() == locale.language():
+        if la.language() == langue.language():
           self.ui.menuLangue.setIcon(a.icon())
           if settingsLang != "default":
             a.setChecked(True)
@@ -2611,7 +2660,7 @@ class winMain(QtWidgets.QMainWindow):
           a.setChecked(False)
 
     # Sélectionne l'image du bouton d'urgence
-    if locale.language() == QLocale(QLocale.French, QLocale.France).language():
+    if langue.language() == QLocale(QLocale.French, QLocale.France).language():
       self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
       self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
     else:
@@ -2650,9 +2699,12 @@ if __name__ == '__main__':
   print("")
 
   translator = QTranslator()
-  locale = QLocale(QLocale.French, QLocale.France)
-  translator.load(locale, "{}/i18n/cn5X".format(app_path), ".")
+  langue = QLocale(QLocale.French, QLocale.France)
+  translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
   app.installTranslator(translator)
+
+  # Définition de la locale pour affichage des dates dans la langue du systeme
+  locale.setlocale(locale.LC_TIME, '')
 
   window = winMain()
   window.show()

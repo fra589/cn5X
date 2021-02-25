@@ -577,7 +577,6 @@ class grblDecode(QObject):
           self.ui.lblEtat.setText(etat)
           self.__etatMachine = etat
 
-
   def get_etatMachine(self):
     return self.__etatMachine
 
