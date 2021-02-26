@@ -24,6 +24,7 @@
 
 import sys, os, time
 from datetime import datetime
+from xml.dom.minidom import parse, Node, Element
 import locale
 import argparse
 import serial, serial.tools.list_ports
@@ -47,7 +48,7 @@ from cn5X_apropos import cn5XAPropos
 from cn5X_helpProbe import cn5XHelpProbe
 from grblG92 import dlgG92
 from grblG28_30_1 import dlgG28_30_1
-from xml.dom.minidom import parse, Node, Element
+from cn5X_jog import dlgJog
 
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
@@ -192,6 +193,9 @@ class winMain(QtWidgets.QMainWindow):
     self.__yMax      = False
     self.__yMaxValue = None
 
+    # Flag pour unicité de la boite de dialogue Jog
+    self.dlgJog = None
+
     '''---------- Connections des evennements de l'interface graphique ----------'''
     
     self.ui.btnUrgence.pressed.connect(self.on_arretUrgence)             # Evenements du bouton d'arret d'urgence
@@ -227,6 +231,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuSaveG92.triggered.connect(self.on_mnuSaveG92)
     self.ui.mnuRestoreG92.triggered.connect(self.on_mnuRestoreG92)
     self.ui.mnuG92_1.triggered.connect(self.on_mnuG92_1)
+    
+    self.ui.mnuJog_to.triggered.connect(self.on_mnuJog_to)
 
     # Sous-menu G28/G30
     self.ui.mnuPredefinedLocations.aboutToShow.connect(self.on_mnuPredefinedLocations)
@@ -828,6 +834,22 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuG92_1(self):
     ''' Envoi G92.1 '''
     self.__grblCom.gcodePush("G92.1")
+
+
+  @pyqtSlot()
+  def on_mnuJog_to(self):
+    ''' Appel de la boite de dialogue Jog '''
+    if self.dlgJog is None:
+      self.dlgJog = dlgJog(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+      self.dlgJog.setParent(self)
+      self.dlgJog.sig_close.connect(self.on_dlgJogFinished)
+      self.dlgJog.showDialog()
+
+
+  def on_dlgJogFinished(self):
+    print("dlgJog closed")
+    self.dlgJog.sig_close.disconnect(self.on_dlgJogFinished)
+    self.dlgJog = None
 
 
   @pyqtSlot()

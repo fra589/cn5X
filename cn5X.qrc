@@ -1,5 +1,12 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/btnJogNone.svg</file>
+    <file>images/btnJogA.svg</file>
+    <file>images/btnJogB.svg</file>
+    <file>images/btnJogC.svg</file>
+    <file>images/btnJogX.svg</file>
+    <file>images/btnJogY.svg</file>
+    <file>images/btnJogZ.svg</file>
     <file>images/questionG28.1.svg</file>
     <file>images/questionG28.svg</file>
     <file>images/questionG30.1.svg</file>
@@ -79,7 +86,6 @@
     <file>images/btnStop.svg</file>
     <file>images/btnUrgence.svg</file>
     <file>images/btnUrgenceOff.svg</file>
-    <file>images/XYZAB-48.svg</file>
     <file>images/XYZAB.svg</file>
     <file>fonts/LEDCalculator.ttf</file>
   </qresource>

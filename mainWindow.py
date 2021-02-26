@@ -630,7 +630,7 @@ class Ui_mainWindow(object):
     self.dsbJogSpeed.setSizePolicy(sizePolicy)
     self.dsbJogSpeed.setMinimumSize(QtCore.QSize(84, 0))
     self.dsbJogSpeed.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-    self.dsbJogSpeed.setDecimals(3)
+    self.dsbJogSpeed.setDecimals(2)
     self.dsbJogSpeed.setMaximum(10000.0)
     self.dsbJogSpeed.setProperty("value", 100.0)
     self.dsbJogSpeed.setObjectName("dsbJogSpeed")

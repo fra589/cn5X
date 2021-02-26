@@ -90,6 +90,7 @@ class cnQPushButton(QtWidgets.QPushButton):
   def changeIcon(self, icon):
     newIcon = QtGui.QIcon()
     newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    ###newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Disabled, QtGui.QIcon.Off)
     self.setIcon(newIcon)
 
 

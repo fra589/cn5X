@@ -1540,7 +1540,7 @@ to unlock urgent stop</string>
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                   <property name="decimals">
-                   <number>3</number>
+                   <number>2</number>
                   </property>
                   <property name="maximum">
                    <double>10000.000000000000000</double>

@@ -29,7 +29,7 @@ SOURCES += ../cn5X.py \
 	../cn5X_apropos.py \
 	../cn5X_config.py \
 	../cn5X_gcodeFile.py \
-	../cn5X_probe.py \
+	../cn5X_helpProbe.py \
 	../cn5X_rc.py \
 	../cnled.py \
 	../cnQLabel.py \
@@ -39,6 +39,8 @@ SOURCES += ../cn5X.py \
 	../dlgConfig.py \
 	../dlgG28_30_1.py \
 	../dlgG92.py \
+  ../dlgHelpProbe.py \
+  ../dlgJog.py \
 	../gcodeQLineEdit.py \
 	../grblCom.py \
 	../grblComSerial.py \
@@ -49,9 +51,13 @@ SOURCES += ../cn5X.py \
 	../grblG28_30_1.py \
 	../grblG92.py \
 	../grblJog.py \
+  ../grblProbe.py \
 	../mainWindow.py \
 	../msgbox.py \
 	../qweditmask.py \
+  ../qwprogressbox.py \
 	../speedOverrides.py
 TRANSLATIONS += cn5X.fr.ts \
                 cn5X.en.ts
+
+
