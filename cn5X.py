@@ -1584,6 +1584,8 @@ class winMain(QtWidgets.QMainWindow):
       elif btnNum == 0 and probeInside: # inside Full center 
         # On commence par réinitialiser les résultats
         self.resetProbeResults
+        self.ui.chkAddOffsetX.setChecked(False)
+        self.ui.chkAddOffsetY.setChecked(False)
         # Puis, on bouge
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
         self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance + clearanceXY))
@@ -1602,38 +1604,44 @@ class winMain(QtWidgets.QMainWindow):
         self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
         # Remonte et c'est fini :-)
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
-        self.ui.chkAddOffsetX.setChecked(False)
-        self.ui.chkAddOffsetY.setChecked(False)
 
       elif btnNum == 0 and probeOutside: # outside Full center 
-        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance - clearanceXY))
+        # On commence par réinitialiser les résultats
+        self.resetProbeResults
+        self.ui.chkAddOffsetX.setChecked(False)
+        self.ui.chkAddOffsetY.setChecked(False)
+        # Probe en X+ / X-
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter/2)))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        probeXplus(clearanceXY)
-        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY + (toolDiameter / 2)))
+        probeXplus(clearanceXY + toolDiameter)
+        time.sleep(0.25)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
-        self.__grblCom.gcodePush("G0X{:+0.3f}".format(2 * (probeDistance + clearanceXY)))
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(2 * (probeDistance + clearanceXY) + toolDiameter))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        probeXmoins(clearanceXY)
-        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY - (toolDiameter / 2)))
+        probeXmoins(clearanceXY + toolDiameter)
+        time.sleep(0.25)
+        self.__grblCom.gcodePush("G0X{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         # Calcule et se deplace au centre en X
         centreX = (self.__xMinValue + self.__xMaxValue) / 2
         self.__grblCom.gcodePush("G53G0X{:+0.3f}".format(centreX))
-        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-probeDistance - clearanceXY))
+        # Probe en Y+ / Y-
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-probeDistance - clearanceXY - (toolDiameter/2)))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        probeYplus(clearanceXY)
-        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY + (toolDiameter / 2)))
+        probeYplus(clearanceXY + toolDiameter)
+        time.sleep(0.25)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(-clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
-        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(2 * (probeDistance + clearanceXY)))
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(2 * (probeDistance + clearanceXY) + toolDiameter))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(-clearanceZ))
-        probeYmoins(clearanceXY)
-        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY - (toolDiameter / 2)))
+        probeYmoins(clearanceXY + toolDiameter)
+        time.sleep(0.25)
+        self.__grblCom.gcodePush("G0Y{:+0.3f}".format(clearanceXY))
         self.__grblCom.gcodePush("G0Z{:+0.3f}".format(clearanceZ))
         # Calcule et se deplace au centre en Y
         centreY = (self.__yMinValue + self.__yMaxValue) / 2
         self.__grblCom.gcodePush("G53G0Y{:+0.3f}".format(centreY))
-        self.ui.chkAddOffsetX.setChecked(False)
-        self.ui.chkAddOffsetY.setChecked(False)
 
     except ValueError as e:
       # Erreur arguments d'appel de self.__probe.g38()

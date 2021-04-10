@@ -854,7 +854,7 @@ class grblDecode(QObject):
   @pyqtSlot()
   def waitForGrblProbe(self):
     ''' Attente d'une réponse de Grbl, Probe ou error ou Alarm '''
-    self.__probeRecu = "Coucou"
+    self.__probeRecu = None
     
     def quitOnProbe(data: str):
       resultatProbe = []

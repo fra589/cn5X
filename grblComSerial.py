@@ -78,7 +78,8 @@ class grblComSerial(QObject):
     self.__pooling          = pooling
     self.__okToSendGCode = True
     self.sig_serialLock.emit(self.__okToSendGCode)
-
+    
+    self.probeAttendu = False
 
   @pyqtSlot()
   def startPooling(self):
@@ -156,6 +157,7 @@ class grblComSerial(QObject):
     # Force l'etat RUN en cas de Probe pour éviter le téléscopage avec les réponses de $#
     if "G38" in buff:
       self.__grblStatus = GRBL_STATUS_RUN
+      self.probeAttendu = True
     # Formatage du buffer a envoyer
     buffWrite = bytes(buff, sys.getdefaultencoding())
     # Temps necessaire pour la com (millisecondes), arrondi a l'entier superieur
@@ -191,19 +193,24 @@ class grblComSerial(QObject):
     elif l == "ok":                            # Reponses "ok"
       if not flag & COM_FLAG_NO_OK:
         self.sig_ok.emit()
+        self.probeAttendu = False
     elif l[:6] == "error:":                    # "error:X" => Renvoie X
       if not flag & COM_FLAG_NO_ERROR:
         errNum = int(l.split(':')[1])
         self.sig_error.emit(errNum)
+        self.probeAttendu = False
     elif l[:6] == "ALARM:":                    # "ALARM:X" => Renvoie X
       alarmNum = int(l.split(':')[1])
       self.sig_alarm.emit(alarmNum)
+      self.probeAttendu = False
     elif l[:1] == "<" and l[-1:] == ">":       # Real-time Status Reports
       self.__grblStatus = l[1:].split('|')[0]
       self.sig_status.emit(l)
     elif l[:5] == "[PRB:": # Probe result
       self.sig_data.emit(l)
-      self.sig_probe.emit(l)
+      if self.probeAttendu:
+        self.sig_probe.emit(l)
+        self.probeAttendu = False
     elif l[:1] == "$" or l[:5] == "[VER:" or l[:5] == "[AXS:" or l[:5] == "[OPT:": # Setting output
       self.sig_config.emit(l)
     else:
@@ -347,7 +354,6 @@ class grblComSerial(QObject):
           self.__okToSendGCode = False # On enverra plus de commande tant que l'on aura pas recu l'accuse de reception.
           self.sig_serialLock.emit(self.__okToSendGCode)
       else: # self.__okToSendGCode is False
-        self.sig_debug.emit(self.tr("grblComSerial.__mainLoop(): Not OK to send GCode ({}).").format(self.__mainStack.next()))
         # Process events to receive signals;
         QCoreApplication.processEvents()
       #-----------------------------------------------------------------

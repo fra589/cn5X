@@ -145,7 +145,7 @@ class grblProbe(QObject):
       probeGCode += "W{}".format(W)
 
     # On prévient le communicator qu'on attend le résultat
-    self.__grblCom.getDecoder().getNextProbe()
+    self.__decode.getNextProbe()
     
     # Envoi du GCode à Grbl
     self.__grblCom.gcodePush(probeGCode)
