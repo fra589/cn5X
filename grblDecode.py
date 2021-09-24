@@ -734,6 +734,8 @@ class grblDecode(QObject):
     self.ui.lblLblPosZ.setText(self.__axisNames[2])
     self.ui.rbtDefineOriginXY_G54.setText("G{} offset".format(self.__G5actif))
     self.ui.rbtDefineOriginZ_G54.setText("G{} offset".format(self.__G5actif))
+    self.ui.mnuG5X_reset.setText("Turn off and reset G{} offsets of all axis".format(self.__G5actif))
+    self.ui.mnuG5X_origine_0.setText("Place the G{} origin of all axis here".format(self.__G5actif))
     self.ui.mnuG5X_origine_1.setText("Place the G{} origin of axis {} here".format(self.__G5actif, self.__axisNames[0]))
     self.ui.mnuG5X_origine_2.setText("Place the G{} origin of axis {} here".format(self.__G5actif, self.__axisNames[1]))
     self.ui.mnuG5X_origine_3.setText("Place the G{} origin of axis {} here".format(self.__G5actif, self.__axisNames[2]))

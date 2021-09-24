@@ -2030,7 +2030,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str, QtGui.QMouseEvent)
   def on_lblG5xClick(self, lblText, e):
-    self.__grblCom.gcodeInsert(lblText)
+    self.__grblCom.gcodePush(lblText)
 
 
   @pyqtSlot()

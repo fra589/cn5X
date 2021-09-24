@@ -23,11 +23,13 @@
 
 import sys, time
 from math import *
+from PyQt5 import QtCore
 from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
 from cn5X_config import *
 from grblComSerial import grblComSerial
 
 GCODE_PARAMETER_OUTPUT_CHANGE_CMD = ["G10", "G28.1", "G30.1", "G38", "G43.1", "G49", "G92"]
+GCODE_SYSTEM_COORDINATE_CHANGE_CMD = ["G54", "G55", "G56", "G57", "G58", "G59"]
 
 class grblCom(QObject):
   '''
@@ -64,6 +66,7 @@ class grblCom(QObject):
     self.__grblStatus    = ""
     self.__threads = []
     self.__refreshGcodeParameters = False
+    self.timerRefreshGcode = QtCore.QTimer()
 
 
   def setDecodeur(self, decodeur):
@@ -113,6 +116,9 @@ class grblCom(QObject):
     newComSerial.sig_activity.connect(self.sig_activity.emit)
     newComSerial.sig_serialLock.connect(self.sig_serialLock.emit)
 
+    # Rafraichissement GCode différé
+    self.timerRefreshGcode.timeout.connect(self.on_timerRefreshGcode)
+    
     # Start the thread...
     thread.started.connect(newComSerial.run)
     thread.start()  # this will emit 'started' and start thread's event loop
@@ -179,10 +185,24 @@ class grblCom(QObject):
     self.__threads = []
 
 
+  def on_timerRefreshGcode(self):
+    # Rafraichissement GCode différé pour laisser le temps à Grbl de traiter les commandes G54-G59
+    self.__refreshGcodeParameters = True
+    self.timerRefreshGcode.stop()
+    
+
   def gcodeInsert(self, buff: str, flag=COM_FLAG_NO_FLAG):
     ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
     if self.__connectStatus and self.__grblInit:
       self.__Com.gcodeInsert(buff, flag)
+      # Vérifie si la commande passée modifie les paramètres GCode (resultat de $#)
+      for cmd in GCODE_PARAMETER_OUTPUT_CHANGE_CMD:
+        if cmd in buff:
+          # On relira dès que Grbl sera Idle...
+          self.__refreshGcodeParameters = True
+      for cmd in GCODE_SYSTEM_COORDINATE_CHANGE_CMD:
+        if cmd in buff:
+          self.timerRefreshGcode.start(500)
     else:
       self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
@@ -196,6 +216,9 @@ class grblCom(QObject):
         if cmd in buff:
           # On relira dès que Grbl sera Idle...
           self.__refreshGcodeParameters = True
+      for cmd in GCODE_SYSTEM_COORDINATE_CHANGE_CMD:
+        if cmd in buff:
+          self.timerRefreshGcode.start(500)
     else:
       self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
