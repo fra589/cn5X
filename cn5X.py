@@ -263,6 +263,12 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnPausePooling.clicked.connect(self.on_btnPausePooling)
 
     self.ui.btnClearDebug.clicked.connect(self.clearDebug)
+
+    self.ui.btnM64P0.clicked.connect(lambda: self.on_btnM64(0))
+    self.ui.btnM64P1.clicked.connect(lambda: self.on_btnM64(1))
+    self.ui.btnM64P2.clicked.connect(lambda: self.on_btnM64(2))
+    self.ui.btnM64P3.clicked.connect(lambda: self.on_btnM64(3))
+
     self.ui.btnSpinM3.clicked.connect(self.on_btnSpinM3)
     self.ui.btnSpinM4.clicked.connect(self.on_btnSpinM4)
     self.ui.btnSpinM5.clicked.connect(self.on_btnSpinM5)
@@ -1983,6 +1989,14 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(float)
   def on_dsbJogSpeed_valueChanged(self, val: float):
     self.__jog.setJogSpeed(val)
+
+
+  @pyqtSlot(int)
+  def on_btnM64(self, digitNum: int):
+    if self.__decode.getDigitalStatus(digitNum):
+      self.__grblCom.gcodePush("M65P{}".format(digitNum))
+    else:
+      self.__grblCom.gcodePush("M64P{}".format(digitNum))
 
 
   @pyqtSlot()

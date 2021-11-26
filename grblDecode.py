@@ -81,6 +81,7 @@ class grblDecode(QObject):
     self.__offsetG5x  = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__etatArrosage = None
     self.__etatMachine = None
+    self.__digitalStatus = [False, False, False, False]
     self.__getNextStatusOutput = False
     self.__getNextGCodeParams = False
     self.__getNextGCodeState = False
@@ -134,6 +135,8 @@ class grblDecode(QObject):
     self.ui.statusBar.showMessage("{} + {}".format(self.__grblCom.grblVersion(), grblOutput))
 
     flagPn = False
+    flagOv = False
+    flagDigital = False
     tblDecode = grblOutput[1:-1].split("|")
     for D in tblDecode:
       if D in self.__validMachineState:
@@ -261,6 +264,7 @@ class grblDecode(QObject):
         self.ui.progressBufferState.setToolTip("Buffer stat : " + tblValue[0] + "/" + tblValue[1])
 
       elif D[:3] == "Ov:": # Override Values for feed, rapids, and spindle
+        flagOv = True
         values = D.split(':')[1].split(',')
         # Avance de travail
         if int(self.ui.lblAvancePourcent.text()[:-1]) != int(values[0]):
@@ -285,6 +289,37 @@ class grblDecode(QObject):
           else:
             exec("self.ui.cnLed" + L + ".setLedStatus(False)")
 
+      elif D[:2] == "A:": # OverrideAccessory State
+        accessoryState = D[2:]
+        digitalFind = accessoryState.find("D")
+        if digitalFind >=0:
+          flagDigital = True
+          digitalState = accessoryState[digitalFind+1:]
+          if digitalState[3] == "1":
+            self.ui.btnM64P0.setButtonStatus(True)
+            self.__digitalStatus[0] = True
+          else:
+            self.ui.btnM64P0.setButtonStatus(False)
+            self.__digitalStatus[0] = False
+          if digitalState[2] == "1":
+            self.ui.btnM64P1.setButtonStatus(True)
+            self.__digitalStatus[1] = True
+          else:
+            self.ui.btnM64P1.setButtonStatus(False)
+            self.__digitalStatus[1] = False
+          if digitalState[1] == "1":
+            self.ui.btnM64P2.setButtonStatus(True)
+            self.__digitalStatus[2] = True
+          else:
+            self.ui.btnM64P2.setButtonStatus(False)
+            self.__digitalStatus[2] = False
+          if digitalState[0] == "1":
+            self.ui.btnM64P3.setButtonStatus(True)
+            self.__digitalStatus[3] = True
+          else:
+            self.ui.btnM64P3.setButtonStatus(False)
+            self.__digitalStatus[3] = False
+
       '''
       elif D[:3] == "Ln:": # Line Number
         return D
@@ -295,10 +330,21 @@ class grblDecode(QObject):
       elif D[3:] == "FS:": # Current Feed and Speed
         return D
       '''
-      '''
-      elif D[2:] == "A:": # OverrideAccessory State
-        return D
-      '''
+
+    if flagOv and not flagDigital:
+      if self.__digitalStatus[0]:
+        self.ui.btnM64P0.setButtonStatus(False)
+        self.__digitalStatus[0] = False
+      if self.__digitalStatus[1]:
+        self.ui.btnM64P1.setButtonStatus(False)
+        self.__digitalStatus[1] = False
+      if self.__digitalStatus[2]:
+        self.ui.btnM64P2.setButtonStatus(False)
+        self.__digitalStatus[2] = False
+      if self.__digitalStatus[3]:
+        self.ui.btnM64P3.setButtonStatus(False)
+        self.__digitalStatus[3] = False
+
     if not flagPn:
       # Eteint toute les leds. Si on a pas trouve la chaine Pn:, c'est que toute les leds sont eteintes.
       for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
@@ -579,6 +625,11 @@ class grblDecode(QObject):
 
   def get_etatMachine(self):
     return self.__etatMachine
+
+
+  def getDigitalStatus(self, digitNum):
+    if digitNum >= 0 and digitNum <= 3:
+      return self.__digitalStatus[digitNum]
 
 
   def getWco(self, axis=None):

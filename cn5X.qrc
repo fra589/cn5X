@@ -1,7 +1,19 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/btnM64P0.svg</file>
+    <file>images/btnM64P1.svg</file>
+    <file>images/btnM64P2.svg</file>
+    <file>images/btnM64P3.svg</file>
     <file>images/btnJogNone.svg</file>
+    <file>images/btnM64P0_down.svg</file>
+    <file>images/btnM64P1_down.svg</file>
+    <file>images/btnM64P2_down.svg</file>
+    <file>images/btnM64P3_down.svg</file>
     <file>images/btnJogA.svg</file>
+    <file>images/btnM64P0_light.svg</file>
+    <file>images/btnM64P1_light.svg</file>
+    <file>images/btnM64P2_light.svg</file>
+    <file>images/btnM64P3_light.svg</file>
     <file>images/btnJogB.svg</file>
     <file>images/btnJogC.svg</file>
     <file>images/btnJogX.svg</file>
