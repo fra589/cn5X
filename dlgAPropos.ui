@@ -3,7 +3,7 @@
  <author>Gauthier Brière</author>
  <comment>
 
- Copyright 2018 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -200,7 +200,7 @@ This application is intended to implement all the features of the grbl-Mega-5X f
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string notr="true">Copyright (C) Gauthier Brière - 2018-2021</string>
+            <string notr="true">Copyright (C) Gauthier Brière - 2018-2022</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

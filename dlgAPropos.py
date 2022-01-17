@@ -68,7 +68,7 @@ class Ui_dlgApropos(object):
     spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
     self.verticalLayout_3.addItem(spacerItem2)
     self.label_5 = QtWidgets.QLabel(self.tab)
-    self.label_5.setText("Copyright (C) Gauthier Brière - 2018-2021")
+    self.label_5.setText("Copyright (C) Gauthier Brière - 2018-2022")
     self.label_5.setAlignment(QtCore.Qt.AlignCenter)
     self.label_5.setObjectName("label_5")
     self.verticalLayout_3.addWidget(self.label_5)

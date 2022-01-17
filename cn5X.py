@@ -3,7 +3,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X.py is part of cn5X++                                    '
 '                                                                         '
@@ -49,6 +49,7 @@ from cn5X_helpProbe import cn5XHelpProbe
 from grblG92 import dlgG92
 from grblG28_30_1 import dlgG28_30_1
 from cn5X_jog import dlgJog
+from cn5X_beep import cn5XBeeper
 
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
@@ -124,7 +125,9 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_activity.connect(self.on_sig_activity)
     self.__grblCom.sig_serialLock.connect(self.on_sig_serialLock)
 
-    self.__decode = grblDecode(self.ui, self.log, self.__grblCom)
+    self.__beeper = cn5XBeeper();
+    
+    self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper)
     self.__grblCom.setDecodeur(self.__decode)
 
     self.__jog = grblJog(self.__grblCom)
@@ -432,6 +435,7 @@ class winMain(QtWidgets.QMainWindow):
     ###print(datetime.now().strftime("%A %x %H:%M:%S"))
     ### Pour debug de qwProgressBox ### self.__pBox.start()
 
+    self.__beeper.beep(1760, 0.25, 16000)
 
   def populatePortList(self):
     ''' Rempli la liste des ports serie '''

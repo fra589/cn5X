@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -28,6 +28,7 @@ from PyQt5.QtCore import QCoreApplication, QObject, QEventLoop, pyqtSignal, pyqt
 from grblError import grblError
 from speedOverrides import *
 from grblCom import grblCom
+from cn5X_beep import cn5XBeeper
 
 
 class grblDecode(QObject):
@@ -37,7 +38,7 @@ class grblDecode(QObject):
   - Met a jour l'interface graphique.
   - Stocke des valeurs des parametres decodes.
   '''
-  def __init__(self, ui, log, grbl: grblCom):
+  def __init__(self, ui, log, grbl: grblCom, beeper: cn5XBeeper):
     super().__init__()
     self.ui = ui
     self.log = log
@@ -98,6 +99,9 @@ class grblDecode(QObject):
       [8, self.tr("Homing fail"),        self.tr("Homing fail. Pull off travel failed to clear limit switch. Try increasing pull-off setting or check wiring.")],
       [9, self.tr("Homing fail"),        self.tr("Homing fail. Could not find limit switch within search distances. Try increasing max travel, decreasing pull-off distance, or check wiring.")]
     ]
+    ###beeper()
+    self.beeper = beeper
+    self.probeStatus = False
 
 
   def getG5actif(self):
@@ -288,6 +292,14 @@ class grblDecode(QObject):
             exec("self.ui.cnLed" + L + ".setLedStatus(True)")
           else:
             exec("self.ui.cnLed" + L + ".setLedStatus(False)")
+        # Beep lorsque le probe entre en contact
+        if 'P' in triggered:
+          if not self.probeStatus:
+            self.beeper.beep(1760, 0.25, 16000)
+            self.probeStatus = True
+        else:
+          if self.probeStatus:
+            self.probeStatus = False
 
       elif D[:2] == "A:": # OverrideAccessory State
         accessoryState = D[2:]
@@ -349,6 +361,8 @@ class grblDecode(QObject):
       # Eteint toute les leds. Si on a pas trouve la chaine Pn:, c'est que toute les leds sont eteintes.
       for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
         exec("self.ui.cnLed" + L + ".setLedStatus(False)")
+      if self.probeStatus:
+        self.probeStatus = False
 
 
     if self.__getNextStatusOutput:

@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2021 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X_probe.py, is part of cn5X++                             '
 '                                                                         '
