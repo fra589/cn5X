@@ -435,7 +435,6 @@ class winMain(QtWidgets.QMainWindow):
     ###print(datetime.now().strftime("%A %x %H:%M:%S"))
     ### Pour debug de qwProgressBox ### self.__pBox.start()
 
-    self.__beeper.beep(1760, 0.25, 16000)
 
   def populatePortList(self):
     ''' Rempli la liste des ports serie '''
@@ -1893,6 +1892,9 @@ class winMain(QtWidgets.QMainWindow):
       self.setEnableDisableGroupes()
       self.ui.lblSerialLock.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")
       self.ui.lblSerialActivity.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")
+      # Beep
+      self.__beeper.beep(1760, 0.25, 16000)
+
     else:
       # Mise a jour de l'interface machine non connectée
       self.ui.lblConnectStatus.setText(self.tr("<Not Connected>"))
@@ -2678,7 +2680,7 @@ class winMain(QtWidgets.QMainWindow):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
     if not translator.load(langue, "{}/i18n/cn5X".format(app_path), "."):
-      self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(locale.name()))
+      self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(langue.name()))
       #langue = QLocale(QLocale.French, QLocale.France)
       langue = QLocale(QLocale.English, QLocale.UnitedKingdom)
       translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
