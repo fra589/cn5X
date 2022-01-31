@@ -66,7 +66,6 @@ class Ui_mainWindow(object):
     icon1.addPixmap(QtGui.QPixmap(":/cn5X/images/btnUrgenceOff.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     self.btnUrgence.setIcon(icon1)
     self.btnUrgence.setIconSize(QtCore.QSize(115, 115))
-    self.btnUrgence.setCheckable(False)
     self.btnUrgence.setChecked(False)
     self.btnUrgence.setObjectName("btnUrgence")
     self.gridLayout_5.addWidget(self.btnUrgence, 0, 0, 1, 1)

@@ -38,7 +38,7 @@ class grblDecode(QObject):
   - Met a jour l'interface graphique.
   - Stocke des valeurs des parametres decodes.
   '''
-  def __init__(self, ui, log, grbl: grblCom, beeper: cn5XBeeper):
+  def __init__(self, ui, log, grbl: grblCom, beeper: cn5XBeeper, arretUrgence):
     super().__init__()
     self.ui = ui
     self.log = log
@@ -102,8 +102,8 @@ class grblDecode(QObject):
     ###beeper()
     self.beeper = beeper
     self.probeStatus = False
-
-
+    self.arretUrgence = arretUrgence
+    
   def getG5actif(self):
     return "G{}".format(self.__G5actif)
 
@@ -287,6 +287,7 @@ class grblDecode(QObject):
       elif D[:3] == "Pn:": # Input Pin State
         flagPn = True
         triggered = D[3:]
+        # Affichage voyants d'interface
         for L in ['X', 'Y', 'Z', 'A', 'B', 'C', 'P', 'D', 'H', 'R', 'S']:
           if L in triggered:
             exec("self.ui.cnLed" + L + ".setLedStatus(True)")
@@ -300,6 +301,10 @@ class grblDecode(QObject):
         else:
           if self.probeStatus:
             self.probeStatus = False
+        # Si pin reset active, on déclenche l'arrêt d'urgence dans l'interface.
+        if 'R' in triggered:
+          if not self.arretUrgence():
+            self.ui.btnUrgence.click()
 
       elif D[:2] == "A:": # OverrideAccessory State
         accessoryState = D[2:]

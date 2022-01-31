@@ -163,9 +163,6 @@ to unlock urgent stop</string>
               <height>115</height>
              </size>
             </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
             <property name="checked">
              <bool>false</bool>
             </property>

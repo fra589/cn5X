@@ -127,7 +127,11 @@ class winMain(QtWidgets.QMainWindow):
 
     self.__beeper = cn5XBeeper();
     
-    self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper)
+    self.__arretUrgence     = True
+    def arretUrgence():
+      return self.__arretUrgence
+
+    self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper, arretUrgence)
     self.__grblCom.setDecodeur(self.__decode)
 
     self.__jog = grblJog(self.__grblCom)
@@ -141,7 +145,6 @@ class winMain(QtWidgets.QMainWindow):
     self.__initialProbeZ     = False
     
     self.__connectionStatus = False
-    self.__arretUrgence     = True
     self.__cycleRun         = False
     self.__cyclePause       = False
     self.__grblConfigLoaded = False
