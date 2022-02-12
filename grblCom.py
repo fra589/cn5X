@@ -236,8 +236,9 @@ class grblCom(QObject):
 
   @pyqtSlot()
   def startPooling(self):
-    self.__pooling = True
-    self.__Com.startPooling()
+    if self.__Com is not None:
+      self.__pooling = True
+      self.__Com.startPooling()
 
 
   @pyqtSlot()
