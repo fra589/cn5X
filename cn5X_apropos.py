@@ -51,7 +51,7 @@ class cn5XAPropos(QObject):
     myWidth = self.__dlgApropos.geometry().width()
     myHeight = self.__dlgApropos.geometry().height()
     self.__dlgApropos.setFixedSize(self.__dlgApropos.geometry().width(),self.__dlgApropos.geometry().height())
-    self.__dlgApropos.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
+    self.__dlgApropos.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
     self.__dlgApropos.setWindowFlags(Qt.Window | Qt.Dialog)
 
     RC = self.__dlgApropos.exec()

@@ -169,7 +169,7 @@ class dlgG28_30_1(QObject):
       myWidth = self.__dlg.geometry().width()
       myHeight = self.__dlg.geometry().height()
       self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
-      self.__dlg.move(ParentX + ((ParentWidth - myWidth) / 2),ParentY + ((ParentHeight - myHeight) / 2),)
+      self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
       self.__dlg.setWindowFlags(Qt.Window | Qt.Dialog)
 
       RC = self.__dlg.exec()
