@@ -2210,7 +2210,7 @@ class winMain(QtWidgets.QMainWindow):
       self.__pBoxArmee = True
     # Masque de la boite de progression
     if (self.__decode.get_etatMachine() == GRBL_STATUS_IDLE) and self.__pBox.isVisible() and self.__pBoxArmee:
-      print(self.__decode.get_etatMachine())
+      #print(self.__decode.get_etatMachine())
       self.__pBox.stop()
 
 
