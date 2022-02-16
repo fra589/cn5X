@@ -25,7 +25,7 @@ depuis la version 0.5.a, QTSerialPort à été remplacé par le module pure pyth
 cn5X++ est basé sur Python3, PyQT5 et python-serial.  
 Pour installer les prérequis sur un système Linux type Debian :  
 ```
-apt-get install python3 python3-pyqt5 python3-serial
+apt-get install python3 python3-pyqt5 python3-serial python3-pyqt5.qtmultimedia
 ```
 En utilisation sous Linux, l'utilisateur doit faire partie du groupe Unix dialout pour pouvoir utiliser les ports série :  
 ```
