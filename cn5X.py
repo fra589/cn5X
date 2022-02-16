@@ -2757,7 +2757,10 @@ if __name__ == '__main__':
   app.installTranslator(translator)
 
   # Définition de la locale pour affichage des dates dans la langue du systeme
-  locale.setlocale(locale.LC_TIME, '')
+  try:
+    locale.setlocale(locale.LC_TIME, '')
+  except Exception as err:
+    print("Warning: {}".format(err))
 
   window = winMain()
   window.show()
