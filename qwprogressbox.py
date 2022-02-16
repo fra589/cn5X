@@ -62,7 +62,7 @@ class qwProgressBox(QtWidgets.QWidget):
     self.pBoxLblStart.setStyleSheet("color: white;")
     self.pBoxLblStart.adjustSize()
     self.pBoxBtnHeader.setGeometry(2, 2, self.pBoxLblStart.width() + 36, self.pBoxBtnHeader.height())
-    self.pBoxLblStart.setGeometry(20, (self.pBoxBtnHeader.height() - self.pBoxLblStart.height())/2, self.pBoxLblStart.width(), self.pBoxLblStart.height())
+    self.pBoxLblStart.setGeometry(20, int((self.pBoxBtnHeader.height() - self.pBoxLblStart.height())/2), self.pBoxLblStart.width(), self.pBoxLblStart.height())
 
     self.pBoxProgress = QtWidgets.QProgressBar(self.pBox)
     self.pBoxProgress.setAlignment(Qt.AlignHCenter)

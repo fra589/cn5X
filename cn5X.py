@@ -2323,7 +2323,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuA_propos(self):
     ''' Appel de la boite de dialogue A Propos
     '''
-    dlgApropos = cn5XAPropos(self.tr("Version {}").format(APP_VERSION_STRING), self.__licenceFile)
+    dlgApropos = cn5XAPropos(self.tr("Version {}.{}").format(APP_VERSION_STRING, APP_VERSION_DATE), self.__licenceFile)
     dlgApropos.setParent(self)
     dlgApropos.showDialog()
 
@@ -2335,9 +2335,9 @@ class winMain(QtWidgets.QMainWindow):
       if not self.ui.mnuDebug_mode.isChecked():
         self.ui.mnuDebug_mode.setChecked(True)
       self.ui.btnPausePooling.setEnabled(True)
-      self.on_sig_debug("cn5X++ (v{}) : Starting debug.".format(APP_VERSION_STRING))
+      self.on_sig_debug("cn5X++ (v{}.{}) : Starting debug.".format(APP_VERSION_STRING, APP_VERSION_DATE))
     else:
-      self.on_sig_debug("cn5X++ (v{}) : Stop debugging.".format(APP_VERSION_STRING))
+      self.on_sig_debug("cn5X++ (v{}.{}) : Stop debugging.".format(APP_VERSION_STRING, APP_VERSION_DATE))
       if self.ui.mnuDebug_mode.isChecked():
         self.ui.mnuDebug_mode.setChecked(False)
       # Ensure pooling in active when debug is off
@@ -2738,7 +2738,7 @@ if __name__ == '__main__':
   else:
     # unfrozen
     app_path = os.path.dirname(os.path.realpath(__file__))
-  print("{} v{} running from: {}".format(APP_NAME, APP_VERSION_STRING, app_path))
+  print("{} v{}.{} running from: {}".format(APP_NAME, APP_VERSION_STRING, APP_VERSION_DATE, app_path))
 
   # Bannière sur la console...
   print("")
@@ -2757,7 +2757,10 @@ if __name__ == '__main__':
   app.installTranslator(translator)
 
   # Définition de la locale pour affichage des dates dans la langue du systeme
-  locale.setlocale(locale.LC_TIME, '')
+  try:
+    locale.setlocale(locale.LC_TIME, '')
+  except Exception as err:
+    print("Warning: {}".format(err))
 
   window = winMain()
   window.show()
