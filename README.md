@@ -22,7 +22,7 @@ Ce dépot est une version en cours de développement. Utilisation à vos risques
   
 ## Prérequis :  
 depuis la version 0.5.a, QTSerialPort à été remplacé par le module pure python pyserial qui à l'avantage de fonctionner sans (trop) de problème avec Microsoft Windows.  
-cn5X++ est basé sur Python3, PyQT5 et python-serial.  
+cn5X++ est basé sur Python3, PyQT5, python-serial et PyQT5.qtmultimedia.  
 Pour installer les prérequis sur un système Linux type Debian :  
 ```
 apt-get install python3 python3-pyqt5 python3-serial python3-pyqt5.qtmultimedia
@@ -34,10 +34,10 @@ adduser <username> dialout
   
 ## *prerequisite :*  
 *since version 0.5.a, QTSerialPort has been replaced by the pure python pyserial module which has the advantage of working without (too many) problems with Microsoft Windows.*  
-*cn5X ++ is based on Python3, PyQT5 and python-serial.*  
+*cn5X ++ is based on Python3, PyQT5, python-serial and PyQT5.qtmultimedia.*  
 *To install the prerequisites on a Linux system such as Debian:*  
 ```
-apt-get install python3 python3-pyqt5 python3-serial
+apt-get install python3 python3-pyqt5 python3-serial python3-pyqt5.qtmultimedia
 ```
 *When using under Linux, the user must be part of the Unix dialout group to be able to use the serial ports:*  
 ```
