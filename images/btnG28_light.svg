@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="36"
+   height="25"
+   viewBox="0 0 35.999998 25.000001"
+   version="1.1"
+   id="svg1126"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="btnG28_light.svg">
+  <defs
+     id="defs1120">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1112">
+      <stop
+         style="stop-color:#f2f7ff;stop-opacity:1"
+         offset="0"
+         id="stop1108" />
+      <stop
+         style="stop-color:#0000aa;stop-opacity:1"
+         offset="1"
+         id="stop1110" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1112"
+       id="radialGradient1116"
+       cx="13.62218"
+       cy="8.020236"
+       fx="13.62218"
+       fy="8.020236"
+       r="15"
+       gradientTransform="matrix(0.9333334,0.93333328,-0.93333331,0.93333332,11.771518,-8.1995871)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="18.757972"
+     inkscape:cx="13.237628"
+     inkscape:cy="11.508314"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1680"
+     inkscape:window-height="993"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0"
+     units="px"
+     width="36px">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1671" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata1123">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect831"
+       width="36"
+       height="25"
+       x="0"
+       y="0"
+       ry="7" />
+    <rect
+       style="fill:#5c5c5c;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect833"
+       width="34"
+       height="23"
+       x="1"
+       y="1"
+       ry="6" />
+    <path
+       id="rect835"
+       style="fill:#2020ff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 7,2 C 4.23,2 2,4.23 2,7 v 11 c 0,1.711201 0.8545622,3.212669 2.1582031,4.113281 L 31.841797,2.8867188 C 31.035174,2.3294683 30.058799,2 29,2 Z" />
+    <path
+       id="rect845"
+       style="fill:#0000a0;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 31.841797,2.8867188 4.1582031,22.113281 C 4.9648262,22.670532 5.9412007,23 7,23 h 22 c 2.77,0 5,-2.23 5,-5 V 7 C 34,5.2887993 33.145438,3.7873308 31.841797,2.8867188 Z" />
+    <rect
+       style="fill:url(#radialGradient1116);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect853"
+       width="30"
+       height="19"
+       x="3"
+       y="3"
+       ry="4" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:charlotte;-inkscape-font-specification:charlotte;letter-spacing:0px;word-spacing:0px;stroke-width:3.77998;stroke-miterlimit:4;stroke-dasharray:none"
+       x="7.2099609"
+       y="16.639648"
+       id="text844"><tspan
+         sodipodi:role="line"
+         id="tspan842"
+         x="7.2099609"
+         y="16.639648"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator';fill:#101020;fill-opacity:1;stroke-width:3.77998;stroke-miterlimit:4;stroke-dasharray:none">G28</tspan></text>
+  </g>
+</svg>

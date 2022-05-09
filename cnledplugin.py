@@ -48,7 +48,7 @@ modulewidget = __import__(FICHIERWIDGET, fromlist=[NOMCLASSEWIDGET])
 CLASSEWIDGET = getattr(modulewidget, NOMCLASSEWIDGET)
 
 # ===========================================================================
-class cnledPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
+class cnLedPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     """classe pour renseigner Designer sur le widget
        nom de classe a renommer selon le widget
     """
@@ -121,6 +121,9 @@ class cnledPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                 ' </property>\n' \
                 ' <property name="whatsThis" >\n' \
                 '  <string>{}</string>\n' \
+                ' </property>\n' \
+                ' <property name="Couleur" >\n' \
+                '  <string>Rouge</string>\n' \
                 ' </property>\n' \
                 '</widget>\n'\
                 ).format(NOMCLASSEWIDGET, NOMWIDGET, TEXTETOOLTIP, TEXTEWHATSTHIS)

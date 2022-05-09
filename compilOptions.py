@@ -38,5 +38,6 @@ grblCompilOptions = {
   'I': ["Build info write user string disabled"],
   'E': ["Force sync upon EEPROM write disabled"],
   'W': ["Force sync upon work coordinate offset change disabled"],
-  'L': ["Homing init lock sets Grbl into an alarm state upon power up"]
+  'L': ["Homing init lock sets Grbl into an alarm state upon power up"],
+  'D': ["Use digital input pins"]
 }

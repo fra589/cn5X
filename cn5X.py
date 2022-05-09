@@ -30,7 +30,7 @@ import argparse
 import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
-from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette
+from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette, QFontDatabase
 from PyQt5.QtWidgets import QDialog, QAbstractItemView, QMessageBox
 from cn5X_config import *
 from msgbox import *
@@ -882,33 +882,18 @@ class winMain(QtWidgets.QMainWindow):
     Make a rapid move from current location to the position defined by the last G28.1
     If no positions are stored with G28.1 then all axes will go to the machine origin.
     '''
-    '''
-    if not self.__settings.value("dontConfirmG28", False, type=bool):
-      # Confirmation :
-      m = msgBox(
-          title     = self.tr("Go to G28 location?"),
-          text      = self.tr("Make a rapid move from current location to the position defined by the last G28.1?"),
-          info      = self.tr("If no positions are stored with G28.1 then all axes will go to the machine origin."),
-          icon      = msgIconList.Question,
-          stdButton = msgButtonList.Yes | msgButtonList.Cancel,
-          defButton = msgButtonList.Cancel,
-          escButton = msgButtonList.Cancel,
-          dontShowAgain = True,
-          dontShowChecked = self.__settings.value("dontConfirmG28", False, type=bool)
-      )
-      if m.afficheMsg() == msgButtonList.Yes:
-        # traitement si confirmé
-        self.__grblCom.gcodePush("G28")
-        # Mémorise le choix d'affichage de la boite de confirmation
-        self.__settings.setValue("dontConfirmG28", m.chkDontShow.isChecked())
-    else:
-      # Envoi sans confirmation
-      self.__grblCom.gcodePush("G28")
-    '''
+    self.ui.btnG28.setButtonStatus(True)
     ''' Appel de la boite de dialogue G28 '''
     dlg = dlgG28_30_1("G28", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
     dlg.setParent(self)
     dlg.showDialog()
+    # On laisse le temps à Grbl de commencer
+    jusqua = time.time() + 0.25
+    while time.time() < jusqua:
+      QCoreApplication.processEvents()
+    if self.__decode.get_etatMachine() == GRBL_STATUS_IDLE:
+      # La boite de dialogue à ete annulée ou le trajet est déja fini
+      self.ui.btnG28.setButtonStatus(False)
 
 
   @pyqtSlot()
@@ -917,33 +902,18 @@ class winMain(QtWidgets.QMainWindow):
     Make a rapid move from current location to the position defined by the last G30.1
     If no positions are stored with G30.1 then all axes will go to the machine origin.
     '''
-    '''
-    if not self.__settings.value("dontConfirmG30", False, type=bool):
-      # Confirmation :
-      m = msgBox(
-          title     = self.tr("Go to G30 location?"),
-          text      = self.tr("Make a rapid move from current location to the position defined by the last G30.1?"),
-          info      = self.tr("If no positions are stored with G30.1 then all axes will go to the machine origin."),
-          icon      = msgIconList.Question,
-          stdButton = msgButtonList.Yes | msgButtonList.Cancel,
-          defButton = msgButtonList.Cancel,
-          escButton = msgButtonList.Cancel,
-          dontShowAgain = True,
-          dontShowChecked = self.__settings.value("dontConfirmG30", False, type=bool)
-      )
-      if m.afficheMsg() == msgButtonList.Yes:
-        # traitement si confirmé
-        self.__grblCom.gcodePush("G30")
-        # Mémorise le choix d'affichage de la boite de confirmation
-        self.__settings.setValue("dontConfirmG30", m.chkDontShow.isChecked())
-    else:
-      # Envoi sans confirmation
-      self.__grblCom.gcodePush("G30")
-    '''
+    self.ui.btnG30.setButtonStatus(True)
     ''' Appel de la boite de dialogue G30 '''
     dlg = dlgG28_30_1("G30", self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
     dlg.setParent(self)
     dlg.showDialog()
+    # On laisse le temps à Grbl de commencer
+    jusqua = time.time() + 0.25
+    while time.time() < jusqua:
+      QCoreApplication.processEvents()
+    if self.__decode.get_etatMachine() == GRBL_STATUS_IDLE:
+      # La boite de dialogue à ete annulée ou le trajet est déja fini
+      self.ui.btnG30.setButtonStatus(False)
 
 
   @pyqtSlot()
@@ -2727,8 +2697,10 @@ class winMain(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-  import sys
-
+  
+  # Suppress qt.qpa.xcb: QXcbConnection: XCB error: 3 (BadWindow)
+  os.environ["QT_LOGGING_RULES"] = '*.debug=false;qt.qpa.*=false'
+  
   app = QtWidgets.QApplication(sys.argv)
 
   # Retrouve le répertoire de l'exécutable
@@ -2755,6 +2727,9 @@ if __name__ == '__main__':
   langue = QLocale(QLocale.French, QLocale.France)
   translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
   app.installTranslator(translator)
+
+  # Chargement police LED Calculator depuis le fichier de ressources
+  QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")
 
   # Définition de la locale pour affichage des dates dans la langue du systeme
   try:

@@ -1,7 +1,15 @@
 <RCC>
   <qresource prefix="cn5X">
+    <file>images/ledVerteAlumee.svg</file>
+    <file>images/ledVerteEteinte.svg</file>
+    <file>images/btnG30.svg</file>
+    <file>images/btnG30_down.svg</file>
+    <file>images/btnG30_light.svg</file>
     <file>images/btnM64P0.svg</file>
     <file>images/btnM64P1.svg</file>
+    <file>images/btnG28.svg</file>
+    <file>images/btnG28_down.svg</file>
+    <file>images/btnG28_light.svg</file>
     <file>images/btnM64P2.svg</file>
     <file>images/btnM64P3.svg</file>
     <file>images/btnJogNone.svg</file>
@@ -71,13 +79,13 @@
     <file>images/btnJogPlusY.svg</file>
     <file>images/btnJogPlusZ.svg</file>
     <file>images/btnJogStop.svg</file>
-    <file>images/btnFloodM7_down.svg</file>
     <file>images/btnFloodM7_light.svg</file>
-    <file>images/btnFloodM7.svg</file>
-    <file>images/btnFloodM8_down.svg</file>
     <file>images/btnFloodM8_light.svg</file>
-    <file>images/btnFloodM8.svg</file>
     <file>images/btnFloodM9_down.svg</file>
+    <file>images/btnFloodM7.svg</file>
+    <file>images/btnFloodM7_down.svg</file>
+    <file>images/btnFloodM8.svg</file>
+    <file>images/btnFloodM8_down.svg</file>
     <file>images/btnFloodM9_light.svg</file>
     <file>images/btnFloodM9.svg</file>
     <file>images/btnRefresh.svg</file>

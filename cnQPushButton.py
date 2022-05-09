@@ -103,7 +103,6 @@ class cnQPushButton(QtWidgets.QPushButton):
       self.mousePress.emit(self, e)
 
   def mouseReleaseEvent(self, e):
-    super(cnQPushButton, self).mouseReleaseEvent(e)
     if e.button() == QtCore.Qt.LeftButton:
       self.__mouseIsDown = False
       if self.isCheckable():
@@ -117,6 +116,7 @@ class cnQPushButton(QtWidgets.QPushButton):
         else:
           self.setIcon(self.icon)
       self.mouseRelease.emit(self, e)
+    super(cnQPushButton, self).mouseReleaseEvent(e)
 
   def setButtonStatus(self, value: bool):
     self.__buttonStatus = value

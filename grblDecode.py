@@ -82,7 +82,7 @@ class grblDecode(QObject):
     self.__offsetG5x  = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__etatArrosage = None
     self.__etatMachine = None
-    self.__digitalStatus = [False, False, False, False]
+    self.__digitalStatus = [False, False, False, False, False, False, False, False]
     self.__getNextStatusOutput = False
     self.__getNextGCodeParams = False
     self.__getNextGCodeState = False
@@ -152,6 +152,8 @@ class grblDecode(QObject):
             if self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(False)
             if not self.ui.btnStop.getButtonStatus(): self.ui.btnStop.setButtonStatus(True)
             self.ui.lblEtat.setToolTip(self.tr("Grbl is waiting for work."))
+            if self.ui.btnG28.getButtonStatus():      self.ui.btnG28.setButtonStatus(False)
+            if self.ui.btnG30.getButtonStatus():      self.ui.btnG30.setButtonStatus(False)
           elif D ==GRBL_STATUS_HOLD0:
             if self.ui.btnStart.getButtonStatus():    self.ui.btnStart.setButtonStatus(False)
             if not self.ui.btnPause.getButtonStatus():    self.ui.btnPause.setButtonStatus(True)
@@ -312,30 +314,107 @@ class grblDecode(QObject):
         if digitalFind >=0:
           flagDigital = True
           digitalState = accessoryState[digitalFind+1:]
-          if digitalState[3] == "1":
-            self.ui.btnM64P0.setButtonStatus(True)
-            self.__digitalStatus[0] = True
-          else:
-            self.ui.btnM64P0.setButtonStatus(False)
-            self.__digitalStatus[0] = False
-          if digitalState[2] == "1":
-            self.ui.btnM64P1.setButtonStatus(True)
-            self.__digitalStatus[1] = True
-          else:
-            self.ui.btnM64P1.setButtonStatus(False)
-            self.__digitalStatus[1] = False
-          if digitalState[1] == "1":
-            self.ui.btnM64P2.setButtonStatus(True)
-            self.__digitalStatus[2] = True
-          else:
-            self.ui.btnM64P2.setButtonStatus(False)
-            self.__digitalStatus[2] = False
-          if digitalState[0] == "1":
-            self.ui.btnM64P3.setButtonStatus(True)
-            self.__digitalStatus[3] = True
-          else:
-            self.ui.btnM64P3.setButtonStatus(False)
-            self.__digitalStatus[3] = False
+          # Avec la version 1.2f, ajout du status digital input sur les 4 bits de gauche
+          if len(digitalState) == 4:
+            # Seulement 4 bits pour les outputs
+            if digitalState[3] == "1":
+              if not self.__digitalStatus[0]:
+                self.ui.btnM64P0.setButtonStatus(True)
+                self.__digitalStatus[0] = True
+            else:
+              if self.__digitalStatus[0]:
+                self.ui.btnM64P0.setButtonStatus(False)
+                self.__digitalStatus[0] = False
+            if digitalState[2] == "1":
+              if not self.__digitalStatus[1]:
+                self.ui.btnM64P1.setButtonStatus(True)
+                self.__digitalStatus[1] = True
+            else:
+              if self.__digitalStatus[1]:
+                self.ui.btnM64P1.setButtonStatus(False)
+                self.__digitalStatus[1] = False
+            if digitalState[1] == "1":
+              if not self.__digitalStatus[2]:
+                self.ui.btnM64P2.setButtonStatus(True)
+                self.__digitalStatus[2] = True
+            else:
+              if self.__digitalStatus[2]:
+                self.ui.btnM64P2.setButtonStatus(False)
+                self.__digitalStatus[2] = False
+            if digitalState[0] == "1":
+              if not self.__digitalStatus[3]:
+                self.ui.btnM64P3.setButtonStatus(True)
+                self.__digitalStatus[3] = True
+            else:
+              if self.__digitalStatus[3]:
+                self.ui.btnM64P3.setButtonStatus(False)
+                self.__digitalStatus[3] = False
+          else: # output + input => 8 bits
+            if digitalState[7] == "1":
+              if not self.__digitalStatus[0]:
+                self.ui.btnM64P0.setButtonStatus(True)
+                self.__digitalStatus[0] = True
+            else:
+              if self.__digitalStatus[0]:
+                self.ui.btnM64P0.setButtonStatus(False)
+                self.__digitalStatus[0] = False
+            if digitalState[6] == "1":
+              if not self.__digitalStatus[1]:
+                self.ui.btnM64P1.setButtonStatus(True)
+                self.__digitalStatus[1] = True
+            else:
+              if self.__digitalStatus[1]:
+                self.ui.btnM64P1.setButtonStatus(False)
+                self.__digitalStatus[1] = False
+            if digitalState[5] == "1":
+              if not self.__digitalStatus[2]:
+                self.ui.btnM64P2.setButtonStatus(True)
+                self.__digitalStatus[2] = True
+            else:
+              if self.__digitalStatus[2]:
+                self.ui.btnM64P2.setButtonStatus(False)
+                self.__digitalStatus[2] = False
+            if digitalState[4] == "1":
+              if not self.__digitalStatus[3]:
+                self.ui.btnM64P3.setButtonStatus(True)
+                self.__digitalStatus[3] = True
+            else:
+              if self.__digitalStatus[3]:
+                self.ui.btnM64P3.setButtonStatus(False)
+                self.__digitalStatus[3] = False
+            if digitalState[3] == "1":
+              if not self.__digitalStatus[4]:
+                self.ui.cnLedD0.setLedStatus(True)
+                self.__digitalStatus[4] = True
+            else:
+              if self.__digitalStatus[4]:
+                self.ui.cnLedD0.setLedStatus(False)
+                self.__digitalStatus[4] = False
+            if digitalState[2] == "1":
+              if not self.__digitalStatus[5]:
+                self.ui.cnLedD1.setLedStatus(True)
+                self.__digitalStatus[5] = True
+            else:
+              if self.__digitalStatus[5]:
+                self.ui.cnLedD1.setLedStatus(False)
+                self.__digitalStatus[5] = False
+            if digitalState[1] == "1":
+              if not self.__digitalStatus[6]:
+                self.ui.cnLedD2.setLedStatus(True)
+                self.__digitalStatus[6] = True
+            else:
+              if self.__digitalStatus[6]:
+                self.ui.cnLedD2.setLedStatus(False)
+                self.__digitalStatus[6] = False
+            if digitalState[0] == "1":
+              if not self.__digitalStatus[7]:
+                self.ui.cnLedD3.setLedStatus(True)
+                self.__digitalStatus[7] = True
+            else:
+              if self.__digitalStatus[7]:
+                self.ui.cnLedD3.setLedStatus(False)
+                self.__digitalStatus[7] = False
+
 
       '''
       elif D[:3] == "Ln:": # Line Number
@@ -348,6 +427,8 @@ class grblDecode(QObject):
         return D
       '''
 
+    # l'information Accessory State est toujours affichée avec l'info d'Overlay
+    # si pas dinformation digitale avec Ov:, c'est qu'ils sont tous off.
     if flagOv and not flagDigital:
       if self.__digitalStatus[0]:
         self.ui.btnM64P0.setButtonStatus(False)
@@ -361,6 +442,18 @@ class grblDecode(QObject):
       if self.__digitalStatus[3]:
         self.ui.btnM64P3.setButtonStatus(False)
         self.__digitalStatus[3] = False
+      if self.__digitalStatus[4]:
+        self.ui.cnLedD0.setLedStatus(False)
+        self.__digitalStatus[4] = False
+      if self.__digitalStatus[5]:
+        self.ui.cnLedD1.setLedStatus(False)
+        self.__digitalStatus[5] = False
+      if self.__digitalStatus[6]:
+        self.ui.cnLedD2.setLedStatus(False)
+        self.__digitalStatus[6] = False
+      if self.__digitalStatus[7]:
+        self.ui.cnLedD3.setLedStatus(False)
+        self.__digitalStatus[7] = False
 
     if not flagPn:
       # Eteint toute les leds. Si on a pas trouve la chaine Pn:, c'est que toute les leds sont eteintes.
@@ -622,6 +715,20 @@ class grblDecode(QObject):
         self.updateAxisDefinition()
         return grblOutput
       
+      elif grblOutput[:4] == "[D:":
+        # Digital status
+        print(grblOutput)
+        return grblOutput
+
+      elif grblOutput[:5] == "[OPT:":
+        compilOptions = grblOutput[1:-1].split(':')[1].split(',')[0]
+        if 'D' in compilOptions:
+          # Digital input actives
+          self.ui.frmDigitalIntput.setEnabled(True)
+        else:
+          # Digital input non actives
+          self.ui.frmDigitalIntput.setEnabled(False)
+
       else:
         # Autre reponse [] ?
         return grblOutput
