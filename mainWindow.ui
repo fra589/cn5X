@@ -9692,6 +9692,7 @@ G43.1</string>
     <addaction name="mnuSet_origine"/>
     <addaction name="mnuPredefinedLocations"/>
     <addaction name="mnuJog_to"/>
+    <addaction name="mnuToolChange"/>
     <addaction name="separator"/>
     <addaction name="mnuDebug_mode"/>
     <addaction name="mnuResetSerial"/>
@@ -9965,6 +9966,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
   <action name="mnuHelpProbe_outside_center">
    <property name="text">
     <string>Probe outside center...</string>
+   </property>
+  </action>
+  <action name="mnuToolChange">
+   <property name="text">
+    <string>Tool change...</string>
    </property>
   </action>
  </widget>

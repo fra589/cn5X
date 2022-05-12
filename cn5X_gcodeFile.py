@@ -30,6 +30,7 @@ from PyQt5.QtWidgets import QListView
 from cn5X_config import *
 from msgbox import *
 from grblCom import grblCom
+from cn5X_toolChange import dlgToolChange
 
 
 class gcodeFile(QObject):
@@ -265,4 +266,26 @@ class gcodeFile(QObject):
 
   def setGcodeChanged(self, value:bool):
     self.__gcodeChanged = value
+
+
+  def showToolChange(self):
+    ''' Appel de la boite de dialogue de changement d'outils '''
+    self.dlgToolChange = dlgToolChange(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    self.dlgToolChange.setParent(self)
+    self.dlgToolChange.sig_close.connect(self.on_dlgToolChangeFinished)
+    
+    RC = self.dlgToolChange.showDialog()
+    if RC == QtWidgets.QDialog.Accepted:
+      print("Changement d'outil OK")
+      return True
+    else:
+      print("Changement d'outil annulé")
+      return False
+
+
+  def on_dlgToolChangeFinished(self):
+    ''' Supression de la boite de dialogue après fermeture '''
+    self.dlgToolChange.sig_close.disconnect(self.on_dlgToolChangeFinished)
+    self.dlgToolChange = None
+
 

@@ -22,6 +22,9 @@
  </comment>
  <class>dlgG28_30_1</class>
  <widget class="QDialog" name="dlgG28_30_1">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>

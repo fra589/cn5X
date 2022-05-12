@@ -4179,6 +4179,8 @@ class Ui_mainWindow(object):
     self.mnuHelpProbe_inside_center.setObjectName("mnuHelpProbe_inside_center")
     self.mnuHelpProbe_outside_center = QtWidgets.QAction(mainWindow)
     self.mnuHelpProbe_outside_center.setObjectName("mnuHelpProbe_outside_center")
+    self.mnuToolChange = QtWidgets.QAction(mainWindow)
+    self.mnuToolChange.setObjectName("mnuToolChange")
     self.mnuPreferences.addAction(self.mnuConfirm_Go_to_G28)
     self.mnuPreferences.addAction(self.mnuConfirm_Go_to_G30)
     self.mnuPreferences.addSeparator()
@@ -4219,6 +4221,7 @@ class Ui_mainWindow(object):
     self.menuMachine.addAction(self.mnuSet_origine.menuAction())
     self.menuMachine.addAction(self.mnuPredefinedLocations.menuAction())
     self.menuMachine.addAction(self.mnuJog_to)
+    self.menuMachine.addAction(self.mnuToolChange)
     self.menuMachine.addSeparator()
     self.menuMachine.addAction(self.mnuDebug_mode)
     self.menuMachine.addAction(self.mnuResetSerial)
@@ -4489,6 +4492,7 @@ class Ui_mainWindow(object):
     self.mnuHelpProbe_outside_corner.setText(_translate("mainWindow", "probe outside corner..."))
     self.mnuHelpProbe_inside_center.setText(_translate("mainWindow", "Probe inside center..."))
     self.mnuHelpProbe_outside_center.setText(_translate("mainWindow", "Probe outside center..."))
+    self.mnuToolChange.setText(_translate("mainWindow", "Tool change..."))
 from cnQLabel import cnQLabel
 from cnQPushButton import cnQPushButton
 from cnled import cnLed

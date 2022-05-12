@@ -30,7 +30,7 @@ from grblCom import grblCom
 from dlgJog import *
 
 class dlgJog(QObject):
-  ''' Classe assurant la gestion de la boite de dialogue G92 '''
+  ''' Classe assurant la gestion de la boite de dialogue Jogging '''
 
   sig_close = pyqtSignal()         # Emis a la fermeture de la boite de dialogue
 
@@ -147,7 +147,8 @@ class dlgJog(QObject):
     # Mise à jour de la vitesse de déplacement:
     self.di.dsbJogSpeed.setValue(self.parent().ui.dsbJogSpeed.value())
 
-    RC = self.__dlg.open()
+    ###RC = self.__dlg.open()
+    RC = self.__dlg.exec() # Use exec to make the dialog application modal.
     return RC
 
 

@@ -50,6 +50,7 @@ from grblG92 import dlgG92
 from grblG28_30_1 import dlgG28_30_1
 from cn5X_jog import dlgJog
 from cn5X_beep import cn5XBeeper
+from cn5X_toolChange import dlgToolChange
 
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
@@ -239,6 +240,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuG92_1.triggered.connect(self.on_mnuG92_1)
     
     self.ui.mnuJog_to.triggered.connect(self.on_mnuJog_to)
+    self.ui.mnuToolChange.triggered.connect(self.on_mnuToolChange)
 
     # Sous-menu G28/G30
     self.ui.mnuPredefinedLocations.aboutToShow.connect(self.on_mnuPredefinedLocations)
@@ -603,17 +605,20 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.mnuSet_origine.setEnabled(False)
         self.ui.mnuPredefinedLocations.setEnabled(False)
         self.ui.mnuJog_to.setEnabled(False)
+        self.ui.mnuToolChange.setEnabled(False)
       else:
         self.ui.mnu_GrblConfig.setEnabled(False)
         self.ui.mnuSet_origine.setEnabled(True)
         self.ui.mnuPredefinedLocations.setEnabled(True)
         self.ui.mnuJog_to.setEnabled(True)
+        self.ui.mnuToolChange.setEnabled(True)
     else:
       self.ui.mnu_MPos.setEnabled(False)
       self.ui.mnu_WPos.setEnabled(False)
       self.ui.mnuSet_origine.setEnabled(False)
       self.ui.mnuPredefinedLocations.setEnabled(False)
       self.ui.mnuJog_to.setEnabled(False)
+      self.ui.mnuToolChange.setEnabled(False)
       self.ui.mnuResetSerial.setEnabled(False)
       self.ui.mnu_GrblConfig.setEnabled(False)
 
@@ -859,9 +864,26 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def on_dlgJogFinished(self):
-    print("dlgJog closed")
+    ''' Supression de la boite de dialogue après fermeture '''
     self.dlgJog.sig_close.disconnect(self.on_dlgJogFinished)
     self.dlgJog = None
+
+
+  def on_mnuToolChange(self):
+    ''' Appel de la boite de dialogue de changement d'outils '''
+    self.dlgToolChange = dlgToolChange(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
+    self.dlgToolChange.setParent(self)
+    self.dlgToolChange.sig_close.connect(self.on_dlgToolChangeFinished)
+    RC = self.dlgToolChange.showDialog()
+    if RC == QtWidgets.QDialog.Accepted:
+      print("Changement d'outil OK")
+    else:
+      print("Changement d'outil annulé")
+
+  def on_dlgToolChangeFinished(self):
+    ''' Supression de la boite de dialogue après fermeture '''
+    self.dlgToolChange.sig_close.disconnect(self.on_dlgToolChangeFinished)
+    self.dlgToolChange = None
 
 
   @pyqtSlot()
