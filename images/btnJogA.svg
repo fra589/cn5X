@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 120 60.000002"
    version="1.1"
    id="svg1126"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="btnJogA.svg">
   <defs
      id="defs1120" />
@@ -25,18 +23,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.0674866"
-     inkscape:cx="37.528796"
-     inkscape:cy="12.865077"
+     inkscape:zoom="9.8573027"
+     inkscape:cx="59.693211"
+     inkscape:cy="33.911715"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     units="px">
+     units="px"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid1671" />
@@ -49,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,63 +57,37 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1062.5196)">
+    <path
+       id="path841"
+       style="fill:#20c0c0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 27,1078.5196 -9,18 h 4 c 1e-6,6.3652 2.528425,12.4698 7.029297,16.9707 4.500873,4.5009 10.605507,7.0293 16.970703,7.0293 v -9 c -3.978248,0 -7.794377,-1.5795 -10.607422,-4.3926 C 32.579533,1104.314 31,1100.4979 31,1096.5196 h 4 z" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:24.0062542px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.99999988"
-       x="4.4364681"
-       y="991.03455"
-       id="text5858"
-       transform="scale(0.8870311,1.1273562)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="18.244783"
+       y="1109.1143"
+       id="text5858-3"
+       transform="scale(1.0274146,0.97331691)"><tspan
          sodipodi:role="line"
-         id="tspan5856"
-         x="4.4364681"
-         y="991.03455"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';stroke-width:0.99999988">+A</tspan></text>
-    <g
-       id="g1080"
-       transform="translate(-1)">
-      <g
-         transform="translate(4,2.5)"
-         id="g1062">
-        <path
-           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-           d="m 44,1112.5196 -13,-12 5,-1 c -7.369864,-15.4914 4.999824,-29.9468 17,-32 l 6,4 c -13.482138,2.874 -20.507792,14.4689 -14,27 l 5,-1 z"
-           id="path5835"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccccccc" />
-        <path
-           style="fill:#208080;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 38.011214,1106.223 c -3.142674,-2.9004 -5.669169,-5.3139 -5.614433,-5.3632 0.05474,-0.049 0.938625,-0.251 1.9642,-0.4481 1.025576,-0.1972 1.944498,-0.4383 2.042051,-0.5358 0.22277,-0.2228 0.178001,-0.4117 -0.459235,-1.938 -1.616343,-3.8715 -2.003631,-8.0957 -1.117451,-12.1885 1.776781,-8.2059 8.796573,-15.3242 17.214925,-17.4566 l 0.794973,-0.2013 2.385896,1.59 2.385895,1.59 -1.118367,0.3393 c -6.354042,1.9276 -11.199865,6.0335 -13.293534,11.2637 -1.513441,3.7807 -1.558441,8.3438 -0.123575,12.5307 0.509332,1.4862 1.467086,3.5486 1.687124,3.6331 0.09472,0.036 1.100768,-0.1211 2.235666,-0.3498 1.134897,-0.2288 2.06345,-0.3957 2.06345,-0.3709 0,0.1058 -5.169402,12.992 -5.247515,13.0809 -0.04737,0.054 -2.657397,-2.275 -5.80007,-5.1755 z"
-           id="path820"
-           inkscape:connector-curvature="0" />
-      </g>
-      <g
-         transform="rotate(180,59,1091.2696)"
-         id="g1068">
-        <path
-           sodipodi:nodetypes="cccccccc"
-           inkscape:connector-curvature="0"
-           id="path1064"
-           d="m 44,1112.5196 -13,-12 5,-1 c -7.369864,-15.4914 4.999824,-29.9468 17,-32 l 6,4 c -13.482138,2.874 -20.507792,14.4689 -14,27 l 5,-1 z"
-           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-        <path
-           inkscape:connector-curvature="0"
-           id="path1066"
-           d="m 38.011214,1106.223 c -3.142674,-2.9004 -5.669169,-5.3139 -5.614433,-5.3632 0.05474,-0.049 0.938625,-0.251 1.9642,-0.4481 1.025576,-0.1972 1.944498,-0.4383 2.042051,-0.5358 0.22277,-0.2228 0.178001,-0.4117 -0.459235,-1.938 -1.616343,-3.8715 -2.003631,-8.0957 -1.117451,-12.1885 1.776781,-8.2059 8.796573,-15.3242 17.214925,-17.4566 l 0.794973,-0.2013 2.385896,1.59 2.385895,1.59 -1.118367,0.3393 c -6.354042,1.9276 -11.199865,6.0335 -13.293534,11.2637 -1.513441,3.7807 -1.558441,8.3438 -0.123575,12.5307 0.509332,1.4862 1.467086,3.5486 1.687124,3.6331 0.09472,0.036 1.100768,-0.1211 2.235666,-0.3498 1.134897,-0.2288 2.06345,-0.3957 2.06345,-0.3709 0,0.1058 -5.169402,12.992 -5.247515,13.0809 -0.04737,0.054 -2.657397,-2.275 -5.80007,-5.1755 z"
-           style="fill:#208080;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      </g>
-    </g>
+         id="tspan5856-6"
+         x="18.244783"
+         y="1109.1143"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">-A</tspan></text>
+    <path
+       id="path841-3"
+       style="fill:#20c0c0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 83,1106.5196 -9,-18 h 4 c 10e-7,-6.3652 2.528425,-12.4698 7.029297,-16.9707 4.500873,-4.5009 10.605507,-7.0293 16.970703,-7.0293 v 9 c -3.978248,0 -7.794377,1.5796 -10.607422,4.3926 C 88.579533,1080.7253 87,1084.5414 87,1088.5196 h 4 z" />
     <text
-       id="text1072"
-       y="953.86603"
-       x="106.54543"
-       style="font-style:normal;font-weight:normal;font-size:24.06316566px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
        xml:space="preserve"
-       transform="scale(0.87710235,1.1401178)"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';stroke-width:1"
-         y="953.86603"
-         x="106.54543"
-         id="tspan1070"
-         sodipodi:role="line">-A</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="72.750534"
+       y="1151.2382"
+       id="text5858-3-6"
+       transform="scale(1.0274146,0.97331691)"><tspan
+         sodipodi:role="line"
+         id="tspan5856-6-7"
+         x="72.750534"
+         y="1151.2382"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">+A</tspan></text>
   </g>
 </svg>
