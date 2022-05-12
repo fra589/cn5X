@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 60 20"
    version="1.1"
    id="svg4154"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="btnJogPlusC.svg">
   <defs
      id="defs4148" />
@@ -25,18 +23,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.4333333"
-     inkscape:cx="30.648399"
-     inkscape:cy="10"
+     inkscape:zoom="14.459361"
+     inkscape:cx="30.785488"
+     inkscape:cy="13.967405"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="958"
-     inkscape:window-height="1008"
-     inkscape:window-x="953"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid4699" />
@@ -49,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,27 +57,21 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-321.12499)">
-    <path
-       style="fill:none;stroke:#3f3f3f;stroke-width:0.99999982px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       d="m 12.502226,331.80355 11.998784,8.82147 0.999898,-3.39287 c 15.48985,5.001 29.943745,-3.39275 31.996757,-11.53576 l -3.999594,-4.07145 c -2.873689,9.14864 -14.467404,13.91606 -26.997264,9.50004 l 0.999899,-3.39286 z"
-       id="path5835"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-    <path
-       style="fill:#808020;fill-opacity:1;stroke:none;stroke-width:1.99999964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 18.798156,335.86739 c 2.900158,2.13254 5.313363,3.84695 5.362679,3.80982 0.04931,-0.0372 0.250954,-0.63693 0.448085,-1.33286 0.19713,-0.69593 0.438225,-1.31949 0.535768,-1.38568 0.222747,-0.15117 0.411656,-0.12079 1.937792,0.31162 3.871033,1.09681 8.094895,1.35961 12.187208,0.75827 8.205041,-1.20567 15.322659,-5.96912 17.454827,-11.6816 l 0.201348,-0.53945 -1.589848,-1.61901 -1.589848,-1.61901 -0.339241,0.7589 c -1.927407,4.31169 -6.032904,7.59994 -11.262597,9.02065 -3.780362,1.02699 -8.342965,1.05752 -12.52942,0.0838 -1.486057,-0.34563 -3.548307,-0.99553 -3.632734,-1.14484 -0.03635,-0.0643 0.12106,-0.74695 0.34979,-1.51707 0.228728,-0.77011 0.395582,-1.4002 0.370788,-1.4002 -0.105758,0 -12.990614,3.50782 -13.079555,3.56083 -0.05393,0.0321 2.2748,1.80324 5.174958,3.93577 z"
-       id="path820"
-       inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="0.296875"
-       y="333.89844"
-       id="text5858"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="1.2117376"
+       y="347.39456"
+       id="text5858-3"
+       transform="scale(1.0274146,0.97331691)"><tspan
          sodipodi:role="line"
-         id="tspan5856"
-         x="0.296875"
-         y="333.89844"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold'">+C</tspan></text>
+         id="tspan5856-6"
+         x="1.2117376"
+         y="347.39456"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">+C</tspan></text>
+    <path
+       id="path860"
+       style="fill:#c0c020;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 51,322.12499 c 0,4.97056 -4.029437,9 -9,9 v -3 l -11,6 11,6 v -3 c 8.284271,0 15,-6.71573 15,-15 z" />
   </g>
 </svg>

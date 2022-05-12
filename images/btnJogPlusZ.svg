@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 60 40"
    version="1.1"
    id="svg4154"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="btnJogPlusZ.svg">
   <defs
      id="defs4148" />
@@ -25,18 +23,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8"
-     inkscape:cx="30.18258"
-     inkscape:cy="20"
+     inkscape:zoom="7.7808219"
+     inkscape:cx="32.642754"
+     inkscape:cy="17.777261"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1">
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid4699" />
@@ -49,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,28 +57,23 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-301.12499)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="0.22839737"
-       y="336.125"
-       id="text5858"><tspan
-         sodipodi:role="line"
-         id="tspan5856"
-         x="0.22839737"
-         y="336.125"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold'">+Z</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       d="m 36.000032,301.62494 11.000035,19.49987 h -5.000015 v 19.50018 H 30.000014 l -1e-6,-19.50018 h -5.000014 z"
+       style="fill:#2020c0;fill-opacity:1;stroke:#000000;stroke-width:0.999997px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 41.000033,302.12501 11.000036,18.99985 h -5.000016 v 19.00015 H 35.000016 l -1e-6,-19.00015 H 30 Z"
        id="path5835"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc" />
-    <path
-       style="fill:#202080;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 30.531994,340.23478 c -0.0012,-11.92294 -0.0471,-19.35639 -0.120274,-19.46941 -0.09588,-0.14809 -0.524157,-0.19057 -2.25496,-0.22366 -1.175131,-0.0224 -2.119449,-0.0835 -2.098484,-0.13549 0.02097,-0.0521 2.25607,-4.02463 4.966901,-8.82793 2.751776,-4.87584 4.976274,-8.68696 5.036305,-8.62843 0.05914,0.0576 2.316812,4.02119 5.017054,8.80783 l 4.909529,8.703 -2.112446,0.0609 c -1.90579,0.055 -2.129771,0.084 -2.289561,0.29751 -0.151049,0.20175 -0.177116,3.06727 -0.177116,19.4694 v -0.26673 h -5.437517 -5.437517 z"
-       id="path817"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccscscccscccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="1.6983961"
+       y="327.87369"
+       id="text5858-3"
+       transform="scale(1.0274146,0.97331691)"><tspan
+         sodipodi:role="line"
+         id="tspan5856-6"
+         x="1.6983961"
+         y="327.87369"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">+Z</tspan></text>
   </g>
 </svg>
