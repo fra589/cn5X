@@ -240,13 +240,9 @@ to unlock urgent stop</string>
                   <property name="toolTip">
                    <string>Link feedrate and spindle speed</string>
                   </property>
-                  <property name="text">
-                   <string/>
-                  </property>
                   <property name="icon">
                    <iconset resource="cn5X.qrc">
-                    <normaloff>:/cn5X/images/btnLinkOff.svg</normaloff>
-                    <normalon>:/cn5X/images/btnLink.svg</normalon>:/cn5X/images/btnLinkOff.svg</iconset>
+                    <normaloff>:/cn5X/images/btnLinkOn.svg</normaloff>:/cn5X/images/btnLinkOn.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -259,9 +255,6 @@ to unlock urgent stop</string>
                   </property>
                   <property name="checked">
                    <bool>true</bool>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -3273,7 +3266,7 @@ QToolType {
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="2">
+                    <item row="0" column="2">
                      <widget class="QLabel" name="label_17">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -3286,7 +3279,7 @@ QToolType {
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="3">
+                    <item row="0" column="3">
                      <widget class="QLabel" name="lblBroche">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
@@ -3382,7 +3375,7 @@ color: rgb(248, 255, 192);</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="2">
+                    <item row="1" column="2">
                      <widget class="QLabel" name="label_18">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -3395,7 +3388,7 @@ color: rgb(248, 255, 192);</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="3">
+                    <item row="1" column="3">
                      <widget class="QLabel" name="lblArrosage">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
@@ -3492,6 +3485,60 @@ color: rgb(248, 255, 192);</string>
                      </widget>
                     </item>
                     <item row="3" column="2">
+                     <widget class="QLabel" name="lblFrmStatus_3_2">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>1</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="text">
+                       <string>Tool length offset:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="3">
+                     <widget class="QLabel" name="lblTlo">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                        <horstretch>2</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>95</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>LED Calculator</family>
+                        <pointsize>16</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(0, 0, 63);
+color: rgb(248, 255, 192);
+padding-right: 3px</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::Box</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Plain</enum>
+                      </property>
+                      <property name="text">
+                       <string notr="true">+0.000</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="2">
                      <widget class="QLabel" name="label_19">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -3504,7 +3551,7 @@ color: rgb(248, 255, 192);</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="3">
+                    <item row="2" column="3">
                      <widget class="QLabel" name="lblOutil">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
@@ -5021,13 +5068,13 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                 <property name="minimumSize">
                  <size>
                   <width>44</width>
-                  <height>52</height>
+                  <height>54</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>44</width>
-                  <height>52</height>
+                  <height>54</height>
                  </size>
                 </property>
                 <property name="font">
@@ -8792,7 +8839,7 @@ color: rgb(0, 0, 63);</string>
            <item row="1" column="6">
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
-              <string>Tool change measurement</string>
+              <string>Tool change</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_27">
               <property name="spacing">
@@ -8817,6 +8864,57 @@ color: rgb(0, 0, 63);</string>
                   <number>0</number>
                  </property>
                  <item row="0" column="0">
+                  <widget class="QLabel" name="label_32">
+                   <property name="text">
+                    <string>Position:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_32">
+                   <property name="toolTip">
+                    <string>Absolute Z machine coordinate (G53 based) for clearance when going to length sensor position</string>
+                   </property>
+                   <property name="text">
+                    <string>Z coordinate</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbToolLengthSensorZ">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Absolute Z machine coordinate (G53 based) for clearance when going to length sensor position</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>-5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
                   <widget class="QLabel" name="label_33">
                    <property name="toolTip">
                     <string>Absolute X machine position (G53 based) of tool length sensor</string>
@@ -8826,7 +8924,7 @@ color: rgb(0, 0, 63);</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1">
+                 <item row="2" column="1">
                   <widget class="QDoubleSpinBox" name="dsbToolLengthSensorX">
                    <property name="maximumSize">
                     <size>
@@ -8860,7 +8958,7 @@ color: rgb(0, 0, 63);</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
+                 <item row="3" column="0">
                   <widget class="QLabel" name="label_34">
                    <property name="toolTip">
                     <string>Absolute Y machine position (G53 based) of tool length sensor</string>
@@ -8870,7 +8968,7 @@ color: rgb(0, 0, 63);</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
+                 <item row="3" column="1">
                   <widget class="QDoubleSpinBox" name="dsbToolLengthSensorY">
                    <property name="maximumSize">
                     <size>
@@ -8904,10 +9002,22 @@ color: rgb(0, 0, 63);</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
+                 <item row="4" column="0">
+                  <widget class="QPushButton" name="btnSaveToolChangePosition">
+                   <property name="toolTip">
+                    <string>Save tool change absolute machine position.</string>
+                   </property>
+                   <property name="text">
+                    <string>Save position</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1">
                   <widget class="QPushButton" name="btnGoToSensor">
                    <property name="toolTip">
-                    <string>Rapid move to XY machine position (G53G0X.Y.) of tool length sensor</string>
+                    <string>Rapid move to Z coordinate (G53G0Z.) to clear the working area,
+then rapid move to XY of tool change position (G53G0X.Y.).
+The tool length sensor should be under this position.</string>
                    </property>
                    <property name="text">
                     <string>Go to position</string>

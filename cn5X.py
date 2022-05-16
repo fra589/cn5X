@@ -105,9 +105,6 @@ class winMain(QtWidgets.QMainWindow):
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
     self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)               # Active le tab de la log cn5X++
 
-    self.__gcodeFile = gcodeFile(self.ui, self.ui.gcodeTable)
-    self.__gcodeFile.sig_log.connect(self.on_sig_log)
-
     self.timerDblClic = QtCore.QTimer()
 
     self.__grblCom = grblCom()
@@ -127,13 +124,20 @@ class winMain(QtWidgets.QMainWindow):
     self.__grblCom.sig_serialLock.connect(self.on_sig_serialLock)
 
     self.__beeper = cn5XBeeper();
-    
+
     self.__arretUrgence     = True
     def arretUrgence():
       return self.__arretUrgence
 
     self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper, arretUrgence)
     self.__grblCom.setDecodeur(self.__decode)
+
+    # Boite de dialogue de changement d'outils
+    self.__dlgToolChange = dlgToolChange(self, self.__grblCom, self.__decode, DEFAULT_NB_AXIS, DEFAULT_AXIS_NAMES)
+    self.__dlgToolChange.setParent(self)
+
+    self.__gcodeFile = gcodeFile(self.ui, self.ui.gcodeTable, self.__dlgToolChange)
+    self.__gcodeFile.sig_log.connect(self.on_sig_log)
 
     self.__jog = grblJog(self.__grblCom)
     self.ui.dsbJogSpeed.setValue(DEFAULT_JOG_SPEED)
@@ -142,8 +146,6 @@ class winMain(QtWidgets.QMainWindow):
     self.__probe = grblProbe(self.__grblCom)
     self.__probe.sig_log.connect(self.on_sig_log)
     self.__probeResult       = None
-    self.__initialToolLenght = False
-    self.__initialProbeZ     = False
     
     self.__connectionStatus = False
     self.__cycleRun         = False
@@ -202,6 +204,11 @@ class winMain(QtWidgets.QMainWindow):
 
     # Flag pour unicité de la boite de dialogue Jog
     self.dlgJog = None
+
+    self.iconLinkOn  = QtGui.QIcon()
+    self.iconLinkOff = QtGui.QIcon()
+    self.iconLinkOn.addPixmap(QtGui.QPixmap(":/cn5X/images/btnLinkOn.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+    self.iconLinkOff.addPixmap(QtGui.QPixmap(":/cn5X/images/btnLinkOff.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
     '''---------- Connections des evennements de l'interface graphique ----------'''
     
@@ -369,6 +376,7 @@ class winMain(QtWidgets.QMainWindow):
 
     # Boutons de probe Z
     self.ui.btnProbeZ.clicked.connect(self.on_btnProbeZ)
+    self.ui.btnSaveToolChangePosition.clicked.connect(self.on_btnSaveToolChangePosition)
     self.ui.btnGoToSensor.clicked.connect(self.on_btnGoToSensor)
     self.ui.btnG49.clicked.connect(self.on_btnG49)
     self.ui.btnG43_1.clicked.connect(self.on_btnG43_1)
@@ -871,19 +879,11 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_mnuToolChange(self):
     ''' Appel de la boite de dialogue de changement d'outils '''
-    self.dlgToolChange = dlgToolChange(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
-    self.dlgToolChange.setParent(self)
-    self.dlgToolChange.sig_close.connect(self.on_dlgToolChangeFinished)
-    RC = self.dlgToolChange.showDialog()
+    RC = self.__dlgToolChange.showDialog()
     if RC == QtWidgets.QDialog.Accepted:
       print("Changement d'outil OK")
     else:
       print("Changement d'outil annulé")
-
-  def on_dlgToolChangeFinished(self):
-    ''' Supression de la boite de dialogue après fermeture '''
-    self.dlgToolChange.sig_close.disconnect(self.on_dlgToolChangeFinished)
-    self.dlgToolChange = None
 
 
   @pyqtSlot()
@@ -992,8 +992,9 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.rbtDefineOriginZ_G54.setChecked(self.__settings.value("Probe/DefineOriginZ_G54", DEFAULT_PROBE_ORIGINE_G54_Z, type=bool))
         self.ui.rbtDefineOriginZ_G92.setChecked(self.__settings.value("Probe/DefineOriginZ_G92", DEFAULT_PROBE_ORIGINE_G92_Z, type=bool))
         self.ui.dsbOriginOffsetZ.setValue(self.__settings.value("Probe/OriginOffsetZ", DEFAULT_PROBE_ORIGINE_OFFSET_Z, type=float))
-        self.ui.dsbToolLengthSensorX.setValue(self.__settings.value("Probe/ToolSensorPositionX", DEFAULT_TOOLSENSOR_POSITION_X, type=float))
-        self.ui.dsbToolLengthSensorY.setValue(self.__settings.value("Probe/ToolSensorPositionY", DEFAULT_TOOLSENSOR_POSITION_Y, type=float))
+        self.ui.dsbToolLengthSensorZ.setValue(self.__settings.value("Probe/ToolChangePositionZ", DEFAULT_TOOLCHANGE_POSITION_Z, type=float))
+        self.ui.dsbToolLengthSensorX.setValue(self.__settings.value("Probe/ToolChangePositionX", DEFAULT_TOOLCHANGE_POSITION_X, type=float))
+        self.ui.dsbToolLengthSensorY.setValue(self.__settings.value("Probe/ToolChangePositionY", DEFAULT_TOOLCHANGE_POSITION_Y, type=float))
 
 
   @pyqtSlot()
@@ -1024,6 +1025,7 @@ class winMain(QtWidgets.QMainWindow):
         self.__probeResult = self.__probe.g38(P=3, F=probeSeekRate, Z=-probeDistance, g2p=False)
         # On mémorise le résultat
         self.ui.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
+        self.__dlgToolChange.di.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
         # On retract d'une distance probePullOff
         retractGCode = "G0Z{:+0.3f}".format(probePullOff)
         self.__grblCom.gcodePush(retractGCode)
@@ -1050,6 +1052,7 @@ class winMain(QtWidgets.QMainWindow):
       self.__probeResult = self.__probe.g38(P=3, F=probeFeedRate, Z=-fineProbeDistance, g2p=go2point)
       # On mémorise le résultat précis
       self.ui.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
+      self.__dlgToolChange.di.lblLastProbZ.setText('{:+0.3f}'.format(float(self.__probeResult.getAxisByName("Z"))))
 
       if self.ui.rbtRetractAfterZ.isChecked():
         # On retract d'une distance probeRetract
@@ -1082,9 +1085,9 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.gcodePush(oldG90_91)
 
     if (self.__probeResult is not None) and (self.__probeResult.isProbeOK()):
-      self.__initialProbeZ = True
-      if self.__initialToolLenght:
-        self.calculateToolOffset()
+      self.__dlgToolChange.setInitialProbeZ(True)
+      if self.__dlgToolChange.initialToolLenght():
+        self.__dlgToolChange.calculateToolOffset()
 
     # Pour finir, on sauvegarde les derniers paramètres de probe dans les settings
     self.__settings.setValue("Probe/DistanceZ", self.ui.dsbDistanceZ.value())
@@ -1099,16 +1102,40 @@ class winMain(QtWidgets.QMainWindow):
 
 
   @pyqtSlot()
-  def on_btnGoToSensor(self):
-    ''' Déplacement vers les coordonnées machine X, Y du palpeur de longueur d'outil'''
-    # Recupération des coordonnées X & Y du point
+  def on_btnSaveToolChangePosition(self):
+    '''
+    Déplacement rapide du palpeur de longueur d'outil vers les coordonnées machine :
+    Z d'abord pour dégager, puis X, Y.
+    '''
+    # Recupération des coordonnées Z, X & Y du point
+    posZ = self.ui.dsbToolLengthSensorZ.value()
     posX = self.ui.dsbToolLengthSensorX.value()
     posY = self.ui.dsbToolLengthSensorY.value()
-    deplacementGCode = "G53G0X{}Y{}".format(posX, posY)
-    self.__grblCom.gcodePush(deplacementGCode)
     # Memorise la position dans les settings
-    self.__settings.setValue("Probe/ToolSensorPositionX", posX)
-    self.__settings.setValue("Probe/ToolSensorPositionY", posY)
+    self.__settings.setValue("Probe/ToolChangePositionZ", posZ)
+    self.__settings.setValue("Probe/ToolChangePositionX", posX)
+    self.__settings.setValue("Probe/ToolChangePositionY", posY)
+
+
+  @pyqtSlot()
+  def on_btnGoToSensor(self):
+    '''
+    Déplacement rapide du palpeur de longueur d'outil vers les coordonnées machine :
+    Z d'abord pour dégager, puis X, Y.
+    '''
+    # Recupération des coordonnées Z, X & Y du point
+    posZ = self.ui.dsbToolLengthSensorZ.value()
+    posX = self.ui.dsbToolLengthSensorX.value()
+    posY = self.ui.dsbToolLengthSensorY.value()
+    # Effectue les déplacements
+    deplacementGCodeZ  = "G53G0Z{}".format(posZ)
+    deplacementGCodeXY = "G53G0X{}Y{}".format(posX, posY)
+    self.__grblCom.gcodePush(deplacementGCodeZ)
+    self.__grblCom.gcodePush(deplacementGCodeXY)
+    # Memorise la position dans les settings
+    self.__settings.setValue("Probe/ToolChangePositionZ", posZ)
+    self.__settings.setValue("Probe/ToolChangePositionX", posX)
+    self.__settings.setValue("Probe/ToolChangePositionY", posY)
 
 
   @pyqtSlot()
@@ -1117,7 +1144,7 @@ class winMain(QtWidgets.QMainWindow):
     Mémorise le Z du point de contact initial de l'outil pour calculer les outils suivants
     et envoi G49 pour réinitialiser une éventuelle longueur précédente.
     '''
-    if not self.__initialProbeZ:
+    '''if not self.__dlgToolChange.__initialProbeZ:
       self.log(logSeverity.error.value, self.tr("on_btnG49(): No initial Z probe result, can't get initial tool length probe!"))
       m = msgBox(
                   title  = self.tr("Error !"),
@@ -1132,10 +1159,12 @@ class winMain(QtWidgets.QMainWindow):
     
     # Initialise la longueur d'outil initiale
     self.ui.lblInitToolLength.setText(self.ui.lblLastProbZ.text())
+    self.__dlgToolChange.di.lblInitToolLength.setText(self.__dlgToolChange.di.lblLastProbZ.text())
     self.__grblCom.gcodePush("G49")
 
-    self.__initialToolLenght = True
-
+    self.__dlgToolChange.__initialToolLenght = True
+    '''
+    self.__dlgToolChange.on_btnG49()
 
   @pyqtSlot()
   def on_btnG43_1(self):
@@ -1143,7 +1172,7 @@ class winMain(QtWidgets.QMainWindow):
     Calcul de la correction de longueur d'outil par rapport à la valeur initiale mémorisée
     et configure le "Tool Length Offset" dans Grbl à l'aide de G43.1
     '''
-    if not self.__initialToolLenght:
+    '''if not self.__dlgToolChange.__initialToolLenght:
       self.log(logSeverity.error.value, self.tr("on_btnG43_1(): No initial tool length, can't calculate length offset!"))
       m = msgBox(
                   title  = self.tr("Error !"),
@@ -1156,9 +1185,11 @@ class winMain(QtWidgets.QMainWindow):
       m.afficheMsg()
       return
     # Envoi de la correction de longueur d'outil
-    toolOffset = self.calculateToolOffset()
+    toolOffset = self.__dlgToolChange.calculateToolOffset()
     toolOffsetGcode = "G43.1Z{}".format(toolOffset)
     self.__grblCom.gcodePush(toolOffsetGcode)
+    '''
+    self.__dlgToolChange.on_btnG43_1()
 
 
   @pyqtSlot()
@@ -1810,16 +1841,6 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dsbPullOffXY.setEnabled(False)
 
 
-  @pyqtSlot()
-  def calculateToolOffset(self):
-    # Traitement de la correction de longueur d'outil.
-    lastProbe         = float(self.ui.lblLastProbZ.text().replace(' ', ''))
-    initialToolLength = float(self.ui.lblInitToolLength.text().replace(' ', ''))
-    toolOffset = lastProbe - initialToolLength
-    self.ui.lblToolOffset.setText('{:+0.3f}'.format(toolOffset))
-    return toolOffset
-
-
   @pyqtSlot(str)
   def on_sig_config_changed(self, data: str):
     self.log(logSeverity.info.value, self.tr("Grbl configuration updated: {}").format(data))
@@ -1925,10 +1946,15 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def on_btnLinkOverride(self):
-    if self.ui.btnLinkOverride.isChecked() and (self.ui.dialAvance.value() != self.ui.dialBroche.value()):
-      newValue = (self.ui.dialAvance.value() + self.ui.dialBroche.value()) / 2
-      self.ui.dialBroche.setValue(newValue)
-      self.ui.dialAvance.setValue(newValue)
+    if (self.ui.btnLinkOverride.isChecked()):
+      self.ui.btnLinkOverride.setIcon(self.iconLinkOn)
+      if (self.ui.dialAvance.value() != self.ui.dialBroche.value()):
+        # On force comme valeur la moyenne des 2
+        newValue = int((self.ui.dialAvance.value() + self.ui.dialBroche.value()) / 2)
+        self.ui.dialBroche.setValue(newValue)
+        self.ui.dialAvance.setValue(newValue)
+    else: # Bouton non checked
+      self.ui.btnLinkOverride.setIcon(self.iconLinkOff)
 
 
   @pyqtSlot()
@@ -2146,8 +2172,11 @@ class winMain(QtWidgets.QMainWindow):
       self.logCn5X.append(time.strftime("%Y-%m-%d %H:%M:%S") + " : Error   : " + data)
       if not self.ui.btnDebug.isChecked():
         self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)
+
+
   def log(self, severity: int, data: str):
     self.on_sig_log(severity, data)
+
 
   @pyqtSlot(str)
   def on_sig_init(self, data: str):
@@ -2219,14 +2248,15 @@ class winMain(QtWidgets.QMainWindow):
     if data[:5] == "[AXS:":
       self.__nbAxis           = int(data[1:-1].split(':')[1])
       self.__axisNames        = list(data[1:-1].split(':')[2])
+      # Mise à jour classe grblProbe
+      self.__probe.setAxisNames(self.__axisNames)
+      # Mise à jour classe dlgToolChange
+      self.__dlgToolChange.setAxisNumber(self.__nbAxis)
+      self.__dlgToolChange.setAxisNames(self.__axisNames)
       if len(self.__axisNames) < self.__nbAxis:
         # Il est posible qu'il y ait moins de lettres que le nombre d'axes si Grbl
         # implémente l'option REPORT_VALUE_FOR_AXIS_NAME_ONCE
         self.__nbAxis = len(self.__axisNames);
-      '''self.updateAxisNumber()
-      self.__decode.setNbAxis(self.__nbAxis)'''
-      # Mise à jour classe grblProbe
-      self.__probe.setAxisNames(self.__axisNames)
       
     # Memorise les courses maxi pour calcul des jogs max.
     elif data[:4] == "$130":

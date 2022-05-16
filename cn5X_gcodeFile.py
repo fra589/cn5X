@@ -49,13 +49,14 @@ class gcodeFile(QObject):
 
   sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant
 
-  def __init__(self, ui, gcodeFileUi: QListView):
+  def __init__(self, ui, gcodeFileUi: QListView, dialogToolChange: dlgToolChange):
     super().__init__()
     self.__filePath         = ""
     self.__ui               = ui
     self.__gcodeFileUi      = gcodeFileUi
     self.__gcodeFileUiModel = QStandardItemModel(self.__gcodeFileUi)
     self.__gcodeFileUiModel.itemChanged.connect(self.on_gcodeChanged)
+    self.__dlgToolChange = dialogToolChange
 
     self.__gcodeCharge      = False
     self.__gcodeChanged     = False
@@ -268,13 +269,9 @@ class gcodeFile(QObject):
     self.__gcodeChanged = value
 
 
-  def showToolChange(self):
+  def toolChange(self):
     ''' Appel de la boite de dialogue de changement d'outils '''
-    self.dlgToolChange = dlgToolChange(self.__grblCom, self.__decode, self.__nbAxis, self.__axisNames)
-    self.dlgToolChange.setParent(self)
-    self.dlgToolChange.sig_close.connect(self.on_dlgToolChangeFinished)
-    
-    RC = self.dlgToolChange.showDialog()
+    RC = self.__dlgToolChange.showDialog()
     if RC == QtWidgets.QDialog.Accepted:
       print("Changement d'outil OK")
       return True
@@ -283,9 +280,5 @@ class gcodeFile(QObject):
       return False
 
 
-  def on_dlgToolChangeFinished(self):
-    ''' Supression de la boite de dialogue après fermeture '''
-    self.dlgToolChange.sig_close.disconnect(self.on_dlgToolChangeFinished)
-    self.dlgToolChange = None
 
 

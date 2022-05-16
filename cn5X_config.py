@@ -26,7 +26,7 @@ from PyQt5 import QtGui
 
 ORG_NAME           = "fra589"
 APP_NAME           = "cn5X++"
-APP_VERSION_STRING = "0.8.9"
+APP_VERSION_STRING = "0.8.10"
 APP_VERSION_DATE   = "20220509"
 
 DEFAULT_NB_AXIS    = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
@@ -148,8 +148,9 @@ DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_Z  = 5
 DEFAULT_PROBE_ORIGINE_G54_Z             = True
 DEFAULT_PROBE_ORIGINE_G92_Z             = False
 DEFAULT_PROBE_ORIGINE_OFFSET_Z          = 0.0
-DEFAULT_TOOLSENSOR_POSITION_X           = -5
-DEFAULT_TOOLSENSOR_POSITION_Y           = -5
+DEFAULT_TOOLCHANGE_POSITION_Z           = -5
+DEFAULT_TOOLCHANGE_POSITION_X           = -5
+DEFAULT_TOOLCHANGE_POSITION_Y           = -5
 
 ''' Valeurs renvoyées par grblDecode.waitForGrblReply() et grblDecode.waitForGrblProbe() '''
 SIG_OK    = 0

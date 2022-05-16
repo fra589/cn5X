@@ -99,7 +99,10 @@ class grblDecode(QObject):
       [8, self.tr("Homing fail"),        self.tr("Homing fail. Pull off travel failed to clear limit switch. Try increasing pull-off setting or check wiring.")],
       [9, self.tr("Homing fail"),        self.tr("Homing fail. Could not find limit switch within search distances. Try increasing max travel, decreasing pull-off distance, or check wiring.")]
     ]
-    ###beeper()
+    self.__distanceMode = "G90" # G90 ou G91 par défaut, Grbl est en G90
+    self.__settings = {} # Utilisation d'un dictionnaire pour stocker les
+                         # settings de Grbl sous la forme { Num: "Valeur" }
+    
     self.beeper = beeper
     self.probeStatus = False
     self.arretUrgence = arretUrgence
@@ -502,6 +505,8 @@ class grblDecode(QObject):
       else: # Pure setting output
         try:
           settingNum = int(float(grblOutput[1:].split('=')[0]))
+          settingVal = grblOutput[1:].split('=')[1]
+          self.__settings[settingNum] = settingVal
         except ValueError:
           return grblOutput
         settingInfo = self.grblSetting(settingNum)
@@ -563,6 +568,7 @@ class grblDecode(QObject):
       elif grblOutput[1:5] == "TLO:":
         ''' Tool length offset (for the default z-axis) '''
         self.__toolLengthOffset = float(grblOutput[5:-1])
+        self.ui.lblTlo.setText('{:+0.3f}'.format(self.__toolLengthOffset))
         # renvoie le résultat si $# demandé dans par l'utilisateur
         if self.__getNextGCodeParams:
           return grblOutput
@@ -622,6 +628,7 @@ class grblDecode(QObject):
             if S == 'G20': self.ui.lblUnites.setToolTip(self.tr(" Units = inches "))
             if S == 'G21': self.ui.lblUnites.setToolTip(self.tr(" Units = millimeters "))
           elif S in ["G90", "G91"]:
+            self.__distanceMode = S
             self.ui.lblCoord.setText(S)
             if S == 'G90': self.ui.lblCoord.setToolTip(self.tr(" Absolute coordinates move "))
             if S == 'G91': self.ui.lblCoord.setToolTip(self.tr(" Relative coordinates move "))
@@ -835,6 +842,17 @@ class grblDecode(QObject):
       return self.__G5x[30]
 
 
+  def getDistanceMode(self):
+    return self.__distanceMode
+
+
+  def getGrblSetting(self, num):
+    ''' Renvoi la valeur du setting Grbl s'il existe, sinon, renvoi None '''
+    try:
+      return self.__settings[num]
+    except ValueError:
+      return grblOutput
+    
   def grblSetting(self, num):
     ''' Renvoi la description d'un setting de Grbl en fonction de son numéro '''
     # "$-Code"," Setting"," Units"," Setting Description"
