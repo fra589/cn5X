@@ -6092,499 +6092,6 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
            <property name="verticalSpacing">
             <number>0</number>
            </property>
-           <item row="0" column="2">
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>2</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="1" rowspan="2">
-            <widget class="QWidget" name="qwParams" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QGroupBox" name="qwParamsXYin">
-                <property name="title">
-                 <string>XY Probe parameters</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_6">
-                 <property name="leftMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_28">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Tool diameter</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_40">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Length</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>15.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_38">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>XY clearance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_39">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Z clearance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbClearanceZ">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_29">
-                   <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</string>
-                   </property>
-                   <property name="text">
-                    <string>Feed rate</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>10.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0">
-                  <widget class="QCheckBox" name="chkSeekXY">
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance (unit/mn).</string>
-                   </property>
-                   <property name="text">
-                    <string>Seek rate</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="1">
-                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>75.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QLabel" name="lblPullOffXY">
-                   <property name="toolTip">
-                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
-                   </property>
-                   <property name="text">
-                    <string>Pull-off dist.</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbPullOffXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="gbMoveAfterXY">
-                <property name="title">
-                 <string>Move after probe</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_12">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QRadioButton" name="rbtMove2PointAfterXY">
-                   <property name="toolTip">
-                    <string>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</string>
-                   </property>
-                   <property name="text">
-                    <string>Go to exact point</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QRadioButton" name="rbtRetractAfterXY">
-                   <property name="toolTip">
-                    <string>Define the retract distance after probing.</string>
-                   </property>
-                   <property name="text">
-                    <string>Retract</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbRetractXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Define the retract distance after probing.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="1" column="2" colspan="2">
-            <widget class="QWidget" name="qwInOut" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_28">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QRadioButton" name="rbtProbeInsideXY">
-                <property name="text">
-                 <string>Probe inside</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QRadioButton" name="rbtProbeOutsideXY">
-                <property name="text">
-                 <string>Probe outside</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="1" column="4" rowspan="2">
             <widget class="QWidget" name="gbResults" native="true">
              <layout class="QGridLayout" name="gridLayout_18">
@@ -7285,40 +6792,12 @@ Need to define non nul probe pull-off distance.</string>
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
-            <spacer name="horizontalSpacer_22">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>5</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="2" colspan="2">
-            <widget class="QWidget" name="qwProbeXYButtons" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>225</width>
-               <height>225</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>225</width>
-               <height>225</height>
-              </size>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_10">
+           <item row="1" column="1" rowspan="2">
+            <widget class="QWidget" name="qwParams" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -7331,329 +6810,454 @@ Need to define non nul probe pull-off distance.</string>
               <property name="bottomMargin">
                <number>0</number>
               </property>
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_1">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+              <item>
+               <widget class="QGroupBox" name="qwParamsXYin">
+                <property name="title">
+                 <string>XY Probe parameters</string>
                 </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
+                <layout class="QGridLayout" name="gridLayout_6">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item row="4" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceZ">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbPullOffXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
+                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>75.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>10.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_40">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Length</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="label_29">
+                   <property name="toolTip">
+                    <string>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</string>
+                   </property>
+                   <property name="text">
+                    <string>Feed rate</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_38">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>XY clearance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>15.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_28">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Tool diameter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="label_39">
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Z clearance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QCheckBox" name="chkSeekXY">
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance (unit/mn).</string>
+                   </property>
+                   <property name="text">
+                    <string>Seek rate</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="lblPullOffXY">
+                   <property name="toolTip">
+                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
+                   </property>
+                   <property name="text">
+                    <string>Pull-off dist.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QCheckBox" name="chkInvertProbePinXY">
+                   <property name="toolTip">
+                    <string>Check/Uncheck to invert the probe pin logic:
+- Unchecked: probe pin normaly open,
+- Checked: probe pin normaly close.</string>
+                   </property>
+                   <property name="text">
+                    <string>Invert probe pin ($6=0/1)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
-              <item row="0" column="1" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_2">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+              <item>
+               <widget class="QGroupBox" name="gbMoveAfterXY">
+                <property name="title">
+                 <string>Move after probe</string>
                 </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutY-.svg</normaloff>:/cn5X/images/btnProbeOutY-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="cnQPushButton" name="btnProbeXY_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_8">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="cnQPushButton" name="btnProbeXY_0">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInCercle.svg</normaloff>:/cn5X/images/btnProbeInCercle.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_4">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_7">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_6">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="3">
-               <widget class="cnQPushButton" name="btnProbeXY_5">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
+                <layout class="QGridLayout" name="gridLayout_12">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QRadioButton" name="rbtMove2PointAfterXY">
+                   <property name="toolTip">
+                    <string>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</string>
+                   </property>
+                   <property name="text">
+                    <string>Go to exact point</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QRadioButton" name="rbtRetractAfterXY">
+                   <property name="toolTip">
+                    <string>Define the retract distance after probing.</string>
+                   </property>
+                   <property name="text">
+                    <string>Retract</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbRetractXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Define the retract distance after probing.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
             </widget>
+           </item>
+           <item row="0" column="2">
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>2</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="2" column="5">
             <spacer name="horizontalSpacer_23">
@@ -7668,20 +7272,7 @@ Need to define non nul probe pull-off distance.</string>
              </property>
             </spacer>
            </item>
-           <item row="3" column="3">
-            <spacer name="verticalSpacer_10">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>1</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="4" column="1" colspan="4">
+           <item row="3" column="1" colspan="4">
             <widget class="QWidget" name="gbDefineOriginXY" native="true">
              <layout class="QGridLayout" name="gridLayout_9">
               <property name="leftMargin">
@@ -8061,6 +7652,414 @@ center</string>
              </layout>
             </widget>
            </item>
+           <item row="2" column="0">
+            <spacer name="horizontalSpacer_22">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>5</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="2" colspan="2">
+            <widget class="QWidget" name="qwInOut" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QRadioButton" name="rbtProbeInsideXY">
+                <property name="text">
+                 <string>Probe inside</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="rbtProbeOutsideXY">
+                <property name="text">
+                 <string>Probe outside</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="2" colspan="2">
+            <widget class="QWidget" name="qwProbeXYButtons" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>225</width>
+               <height>225</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>225</width>
+               <height>225</height>
+              </size>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_10">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_1">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutY-.svg</normaloff>:/cn5X/images/btnProbeOutY-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="cnQPushButton" name="btnProbeXY_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_8">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="cnQPushButton" name="btnProbeXY_0">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeInCercle.svg</normaloff>:/cn5X/images/btnProbeInCercle.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_7">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="cnQPushButton" name="btnProbeXY_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tabProbeZ">
@@ -8142,7 +8141,7 @@ center</string>
                  <property name="spacing">
                   <number>0</number>
                  </property>
-                 <item row="0" column="0">
+                 <item row="1" column="0">
                   <widget class="QLabel" name="label_10">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative Z distance to the destination point that the probe will move towards, starting from the current location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -8152,41 +8151,7 @@ center</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceZ">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative Z distance to the destination point that the probe will move towards, starting from the current location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>15.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
+                 <item row="2" column="0">
                   <widget class="QLabel" name="label_11">
                    <property name="toolTip">
                     <string>Feed rate to slowly engage probe to determine its location accurately.</string>
@@ -8196,55 +8161,7 @@ center</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbFeedRateZ">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>10.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QCheckBox" name="chkSeekZ">
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance.</string>
-                   </property>
-                   <property name="text">
-                    <string>Seek rate</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
+                 <item row="3" column="1">
                   <widget class="QDoubleSpinBox" name="dbsSeekRateZ">
                    <property name="maximumSize">
                     <size>
@@ -8279,7 +8196,89 @@ Need to define non nul probe pull-off distance.</string>
                    </property>
                   </widget>
                  </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbDistanceZ">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative Z distance to the destination point that the probe will move towards, starting from the current location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>15.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbFeedRateZ">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>10.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="3" column="0">
+                  <widget class="QCheckBox" name="chkSeekZ">
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance.</string>
+                   </property>
+                   <property name="text">
+                    <string>Seek rate</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
                   <widget class="QLabel" name="lblPullOffZ">
                    <property name="enabled">
                     <bool>true</bool>
@@ -8292,7 +8291,7 @@ Need to define non nul probe pull-off distance.</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="1">
+                 <item row="4" column="1">
                   <widget class="QDoubleSpinBox" name="dsbPullOffZ">
                    <property name="maximumSize">
                     <size>
@@ -8323,6 +8322,18 @@ Need to define non nul probe pull-off distance.</string>
                    </property>
                    <property name="value">
                     <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QCheckBox" name="chkInvertProbePinZ">
+                   <property name="toolTip">
+                    <string>Check/Uncheck to invert the probe pin logic:
+- Unchecked: probe pin normaly open,
+- Checked: probe pin normaly close.</string>
+                   </property>
+                   <property name="text">
+                    <string>Invert probe pin ($6=0/1)</string>
                    </property>
                   </widget>
                  </item>
@@ -9751,6 +9762,9 @@ G43.1</string>
      <addaction name="separator"/>
      <addaction name="mnuConfirm_define_G28"/>
      <addaction name="mnuConfirm_define_G30"/>
+     <addaction name="separator"/>
+     <addaction name="mnuPrefToolChange"/>
+     <addaction name="mnuIgnoreFirstToolChange"/>
     </widget>
     <addaction name="mnuAppOuvrir"/>
     <addaction name="mnuAppEnregistrer"/>
@@ -10032,11 +10046,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="text">
-    <string>Confirm define G28.1 location</string>
+   <property name="enabled">
+    <bool>true</bool>
    </property>
-   <property name="visible">
-    <bool>false</bool>
+   <property name="text">
+    <string>Confirm G28.1 location definition</string>
    </property>
   </action>
   <action name="mnuConfirm_define_G30">
@@ -10047,10 +10061,7 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Confirm define G30.1 location</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
+    <string>Confirm G30.1 location definition</string>
    </property>
   </action>
   <action name="mnuHelpProbe_single_axis">
@@ -10081,6 +10092,31 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
   <action name="mnuToolChange">
    <property name="text">
     <string>Tool change...</string>
+   </property>
+  </action>
+  <action name="mnuPrefToolChange">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>M6 tool changes</string>
+   </property>
+   <property name="toolTip">
+    <string>Activate M6 manual tool changes</string>
+   </property>
+  </action>
+  <action name="mnuIgnoreFirstToolChange">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ignore first tool change</string>
+   </property>
+   <property name="toolTip">
+    <string>Ignore first tool change in GCode file</string>
    </property>
   </action>
  </widget>

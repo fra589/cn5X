@@ -226,7 +226,9 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuConfirm_Go_to_G30.triggered.connect(self.on_mnuConfirm_Go_to_G30)
     self.ui.mnuConfirm_define_G28.triggered.connect(self.on_mnuConfirm_define_G28)
     self.ui.mnuConfirm_define_G30.triggered.connect(self.on_mnuConfirm_define_G30)
-    
+    self.ui.mnuPrefToolChange.triggered.connect(self.on_mnuPrefToolChange)
+    self.ui.mnuIgnoreFirstToolChange.triggered.connect(self.on_mnuIgnoreFirstToolChange)
+
     self.ui.mnuAppQuitter.triggered.connect(self.on_mnuAppQuitter)
 
     self.ui.mnu_GrblConfig.triggered.connect(self.on_mnu_GrblConfig)
@@ -245,7 +247,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuSaveG92.triggered.connect(self.on_mnuSaveG92)
     self.ui.mnuRestoreG92.triggered.connect(self.on_mnuRestoreG92)
     self.ui.mnuG92_1.triggered.connect(self.on_mnuG92_1)
-    
+
     self.ui.mnuJog_to.triggered.connect(self.on_mnuJog_to)
     self.ui.mnuToolChange.triggered.connect(self.on_mnuToolChange)
 
@@ -383,6 +385,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnSetOriginZ.clicked.connect(self.on_btnSetOriginZ)
     self.ui.chkSeekZ.clicked.connect(self.on_chkSeekZ)
     self.ui.chkSeekXY.clicked.connect(self.on_chkSeekXY)
+    self.ui.chkInvertProbePinZ.clicked.connect(self.on_chkInvertProbePinZ)
 
     # Onglet probe XY
     self.ui.dsbToolDiameter.valueChanged.connect(self.on_dsbToolDiameterValueChanged)
@@ -405,6 +408,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnHomePlusX.clicked.connect(lambda: self.on_btnHomeXY("plusX"))
     self.ui.btnHomePlusY.clicked.connect(lambda: self.on_btnHomeXY("plusY"))
     self.ui.btnResetResults.clicked.connect(self.resetProbeResults)
+    self.ui.chkInvertProbePinXY.clicked.connect(self.on_chkInvertProbePinXY)
 
     #--------------------------------------------------------------------------------------
     # Traitement des arguments de la ligne de commande
@@ -438,7 +442,7 @@ class winMain(QtWidgets.QMainWindow):
 
     # Initialise la boite de progression d'un fichier programme GCode
     self.__pBox = qwProgressBox(self)
-    self.__pBoxArmee = False
+    self.__pBox.setDecoder(self.__decode)
 
     # Restore le curseur souris sablier en fin d'initialisation
     QtWidgets.QApplication.restoreOverrideCursor()
@@ -446,7 +450,8 @@ class winMain(QtWidgets.QMainWindow):
     ### GBGB tests ###
     ###print(locale.getlocale(locale.LC_TIME))
     ###print(datetime.now().strftime("%A %x %H:%M:%S"))
-    ### Pour debug de qwProgressBox ### self.__pBox.start()
+    ### Pour debug de qwProgressBox 
+    ###self.__pBox.start()
 
 
   def populatePortList(self):
@@ -679,6 +684,8 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuConfirm_Go_to_G30.setChecked(not self.__settings.value("dontConfirmG30", False, type=bool))
     self.ui.mnuConfirm_define_G28.setChecked(not self.__settings.value("dontConfirmG28.1", False, type=bool))
     self.ui.mnuConfirm_define_G30.setChecked(not self.__settings.value("dontConfirmG30.1", False, type=bool))
+    self.ui.mnuPrefToolChange.setChecked(self.__settings.value("useToolChange", True, type=bool))
+    self.ui.mnuIgnoreFirstToolChange.setChecked(self.__settings.value("ignoreFirstToolChange", False, type=bool))
 
 
   @pyqtSlot()
@@ -699,6 +706,16 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_mnuConfirm_define_G30(self):
     self.__settings.setValue("dontConfirmG30.1", not self.ui.mnuConfirm_define_G30.isChecked())
+
+
+  @pyqtSlot()
+  def on_mnuPrefToolChange(self):
+    self.__settings.setValue("useToolChange", self.ui.mnuPrefToolChange.isChecked())
+
+
+  @pyqtSlot()
+  def on_mnuIgnoreFirstToolChange(self):
+    self.__settings.setValue("ignoreFirstToolChange", self.ui.mnuIgnoreFirstToolChange.isChecked())
 
 
   @pyqtSlot()
@@ -880,10 +897,6 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuToolChange(self):
     ''' Appel de la boite de dialogue de changement d'outils '''
     RC = self.__dlgToolChange.showDialog()
-    if RC == QtWidgets.QDialog.Accepted:
-      print("Changement d'outil OK")
-    else:
-      print("Changement d'outil annulé")
 
 
   @pyqtSlot()
@@ -977,6 +990,9 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.rbtMove2PointAfterXY.setChecked(self.__settings.value("Probe/go2PointXY", DEFAULT_PROBE_GO_2_POINT_AFTER_XY, type=bool))
         self.ui.rbtRetractAfterXY.setChecked(self.__settings.value("Probe/RetractAfterXY", DEFAULT_PROBE_RETRACT_AFTER_XY, type=bool))
         self.ui.dsbRetractXY.setValue(self.__settings.value("Probe/RetractDistanceXY", DEFAULT_PROBE_RETRACT_DISTANCE_AFTER_XY, type=float))
+        # case a cocher invert probe pin
+        if self.__decode.getGrblSetting(6) is not None:
+          self.ui.chkInvertProbePinXY.setChecked((int(self.__decode.getGrblSetting(6)) == 1))
 
       elif tabIndex == CN5X_TAB_PROBE_Z:
         self.ui.dsbDistanceZ.setValue(self.__settings.value("Probe/DistanceZ", DEFAULT_PROBE_DISTANCE, type=float))
@@ -995,6 +1011,9 @@ class winMain(QtWidgets.QMainWindow):
         self.ui.dsbToolLengthSensorZ.setValue(self.__settings.value("Probe/ToolChangePositionZ", DEFAULT_TOOLCHANGE_POSITION_Z, type=float))
         self.ui.dsbToolLengthSensorX.setValue(self.__settings.value("Probe/ToolChangePositionX", DEFAULT_TOOLCHANGE_POSITION_X, type=float))
         self.ui.dsbToolLengthSensorY.setValue(self.__settings.value("Probe/ToolChangePositionY", DEFAULT_TOOLCHANGE_POSITION_Y, type=float))
+        # case a cocher invert probe pin
+        if self.__decode.getGrblSetting(6) is not None:
+          self.ui.chkInvertProbePinZ.setChecked((int(self.__decode.getGrblSetting(6)) == 1))
 
 
   @pyqtSlot()
@@ -1841,6 +1860,26 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.dsbPullOffXY.setEnabled(False)
 
 
+  @pyqtSlot()
+  def on_chkInvertProbePinZ(self):
+    if self.ui.chkInvertProbePinZ.isChecked():
+      self.__grblCom.gcodePush("$6=1")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
+    else:
+      self.__grblCom.gcodePush("$6=0")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
+
+
+  @pyqtSlot()
+  def on_chkInvertProbePinXY(self):
+    if self.ui.chkInvertProbePinXY.isChecked():
+      self.__grblCom.gcodePush("$6=1")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
+    else:
+      self.__grblCom.gcodePush("$6=0")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
+
+
   @pyqtSlot(str)
   def on_sig_config_changed(self, data: str):
     self.log(logSeverity.info.value, self.tr("Grbl configuration updated: {}").format(data))
@@ -2205,8 +2244,11 @@ class winMain(QtWidgets.QMainWindow):
       self.__cycleRun = False
       self.__cyclePause = False
       # Masque de la boite de progression
-    if self.__pBox.isVisible():
-      self.__pBox.stop()
+      if self.__pBox.isVisible():
+        if self.__pBox.autoClose():
+          self.__pBox.stop()
+        else:
+          self.__pBox.enableClose()
 
 
   @pyqtSlot(int)
@@ -2217,9 +2259,12 @@ class winMain(QtWidgets.QMainWindow):
       self.__grblCom.clearCom() # Vide la file d'attente de communication
       self.__cycleRun = False
       self.__cyclePause = False
-    # Masque de la boite de progression
-    if self.__pBox.isVisible():
-      self.__pBox.stop()
+      # Masque de la boite de progression
+      if self.__pBox.isVisible():
+        if self.__pBox.autoClose():
+          self.__pBox.stop()
+        else:
+          self.__pBox.enableClose()
 
 
   @pyqtSlot(str)
@@ -2227,12 +2272,6 @@ class winMain(QtWidgets.QMainWindow):
     retour = self.__decode.decodeGrblStatus(data)
     if retour != "":
       self.logGrbl.append(retour)
-    if self.__cycleRun and self.__decode.get_etatMachine() == GRBL_STATUS_RUN:
-      self.__pBoxArmee = True
-    # Masque de la boite de progression
-    if (self.__decode.get_etatMachine() == GRBL_STATUS_IDLE) and self.__pBox.isVisible() and self.__pBoxArmee:
-      #print(self.__decode.get_etatMachine())
-      self.__pBox.stop()
 
 
   @pyqtSlot(str)
@@ -2282,6 +2321,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot(str)
   def on_sig_emit(self, data: str):
+    trouve = False
     if data != "":
       self.logGrbl.append(data)
       if self.__cycleRun:
@@ -2291,14 +2331,16 @@ class winMain(QtWidgets.QMainWindow):
           idx = self.ui.gcodeTable.model().index(ligne, 0, QModelIndex())
           if self.ui.gcodeTable.model().data(idx) == data:
             self.__gcodeFile.selectGCodeFileLine(ligne)
+            trouve = True
             break
           else:
             ligne += 1
         # Mise à jour de la progressBox
-        self.__pBox.setValue(ligne + 1)
+        if trouve:
+          self.__pBox.setValue(ligne + 1)
+        # On affiche le dernier commentaire rencontré dans la progressBox
         if data[:1] == '(' and data[-1:] == ")":
           self.__pBox.setComment(data)
-
 
   @pyqtSlot(str)
   def on_sig_recu(self, data: str):
@@ -2383,7 +2425,6 @@ class winMain(QtWidgets.QMainWindow):
 
 
   def startCycle(self, startFrom: int = 0):
-    
 
     if self.ui.gcodeTable.model().rowCount()<=0:
       self.log(logSeverity.warning.value, self.tr("Attempt to start an empty cycle..."))
@@ -2392,18 +2433,34 @@ class winMain(QtWidgets.QMainWindow):
 
       # Affichage de la boite de progression
       self.__pBox.setRange(startFrom, self.ui.gcodeTable.model().rowCount())
-      self.__pBoxArmee = False
       self.__pBox.start()
 
       self.__gcodeFile.selectGCodeFileLine(0)
       self.__cycleRun = True
       self.__cyclePause = False
-      
+
       self.__gcodeFile.enQueue(self.__grblCom, startFrom)
-      
-      self.ui.btnStart.setButtonStatus(True)
+
+      # Attente de la fin du traitement par Grbl
+      tDebut = time.time()
+      while (time.time() - tDebut) * 1000 < 2 * GRBL_QUERY_DELAY:
+        QCoreApplication.processEvents()
+      while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
+        QCoreApplication.processEvents()
+
+      self.log(logSeverity.info.value, self.tr("Cycle completed."))
+
+      self.__pBox.setComment(self.tr("GCode finished at: {}").format(datetime.now().strftime("%A %x %H:%M:%S")))
+
+      self.ui.btnStart.setButtonStatus(False)
       self.ui.btnPause.setButtonStatus(False)
-      self.ui.btnStop.setButtonStatus(False)
+      self.ui.btnStop.setButtonStatus(True)
+
+      if self.__pBox.isVisible():
+        if self.__pBox.autoClose():
+          self.__pBox.stop()
+        else:
+          self.__pBox.enableClose()
 
 
   def pauseCycle(self):
@@ -2454,11 +2511,15 @@ class winMain(QtWidgets.QMainWindow):
     self.__cycleRun = False
     self.__cyclePause = False
     # Masque de la boite de progression
-    self.__pBox.stop()
+    if self.__pBox.isVisible():
+      if self.__pBox.autoClose():
+        self.__pBox.stop()
+      else:
+        self.__pBox.enableClose()
     self.ui.btnStart.setButtonStatus(False)
     self.ui.btnPause.setButtonStatus(False)
     self.ui.btnStop.setButtonStatus(True)
-    self.log(logSeverity.info.value, self.tr("Cycle completed."))
+    self.log(logSeverity.info.value, self.tr("Cycle stopped."))
 
 
   def on_gcodeTableContextMenu(self, event):

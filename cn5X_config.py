@@ -4,7 +4,7 @@
 '                                                                         '
 ' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                             '
+' This file: cn5X_config.py is part of cn5X++                             '
 '                                                                         '
 ' cn5X++ is free software: you can redistribute it and/or modify it       '
 ' under the terms of the GNU General Public License as published by       '
@@ -42,6 +42,9 @@ class logSeverity(Enum):
   info    = 0
   warning = 1
   error =   2
+
+''' Mots GCode valides (cf. http://linuxcnc.org/docs/html/gcode/overview_fr.html) '''
+VALIDES_GCODE_WORDS = "ABCDFGHIJKMNPQRSTUVWXYZ"
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '

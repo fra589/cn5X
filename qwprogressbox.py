@@ -28,6 +28,8 @@ from datetime import datetime
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings
 from cn5X_config import *
+from grblDecode import grblDecode
+
 
 '''
           if gcodeLine[:1] == '(' and gcodeLine[-1:] == ")":
@@ -48,56 +50,118 @@ class qwProgressBox(QtWidgets.QWidget):
   def __init__(self, parent=None):
     super().__init__()
 
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__decode    = None
+    self.__settings  = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__autoClose = self.__settings.value("ProgressBox/autoClose", False, type=bool)
+
+    pBoxLargeur = 370
+    pBoxHauteur = 50
     
     self.pBox = QtWidgets.QFrame(parent)
-    self.pBox.setStyleSheet(".QFrame{background-color: rgba(192, 192, 192, 192); border: 2px solid #000060;}")
+    self.pBox.setStyleSheet(".QFrame{background-color: rgba(192, 192, 192, 192); border: 2px solid #000060; margin: 0px; padding: 0px;}")
+    self.pBox.resize(pBoxLargeur, 155)
+
+    self.verticalLayout = QtWidgets.QVBoxLayout(self.pBox)
+    self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+    self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+    self.verticalLayout.setSpacing(0)
+    self.verticalLayout.setObjectName("verticalLayout")
 
     self.pBoxBtnHeader = btnHeader(self.pBox)
-    self.pBoxBtnHeader.setStyleSheet(".btnHeader{background-color: rgba(48, 48, 80, 192); border-radius: 0px}")
-    
-    self.pBoxLblStart = QtWidgets.QLabel(self.pBoxBtnHeader)
+    self.pBoxBtnHeader.setStyleSheet(".btnHeader{color: white; background-color: rgba(48, 48, 80, 192); border-radius: 0px; padding-top: 3px; padding-bottom: 3px;}")
     debut = datetime.now()
-    self.pBoxLblStart.setText(self.tr("GCode started at: {}").format(debut.strftime("%A %x %H:%M:%S")))
-    self.pBoxLblStart.setStyleSheet("color: white;")
-    self.pBoxLblStart.adjustSize()
-    self.pBoxBtnHeader.setGeometry(2, 2, self.pBoxLblStart.width() + 36, self.pBoxBtnHeader.height())
-    self.pBoxLblStart.setGeometry(20, int((self.pBoxBtnHeader.height() - self.pBoxLblStart.height())/2), self.pBoxLblStart.width(), self.pBoxLblStart.height())
+    self.pBoxBtnHeader.setText(self.tr("GCode started at: {}").format(debut.strftime("%A %x %H:%M:%S")))
+    self.verticalLayout.addWidget(self.pBoxBtnHeader)
+
+    self.gridLayout = QtWidgets.QGridLayout()
+    self.gridLayout.setContentsMargins(10, 10, 10, 5)
+    self.gridLayout.setHorizontalSpacing(3)
+    self.gridLayout.setVerticalSpacing(2)
+    self.gridLayout.setObjectName("gridLayout")
 
     self.pBoxProgress = QtWidgets.QProgressBar(self.pBox)
     self.pBoxProgress.setAlignment(Qt.AlignHCenter)
-    self.pBoxProgress.setGeometry(20, self.pBoxBtnHeader.geometry().y()+self.pBoxBtnHeader.height()+9, self.pBoxLblStart.width(), 20)
     self.pBoxProgress.setRange(0,100)
-    self.pBoxProgress.setValue(37)
+    self.pBoxProgress.setValue(0)
+    self.pBoxProgress.setFormat("line %v of %m (%p%)")
+    self.gridLayout.addWidget(self.pBoxProgress, 1, 0, 1, 2)
 
     self.pBoxLblComment = QtWidgets.QLabel(self.pBox)
-    self.pBoxLblComment.setText("()")
-    self.pBoxLblComment.setGeometry(20, self.pBoxProgress.geometry().y()+self.pBoxProgress.height()+3, self.pBoxLblStart.width(), 20)
-
+    self.pBoxLblComment.setText("")
+    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+    sizePolicy.setHorizontalStretch(0)
+    sizePolicy.setVerticalStretch(0)
+    sizePolicy.setHeightForWidth(self.pBoxLblComment.sizePolicy().hasHeightForWidth())
+    self.pBoxLblComment.setSizePolicy(sizePolicy)
+    self.pBoxLblComment.setAlignment(QtCore.Qt.AlignCenter)
+    self.gridLayout.addWidget(self.pBoxLblComment, 2, 0, 1, 2)
+    
     self.pBoxLblElapse = QtWidgets.QLabel(self.pBox)
+    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+    sizePolicy.setHorizontalStretch(0)
+    sizePolicy.setVerticalStretch(0)
+    sizePolicy.setHeightForWidth(self.pBoxLblElapse.sizePolicy().hasHeightForWidth())
+    self.pBoxLblElapse.setSizePolicy(sizePolicy)
+    self.pBoxLblElapse.setObjectName("pBoxLblElapse")
     total_seconds = int((datetime.now() - debut).total_seconds())
     hours, remainder = divmod(total_seconds,60*60)
     minutes, seconds = divmod(remainder,60)
     self.pBoxLblElapse.setText(self.tr("Elapsed time:"))
-    self.pBoxLblElapse.setGeometry(20, self.pBoxLblComment.geometry().y()+self.pBoxLblComment.height()+3, self.pBoxLblStart.width(), 20)
+    self.gridLayout.addWidget(self.pBoxLblElapse, 3, 0, 1, 1)
 
-    pBoxLargeur = self.pBoxLblStart.width() + 40
-    pBoxHauteur = self.pBoxLblElapse.geometry().y()+self.pBoxLblElapse.height()+6
+    self.pBoxBtnClose = QtWidgets.QPushButton(self.tr("Close"), self.pBox)
+    font = QtGui.QFont()
+    font.setPointSize(10)
+    self.pBoxBtnClose.setFont(font)
+    icon = QtGui.QIcon()
+    icon.addPixmap(QtGui.QPixmap(":/cn5X/images/btnClose.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    self.pBoxBtnClose.setIcon(icon)
+    self.pBoxBtnClose.setIconSize(QtCore.QSize(12, 12))
+    self.pBoxBtnClose.setObjectName("pBoxBtnClose")
+    self.pBoxBtnClose.setEnabled(False)
+    self.gridLayout.addWidget(self.pBoxBtnClose, 3, 1, 1, 1)
+
+    self.pBoxBtnClose.clicked.connect(self.stop)
+
+    self.pBoxChkAutoClose = QtWidgets.QCheckBox(self.pBox)
+    self.pBoxChkAutoClose.setText(self.tr("Auto close"))
+    self.pBoxChkAutoClose.setChecked(self.__autoClose)
+    self.pBoxChkAutoClose.setObjectName("pBoxChkAutoClose")
+    self.gridLayout.addWidget(self.pBoxChkAutoClose, 4, 1, 1, 1)
+
+    self.pBoxChkAutoClose.clicked.connect(self.on_pBoxChkAutoClose)
+
+    self.verticalLayout.addLayout(self.gridLayout)
+
     defaultX    = int((parent.width() - pBoxLargeur) / 2)
     defaultY    = int((parent.height() - pBoxHauteur) / 5 * 3)
     pBoxX = self.__settings.value("ProgressBox/posX", defaultX, type=int)
     pBoxY = self.__settings.value("ProgressBox/posY", defaultY, type=int)
+    self.pBox.move(pBoxX, pBoxY)
 
-    self.pBox.setGeometry(pBoxX, pBoxY, pBoxLargeur, pBoxHauteur)
     self.pBox.setVisible(False)
-    
+
+
+  def setDecoder(self, decoder: grblDecode):
+    self.__decode = decoder
+
+
+  def on_pBoxChkAutoClose(self):
+    self.__autoClose = self.pBoxChkAutoClose.isChecked()
+    # Enregistre le choix les settings
+    self.__settings.setValue("ProgressBox/autoClose", self.__autoClose)
+
+
+  def autoClose(self):
+    return self.__autoClose
+
 
   def start(self):
     debut = datetime.now()
-    self.pBoxLblStart.setText(self.tr("GCode started at: {}").format(debut.strftime("%A %x %H:%M:%S")))
+    self.pBoxBtnHeader.setText(self.tr("GCode started at: {}").format(debut.strftime("%A %x %H:%M:%S")))
     self.pBox.setVisible(True)
     # Démarre la mise à jour régulière du temps elapsed
-    self.__elapseThread = elapseThread(self.pBoxLblElapse)
+    self.__elapseThread = elapseThread(self.pBoxLblElapse, self.__decode)
     self.__elapseThread.start()
 
 
@@ -115,6 +179,8 @@ class qwProgressBox(QtWidgets.QWidget):
   def setValue(self, val:int):
     self.pBoxProgress.setValue(val)
     self.pBoxProgress.setToolTip(self.tr("Line {} of {}").format(val, self.pBoxProgress.maximum()))
+    self.pBoxProgress.update()
+    QCoreApplication.processEvents()
 
 
   def setComment(self, comment: str):
@@ -125,27 +191,37 @@ class qwProgressBox(QtWidgets.QWidget):
     return self.pBox.isVisible()
 
 
+  def enableClose(self):
+    self.pBoxBtnClose.setEnabled(True)
+
+
 class elapseThread(threading.Thread):
   
-  def __init__(self, pBoxLblElapse):
+  def __init__(self, label, decoder):
     threading.Thread.__init__(self)
-    self._stopevent = threading.Event()
-    self.pBoxLblElapse = pBoxLblElapse
-    self.initialText = pBoxLblElapse.text()
+    self.__stopevent     = threading.Event()
+    self.__pBoxLblElapse = label
+    self.__initialText   = self.__pBoxLblElapse.text()
+    self.__decode        = decoder
 
 
   def run(self):
-    debut = datetime.now()
-    while not self._stopevent.isSet():
-      total_seconds = int((datetime.now() - debut).total_seconds())
-      hours, remainder = divmod(total_seconds,60*60)
-      minutes, seconds = divmod(remainder,60)
-      self.pBoxLblElapse.setText("{} {:02d}:{:02d}:{:02d}".format(self.initialText, hours, minutes, seconds))
-      self._stopevent.wait(1.0)
+    total_seconds = 0
+    debut      = datetime.now()
+    lastElapse = debut
+    while not self.__stopevent.isSet():
+      maintenant = datetime.now()
+      if (self.__decode is not None) and (self.__decode.get_etatMachine() == GRBL_STATUS_RUN):
+        total_seconds += int((maintenant - lastElapse).total_seconds())
+        hours, remainder = divmod(total_seconds,60*60)
+        minutes, seconds = divmod(remainder,60)
+        self.__pBoxLblElapse.setText("{} {:02d}:{:02d}:{:02d}".format(self.__initialText, hours, minutes, seconds))
+      lastElapse = maintenant
+      self.__stopevent.wait(1.0)
 
   def stop(self):
-    self._stopevent.set()
-    self.pBoxLblElapse.setText(self.initialText)
+    self.__stopevent.set()
+    self.__pBoxLblElapse.setText(self.__initialText)
 
 
 class btnHeader(QtWidgets.QPushButton):

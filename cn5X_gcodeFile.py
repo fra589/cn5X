@@ -4,7 +4,7 @@
 '                                                                         '
 ' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
-' This file is part of cn5X++                                             '
+' This file: cn5X_gcodeFile.py is part of cn5X++                          '
 '                                                                         '
 ' cn5X++ is free software: you can redistribute it and/or modify it       '
 '  under the terms of the GNU General Public License as published by      '
@@ -24,14 +24,14 @@
 import os, sys
 from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel, QSettings
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QListView
 from cn5X_config import *
 from msgbox import *
 from grblCom import grblCom
 from cn5X_toolChange import dlgToolChange
-
+from cn5X_gcodeParser import gcodeParser
 
 class gcodeFile(QObject):
   '''
@@ -61,6 +61,11 @@ class gcodeFile(QObject):
     self.__gcodeCharge      = False
     self.__gcodeChanged     = False
 
+    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__toolNumber    = 0
+    self.__firstToolDone = False
+
+    self.__gcodeParser = gcodeParser()
 
   def showFileOpen(self):
     ''' Affiche la boite de dialogue d'ouverture '''
@@ -180,10 +185,51 @@ class gcodeFile(QObject):
       if self.__gcodeFileUiModel.data(idx) != "":
         gcodeLine = self.__gcodeFileUiModel.data(idx)
         if gcodeLine is not None:
-          com.gcodePush(gcodeLine)
+          dico  = self.__gcodeParser.wordDict(gcodeLine)
+          wlist = self.__gcodeParser.wordList(gcodeLine)
+
+          if ('T' in dico):
+            # Appel d'outil, on memorise le nouvel (ou futur) outil
+            # actif et on en force l'envoi vers Grbl.
+            try:
+              self.__toolNumber = int(float(dico['T']))
+            except ValueError as e:
+              # Erreur sur la valeur de T non numérique ou absente
+              self.sig_log.emit(logSeverity.error.value, self.tr("enQueue(): Invalid tool number (T) value '{}'.").format(dico['T']))
+              self.__toolNumber = 0
+            com.gcodePush("T{}".format(self.__toolNumber))
+            self.sig_log.emit(logSeverity.info.value, self.tr("enQueue(): Select tool number T{}.").format(self.__toolNumber))
+
+          if ("M6" in wlist):
+            # Demande de changement d'outil.
+            # La commande M6 ne sera pas envoyée à Grbl
+            if self.useToolChange():
+              # Traitement des changements d'outil manuels
+              if self.ignoreFirstToolChange() and not self.__firstToolDone:
+                # Ignore le premier changement d'outil du programme
+                # Si l'option est active, l'opérateur est sensé avoir
+                # déjà monté le premier outil avant le début de l'usinage
+                # donc, on ne fait rien (on trace juste dans la log)
+                self.sig_log.emit(logSeverity.info.value, self.tr("Ignoring first tool change (T{}).").format(self.__toolNumber))
+              else:
+                # Appel de la boite de dialogue de changement d'outil
+                RC = self.toolChange(self.__toolNumber)
+                if RC == QtWidgets.QDialog.Rejected:
+                  # Annulation du changement d'outil, on arrête le flux. 
+                  # Restore le curseur souris sablier en fin d'envoi
+                  QtWidgets.QApplication.restoreOverrideCursor()
+                  return False
+              if not self.__firstToolDone:
+                # Mémorise que le premier changement d'outil à eu lieu
+                self.__firstToolDone = True
+          else:
+            # Les autres commandes que M6 sont envoyées à Grbl 
+            com.gcodePush(gcodeLine)
+
+          # Force une mise à jour des status GCode
           com.gcodePush(CMD_GRBL_GET_GCODE_STATE, COM_FLAG_NO_OK)
 
-    # Restore le curseur souris sablier en fin d'initialisation
+    # Restore le curseur souris sablier en fin d'envoi
     QtWidgets.QApplication.restoreOverrideCursor()
 
 
@@ -269,16 +315,21 @@ class gcodeFile(QObject):
     self.__gcodeChanged = value
 
 
-  def toolChange(self):
+  def toolChange(self, toolNum: int):
     ''' Appel de la boite de dialogue de changement d'outils '''
-    RC = self.__dlgToolChange.showDialog()
+    RC = self.__dlgToolChange.showDialog(toolNum)
     if RC == QtWidgets.QDialog.Accepted:
-      print("Changement d'outil OK")
-      return True
-    else:
-      print("Changement d'outil annulé")
-      return False
+      self.sig_log.emit(logSeverity.info.value, self.tr("Tool change (T{}) done.").format(toolNum))
+    else: # RC = QtWidgets.QDialog.Rejected
+      self.sig_log.emit(logSeverity.warning.value, self.tr("Tool change (T{}) canceled.").format(toolNum))
+    return RC
 
 
+  def useToolChange(self):
+    return self.__settings.value("useToolChange", True, type=bool)
+
+
+  def ignoreFirstToolChange(self):
+    return self.__settings.value("ignoreFirstToolChange", False, type=bool)
 
 

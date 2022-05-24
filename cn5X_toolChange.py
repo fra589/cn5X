@@ -48,7 +48,9 @@ class dlgToolChange(QObject):
 
     self.__mainWin = mainWin
     self.__mainUi  = mainWin.ui
-    
+
+    self.__isVisible = False
+
     # Paramètres de cn5X++
     self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
 
@@ -74,6 +76,7 @@ class dlgToolChange(QObject):
     self.di.btnProbeZ.clicked.connect(self.on_btnProbeZ)
     self.di.btnG49.clicked.connect(self.on_btnG49)
     self.di.btnG43_1.clicked.connect(self.on_btnG43_1)
+    self.di.chkInvertProbePin.clicked.connect(self.on_chkInvertProbePin)
 
 
   def initialProbeZ(self):
@@ -99,6 +102,10 @@ class dlgToolChange(QObject):
   def setAxisNames(self, axisNames: list):
     self.__axisNames = axisNames
     self.__probe.setAxisNames(self.__axisNames)
+
+
+  def isVisible(self):
+    return self.__isVisible
 
 
   def showDialog(self, toolNum: int = 0):
@@ -133,7 +140,11 @@ class dlgToolChange(QObject):
 
     # Affiche le curseur de souris sablier
     QApplication.setOverrideCursor(Qt.WaitCursor)
-    
+
+    # Met à jour la case à cocher InvertProbePin
+    if self.__decode.getGrblSetting(6) is not None:
+      self.di.chkInvertProbePin.setChecked((int(self.__decode.getGrblSetting(6)) == 1))
+
     # Centrage de la boite de dialogue sur la fenetre principale
     ParentX = self.parent().geometry().x()
     ParentY = self.parent().geometry().y()
@@ -145,9 +156,6 @@ class dlgToolChange(QObject):
     self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
     self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool | Qt.WindowStaysOnTopHint)
 
-    # memorise l'état actif de la machine
-    self.oldDistanceMode = self.__decode.getDistanceMode()
-        
     # Attente de la fin du (des) mouvement(s) eventuellement en cours
     tDebut = time.time()
     while (time.time() - tDebut) * 1000 < 2 * GRBL_QUERY_DELAY:
@@ -155,16 +163,21 @@ class dlgToolChange(QObject):
     while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
       QCoreApplication.processEvents()
 
+    # memorise l'état actif de la machine
+    self.oldDistanceMode  = self.__decode.getDistanceMode()  # G91/G91
+    self.oldEtatSpindle   = self.__decode.get_etatSpindle()  # M5/M3/M4
+    self.oldEtatArrosage  = self.__decode.get_etatArrosage() # M9/M7/M8/M78
+
     # Mémorise la position courante
     self.oldMpos = {}
     for Axis in self.__axisNames:
       self.oldMpos[Axis] = self.__decode.getMpos(Axis)
       # oldMpos de la forme : {'X': 0.0, 'Y': 0.0, 'Z': 0.0, 'A': 0.0, 'B': 0.0}
 
-    # Déplace en position de changement d'outils
+    # Arrête la broche, l'arrosage et déplace en position de changement d'outils
     self.__decode.set_etatMachine(GRBL_STATUS_RUN)
     self.gotoToolChangePosition()
-    
+
     # Laisse le temps déplacement vers la position de changement d'outils
     tDebut = time.time()
     while (time.time() - tDebut) * 1000 < 2 * GRBL_QUERY_DELAY:
@@ -174,42 +187,61 @@ class dlgToolChange(QObject):
 
     # Restore le curseur de souris
     QApplication.restoreOverrideCursor()
-    
+
     # Affiche la boite de dialogue
+    self.__isVisible = True
     # Using exec() insteed to open() to make the dialog application modal
-    RC = self.__dlg.exec() 
+    RC = self.__dlg.exec()
+    self.__isVisible = False
     return RC
 
 
   def on_btnGo(self):
+    # restaure l'état de la machine (distance mode, spindle, arrosage)
+    if (self.oldDistanceMode != self.__decode.getDistanceMode()):
+      self.__grblCom.gcodePush("(Restore distance mode){}".format(self.oldDistanceMode))
+    if (self.oldEtatSpindle  != self.__decode.get_etatSpindle()):
+      self.__grblCom.gcodePush("(Restore spindle){}".format(self.oldEtatSpindle))
+    if self.oldEtatArrosage  != self.__decode.get_etatArrosage():
+      if self.oldEtatArrosage == "M78":
+        self.__grblCom.gcodePush("(Restore coolant)M7")
+        self.__grblCom.gcodePush("(Restore coolant)M8")
+      else:
+        self.__grblCom.gcodePush("(Restore coolant){}".format(self.oldEtatArrosage))
+
     # restore la position d'avant le changement d'outils
     # en passant par le Z de dégagement
     posZ = self.__settings.value("Probe/ToolChangePositionZ", DEFAULT_TOOLCHANGE_POSITION_Z, type=float)
-    deplacementGCodeZ  = "G53G0Z{}".format(posZ)
-    print(deplacementGCodeZ)
+    deplacementGCodeZ  = "(Tool change: restoring position)G53G0Z{}".format(posZ)
     self.__grblCom.gcodePush(deplacementGCodeZ)
-    axesTraites = ["Z"] # On ne traite pas Z ici
-    gcodeString = "G53G0"
+    axesTraites = ["Z"] # Z traité à part
+    gcodeString = "(Tool change: restoring position)G53G0"
     for a in self.__axisNames:
       if a not in axesTraites:
         gcodeString += "{}{}".format(a, self.oldMpos[a])
         axesTraites.append(a)
-    print(gcodeString)
     self.__grblCom.gcodePush(gcodeString)
-    deplacementGCodeZ  = "G53G0Z{}".format(self.oldMpos["Z"])
-    print(deplacementGCodeZ)
+    deplacementGCodeZ  = "(Tool change: restoring position)G53G0Z{}".format(self.oldMpos["Z"])
     self.__grblCom.gcodePush(deplacementGCodeZ)
-    # restaure l'état de la machine (distance mode)
-    if (self.oldDistanceMode != self.__decode.getDistanceMode()):
-      self.__grblCom.gcodePush(self.oldDistanceMode)
+
     # ferme la boite de dialogue en envoyant QDialog.Accepted
     self.__dlg.accept()
 
 
   def on_btnStop(self):
-    # ferme la boite de dialogue en envoyant QDialog.Rejected
-    # sans restaurer la position d'outil (ANNULATION !)
+    # ANNULATION !
+    # ferme la boite de dialogue en envoyant QDialog.Rejected,
+    # sans restaurer l'état de la machine ni la position d'outil.
     self.__dlg.reject()
+
+
+  def on_chkInvertProbePin(self):
+    if self.di.chkInvertProbePin.isChecked():
+      self.__grblCom.gcodePush("$6=1")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
+    else:
+      self.__grblCom.gcodePush("$6=0")
+      self.__grblCom.gcodePush(CMD_GRBL_GET_SETTINGS)
 
 
   def on_btnProbeZ(self):
@@ -334,19 +366,16 @@ class dlgToolChange(QObject):
 
 
   def gotoToolChangePosition(self):
-    ''' Déplacement vers la position de changement d'outils'''
+    ''' Arrête la broche, l'arrosage et déplace en position de changement d'outils '''
+    self.__grblCom.gcodePush("(Tool change)M5")
+    self.__grblCom.gcodePush("(Tool change)M9")
     # Recupération des coordonnées Z, X & Y du point
     posZ = self.__settings.value("Probe/ToolChangePositionZ", DEFAULT_TOOLCHANGE_POSITION_Z, type=float)
     posX = self.__settings.value("Probe/ToolChangePositionX", DEFAULT_TOOLCHANGE_POSITION_X, type=float)
     posY = self.__settings.value("Probe/ToolChangePositionY", DEFAULT_TOOLCHANGE_POSITION_Y, type=float)
     # Effectue les déplacements
-    deplacementGCodeZ  = "G53G0Z{}".format(posZ)
-    deplacementGCodeXY = "G53G0X{}Y{}".format(posX, posY)
+    deplacementGCodeZ  = "(Goto tool change Z)G53G0Z{}".format(posZ)
+    deplacementGCodeXY = "(Goto tool change XY)G53G0X{}Y{}".format(posX, posY)
     self.__grblCom.gcodePush(deplacementGCodeZ)
     self.__grblCom.gcodePush(deplacementGCodeXY)
-
-
-
-
-
 

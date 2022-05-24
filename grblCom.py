@@ -58,7 +58,7 @@ class grblCom(QObject):
     super().__init__()
     self.__decode        = None
     self.__threads       = None
-    self.__Com           = None
+    self.__com           = None
     self.__connectStatus = False
     self.__grblInit      = False
     self.__pooling       = True
@@ -124,7 +124,7 @@ class grblCom(QObject):
     thread.start()  # this will emit 'started' and start thread's event loop
 
     # Memorise le communicateur
-    self.__Com = newComSerial
+    self.__com = newComSerial
 
 
   @pyqtSlot(bool)
@@ -156,7 +156,7 @@ class grblCom(QObject):
     self.sig_status.emit(buff)
     if self.__refreshGcodeParameters and (self.__grblStatus == GRBL_STATUS_IDLE):
       # Insère la commande Grbl pour relire les paramètres GCode
-      self.__Com.gcodePush(CMD_GRBL_GET_GCODE_PARAMATERS, COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
+      self.__com.gcodePush(CMD_GRBL_GET_GCODE_PARAMATERS, COM_FLAG_NO_OK | COM_FLAG_NO_ERROR)
       self.__refreshGcodeParameters = False
 
 
@@ -175,7 +175,7 @@ class grblCom(QObject):
     ''' Stop le thread des communications serie '''
     self.clearCom() # Vide la file d'attente
     self.sig_log.emit(logSeverity.info.value, self.tr("Sending abort to serial communications thread..."))
-    self.__Com.abort()
+    self.__com.abort()
     # Attente de la fin du (des) thread(s)
     for thread, worker in self.__threads:
         thread.quit()  # this will quit **as soon as thread event loop unblocks**
@@ -194,7 +194,7 @@ class grblCom(QObject):
   def gcodeInsert(self, buff: str, flag=COM_FLAG_NO_FLAG):
     ''' Insertion d'une commande GCode dans la pile en mode LiFo (commandes devant passer devant les autres) '''
     if self.__connectStatus and self.__grblInit:
-      self.__Com.gcodeInsert(buff, flag)
+      self.__com.gcodeInsert(buff, flag)
       # Vérifie si la commande passée modifie les paramètres GCode (resultat de $#)
       for cmd in GCODE_PARAMETER_OUTPUT_CHANGE_CMD:
         if cmd in buff:
@@ -210,7 +210,7 @@ class grblCom(QObject):
   def gcodePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     ''' Ajout d'une commande GCode dans la pile en mode FiFo (fonctionnement normal de la pile d'un programe GCode) '''
     if self.__connectStatus and self.__grblInit:
-      self.__Com.gcodePush(buff, flag)
+      self.__com.gcodePush(buff, flag)
       # Vérifie si la commande passée modifie les paramètres GCode (resultat de $#)
       for cmd in GCODE_PARAMETER_OUTPUT_CHANGE_CMD:
         if cmd in buff:
@@ -225,26 +225,26 @@ class grblCom(QObject):
 
   def realTimePush(self, buff: str, flag=COM_FLAG_NO_FLAG):
     if self.__connectStatus and self.__grblInit:
-      self.__Com.realTimePush(buff, flag)
+      self.__com.realTimePush(buff, flag)
     else:
       self.sig_log.emit(logSeverity.warning.value, self.tr("grblCom: Grbl not connected or not initialized, [{}] could not be sent.").format(buff))
 
 
   def clearCom(self):
-    self.__Com.clearCom()
+    self.__com.clearCom()
 
 
   @pyqtSlot()
   def startPooling(self):
-    if self.__Com is not None:
+    if self.__com is not None:
       self.__pooling = True
-      self.__Com.startPooling()
+      self.__com.startPooling()
 
 
   @pyqtSlot()
   def stopPooling(self):
     self.__pooling = False
-    self.__Com.stopPooling()
+    self.__com.stopPooling()
 
   def isOpen(self):
     return self.__connectStatus
@@ -252,7 +252,7 @@ class grblCom(QObject):
 
   @pyqtSlot(str)
   def resetSerial(self):
-    self.__Com.resetSerial()
+    self.__com.resetSerial()
 
 
 

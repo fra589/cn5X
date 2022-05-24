@@ -80,7 +80,8 @@ class grblDecode(QObject):
     self.__mpos       = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__offsetG92  = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     self.__offsetG5x  = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    self.__etatArrosage = None
+    self.__etatArrosage = "M9"
+    self.__etatSpindle  = "M5"
     self.__etatMachine = None
     self.__digitalStatus = [False, False, False, False, False, False, False, False]
     self.__getNextStatusOutput = False
@@ -655,6 +656,7 @@ class grblDecode(QObject):
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
               if not self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(True)  # Activation bouton M3
               if self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(False)     # Interdit un changement de sens de rotation direct
+              self.__etatSpindle  = "M3"
             if S == 'M4':
               self.ui.lblBroche.setToolTip(self.tr(" Spindle counter-clockwise at the S speed "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
@@ -662,6 +664,7 @@ class grblDecode(QObject):
               if self.ui.btnSpinM5.getButtonStatus():     self.ui.btnSpinM5.setButtonStatus(False)
               if self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(False)     # Interdit un changement de sens de rotation direct
               if not self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(True)  # Activation bouton M4
+              self.__etatSpindle  = "M4"
             if S == 'M5':
               self.ui.lblBroche.setToolTip(self.tr(" Spindle stoped "))
               if self.ui.btnSpinM3.getButtonStatus():     self.ui.btnSpinM3.setButtonStatus(False)
@@ -669,6 +672,7 @@ class grblDecode(QObject):
               if not self.ui.btnSpinM5.getButtonStatus(): self.ui.btnSpinM5.setButtonStatus(True)
               if not self.ui.btnSpinM3.isEnabled(): self.ui.btnSpinM3.setEnabled(True)  # Activation bouton M3
               if not self.ui.btnSpinM4.isEnabled(): self.ui.btnSpinM4.setEnabled(True)  # Activation bouton M4
+              self.__etatSpindle  = "M5"
           elif S in ['M7', 'M8', 'M78', 'M9']:
             self.ui.lblArrosage.setText(S)
             if S == 'M7':
@@ -724,7 +728,6 @@ class grblDecode(QObject):
       
       elif grblOutput[:4] == "[D:":
         # Digital status
-        print(grblOutput)
         return grblOutput
 
       elif grblOutput[:5] == "[OPT:":
@@ -748,6 +751,10 @@ class grblDecode(QObject):
 
   def get_etatArrosage(self):
     return self.__etatArrosage
+
+
+  def get_etatSpindle(self):
+    return self.__etatSpindle
 
 
   def set_etatMachine(self, etat):
@@ -846,12 +853,12 @@ class grblDecode(QObject):
     return self.__distanceMode
 
 
-  def getGrblSetting(self, num):
+  def getGrblSetting(self, num: int):
     ''' Renvoi la valeur du setting Grbl s'il existe, sinon, renvoi None '''
     try:
       return self.__settings[num]
-    except ValueError:
-      return grblOutput
+    except KeyError:
+      return None
     
   def grblSetting(self, num):
     ''' Renvoi la description d'un setting de Grbl en fonction de son numéro '''
