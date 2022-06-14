@@ -32,12 +32,12 @@ PYRCC=pyrcc5
 PYRCCFLAGS=
 LANG_DIR=i18n
 
-all: *.py ressources lang
+all: *.py lang ressources
 
-ressources: cn5X_rc.py
-
-lang: $(LANG_DIR)/*.qm
+lang: $(LANG_DIR)/*.qm $(LANG_DIR)/cn5X_locales.xml
 	@(cd $(LANG_DIR) && $(MAKE))
+
+ressources: lang cn5X_rc.py cn5X.qrc
 
 %.qm: %.ts cn5X.pro
 

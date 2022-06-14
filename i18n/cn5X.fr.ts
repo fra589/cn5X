@@ -3423,7 +3423,7 @@ déverrouiller l&apos;arrêt d&apos;urgence</translation>
         <translation>G91 - Déplacements en coordonnées relatives</translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2777"/>
+        <location filename="../cn5X.py" line="2783"/>
         <source>Use system language</source>
         <translation>Utiliser la langue système</translation>
     </message>
@@ -3474,7 +3474,7 @@ déverrouiller l&apos;arrêt d&apos;urgence</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2769"/>
+        <location filename="../cn5X.py" line="2775"/>
         <source>Locale ({}) not usable, using default to english</source>
         <translation type="unfinished"></translation>
     </message>

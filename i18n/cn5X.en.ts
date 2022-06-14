@@ -3391,7 +3391,7 @@ unlock the emergency stop</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2777"/>
+        <location filename="../cn5X.py" line="2783"/>
         <source>Use system language</source>
         <translation></translation>
     </message>
@@ -3442,7 +3442,7 @@ unlock the emergency stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2769"/>
+        <location filename="../cn5X.py" line="2775"/>
         <source>Locale ({}) not usable, using default to english</source>
         <translation type="unfinished"></translation>
     </message>

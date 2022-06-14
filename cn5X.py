@@ -24,12 +24,12 @@
 
 import sys, os, time
 from datetime import datetime
-from xml.dom.minidom import parse, Node, Element
+from xml.dom.minidom import parse, parseString, Node, Element
 import locale
 import argparse
 import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings, QFile
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette, QFontDatabase
 from PyQt5.QtWidgets import QDialog, QAbstractItemView, QMessageBox
 from cn5X_config import *
@@ -2690,7 +2690,13 @@ class winMain(QtWidgets.QMainWindow):
   def createLangMenu(self):
     ''' Creation du menu de choix de la langue du programme
     en fonction du contenu du fichier i18n/cn5X_locales.xml '''
-    document = parse("{}/i18n/cn5X_locales.xml".format(app_path))
+    fichierXML = QFile(":/i18n/i18n/cn5X_locales.xml")
+    if fichierXML.open(QFile.ReadOnly):
+      XMLbuff = str(fichierXML.readAll(), 'utf-8')
+    else:
+      print("Error reading cn5X_locales.xml from resources !")
+
+    document = parseString(XMLbuff)
     root = document.documentElement
     translations = root.getElementsByTagName("translation")
 
@@ -2765,11 +2771,13 @@ class winMain(QtWidgets.QMainWindow):
   def setTranslator(self, langue: QLocale):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
-    if not translator.load(langue, "{}/i18n/cn5X".format(app_path), "."):
+    ###if not translator.load(langue, "{}/i18n/cn5X".format(app_path), "."):
+    if not translator.load(langue, ":/i18n/i18n/cn5X", "."):
       self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(langue.name()))
       #langue = QLocale(QLocale.French, QLocale.France)
       langue = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
+      ###translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
+      translator.load(langue, ":/i18n/i18n/cn5X", ".")
 
     # Install le traducteur et l'exécute sur les éléments déjà chargés
     QtCore.QCoreApplication.installTranslator(translator)
@@ -2838,7 +2846,8 @@ if __name__ == '__main__':
 
   translator = QTranslator()
   langue = QLocale(QLocale.French, QLocale.France)
-  translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
+  ###translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
+  translator.load(langue, ":/i18n/i18n/cn5X", ".")
   app.installTranslator(translator)
 
   # Chargement police LED Calculator depuis le fichier de ressources
