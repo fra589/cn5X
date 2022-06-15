@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 120 60.000002"
    version="1.1"
    id="svg1126"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="btnJogZ.svg">
   <defs
      id="defs1120" />
@@ -25,18 +23,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.0674866"
-     inkscape:cx="48.942741"
-     inkscape:cy="21.477056"
+     inkscape:zoom="6.9701656"
+     inkscape:cx="55.701957"
+     inkscape:cy="30.800848"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1680"
-     inkscape:window-height="988"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     units="px">
+     units="px"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid1671" />
@@ -49,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -59,52 +58,40 @@
      id="layer1"
      transform="translate(0,-1062.5196)">
     <path
-       style="fill:#202080;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 36.517762,1119.4645 c -0.0012,-16.8114 -0.0471,-27.2925 -0.120274,-27.4518 -0.09588,-0.2088 -0.524157,-0.2688 -2.25496,-0.3154 -1.175131,-0.031 -2.119449,-0.1185 -2.098484,-0.1911 0.02097,-0.073 2.25607,-5.6747 4.966901,-12.4473 2.751776,-6.8749 4.976274,-12.2487 5.036305,-12.1661 0.05914,0.082 2.316812,5.6699 5.017054,12.419 l 4.909529,12.2713 -2.112446,0.086 c -1.90579,0.077 -2.129771,0.1184 -2.289561,0.4194 -0.151049,0.2846 -0.177116,4.3249 -0.177116,27.4519 v -0.3761 h -5.437517 -5.437517 z"
-       id="path817-6"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccscscccscccc" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:21.25037575px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.99999994"
-       x="100.46756"
-       y="1010.8401"
-       id="text5858"
-       transform="scale(0.92949141,1.0758572)"><tspan
-         sodipodi:role="line"
-         id="tspan5856"
-         x="100.46756"
-         y="1010.8401"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:25.50045013px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';stroke-width:0.99999994">-Z</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       d="m 79.999395,1120.0147 -11.000036,-27.4948 h 5.000016 v -27.4953 h 12.000037 l 10e-7,27.4953 h 5.000015 z"
-       id="path5835"
+       style="fill:#2020c0;fill-opacity:1;stroke:#000000;stroke-width:0.999997px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 77,1121.5196 -14,-24 h 7.999947 l 1.6e-5,-34 H 83 l -1.5e-5,34 H 91 Z"
+       id="path5835-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc" />
-    <path
-       style="fill:#202080;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 85.467433,1065.5748 c 0.0012,16.8114 0.0471,27.2925 0.120274,27.4518 0.09588,0.2088 0.524157,0.2688 2.25496,0.3154 1.175131,0.031 2.119448,0.1171 2.098483,0.1911 -0.02097,0.073 -2.25607,5.6747 -4.9669,12.4473 -2.751777,6.875 -4.976274,12.2487 -5.036306,12.1662 -0.05914,-0.082 -2.316812,-5.6699 -5.017053,-12.4191 l -4.909529,-12.2713 2.112445,-0.086 c 1.905791,-0.078 2.129772,-0.1184 2.289561,-0.4194 0.15105,-0.2844 0.177117,-4.3248 0.177117,-27.4519 v 0.376 h 5.437517 5.437517 z"
-       id="path817"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccscscccscccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:20.96278px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
-       x="4.1215296"
-       y="1038.4713"
-       id="text5858-3"
-       transform="scale(0.92948962,1.0758592)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="88.323563"
+       y="1150.2108"
+       id="text5858-3-6"
+       transform="scale(1.0274146,0.97331691)"><tspan
          sodipodi:role="line"
-         id="tspan5856-6"
-         x="4.1215296"
-         y="1038.4713"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:25.15533638px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';stroke-width:1">+Z</tspan></text>
+         id="tspan5856-6-7"
+         x="88.323563"
+         y="1150.2108"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">-Z</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-       d="m 41.9858,1065.0246 11.000035,27.4948 H 47.98582 v 27.4953 H 35.985782 l -10e-7,-27.4953 h -5.000014 z"
-       id="path5835-0"
+       style="fill:#2020c0;fill-opacity:1;stroke:#000000;stroke-width:0.999997px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 43,1063.5196 14,24 h -8 v 34 H 36.999963 l -1e-6,-34 H 29 Z"
+       id="path5835-5"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="1.6983643"
+       y="1110.1416"
+       id="text5858-3-3"
+       transform="scale(1.0274146,0.97331691)"><tspan
+         sodipodi:role="line"
+         id="tspan5856-6-5"
+         x="1.6983643"
+         y="1110.1416"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">+Z</tspan></text>
   </g>
 </svg>

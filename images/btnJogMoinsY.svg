@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 60 60"
    version="1.1"
    id="svg4154"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="btnJogMoinsY.svg">
   <defs
      id="defs4148" />
@@ -25,18 +23,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8.6833333"
-     inkscape:cx="31.106594"
-     inkscape:cy="30"
+     inkscape:zoom="9.805214"
+     inkscape:cx="25.638809"
+     inkscape:cy="30.354935"
      inkscape:document-units="px"
-     inkscape:current-layer="g6051"
+     inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="1366"
-     inkscape:window-height="708"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid4699" />
@@ -49,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,30 +59,19 @@
      transform="translate(0,-281.12499)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="4.5569806"
-       y="297.81195"
-       id="text5858"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;line-height:1.25;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+       x="1.6983961"
+       y="307.32538"
+       id="text5858"
+       transform="scale(1.0274146,0.97331691)"><tspan
          sodipodi:role="line"
          id="tspan5856"
-         x="4.5569806"
-         y="297.81195"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:16px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold'">-Y</tspan></text>
-    <g
-       id="g6051"
-       transform="rotate(-180,32.499994,311.63459)">
-      <path
-         sodipodi:nodetypes="cccccccc"
-         inkscape:connector-curvature="0"
-         id="path5835"
-         d="m 44.999987,285.1442 -0.473721,22.82051 -4.330127,-2.5 -20,34.64102 -10.3923049,-6 19.9999999,-34.64102 -4.330127,-2.5 z"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         transform="translate(0,281.12499)"
-         inkscape:connector-curvature="0"
-         id="path6017"
-         d="m 15.314664,55.528193 c -2.465463,-1.431279 -4.53185,-2.651518 -4.591972,-2.711639 -0.06242,-0.06242 4.128861,-7.450059 9.769748,-17.220379 6.070516,-10.514461 9.864762,-17.209386 9.841972,-17.3661 -0.02624,-0.180441 -0.530647,-0.541522 -1.724589,-1.234554 -0.928125,-0.538736 -1.761533,-1.023172 -1.852018,-1.076524 -0.10794,-0.06364 2.872241,-1.935341 8.66574,-5.442501 4.856642,-2.9400232 8.865401,-5.3103543 8.908353,-5.2674024 0.08915,0.089149 -0.308752,20.4479354 -0.401455,20.5406394 -0.03333,0.03333 -0.85783,-0.400744 -1.832222,-0.964606 -1.232778,-0.713385 -1.852113,-1.004597 -2.03626,-0.95745 -0.19681,0.05039 -2.795611,4.457031 -10.139638,17.193225 -5.43125,9.419007 -9.93125,17.121902 -10,17.117543 -0.06875,-0.0044 -2.142196,-1.178972 -4.607659,-2.610252 z"
-         style="fill:#208020;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+         x="1.6983961"
+         y="307.32538"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.337px;font-family:'LED Calculator';-inkscape-font-specification:'LED Calculator Bold';stroke-width:1">-Y</tspan></text>
+    <path
+       id="path835"
+       style="fill:#20c020;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 1,340.12499 29,-9 -5.5,-5.5 34.5,-34.5 -9,-9 -34.5,34.5 -5.5,-5.5 z" />
   </g>
 </svg>
