@@ -123,6 +123,7 @@
   </qresource>
   <qresource prefix="i18n">
     <file>i18n/cn5X_locales.xml</file>
+    <file>i18n/cn5X_locales.xsd</file>
     <file>i18n/cn5X.en.qm</file>
     <file>i18n/cn5X.fr.qm</file>
     <file>i18n/flags/flag_en.svg</file>

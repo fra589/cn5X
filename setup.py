@@ -28,18 +28,7 @@ from cx_Freeze import setup, Executable
 # Dependencies are automatically detected, but it might need
 # fine tuning.
 buildOptions = dict(packages = [], excludes = [],
-                    include_files = ['COPYING',
-                                      ('i18n/flags/flag_fr.svg', 'i18n/flags/flag_fr.svg'),
-                                      ('i18n/flags/flag_en.svg', 'i18n/flags/flag_en.svg'),
-                                      ('i18n/flags/flag_es.svg', 'i18n/flags/flag_es.svg'),
-                                      ('i18n/flags/flag_pt.svg', 'i18n/flags/flag_pt.svg'),
-                                      ('i18n/cn5X.fr.qm', 'i18n/cn5X.fr.qm'),
-                                      ('i18n/cn5X.en.qm', 'i18n/cn5X.en.qm'),
-                                      ('i18n/cn5X.es.qm', 'i18n/cn5X.es.qm'),
-                                      ('i18n/cn5X.pt.qm', 'i18n/cn5X.pt.qm'),
-                                      ('i18n/cn5X_locales.xml', 'i18n/cn5X_locales.xml'),
-                                      ('i18n/cn5X_locales.xsd', 'i18n/cn5X_locales.xsd')
-                                    ]
+                    include_files = ['COPYING']
                     )
 
 import sys
@@ -58,6 +47,7 @@ setup(name='cn5X++',
   install_requires = [
     'pyqt5',
     'pyserial',
+    'pyqt5.qtmultimedia',
     ],
   options = dict(build_exe = buildOptions),
   executables = executables
