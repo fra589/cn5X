@@ -85,7 +85,7 @@ class cn5XHelpProbe(QObject):
     myHeight = self.__dlg.geometry().height()
     self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
     self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool | Qt.WindowStaysOnTopHint)
+    self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool)
 
     RC = self.__dlg.show()
     return RC
