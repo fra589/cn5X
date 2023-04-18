@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2023 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -27,7 +27,7 @@ from PyQt5 import QtGui
 ORG_NAME           = "fra589"
 APP_NAME           = "cn5X++"
 APP_VERSION_STRING = "0.8.9"
-APP_VERSION_DATE   = "20220509"
+APP_VERSION_DATE   = "20230418"
 
 DEFAULT_NB_AXIS    = 3 # Laisser 3 permet de gerer un Grbl original a 3 axes
 DEFAULT_AXIS_NAMES = ['X', 'Y', 'Z']
