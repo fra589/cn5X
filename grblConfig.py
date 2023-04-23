@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2023 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -496,11 +496,11 @@ class grblConfig(QObject):
       self.sig_config_changed.emit("$1={}".format(self.__di.spinStepIdleDelay.value()))
       self.__grblCom.gcodePush("$1={}".format(self.__di.spinStepIdleDelay.value()))
     if self.__di.emStepPortInvert.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$2={}".format(self.__di.emStepPortInvert.value()))
-      self.__grblCom.gcodePush("$2={}".format(self.__di.emStepPortInvert.value()))
+      self.sig_config_changed.emit("$2={}".format(self.__di.emStepPortInvert.getValue()))
+      self.__grblCom.gcodePush("$2={}".format(self.__di.emStepPortInvert.getValue()))
     if self.__di.emDirectionPortInvert.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$3=".format(self.__di.emDirectionPortInvert.value()))
-      self.__grblCom.gcodePush("$3=".format(self.__di.emDirectionPortInvert.value()))
+      self.sig_config_changed.emit("$3={}".format(self.__di.emDirectionPortInvert.getValue()))
+      self.__grblCom.gcodePush("$3={}".format(self.__di.emDirectionPortInvert.getValue()))
     if self.__di.chkStepEnableInvert.objectName() in self.__changedParams:
       if self.__di.chkStepEnableInvert.isChecked():
         self.sig_config_changed.emit("$4=1")
@@ -564,8 +564,8 @@ class grblConfig(QObject):
         self.sig_config_changed.emit("$22=0")
         self.__grblCom.gcodePush("$22=0")
     if self.__di.emHomeDirInvert.objectName() in self.__changedParams:
-      self.sig_config_changed.emit("$23=".format(self.__di.emHomeDirInvert.value()))
-      self.__grblCom.gcodePush("$23=".format(self.__di.emHomeDirInvert.value()))
+      self.sig_config_changed.emit("$23={}".format(self.__di.emHomeDirInvert.getValue()))
+      self.__grblCom.gcodePush("$23={}".format(self.__di.emHomeDirInvert.getValue()))
     if self.__di.dsbHomingFeed.objectName() in self.__changedParams:
       self.sig_config_changed.emit("$24={}".format(self.__di.dsbHomingFeed.value()))
       self.__grblCom.gcodePush("$24={}".format(self.__di.dsbHomingFeed.value()))
