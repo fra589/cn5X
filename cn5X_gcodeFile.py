@@ -51,6 +51,7 @@ class gcodeFile(QObject):
 
   def __init__(self, ui, gcodeFileUi: QListView, dialogToolChange: dlgToolChange):
     super().__init__()
+    self.__fileDialog       = QtWidgets.QFileDialog(None)
     self.__filePath         = ""
     self.__ui               = ui
     self.__gcodeFileUi      = gcodeFileUi
@@ -69,8 +70,16 @@ class gcodeFile(QObject):
 
   def showFileOpen(self):
     ''' Affiche la boite de dialogue d'ouverture '''
-    opt = QtWidgets.QFileDialog.Options()
-    fName = QtWidgets.QFileDialog.getOpenFileName(None, self.tr("Open a GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    opt = self.__fileDialog.Options()
+    lastDir = self.__settings.value("Files/lastGCodeFileDir", "")
+    if lastDir != "":
+      self.__fileDialog.setDirectory(lastDir)
+    fName = self.__fileDialog.getOpenFileName(None, self.tr("Open a GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+    if fName[0] != "":
+      # Memorise le dernier répertoire utilisé
+      lastDir = os.path.dirname(fName[0])
+      self.__settings.setValue("Files/lastGCodeFileDir", lastDir)
+    # Renvoi le résultat
     return fName
 
   def readFile(self, filePath: str):
