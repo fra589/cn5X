@@ -80,6 +80,7 @@ class winMain(QtWidgets.QMainWindow):
     parser.add_argument("-f", "--file", help=self.tr("Load the GCode file"))
     parser.add_argument("-l", "--lang", help=self.tr("Define the interface language"))
     parser.add_argument("-p", "--port", help=self.tr("select the serial port"))
+    parser.add_argument("-s", "--fullScreen", action="store_true", help=self.tr("Set appliation full screen mode"))
     parser.add_argument("-u", "--noUrgentStop", action="store_true", help=self.tr("Unlock urgent stop"))
     self.__args = parser.parse_args()
 
@@ -89,6 +90,9 @@ class winMain(QtWidgets.QMainWindow):
     # Initialise la fenêtre princpale
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
+    # Affichage plein écran optionel
+    if self.__args.fullScreen != None:
+      self.showFullScreen()
 
     self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
     self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
