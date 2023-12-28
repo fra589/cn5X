@@ -79,8 +79,44 @@ class gcodeFile(QObject):
       # Memorise le dernier répertoire utilisé
       lastDir = os.path.dirname(fName[0])
       self.__settings.setValue("Files/lastGCodeFileDir", lastDir)
-    # Renvoi le résultat
+      # Met à jour la liste des 10 derniers fichiers utilisés
+      # Récupère la liste dans les settings
+      lastFiles = self.getLastFileList()
+      # Recherche si le fichier est déja dans la liste
+      if fName[0] in lastFiles:
+        # S'il l'est déjà, on le supprime
+        lastFiles.remove(fName[0])
+      # On l'insert en première position de la liste
+      lastFiles.insert(0, fName[0])
+      print(lastFiles)
+      # Sauvegarde la nouvelle liste
+      self.saveLastFileList(lastFiles)
+
+      '''
+      for i in range(9, 0, -1):
+        settingName1 = "Files/lastFile{}".format(i)
+        settingName2 = "Files/lastFile{}".format(i-1)
+        self.__settings.setValue(settingName1, self.__settings.value(settingName2, ""))
+      self.__settings.setValue("Files/lastFile0", fName[0])
+      '''
+    # Renvoi le fichier à ouvrir
     return fName
+
+  def getLastFileList(self):
+    ''' Retrouve la liste des 10 derniers fichiers'''
+    liste = []
+    for i in range(10):
+      settingName = "Files/lastFile{}".format(i)
+      liste.append(self.__settings.value(settingName, ""))
+    return liste
+
+  def saveLastFileList(self, fileList):
+    i = 0
+    for f in fileList:
+      if i < 10:
+        settingName = "Files/lastFile{}".format(i)
+        self.__settings.setValue(settingName, f)
+        i = i + 1
 
   def readFile(self, filePath: str):
     self.sig_log.emit(logSeverity.info.value, self.tr("Reading file: {}").format(filePath))
