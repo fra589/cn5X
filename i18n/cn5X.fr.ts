@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.1" language="fr_FR" sourcelanguage="en">
 <context>
     <name>cn5XHelpProbe</name>
     <message>
@@ -166,7 +167,7 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
     <message>
         <location filename="../dlgConfig.py" line="972"/>
         <source>Number of axes:</source>
-        <translation>Nombre d&apos;axes :</translation>
+        <translation>Nombre d'axes :</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="973"/>
@@ -191,7 +192,7 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
     <message>
         <location filename="../dlgConfig.py" line="977"/>
         <source>Step pulse time, microseconds ($0)</source>
-        <translation>Dur�e d&apos;impulsion moteur, microsecondes ($0)</translation>
+        <translation>Dur�e d'impulsion moteur, microsecondes ($0)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="978"/>
@@ -236,7 +237,7 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
     <message>
         <location filename="../dlgConfig.py" line="989"/>
         <source>Status report options, mask ($10)</source>
-        <translation>Options de rapport d&apos;�tat, masque ($10)</translation>
+        <translation>Options de rapport d'�tat, masque ($10)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="990"/>
@@ -246,7 +247,7 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
     <message>
         <location filename="../dlgConfig.py" line="991"/>
         <source>Arc tolerance, mm ($12)</source>
-        <translation>Tol�rance d&apos;arc, mm ($12)</translation>
+        <translation>Tol�rance d'arc, mm ($12)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="992"/>
@@ -271,32 +272,32 @@ Cette application a pour but d&amp;apos;implementer toutes les fonctionalites du
     <message>
         <location filename="../dlgConfig.py" line="996"/>
         <source>Homing cycle enable, boolean ($22)</source>
-        <translation>Activation du cycle d&apos;origine machine, bool�en ($22)</translation>
+        <translation>Activation du cycle d'origine machine, bool�en ($22)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="997"/>
         <source>Homing direction invert, mask ($23)</source>
-        <translation>Direction prise d&apos;origine, masque ($23)</translation>
+        <translation>Direction prise d'origine, masque ($23)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="998"/>
         <source>Homing locate feed rate, mm/min ($24)</source>
-        <translation>Vitesse de localisation d&apos;origine, mm/min ($24)</translation>
+        <translation>Vitesse de localisation d'origine, mm/min ($24)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="999"/>
         <source>Homing search seek rate, mm/min ($25)</source>
-        <translation>Vitesse de recherche d&apos;origine, mm/min ($25)</translation>
+        <translation>Vitesse de recherche d'origine, mm/min ($25)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1000"/>
         <source>Homing switch debounce delay, milliseconds ($26)</source>
-        <translation>D�lai anti-rebond du commutateur d&apos;origine, millisecondes ($26)</translation>
+        <translation>D�lai anti-rebond du commutateur d'origine, millisecondes ($26)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1001"/>
         <source>Homing switch pull-off distance, mm ($27)</source>
-        <translation>Distance de retrait de l&apos;interrupteur d&apos;origine, mm ($27)</translation>
+        <translation>Distance de retrait de l'interrupteur d'origine, mm ($27)</translation>
     </message>
     <message>
         <location filename="../dlgConfig.py" line="1004"/>
@@ -674,92 +675,92 @@ G92</source>
 <context>
     <name>gcodeFile</name>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="73"/>
+        <location filename="../cn5X_gcodeFile.py" line="77"/>
         <source>Open a GCode file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="145"/>
+        <location filename="../cn5X_gcodeFile.py" line="190"/>
         <source>GCode file (*.gcode *.ngc *.nc *.gc *.cnc)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="77"/>
+        <location filename="../cn5X_gcodeFile.py" line="122"/>
         <source>Reading file: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="82"/>
+        <location filename="../cn5X_gcodeFile.py" line="127"/>
         <source>{} lines in the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="93"/>
+        <location filename="../cn5X_gcodeFile.py" line="138"/>
         <source>Reading file error: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="135"/>
+        <location filename="../cn5X_gcodeFile.py" line="180"/>
         <source>saveAs({})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="138"/>
+        <location filename="../cn5X_gcodeFile.py" line="183"/>
         <source>saveAs() canceled!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="145"/>
+        <location filename="../cn5X_gcodeFile.py" line="190"/>
         <source>Save GCode file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="156"/>
+        <location filename="../cn5X_gcodeFile.py" line="201"/>
         <source>Saving file: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="166"/>
+        <location filename="../cn5X_gcodeFile.py" line="211"/>
         <source>Save file error: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="198"/>
+        <location filename="../cn5X_gcodeFile.py" line="243"/>
         <source>enQueue(): Invalid tool number (T) value &apos;{}&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="201"/>
+        <location filename="../cn5X_gcodeFile.py" line="246"/>
         <source>enQueue(): Select tool number T{}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="213"/>
+        <location filename="../cn5X_gcodeFile.py" line="258"/>
         <source>Ignoring first tool change (T{}).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="261"/>
+        <location filename="../cn5X_gcodeFile.py" line="306"/>
         <source>Save Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="261"/>
+        <location filename="../cn5X_gcodeFile.py" line="306"/>
         <source>Do you want to save the changes before closing?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="261"/>
+        <location filename="../cn5X_gcodeFile.py" line="306"/>
         <source>If you do not save, any changes made since opening or the last save will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="322"/>
+        <location filename="../cn5X_gcodeFile.py" line="367"/>
         <source>Tool change (T{}) done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X_gcodeFile.py" line="324"/>
+        <location filename="../cn5X_gcodeFile.py" line="369"/>
         <source>Tool change (T{}) canceled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2092,1019 +2093,1019 @@ Restoring the factory settings restores all settings as they were when generatin
 <context>
     <name>mainWindow</name>
     <message>
-        <location filename="../mainWindow.py" line="4308"/>
+        <location filename="../mainWindow.py" line="4495"/>
         <source>Double click
 to unlock urgent stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4310"/>
+        <location filename="../mainWindow.py" line="4497"/>
         <source>Feedrate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4311"/>
+        <location filename="../mainWindow.py" line="4498"/>
         <source>Link feedrate and spindle speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4312"/>
+        <location filename="../mainWindow.py" line="4499"/>
         <source>Spindle</source>
         <translation type="unfinished">Broche</translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4313"/>
+        <location filename="../mainWindow.py" line="4500"/>
         <source>Reset feedrate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4314"/>
+        <location filename="../mainWindow.py" line="4501"/>
         <source>Reset spindle speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4315"/>
+        <location filename="../mainWindow.py" line="4502"/>
         <source> Rapid feedrate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4318"/>
+        <location filename="../mainWindow.py" line="4505"/>
         <source>Run homing cycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4317"/>
+        <location filename="../mainWindow.py" line="4504"/>
         <source>Home cycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4319"/>
+        <location filename="../mainWindow.py" line="4506"/>
         <source>Unlock Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4320"/>
+        <location filename="../mainWindow.py" line="4507"/>
         <source>Soft Reset (^X)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4321"/>
+        <location filename="../mainWindow.py" line="4508"/>
         <source>Jogging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4322"/>
+        <location filename="../mainWindow.py" line="4509"/>
         <source>Jog Increment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4323"/>
+        <location filename="../mainWindow.py" line="4510"/>
         <source>Jog mm/mn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4324"/>
+        <location filename="../mainWindow.py" line="4511"/>
         <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4325"/>
+        <location filename="../mainWindow.py" line="4512"/>
         <source>Select serial port of Grbl.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4326"/>
+        <location filename="../mainWindow.py" line="4513"/>
         <source>Refresh list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4327"/>
+        <location filename="../mainWindow.py" line="4514"/>
         <source>Serial port read/write activity: green=idle, red=active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4328"/>
+        <location filename="../mainWindow.py" line="4515"/>
         <source>Serial port lock status: green=enabled to send, red=locked and waiting for OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4329"/>
+        <location filename="../mainWindow.py" line="4516"/>
         <source>&lt;Not Connected&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4330"/>
+        <location filename="../mainWindow.py" line="4517"/>
         <source>(Un)Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4331"/>
+        <location filename="../mainWindow.py" line="4518"/>
         <source>X Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4332"/>
+        <location filename="../mainWindow.py" line="4519"/>
         <source>Y Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4333"/>
+        <location filename="../mainWindow.py" line="4520"/>
         <source>Z Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4334"/>
+        <location filename="../mainWindow.py" line="4521"/>
         <source>A Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4335"/>
+        <location filename="../mainWindow.py" line="4522"/>
         <source>B Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4336"/>
+        <location filename="../mainWindow.py" line="4523"/>
         <source>C Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4337"/>
+        <location filename="../mainWindow.py" line="4524"/>
         <source>Probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4338"/>
+        <location filename="../mainWindow.py" line="4525"/>
         <source>Door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4339"/>
+        <location filename="../mainWindow.py" line="4526"/>
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4340"/>
+        <location filename="../mainWindow.py" line="4527"/>
         <source>soft Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4341"/>
+        <location filename="../mainWindow.py" line="4528"/>
         <source>cycle Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4342"/>
+        <location filename="../mainWindow.py" line="4529"/>
         <source>Grbl status : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4343"/>
+        <location filename="../mainWindow.py" line="4530"/>
         <source>Plane : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4344"/>
+        <location filename="../mainWindow.py" line="4531"/>
         <source>Spindle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4345"/>
+        <location filename="../mainWindow.py" line="4532"/>
         <source>Units:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4346"/>
+        <location filename="../mainWindow.py" line="4533"/>
         <source>Coolant:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4347"/>
+        <location filename="../mainWindow.py" line="4534"/>
         <source>coordinates:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4348"/>
+        <location filename="../mainWindow.py" line="4535"/>
         <source>Tool length offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4349"/>
+        <location filename="../mainWindow.py" line="4536"/>
         <source>Tool:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4350"/>
+        <location filename="../mainWindow.py" line="4537"/>
         <source>Moves:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4351"/>
+        <location filename="../mainWindow.py" line="4538"/>
         <source>Spindle speed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4352"/>
+        <location filename="../mainWindow.py" line="4539"/>
         <source>Speed mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4353"/>
+        <location filename="../mainWindow.py" line="4540"/>
         <source>Feedrate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4354"/>
+        <location filename="../mainWindow.py" line="4541"/>
         <source>Active mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4355"/>
+        <location filename="../mainWindow.py" line="4542"/>
         <source>G54 Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4356"/>
+        <location filename="../mainWindow.py" line="4543"/>
         <source>G92 Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4357"/>
+        <location filename="../mainWindow.py" line="4544"/>
         <source>Working Coordinate Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4358"/>
+        <location filename="../mainWindow.py" line="4545"/>
         <source>WCO :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4359"/>
+        <location filename="../mainWindow.py" line="4546"/>
         <source>Coordinate System Offsets 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4360"/>
+        <location filename="../mainWindow.py" line="4547"/>
         <source>Coordinate System Offsets 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4361"/>
+        <location filename="../mainWindow.py" line="4548"/>
         <source>Coordinate System Offsets 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4362"/>
+        <location filename="../mainWindow.py" line="4549"/>
         <source>Coordinate System Offsets 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4363"/>
+        <location filename="../mainWindow.py" line="4550"/>
         <source>Coordinate System Offsets 5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4364"/>
+        <location filename="../mainWindow.py" line="4551"/>
         <source>Coordinate System Offsets 6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4556"/>
+        <location filename="../mainWindow.py" line="4743"/>
         <source>Make a rapid move from current location to the machine position defined by the last G28.1
 If no positions are stored with G28.1 then all axes will go to the machine origin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4559"/>
+        <location filename="../mainWindow.py" line="4746"/>
         <source>Make a rapid move from current location to the machine position defined by the last G30.1
 If no positions are stored with G30.1 then all axes will go to the machine origin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4369"/>
+        <location filename="../mainWindow.py" line="4556"/>
         <source>Di0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4370"/>
+        <location filename="../mainWindow.py" line="4557"/>
         <source>Digital input 0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4380"/>
+        <location filename="../mainWindow.py" line="4567"/>
         <source>Verte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4372"/>
+        <location filename="../mainWindow.py" line="4559"/>
         <source>Di1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4373"/>
+        <location filename="../mainWindow.py" line="4560"/>
         <source>Digital input 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4375"/>
+        <location filename="../mainWindow.py" line="4562"/>
         <source>Di2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4376"/>
+        <location filename="../mainWindow.py" line="4563"/>
         <source>Digital input 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4378"/>
+        <location filename="../mainWindow.py" line="4565"/>
         <source>Di3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4379"/>
+        <location filename="../mainWindow.py" line="4566"/>
         <source>Digital input 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4381"/>
+        <location filename="../mainWindow.py" line="4568"/>
         <source>Main panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4382"/>
+        <location filename="../mainWindow.py" line="4605"/>
         <source>Results&lt;br /&gt;
 &lt;i&gt;(machine coordinates)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4384"/>
+        <location filename="../mainWindow.py" line="4607"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4385"/>
+        <location filename="../mainWindow.py" line="4569"/>
         <source>XY Probe parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4402"/>
+        <location filename="../mainWindow.py" line="4586"/>
         <source>Z distance to the destination point that the probe will move towards, starting from the current location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4407"/>
+        <location filename="../mainWindow.py" line="4591"/>
         <source>Retract distance after triggering probe to disengage it. Probing will fail if switch isn&apos;t cleared.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4449"/>
+        <location filename="../mainWindow.py" line="4635"/>
         <source>Seek rate to quickly probe before the slower locating phase.
 Need to define non nul probe pull-off distance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4448"/>
+        <location filename="../mainWindow.py" line="4634"/>
         <source>Feed rate to slowly engage probe to determine its location accurately.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4393"/>
+        <location filename="../mainWindow.py" line="4577"/>
         <source>Length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4394"/>
+        <location filename="../mainWindow.py" line="4578"/>
         <source>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4444"/>
+        <location filename="../mainWindow.py" line="4630"/>
         <source>Feed rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4397"/>
+        <location filename="../mainWindow.py" line="4581"/>
         <source>XY clearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4400"/>
+        <location filename="../mainWindow.py" line="4584"/>
         <source>Tool diameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4403"/>
+        <location filename="../mainWindow.py" line="4587"/>
         <source>Z clearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4404"/>
+        <location filename="../mainWindow.py" line="4588"/>
         <source>Seek rate to quickly probe before the slower locating phase.
 Need to define non nul probe pull-off distance (unit/mn).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4451"/>
+        <location filename="../mainWindow.py" line="4637"/>
         <source>Seek rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4453"/>
+        <location filename="../mainWindow.py" line="4639"/>
         <source>Pull-off dist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4455"/>
+        <location filename="../mainWindow.py" line="4641"/>
         <source>Check/Uncheck to invert the probe pin logic:
 - Unchecked: probe pin normaly open,
 - Checked: probe pin normaly close.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4458"/>
+        <location filename="../mainWindow.py" line="4644"/>
         <source>Invert probe pin ($6=0/1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4459"/>
+        <location filename="../mainWindow.py" line="4645"/>
         <source>Move after probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4463"/>
+        <location filename="../mainWindow.py" line="4649"/>
         <source>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4464"/>
+        <location filename="../mainWindow.py" line="4650"/>
         <source>Go to exact point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4462"/>
+        <location filename="../mainWindow.py" line="4648"/>
         <source>Define the retract distance after probing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4461"/>
+        <location filename="../mainWindow.py" line="4647"/>
         <source>Retract</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4419"/>
-        <source>XY Origin definition</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="4420"/>
+        <location filename="../mainWindow.py" line="4608"/>
         <source>Use G54</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4421"/>
+        <location filename="../mainWindow.py" line="4609"/>
         <source>Use G92</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4424"/>
+        <location filename="../mainWindow.py" line="4612"/>
         <source>Add or subtract X offset to the probed point for the X origin definition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4423"/>
+        <location filename="../mainWindow.py" line="4611"/>
         <source>Add X offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4427"/>
+        <location filename="../mainWindow.py" line="4615"/>
         <source>Add or subtract Y offset to the probed point for the Y origin definition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4426"/>
+        <location filename="../mainWindow.py" line="4614"/>
         <source>Add Y offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4428"/>
+        <location filename="../mainWindow.py" line="4616"/>
         <source>Home X-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4429"/>
+        <location filename="../mainWindow.py" line="4617"/>
         <source>Home
 X &amp;&amp; Y
 center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4432"/>
+        <location filename="../mainWindow.py" line="4620"/>
         <source>Home X center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4433"/>
+        <location filename="../mainWindow.py" line="4621"/>
         <source>Home X+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4434"/>
+        <location filename="../mainWindow.py" line="4622"/>
         <source>Home Y-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4435"/>
+        <location filename="../mainWindow.py" line="4623"/>
         <source>Home Y center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4436"/>
+        <location filename="../mainWindow.py" line="4624"/>
         <source>Home Y+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4437"/>
+        <location filename="../mainWindow.py" line="4603"/>
         <source>Probe inside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4438"/>
+        <location filename="../mainWindow.py" line="4604"/>
         <source>Probe outside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4439"/>
+        <location filename="../mainWindow.py" line="4625"/>
         <source>Probe XY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4440"/>
+        <location filename="../mainWindow.py" line="4626"/>
         <source>Z Probe parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4447"/>
+        <location filename="../mainWindow.py" line="4633"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative Z distance to the destination point that the probe will move towards, starting from the current location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4442"/>
+        <location filename="../mainWindow.py" line="4628"/>
         <source>Probe Distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4454"/>
+        <location filename="../mainWindow.py" line="4640"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative retract distance after triggering probe to disengage it. Probing will fail if switch isn&apos;t cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4460"/>
+        <location filename="../mainWindow.py" line="4646"/>
         <source>Add retract travel after probing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4465"/>
+        <location filename="../mainWindow.py" line="4651"/>
         <source>Define Z Origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4466"/>
+        <location filename="../mainWindow.py" line="4652"/>
         <source>G54 offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4467"/>
+        <location filename="../mainWindow.py" line="4653"/>
         <source>G92 offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4474"/>
+        <location filename="../mainWindow.py" line="4660"/>
         <source>Add or subtract Z offset to the probed point for the Z origin definition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4469"/>
+        <location filename="../mainWindow.py" line="4655"/>
         <source>Add Z offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4470"/>
+        <location filename="../mainWindow.py" line="4656"/>
         <source>Define the Z origin at the coordinates of the last Z probing result,
 corrected with the Z offset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4472"/>
+        <location filename="../mainWindow.py" line="4658"/>
         <source>Set Z
 origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4475"/>
+        <location filename="../mainWindow.py" line="4661"/>
         <source>Run probe in Z- direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4480"/>
+        <location filename="../mainWindow.py" line="4666"/>
         <source>Last Z probe measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4477"/>
+        <location filename="../mainWindow.py" line="4663"/>
         <source>Result</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4481"/>
+        <location filename="../mainWindow.py" line="4667"/>
         <source>Tool change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4482"/>
+        <location filename="../mainWindow.py" line="4668"/>
         <source>Position:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4485"/>
+        <location filename="../mainWindow.py" line="4671"/>
         <source>Absolute Z machine coordinate (G53 based) for clearance when going to length sensor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4484"/>
+        <location filename="../mainWindow.py" line="4670"/>
         <source>Z coordinate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4488"/>
+        <location filename="../mainWindow.py" line="4674"/>
         <source>Absolute X machine position (G53 based) of tool length sensor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4487"/>
+        <location filename="../mainWindow.py" line="4673"/>
         <source>X position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4491"/>
+        <location filename="../mainWindow.py" line="4677"/>
         <source>Absolute Y machine position (G53 based) of tool length sensor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4490"/>
+        <location filename="../mainWindow.py" line="4676"/>
         <source>Y position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4492"/>
+        <location filename="../mainWindow.py" line="4678"/>
         <source>Save tool change absolute machine position.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4493"/>
+        <location filename="../mainWindow.py" line="4679"/>
         <source>Save position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4494"/>
+        <location filename="../mainWindow.py" line="4680"/>
         <source>Rapid move to Z coordinate (G53G0Z.) to clear the working area,
 then rapid move to XY of tool change position (G53G0X.Y.).
 The tool length sensor should be under this position.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4497"/>
+        <location filename="../mainWindow.py" line="4683"/>
         <source>Go to position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4502"/>
+        <location filename="../mainWindow.py" line="4688"/>
         <source>Initial Z coordinate of tool tip probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4499"/>
+        <location filename="../mainWindow.py" line="4685"/>
         <source>Initial tool length probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4503"/>
+        <location filename="../mainWindow.py" line="4689"/>
         <source>Reset initial result to last Z probe measurement and cancel tool offset (send G49)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4504"/>
+        <location filename="../mainWindow.py" line="4690"/>
         <source>Reset
 (G49)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4510"/>
+        <location filename="../mainWindow.py" line="4696"/>
         <source>Tool Z offset to use</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4507"/>
+        <location filename="../mainWindow.py" line="4693"/>
         <source>Calculated offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4511"/>
+        <location filename="../mainWindow.py" line="4697"/>
         <source>Set new tool length offset (G43.1) with the last measure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4512"/>
+        <location filename="../mainWindow.py" line="4698"/>
         <source>Send
 G43.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4514"/>
+        <location filename="../mainWindow.py" line="4700"/>
         <source>Probe Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4515"/>
-        <source>Send</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainWindow.py" line="4516"/>
+        <location filename="../mainWindow.py" line="4703"/>
         <source>Grbl communication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4517"/>
+        <location filename="../mainWindow.py" line="4704"/>
         <source>GCode file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4518"/>
+        <location filename="../mainWindow.py" line="4705"/>
         <source>cn5X++ log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4522"/>
+        <location filename="../mainWindow.py" line="4709"/>
         <source>Debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4520"/>
+        <location filename="../mainWindow.py" line="4707"/>
         <source>Pause pooling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4521"/>
+        <location filename="../mainWindow.py" line="4708"/>
         <source>Clear debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4523"/>
+        <location filename="../mainWindow.py" line="4710"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4524"/>
+        <location filename="../mainWindow.py" line="4711"/>
         <source>Preferences...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4525"/>
+        <location filename="../mainWindow.py" line="4712"/>
         <source>&amp;Machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4526"/>
+        <location filename="../mainWindow.py" line="4713"/>
         <source>Set origine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4527"/>
+        <location filename="../mainWindow.py" line="4714"/>
         <source>Predefined locations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4528"/>
+        <location filename="../mainWindow.py" line="4715"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4529"/>
+        <location filename="../mainWindow.py" line="4716"/>
         <source>Probing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4530"/>
+        <location filename="../mainWindow.py" line="4717"/>
         <source>&amp;Open GCode file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4531"/>
+        <location filename="../mainWindow.py" line="4718"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4532"/>
+        <location filename="../mainWindow.py" line="4719"/>
         <source>Debug mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4533"/>
+        <location filename="../mainWindow.py" line="4720"/>
         <source>View machine positions (MPos)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4534"/>
+        <location filename="../mainWindow.py" line="4721"/>
         <source>View working positions (WPos)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4535"/>
+        <location filename="../mainWindow.py" line="4722"/>
         <source>&amp;Close GCode file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4536"/>
+        <location filename="../mainWindow.py" line="4723"/>
         <source>&amp;Save GCode file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4537"/>
+        <location filename="../mainWindow.py" line="4724"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4538"/>
+        <location filename="../mainWindow.py" line="4725"/>
         <source>Grbl settings...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4539"/>
+        <location filename="../mainWindow.py" line="4726"/>
         <source>About cn5X++...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4540"/>
+        <location filename="../mainWindow.py" line="4727"/>
         <source>Reset Serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4541"/>
+        <location filename="../mainWindow.py" line="4728"/>
         <source>Reset Serial communication when hanged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4542"/>
+        <location filename="../mainWindow.py" line="4729"/>
         <source>Place the G54 origin of axis X here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4543"/>
+        <location filename="../mainWindow.py" line="4730"/>
         <source>Place the G54 origin of axis Y here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4544"/>
+        <location filename="../mainWindow.py" line="4731"/>
         <source>Place the G54 origin of axis Z here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4545"/>
+        <location filename="../mainWindow.py" line="4732"/>
         <source>Place the G54 origin of axis A here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4546"/>
+        <location filename="../mainWindow.py" line="4733"/>
         <source>Place the G54 origin of axis B here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4547"/>
+        <location filename="../mainWindow.py" line="4734"/>
         <source>Place the G54 origin of axis C here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4548"/>
+        <location filename="../mainWindow.py" line="4735"/>
         <source>Place the G54 origin of all axis here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4549"/>
+        <location filename="../mainWindow.py" line="4736"/>
         <source>Set axis positions with G92 offset...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4550"/>
+        <location filename="../mainWindow.py" line="4737"/>
         <source>Turn off and reset G92 offsets (G92.1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4551"/>
+        <location filename="../mainWindow.py" line="4738"/>
         <source>Jog to location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4552"/>
+        <location filename="../mainWindow.py" line="4739"/>
         <source>Save actuals G92 offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4553"/>
+        <location filename="../mainWindow.py" line="4740"/>
         <source>Restore saved G92 offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4554"/>
+        <location filename="../mainWindow.py" line="4741"/>
         <source>Turn off and reset G54 offsets of all axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4555"/>
+        <location filename="../mainWindow.py" line="4742"/>
         <source>Go to G28 location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4558"/>
+        <location filename="../mainWindow.py" line="4745"/>
         <source>Go to G30 location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4561"/>
+        <location filename="../mainWindow.py" line="4748"/>
         <source>Define G28 location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4562"/>
+        <location filename="../mainWindow.py" line="4749"/>
         <source>Define G30 location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4563"/>
+        <location filename="../mainWindow.py" line="4750"/>
         <source>Confirm Go to G28</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4564"/>
+        <location filename="../mainWindow.py" line="4751"/>
         <source>Confirm Go to G30</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4565"/>
+        <location filename="../mainWindow.py" line="4752"/>
         <source>Confirm G28.1 location definition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4566"/>
+        <location filename="../mainWindow.py" line="4753"/>
         <source>Confirm G30.1 location definition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4567"/>
+        <location filename="../mainWindow.py" line="4754"/>
         <source>Probe single axis...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4568"/>
+        <location filename="../mainWindow.py" line="4755"/>
         <source>Probe inside corner...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4569"/>
+        <location filename="../mainWindow.py" line="4756"/>
         <source>probe outside corner...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4570"/>
+        <location filename="../mainWindow.py" line="4757"/>
         <source>Probe inside center...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4571"/>
+        <location filename="../mainWindow.py" line="4758"/>
         <source>Probe outside center...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4572"/>
+        <location filename="../mainWindow.py" line="4759"/>
         <source>Tool change...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4573"/>
+        <location filename="../mainWindow.py" line="4760"/>
         <source>M6 tool changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4574"/>
+        <location filename="../mainWindow.py" line="4761"/>
         <source>Activate M6 manual tool changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4575"/>
+        <location filename="../mainWindow.py" line="4762"/>
         <source>Ignore first tool change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainWindow.py" line="4576"/>
+        <location filename="../mainWindow.py" line="4763"/>
         <source>Ignore first tool change in GCode file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4701"/>
+        <source>⇧⌨⇧</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainWindow.py" line="4702"/>
+        <source>Send ⇰</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3167,362 +3168,367 @@ G43.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="83"/>
+        <location filename="../cn5X.py" line="84"/>
         <source>Unlock urgent stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1956"/>
+        <location filename="../cn5X.py" line="1960"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="435"/>
+        <location filename="../cn5X.py" line="439"/>
         <source>Urgent stop unlocked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="473"/>
+        <location filename="../cn5X.py" line="477"/>
         <source>Warning !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="473"/>
+        <location filename="../cn5X.py" line="477"/>
         <source>No communication port available!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="473"/>
+        <location filename="../cn5X.py" line="477"/>
         <source>{} could not find a serial port allowing to communicate with grbl.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="473"/>
+        <location filename="../cn5X.py" line="477"/>
         <source>
 class serialCom:
 &quot;serial.tools.list_ports.comports()&quot; did not return any port.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="494"/>
+        <location filename="../cn5X.py" line="498"/>
         <source>Run probe in X+, X-, Y+ and Y- direction to find inside center.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="524"/>
+        <location filename="../cn5X.py" line="528"/>
         <source>Run probe in X- and Y+ direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="528"/>
+        <location filename="../cn5X.py" line="532"/>
         <source>Run probe in X+ and Y+ direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="516"/>
+        <location filename="../cn5X.py" line="520"/>
         <source>Run probe in X+ and Y- direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="520"/>
+        <location filename="../cn5X.py" line="524"/>
         <source>Run probe in X- and Y- direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="514"/>
+        <location filename="../cn5X.py" line="518"/>
         <source>Run probe in X+, X-, Y+ and Y- direction to find outside center.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="572"/>
+        <location filename="../cn5X.py" line="576"/>
         <source>Double click to
 unlock the emergency stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="584"/>
+        <location filename="../cn5X.py" line="588"/>
         <source>Emergency stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="727"/>
+        <location filename="../cn5X.py" line="731"/>
         <source>Closing the application...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="733"/>
+        <location filename="../cn5X.py" line="737"/>
         <source>Closing file canceled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="829"/>
+        <location filename="../cn5X.py" line="833"/>
         <source>Error !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="829"/>
+        <location filename="../cn5X.py" line="833"/>
         <source>Saved axis definition is not identical to the current one!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="829"/>
+        <location filename="../cn5X.py" line="833"/>
         <source>Can&apos;t restore G92 offsets if the current axis definition (axis number and names) is not the same as the saved one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="840"/>
+        <location filename="../cn5X.py" line="844"/>
         <source>Restore previously saved G92 offsets:
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="852"/>
+        <location filename="../cn5X.py" line="856"/>
         <source>Restore G92 offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="852"/>
+        <location filename="../cn5X.py" line="856"/>
         <source>Actuals G92 offsets will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1084"/>
+        <location filename="../cn5X.py" line="1088"/>
         <source>on_btnProbeZ(): The requested axis ({}) is not in the axis list of this machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1089"/>
+        <location filename="../cn5X.py" line="1093"/>
         <source>on_btnProbeZ(): {} no response from probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1094"/>
+        <location filename="../cn5X.py" line="1098"/>
         <source>on_btnProbeZ(): {} Probe error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1099"/>
+        <location filename="../cn5X.py" line="1103"/>
         <source>on_btnProbeZ(): F Speed undefined or less or equal to zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1703"/>
+        <location filename="../cn5X.py" line="1707"/>
         <source>on_btnProbeXY(): The requested axis ({}) is not in the axis list of this machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1708"/>
+        <location filename="../cn5X.py" line="1712"/>
         <source>on_btnProbeXY(): {} no response from probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1713"/>
+        <location filename="../cn5X.py" line="1717"/>
         <source>on_btnProbeXY(): {} Probe error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1718"/>
+        <location filename="../cn5X.py" line="1722"/>
         <source>on_btnProbeXY(): F Speed undefined or less or equal to zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1885"/>
+        <location filename="../cn5X.py" line="1889"/>
         <source>Grbl configuration updated: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1902"/>
+        <location filename="../cn5X.py" line="1906"/>
         <source>Unlocking emergency stop.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1907"/>
+        <location filename="../cn5X.py" line="1911"/>
         <source>Emergency stop pressed: STOP !!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1943"/>
+        <location filename="../cn5X.py" line="1947"/>
         <source>Connected to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1944"/>
+        <location filename="../cn5X.py" line="1948"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1955"/>
+        <location filename="../cn5X.py" line="1959"/>
         <source>&lt;Not Connected&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2222"/>
+        <location filename="../cn5X.py" line="2226"/>
         <source>cn5X++ : Grbl initialized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2390"/>
+        <location filename="../cn5X.py" line="2394"/>
         <source>Version {}.{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2430"/>
+        <location filename="../cn5X.py" line="2434"/>
         <source>Attempt to start an empty cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2432"/>
+        <location filename="../cn5X.py" line="2436"/>
         <source>Starting cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2451"/>
+        <location filename="../cn5X.py" line="2455"/>
         <source>Cycle completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2453"/>
+        <location filename="../cn5X.py" line="2457"/>
         <source>GCode finished at: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2468"/>
+        <location filename="../cn5X.py" line="2472"/>
         <source>Holding in progress, can&apos;t restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2470"/>
+        <location filename="../cn5X.py" line="2474"/>
         <source>Resuming cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2477"/>
+        <location filename="../cn5X.py" line="2481"/>
         <source>Holding cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2508"/>
+        <location filename="../cn5X.py" line="2512"/>
         <source>Stopping cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2502"/>
+        <location filename="../cn5X.py" line="2506"/>
         <source>Holding cycle before stopping...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2522"/>
+        <location filename="../cn5X.py" line="2526"/>
         <source>Cycle stopped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2528"/>
+        <location filename="../cn5X.py" line="2532"/>
         <source>Edit line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2531"/>
+        <location filename="../cn5X.py" line="2535"/>
         <source>Insert line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2534"/>
+        <location filename="../cn5X.py" line="2538"/>
         <source>Add line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2537"/>
+        <location filename="../cn5X.py" line="2541"/>
         <source>Suppress line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2541"/>
+        <location filename="../cn5X.py" line="2545"/>
         <source>Run this line<byte value="x9"/>(F7)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2545"/>
+        <location filename="../cn5X.py" line="2549"/>
         <source>Run from this line<byte value="x9"/>(F8)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2605"/>
+        <location filename="../cn5X.py" line="2609"/>
         <source>Reset feedrate to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2613"/>
+        <location filename="../cn5X.py" line="2617"/>
         <source>Reset spindle speed to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2621"/>
+        <location filename="../cn5X.py" line="2625"/>
         <source>Place the {} origin of axis {} here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2624"/>
+        <location filename="../cn5X.py" line="2628"/>
         <source>Place the {} origin of all axis here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2634"/>
+        <location filename="../cn5X.py" line="2638"/>
         <source>Jog axis {} to {} origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2638"/>
+        <location filename="../cn5X.py" line="2642"/>
         <source>Jog all axis to {} origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2652"/>
+        <location filename="../cn5X.py" line="2656"/>
         <source>Place the workpiece origin {} (G{})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2656"/>
+        <location filename="../cn5X.py" line="2660"/>
         <source>G17 Working plane - XY (Defaut)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2659"/>
+        <location filename="../cn5X.py" line="2663"/>
         <source>G18 Working plane - XZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2662"/>
+        <location filename="../cn5X.py" line="2666"/>
         <source>G19 Working plane - YZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2670"/>
+        <location filename="../cn5X.py" line="2674"/>
         <source>G20 - Work units in inches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2673"/>
+        <location filename="../cn5X.py" line="2677"/>
         <source>G21 - Work units in millimeters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2681"/>
+        <location filename="../cn5X.py" line="2685"/>
         <source>G90 - Absolute coordinates movements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2684"/>
+        <location filename="../cn5X.py" line="2688"/>
         <source>G91 - relative coordinates movements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2785"/>
+        <location filename="../cn5X.py" line="2789"/>
         <source>Use system language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2776"/>
+        <location filename="../cn5X.py" line="2780"/>
         <source>Locale ({}) not usable, using default to english</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cn5X.py" line="83"/>
+        <source>Set appliation full screen mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
