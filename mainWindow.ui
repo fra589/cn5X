@@ -10033,10 +10033,20 @@ G43.1</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <widget class="QMenu" name="mnuApplication">
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>&amp;File</string>
     </property>
@@ -10063,6 +10073,11 @@ G43.1</string>
     <addaction name="mnuAppQuitter"/>
    </widget>
    <widget class="QMenu" name="menuMachine">
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>&amp;Machine</string>
     </property>
@@ -10152,10 +10167,20 @@ G43.1</string>
    <property name="text">
     <string>&amp;Open GCode file...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuAppQuitter">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuDebug_mode">
@@ -10165,6 +10190,11 @@ G43.1</string>
    <property name="text">
     <string>Debug mode</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnu_MPos">
    <property name="checkable">
@@ -10172,6 +10202,11 @@ G43.1</string>
    </property>
    <property name="text">
     <string>View machine positions (MPos)</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnu_WPos">
@@ -10184,30 +10219,60 @@ G43.1</string>
    <property name="text">
     <string>View working positions (WPos)</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuAppFermerGCode">
    <property name="text">
     <string>&amp;Close GCode file</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuAppEnregistrer">
    <property name="text">
     <string>&amp;Save GCode file</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuAppEnregistrerSous">
    <property name="text">
     <string>Save &amp;as...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnu_GrblConfig">
    <property name="text">
     <string>Grbl settings...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuA_propos">
    <property name="text">
     <string>About cn5X++...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuResetSerial">
@@ -10217,70 +10282,140 @@ G43.1</string>
    <property name="toolTip">
     <string>Reset Serial communication when hanged</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG5X_origine_1">
    <property name="text">
     <string>Place the G54 origin of axis X here</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuG5X_origine_2">
    <property name="text">
     <string>Place the G54 origin of axis Y here</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG5X_origine_3">
    <property name="text">
     <string>Place the G54 origin of axis Z here</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuG5X_origine_4">
    <property name="text">
     <string>Place the G54 origin of axis A here</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG5X_origine_5">
    <property name="text">
     <string>Place the G54 origin of axis B here</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuG5X_origine_6">
    <property name="text">
     <string>Place the G54 origin of axis C here</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG5X_origine_0">
    <property name="text">
     <string>Place the G54 origin of all axis here</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuG92">
    <property name="text">
     <string>Set axis positions with G92 offset...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG92_1">
    <property name="text">
     <string>Turn off and reset G92 offsets (G92.1)</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuJog_to">
    <property name="text">
     <string>Jog to location...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuSaveG92">
    <property name="text">
     <string>Save actuals G92 offset</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuRestoreG92">
    <property name="text">
     <string>Restore saved G92 offset</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuG5X_reset">
    <property name="text">
     <string>Turn off and reset G54 offsets of all axis</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuGoToG28">
@@ -10291,6 +10426,11 @@ G43.1</string>
     <string>Make a rapid move from current location to the machine position defined by the last G28.1
 If no positions are stored with G28.1 then all axes will go to the machine origin.</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuGoToG30">
    <property name="text">
@@ -10300,15 +10440,30 @@ If no positions are stored with G28.1 then all axes will go to the machine origi
     <string>Make a rapid move from current location to the machine position defined by the last G30.1
 If no positions are stored with G30.1 then all axes will go to the machine origin.</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuDefineG28">
    <property name="text">
     <string>Define G28 location...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuDefineG30">
    <property name="text">
     <string>Define G30 location...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuConfirm_Go_to_G28">
@@ -10321,6 +10476,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    <property name="text">
     <string>Confirm Go to G28</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuConfirm_Go_to_G30">
    <property name="checkable">
@@ -10331,6 +10491,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    </property>
    <property name="text">
     <string>Confirm Go to G30</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuConfirm_define_G28">
@@ -10346,6 +10511,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    <property name="text">
     <string>Confirm G28.1 location definition</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuConfirm_define_G30">
    <property name="checkable">
@@ -10357,35 +10527,70 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    <property name="text">
     <string>Confirm G30.1 location definition</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuHelpProbe_single_axis">
    <property name="text">
     <string>Probe single axis...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuHelpProbe_inside_corner">
    <property name="text">
     <string>Probe inside corner...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuHelpProbe_outside_corner">
    <property name="text">
     <string>probe outside corner...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuHelpProbe_inside_center">
    <property name="text">
     <string>Probe inside center...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuHelpProbe_outside_center">
    <property name="text">
     <string>Probe outside center...</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuToolChange">
    <property name="text">
     <string>Tool change...</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="mnuPrefToolChange">
@@ -10401,6 +10606,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    <property name="toolTip">
     <string>Activate M6 manual tool changes</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="mnuIgnoreFirstToolChange">
    <property name="checkable">
@@ -10411,6 +10621,11 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    </property>
    <property name="toolTip">
     <string>Ignore first tool change in GCode file</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
  </widget>
