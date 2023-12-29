@@ -91,7 +91,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
     # Affichage plein écran optionel
-    if self.__args.fullScreen != None:
+    if self.__args.fullScreen != False:
       self.showFullScreen()
 
     self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"

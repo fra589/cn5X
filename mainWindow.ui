@@ -1402,6 +1402,11 @@ to unlock urgent stop</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -1417,6 +1422,11 @@ to unlock urgent stop</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
@@ -1434,6 +1444,11 @@ to unlock urgent stop</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -1449,6 +1464,11 @@ to unlock urgent stop</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
@@ -1525,6 +1545,11 @@ to unlock urgent stop</string>
                     <width>84</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2627,15 +2652,21 @@ to unlock urgent stop</string>
           <bool>true</bool>
          </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tabMainPage">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">background: palette(window)</string>
           </property>
@@ -2698,7 +2729,7 @@ to unlock urgent stop</string>
                <number>0</number>
               </property>
               <item>
-               <widget class="QWidget" name="widget" native="true">
+               <widget class="QWidget" name="frmStatusAll" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -2724,7 +2755,7 @@ to unlock urgent stop</string>
                  <item>
                   <widget class="QWidget" name="frmMPos" native="true">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -4885,6 +4916,22 @@ color: rgb(0, 0, 63);
             </widget>
            </item>
            <item>
+            <spacer name="gb_vs_1">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
             <widget class="QWidget" name="frmBoutons" native="true">
              <property name="enabled">
               <bool>true</bool>
@@ -4959,14 +5006,21 @@ color: rgb(0, 0, 63);
                    <property name="minimumSize">
                     <size>
                      <width>36</width>
-                     <height>25</height>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
                      <width>36</width>
-                     <height>25</height>
+                     <height>32</height>
                     </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
@@ -5004,14 +5058,21 @@ If no positions are stored with G28.1 then all axes will go to the machine origi
                    <property name="minimumSize">
                     <size>
                      <width>36</width>
-                     <height>25</height>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
                      <width>36</width>
-                     <height>25</height>
+                     <height>32</height>
                     </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
@@ -5401,14 +5462,14 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5426,8 +5487,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                   </widget>
@@ -5442,14 +5503,14 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5467,8 +5528,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                   </widget>
@@ -5483,14 +5544,14 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5508,8 +5569,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                   </widget>
@@ -5524,14 +5585,14 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5549,8 +5610,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>24</width>
-                     <height>24</height>
+                     <width>32</width>
+                     <height>32</height>
                     </size>
                    </property>
                   </widget>
@@ -5624,8 +5685,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5643,8 +5704,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5659,8 +5720,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5678,8 +5739,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5694,8 +5755,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5713,8 +5774,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5775,8 +5836,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5794,8 +5855,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5810,8 +5871,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5829,8 +5890,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5845,8 +5906,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="cursor">
@@ -5864,8 +5925,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5926,8 +5987,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="maximumSize">
@@ -5951,8 +6012,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -5967,8 +6028,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="maximumSize">
@@ -5992,8 +6053,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -6008,8 +6069,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                    <property name="maximumSize">
@@ -6033,8 +6094,8 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="iconSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>54</width>
+                     <height>54</height>
                     </size>
                    </property>
                   </widget>
@@ -6057,6 +6118,22 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
               </item>
              </layout>
             </widget>
+           </item>
+           <item>
+            <spacer name="gb_vs_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -6092,8 +6169,1021 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
            <property name="verticalSpacing">
             <number>0</number>
            </property>
-           <item row="1" column="4" rowspan="2">
+           <item row="0" column="0" rowspan="3">
+            <spacer name="horizontalSpacer_22">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>5</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1" rowspan="3">
+            <widget class="QWidget" name="qwParams" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QGroupBox" name="qwParamsXYin">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="title">
+                 <string>XY Probe parameters</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_6">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item row="3" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceZ">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbPullOffXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>75.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>10.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_40">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Length</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="label_29">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</string>
+                   </property>
+                   <property name="text">
+                    <string>Feed rate</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_38">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>XY clearance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>15.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_28">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Tool diameter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>3.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_39">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
+                   </property>
+                   <property name="text">
+                    <string>Z clearance</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QCheckBox" name="chkSeekXY">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Seek rate to quickly probe before the slower locating phase.
+Need to define non nul probe pull-off distance (unit/mn).</string>
+                   </property>
+                   <property name="text">
+                    <string>Seek rate</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="lblPullOffXY">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
+                   </property>
+                   <property name="text">
+                    <string>Pull-off dist.</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="gbMoveAfterXY">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="title">
+                 <string>Move after probe</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_12">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QRadioButton" name="rbtMove2PointAfterXY">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</string>
+                   </property>
+                   <property name="text">
+                    <string>Go to exact point</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QRadioButton" name="rbtRetractAfterXY">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>Define the retract distance after probing.</string>
+                   </property>
+                   <property name="text">
+                    <string>Retract</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDoubleSpinBox" name="dsbRetractXY">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>23</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Define the retract distance after probing.</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background: palette(Base)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>5.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="chkInvertProbePinXY">
+             <property name="toolTip">
+              <string>Check/Uncheck to invert the probe pin logic:
+- Unchecked: probe pin normaly open,
+- Checked: probe pin normaly close.</string>
+             </property>
+             <property name="text">
+              <string>Invert probe pin ($6=0/1)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QWidget" name="qwInOut" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QRadioButton" name="rbtProbeInsideXY">
+                <property name="text">
+                 <string>Probe inside</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="rbtProbeOutsideXY">
+                <property name="text">
+                 <string>Probe outside</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QWidget" name="qwProbeXYButtons" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>225</width>
+               <height>225</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>225</width>
+               <height>225</height>
+              </size>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_10">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_1">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutY-.svg</normaloff>:/cn5X/images/btnProbeOutY-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="cnQPushButton" name="btnProbeXY_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_8">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="cnQPushButton" name="btnProbeXY_0">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeInCercle.svg</normaloff>:/cn5X/images/btnProbeInCercle.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="cnQPushButton" name="btnProbeXY_7">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" colspan="2">
+               <widget class="cnQPushButton" name="btnProbeXY_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="cnQPushButton" name="btnProbeXY_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="icon">
+                 <iconset resource="cn5X.qrc">
+                  <normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>75</width>
+                  <height>75</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="3" rowspan="3">
             <widget class="QWidget" name="gbResults" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QGridLayout" name="gridLayout_18">
               <property name="leftMargin">
                <number>0</number>
@@ -6127,7 +7217,27 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                 </property>
                </widget>
               </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="btnResetResults">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
               <item row="1" column="0" colspan="2">
+               <spacer name="gb_vs_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>17</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="0" colspan="2">
                <widget class="QWidget" name="qwResultsXY" native="true">
                 <property name="minimumSize">
                  <size>
@@ -6782,484 +7892,10 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                 </layout>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="btnResetResults">
-                <property name="text">
-                 <string>Reset</string>
-                </property>
-               </widget>
-              </item>
              </layout>
             </widget>
            </item>
-           <item row="1" column="1" rowspan="2">
-            <widget class="QWidget" name="qwParams" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QGroupBox" name="qwParamsXYin">
-                <property name="title">
-                 <string>XY Probe parameters</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_6">
-                 <property name="leftMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="4" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbClearanceZ">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbClearanceXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbPullOffXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1">
-                  <widget class="QDoubleSpinBox" name="dbsSeekRateXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>75.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbFeedRateXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>10.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_40">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Length</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="label_29">
-                   <property name="toolTip">
-                    <string>Feed rate to slowly engage probe to determine its location accurately (unit/mn).</string>
-                   </property>
-                   <property name="text">
-                    <string>Feed rate</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_38">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>XY clearance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbDistanceXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>15.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_28">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Tool diameter</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbToolDiameter">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>3.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_39">
-                   <property name="toolTip">
-                    <string>Z distance to the destination point that the probe will move towards, starting from the current location.</string>
-                   </property>
-                   <property name="text">
-                    <string>Z clearance</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QCheckBox" name="chkSeekXY">
-                   <property name="toolTip">
-                    <string>Seek rate to quickly probe before the slower locating phase.
-Need to define non nul probe pull-off distance (unit/mn).</string>
-                   </property>
-                   <property name="text">
-                    <string>Seek rate</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="lblPullOffXY">
-                   <property name="toolTip">
-                    <string>Retract distance after triggering probe to disengage it. Probing will fail if switch isn't cleared.</string>
-                   </property>
-                   <property name="text">
-                    <string>Pull-off dist.</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QCheckBox" name="chkInvertProbePinXY">
-                   <property name="toolTip">
-                    <string>Check/Uncheck to invert the probe pin logic:
-- Unchecked: probe pin normaly open,
-- Checked: probe pin normaly close.</string>
-                   </property>
-                   <property name="text">
-                    <string>Invert probe pin ($6=0/1)</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="gbMoveAfterXY">
-                <property name="title">
-                 <string>Move after probe</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_12">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QRadioButton" name="rbtMove2PointAfterXY">
-                   <property name="toolTip">
-                    <string>Go to exact probe point coordinate to correct overshooting of point due to the deceleration planning.</string>
-                   </property>
-                   <property name="text">
-                    <string>Go to exact point</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QRadioButton" name="rbtRetractAfterXY">
-                   <property name="toolTip">
-                    <string>Define the retract distance after probing.</string>
-                   </property>
-                   <property name="text">
-                    <string>Retract</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QDoubleSpinBox" name="dsbRetractXY">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>23</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>Define the retract distance after probing.</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background: palette(Base)</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>5.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>2</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="5">
+           <item row="0" column="4" rowspan="3">
             <spacer name="horizontalSpacer_23">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -7272,8 +7908,14 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
              </property>
             </spacer>
            </item>
-           <item row="3" column="1" colspan="4">
+           <item row="3" column="0" colspan="5">
             <widget class="QWidget" name="gbDefineOriginXY" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QGridLayout" name="gridLayout_9">
               <property name="leftMargin">
                <number>0</number>
@@ -7290,23 +7932,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
               <property name="spacing">
                <number>0</number>
               </property>
-              <item row="0" column="1" colspan="3">
-               <widget class="QLabel" name="label_6">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>XY Origin definition</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
+              <item row="0" column="0">
                <spacer name="horizontalSpacer_29">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -7319,7 +7945,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                </spacer>
               </item>
-              <item row="1" column="1">
+              <item row="0" column="1">
                <widget class="QWidget" name="qwOffsetXY" native="true">
                 <layout class="QGridLayout" name="gridLayout_13">
                  <property name="leftMargin">
@@ -7467,7 +8093,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </layout>
                </widget>
               </item>
-              <item row="1" column="2">
+              <item row="0" column="2">
                <spacer name="horizontalSpacer_30">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -7480,7 +8106,7 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                </spacer>
               </item>
-              <item row="1" column="3">
+              <item row="0" column="3">
                <widget class="QWidget" name="qwCenterButtonsXY" native="true">
                 <layout class="QGridLayout" name="gridLayout_15">
                  <property name="leftMargin">
@@ -7636,7 +8262,7 @@ center</string>
                 </layout>
                </widget>
               </item>
-              <item row="1" column="4">
+              <item row="0" column="4">
                <spacer name="horizontalSpacer_31">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -7652,417 +8278,15 @@ center</string>
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
-            <spacer name="horizontalSpacer_22">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>5</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="2" colspan="2">
-            <widget class="QWidget" name="qwInOut" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_28">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QRadioButton" name="rbtProbeInsideXY">
-                <property name="text">
-                 <string>Probe inside</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QRadioButton" name="rbtProbeOutsideXY">
-                <property name="text">
-                 <string>Probe outside</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="2" column="2" colspan="2">
-            <widget class="QWidget" name="qwProbeXYButtons" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>225</width>
-               <height>225</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>225</width>
-               <height>225</height>
-              </size>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_10">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_1">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_2">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutY-.svg</normaloff>:/cn5X/images/btnProbeOutY-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="cnQPushButton" name="btnProbeXY_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_8">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="cnQPushButton" name="btnProbeXY_0">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeInCercle.svg</normaloff>:/cn5X/images/btnProbeInCercle.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_4">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="cnQPushButton" name="btnProbeXY_7">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</normaloff>:/cn5X/images/btnProbeOutX+Y+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1" colspan="2">
-               <widget class="cnQPushButton" name="btnProbeXY_6">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="3">
-               <widget class="cnQPushButton" name="btnProbeXY_5">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="icon">
-                 <iconset resource="cn5X.qrc">
-                  <normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</normaloff>:/cn5X/images/btnProbeOutX-Y+.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>75</width>
-                  <height>75</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tabProbeZ">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <attribute name="title">
            <string>Probe Z</string>
           </attribute>
@@ -8083,8 +8307,8 @@ center</string>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>20</width>
-               <height>24</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
             </spacer>
@@ -8096,8 +8320,8 @@ center</string>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>1</width>
-               <height>20</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
             </spacer>
@@ -9388,8 +9612,8 @@ G43.1</string>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>1</width>
-               <height>20</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
             </spacer>
@@ -9401,8 +9625,8 @@ G43.1</string>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>20</width>
-               <height>24</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
             </spacer>
@@ -9417,6 +9641,12 @@ G43.1</string>
           <number>0</number>
          </property>
          <widget class="QWidget" name="tabGrblOutput">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <attribute name="title">
            <string>Grbl communication</string>
           </attribute>
@@ -9462,6 +9692,12 @@ G43.1</string>
              <property name="enabled">
               <bool>false</bool>
              </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <property name="leftMargin">
                <number>0</number>
@@ -9477,6 +9713,11 @@ G43.1</string>
               </property>
               <item>
                <widget class="QLabel" name="label_8">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true">GCode :</string>
                 </property>
@@ -9490,11 +9731,34 @@ G43.1</string>
                   <height>0</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="focusPolicy">
                  <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnKeyboard">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>⇧⌨⇧</string>
                 </property>
                </widget>
               </item>
@@ -9506,8 +9770,13 @@ G43.1</string>
                   <height>0</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>Send</string>
+                 <string>Send ⇰</string>
                 </property>
                </widget>
               </item>
@@ -9517,6 +9786,12 @@ G43.1</string>
           </layout>
          </widget>
          <widget class="QWidget" name="tabGCodeFile">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <attribute name="title">
            <string>GCode file</string>
           </attribute>
@@ -9574,13 +9849,19 @@ G43.1</string>
               <bool>true</bool>
              </attribute>
              <attribute name="verticalHeaderDefaultSectionSize">
-              <number>21</number>
+              <number>22</number>
              </attribute>
             </widget>
            </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tabConsole">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <attribute name="title">
            <string>cn5X++ log</string>
           </attribute>
@@ -9624,6 +9905,12 @@ G43.1</string>
           </layout>
          </widget>
          <widget class="QWidget" name="tabDebug">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <attribute name="title">
            <string>Debug</string>
           </attribute>
@@ -9746,7 +10033,7 @@ G43.1</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnuApplication">
@@ -9853,7 +10140,14 @@ G43.1</string>
    <addaction name="menuAide"/>
    <addaction name="menuLangue"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+  </widget>
   <action name="mnuAppOuvrir">
    <property name="text">
     <string>&amp;Open GCode file...</string>
