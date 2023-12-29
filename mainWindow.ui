@@ -10124,10 +10124,20 @@ G43.1</string>
     <addaction name="mnuResetSerial"/>
    </widget>
    <widget class="QMenu" name="menuAide">
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>&amp;Help</string>
     </property>
     <widget class="QMenu" name="menuProbing">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>Probing</string>
      </property>
