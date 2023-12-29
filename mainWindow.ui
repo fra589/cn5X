@@ -10152,8 +10152,21 @@ G43.1</string>
     <addaction name="mnuA_propos"/>
    </widget>
    <widget class="QMenu" name="menuLangue">
-    <property name="title">
-     <string/>
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>433</x>
+      <y>138</y>
+      <width>203</width>
+      <height>62</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="icon">
      <iconset resource="cn5X.qrc">
