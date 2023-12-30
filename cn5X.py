@@ -93,6 +93,7 @@ class winMain(QtWidgets.QMainWindow):
     # Affichage plein écran optionel
     if self.__args.fullScreen != False:
       self.showFullScreen()
+      self.ui.mnuDisplay_full_sceen.setChecked(True)
 
     self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
     self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
@@ -264,6 +265,9 @@ class winMain(QtWidgets.QMainWindow):
 
     self.ui.mnuDebug_mode.triggered.connect(self.on_mnuDebug_mode)
     self.ui.mnuResetSerial.triggered.connect(self.on_mnuResetSerial)
+
+    # Menu Display
+    self.ui.mnuDisplay_full_sceen.triggered.connect(self.on_mnuDisplay_full_sceen)
 
     # Menu d'aide
     self.ui.mnuHelpProbe_single_axis.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_SINGLE_AXIS))
@@ -754,6 +758,14 @@ class winMain(QtWidgets.QMainWindow):
     if self.ui.mnu_WPos.isChecked():
       param10 = 255 ^ 1 # Met le bit 1 a 0
       self.__grblCom.gcodeInsert("$10=" + str(param10))
+
+
+  @pyqtSlot()
+  def on_mnuDisplay_full_sceen(self):
+    if self.ui.mnuDisplay_full_sceen.isChecked():
+      self.showFullScreen()
+    else:
+      self.showNormal()
 
 
   @pyqtSlot()

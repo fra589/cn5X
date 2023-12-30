@@ -215,6 +215,11 @@ to unlock urgent stop</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Feedrate</string>
                   </property>
@@ -265,6 +270,11 @@ to unlock urgent stop</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Spindle</string>
@@ -443,6 +453,11 @@ to unlock urgent stop</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string notr="true">100%</string>
                   </property>
@@ -493,6 +508,11 @@ to unlock urgent stop</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="text">
                    <string notr="true">100%</string>
@@ -576,6 +596,11 @@ to unlock urgent stop</string>
                 </property>
                 <item>
                  <widget class="QRadioButton" name="rbRapid025">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -586,6 +611,11 @@ to unlock urgent stop</string>
                 </item>
                 <item>
                  <widget class="QRadioButton" name="rbRapid050">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -596,6 +626,11 @@ to unlock urgent stop</string>
                 </item>
                 <item>
                  <widget class="QRadioButton" name="rbRapid100">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
@@ -617,13 +652,13 @@ to unlock urgent stop</string>
            <widget class="QWidget" name="frmHomeAlarm" native="true">
             <layout class="QVBoxLayout" name="verticalLayout">
              <property name="spacing">
-              <number>3</number>
+              <number>0</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>3</number>
+              <number>1</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -638,6 +673,11 @@ to unlock urgent stop</string>
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
                </property>
                <property name="toolTip">
                 <string>Run homing cycle</string>
@@ -654,6 +694,11 @@ to unlock urgent stop</string>
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
                </property>
                <property name="toolTip">
                 <string>Run homing cycle</string>
@@ -680,6 +725,11 @@ to unlock urgent stop</string>
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
                </property>
                <property name="text">
                 <string>Soft Reset (^X)</string>
@@ -731,7 +781,7 @@ to unlock urgent stop</string>
           <item>
            <widget class="QWidget" name="widget_2" native="true">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -755,21 +805,21 @@ to unlock urgent stop</string>
              <item row="0" column="1" rowspan="2">
               <widget class="cnQPushButton" name="btnJogPlusB">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -790,8 +840,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -799,21 +849,21 @@ to unlock urgent stop</string>
              <item row="3" column="0" rowspan="2" colspan="2">
               <widget class="cnQPushButton" name="btnJogMoinsY">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -834,8 +884,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -843,21 +893,21 @@ to unlock urgent stop</string>
              <item row="2" column="3" colspan="2">
               <widget class="cnQPushButton" name="btnJogPlusX">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -878,8 +928,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -887,21 +937,21 @@ to unlock urgent stop</string>
              <item row="3" column="4" rowspan="2">
               <widget class="cnQPushButton" name="btnJogMoinsB">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -922,8 +972,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -931,21 +981,21 @@ to unlock urgent stop</string>
              <item row="3" column="3" rowspan="2">
               <widget class="cnQPushButton" name="btnJogMoinsA">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -966,8 +1016,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -975,21 +1025,21 @@ to unlock urgent stop</string>
              <item row="0" column="2">
               <widget class="cnQPushButton" name="btnJogPlusC">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1007,8 +1057,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
               </widget>
@@ -1016,21 +1066,21 @@ to unlock urgent stop</string>
              <item row="2" column="2">
               <widget class="cnQPushButton" name="btnJogStop">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1051,8 +1101,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -1060,21 +1110,21 @@ to unlock urgent stop</string>
              <item row="3" column="2">
               <widget class="cnQPushButton" name="btnJogMoinsZ">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1095,8 +1145,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
               </widget>
@@ -1104,21 +1154,21 @@ to unlock urgent stop</string>
              <item row="1" column="2">
               <widget class="cnQPushButton" name="btnJogPlusZ">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1139,8 +1189,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>40</height>
+                 <width>62</width>
+                 <height>41</height>
                 </size>
                </property>
               </widget>
@@ -1148,21 +1198,21 @@ to unlock urgent stop</string>
              <item row="4" column="2">
               <widget class="cnQPushButton" name="btnJogMoinsC">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1180,8 +1230,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>20</height>
+                 <width>62</width>
+                 <height>21</height>
                 </size>
                </property>
               </widget>
@@ -1189,21 +1239,21 @@ to unlock urgent stop</string>
              <item row="0" column="3" rowspan="2" colspan="2">
               <widget class="cnQPushButton" name="btnJogPlusY">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1224,8 +1274,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -1233,21 +1283,21 @@ to unlock urgent stop</string>
              <item row="2" column="0" colspan="2">
               <widget class="cnQPushButton" name="btnJogMoinsX">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1268,8 +1318,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>60</width>
-                 <height>60</height>
+                 <width>62</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -1277,21 +1327,21 @@ to unlock urgent stop</string>
              <item row="0" column="0" rowspan="2">
               <widget class="cnQPushButton" name="btnJogPlusA">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -1312,8 +1362,8 @@ to unlock urgent stop</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>30</width>
-                 <height>60</height>
+                 <width>31</width>
+                 <height>62</height>
                 </size>
                </property>
               </widget>
@@ -1324,7 +1374,7 @@ to unlock urgent stop</string>
           <item>
            <widget class="QWidget" name="widget" native="true">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -1348,7 +1398,7 @@ to unlock urgent stop</string>
              <item>
               <widget class="QWidget" name="frmJogIncrement" native="true">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -1384,7 +1434,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QLabel" name="label_4">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1397,7 +1447,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QRadioButton" name="rbtJog1000">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1418,7 +1468,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QRadioButton" name="rbtJog0100">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1439,7 +1489,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QRadioButton" name="rbtJog0010">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1460,7 +1510,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QRadioButton" name="rbtJog0001">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1481,10 +1531,15 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QRadioButton" name="rbtJog0000">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
@@ -1522,7 +1577,7 @@ to unlock urgent stop</string>
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -1542,7 +1597,7 @@ to unlock urgent stop</string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>84</width>
+                    <width>80</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -1920,6 +1975,11 @@ to unlock urgent stop</string>
                  <width>0</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
                </property>
                <property name="text">
                 <string>&lt;Not Connected&gt;</string>
@@ -2656,6 +2716,11 @@ to unlock urgent stop</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
          <property name="currentIndex">
           <number>0</number>
@@ -10151,6 +10216,17 @@ G43.1</string>
     <addaction name="separator"/>
     <addaction name="mnuA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuDisplay">
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>&amp;Display</string>
+    </property>
+    <addaction name="mnuDisplay_full_sceen"/>
+   </widget>
    <widget class="QMenu" name="menuLangue">
     <property name="enabled">
      <bool>true</bool>
@@ -10168,13 +10244,30 @@ G43.1</string>
       <pointsize>12</pointsize>
      </font>
     </property>
+    <property name="title">
+     <string/>
+    </property>
     <property name="icon">
      <iconset resource="cn5X.qrc">
       <normaloff>:/i18n/i18n/flags/flag_fr.svg</normaloff>:/i18n/i18n/flags/flag_fr.svg</iconset>
     </property>
    </widget>
+   <action name="mnuDisplay_full_sceen">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string>Full screen</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </action>
    <addaction name="mnuApplication"/>
    <addaction name="menuMachine"/>
+   <addaction name="menuDisplay"/>
    <addaction name="menuAide"/>
    <addaction name="menuLangue"/>
   </widget>
