@@ -87,6 +87,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -119,6 +122,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -153,6 +159,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -185,6 +194,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -219,6 +231,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -251,6 +266,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -285,6 +303,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -317,6 +338,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -351,6 +375,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -383,6 +410,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -417,6 +447,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -449,6 +482,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -483,6 +519,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -515,6 +554,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -549,6 +591,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -581,6 +626,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -615,6 +663,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -647,6 +698,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -681,6 +735,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -713,6 +770,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(143, 240, 164);</string>
@@ -747,6 +807,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -779,6 +842,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -813,6 +879,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -845,6 +914,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -879,6 +951,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -911,6 +986,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
@@ -945,6 +1023,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(87, 227, 137);</string>
            </property>
@@ -977,6 +1058,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(143, 240, 164);</string>
@@ -1011,6 +1095,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(143, 240, 164);</string>
            </property>
@@ -1043,6 +1130,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(143, 240, 164);</string>
@@ -1077,6 +1167,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(192, 191, 188);</string>
            </property>
@@ -1110,6 +1203,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(143, 240, 164);</string>
            </property>
@@ -1142,6 +1238,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(192, 191, 188);</string>
@@ -1200,6 +1299,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
@@ -1236,6 +1338,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(246, 97, 81);</string>
            </property>
@@ -1268,6 +1373,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(248, 228, 92);</string>
@@ -1302,6 +1410,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(181, 131, 90);</string>
            </property>
@@ -1334,6 +1445,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(248, 228, 92);</string>
@@ -1368,6 +1482,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(248, 228, 92);</string>
            </property>
@@ -1401,6 +1518,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(248, 228, 92);</string>
            </property>
@@ -1433,6 +1553,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(181, 131, 90);</string>
@@ -1491,6 +1614,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1523,6 +1649,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
@@ -1557,6 +1686,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1589,6 +1721,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
@@ -1623,6 +1758,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1655,6 +1793,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
@@ -1689,6 +1830,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1721,6 +1865,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
@@ -1755,6 +1902,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1783,6 +1933,9 @@
              <weight>50</weight>
              <bold>false</bold>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(153, 193, 241);</string>
@@ -1817,6 +1970,9 @@
              <pointsize>20</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(98, 160, 234);</string>
            </property>
@@ -1849,6 +2005,9 @@
             <font>
              <pointsize>20</pointsize>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(153, 193, 241);</string>

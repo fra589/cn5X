@@ -24,14 +24,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class gcodeQLineEdit(QtWidgets.QLineEdit):
-  '''
-  QlineEdit avec ajout de l'evennement KeyPressed
+  ''' QlineEdit avec ajout de l'envoi d'evennement KeyPressed
   '''
   keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
 
+
   def __init__(self, parent=None):
-    QtWidgets.QLineEdit.__init__(self, parent)
+    super().__init__(parent)
+
 
   def keyPressEvent(self, event):
-    super(gcodeQLineEdit, self).keyPressEvent(event)
+    super().keyPressEvent(event)
     self.keyPressed.emit(event)
+

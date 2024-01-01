@@ -2153,7 +2153,17 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def showKeyboard(self):
-    self.__qwKeyboard.keyboard_show()
+    if not self.__qwKeyboard.isVisible():
+      self.__qwKeyboard.keyboard_show()
+      self.ui.txtGCode.setFocus()
+      self.ui.txtGCode.selectAll()
+      self.ui.btnKeyboard.setText("⇩⌨⇩")
+    else:
+      self.__qwKeyboard.keyboard_hide()
+      self.ui.txtGCode.setFocus()
+      self.ui.txtGCode.selectAll()
+      self.ui.btnKeyboard.setText("⇧⌨⇧")
+
 
   @pyqtSlot()
   def sendCmd(self):
