@@ -43,6 +43,7 @@ from grblJog import grblJog
 from grblProbe import *
 from cn5X_gcodeFile import gcodeFile
 from qwprogressbox import *
+from qwkeyboard import *
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
 from cn5X_helpProbe import cn5XHelpProbe
@@ -52,11 +53,12 @@ from cn5X_jog import dlgJog
 from cn5X_beep import cn5XBeeper
 from cn5X_toolChange import dlgToolChange
 
+import mainWindow
+
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
     return QValidator.Acceptable, string.upper(), pos
 
-import mainWindow
 
 class winMain(QtWidgets.QMainWindow):
 
@@ -95,6 +97,13 @@ class winMain(QtWidgets.QMainWindow):
       self.showFullScreen()
       self.ui.mnuDisplay_full_sceen.setChecked(True)
 
+    # Initialise la boite de progression d'un fichier programme GCode
+    self.__pBox = qwProgressBox(self)
+    
+    # initialise le clavier
+    self.__qwKeyboard = qwKeyboard(self)
+    self.__qwKeyboard.setLinkedTxt(self.ui.txtGCode)
+    
     self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
     self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
 
@@ -135,6 +144,7 @@ class winMain(QtWidgets.QMainWindow):
       return self.__arretUrgence
 
     self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper, arretUrgence)
+    self.__pBox.setDecoder(self.__decode)    
     self.__grblCom.setDecodeur(self.__decode)
 
     # Boite de dialogue de changement d'outils
@@ -279,6 +289,7 @@ class winMain(QtWidgets.QMainWindow):
 
     self.ui.btnRefresh.clicked.connect(self.populatePortList)            # Refresh de la liste des ports serie
     self.ui.btnConnect.clicked.connect(self.action_btnConnect)           # un clic sur le bouton "(De)Connecter" appellera la methode 'action_btnConnect'
+    self.ui.btnKeyboard.pressed.connect(self.showKeyboard)               # Bouton d'affichage du clavier touch screen
     self.ui.btnSend.pressed.connect(self.sendCmd)                        # Bouton d'envoi de commandes unitaires
     self.ui.txtGCode.setValidator(self.ucase)                            # Force la saisie des GCodes en majuscules
     self.ui.txtGCode.returnPressed.connect(self.sendCmd)                 # Meme fonction par la touche entree que le bouton d'envoi
@@ -447,10 +458,6 @@ class winMain(QtWidgets.QMainWindow):
     self.setEnableDisableConnectControls()
     # Active ou desactive les boutons de cycle
     self.setEnableDisableGroupes()
-
-    # Initialise la boite de progression d'un fichier programme GCode
-    self.__pBox = qwProgressBox(self)
-    self.__pBox.setDecoder(self.__decode)
 
     # Restore le curseur souris sablier en fin d'initialisation
     QtWidgets.QApplication.restoreOverrideCursor()
@@ -2143,6 +2150,10 @@ class winMain(QtWidgets.QMainWindow):
   def on_btnReset(self):
     self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET)
 
+
+  @pyqtSlot()
+  def showKeyboard(self):
+    self.__qwKeyboard.keyboard_show()
 
   @pyqtSlot()
   def sendCmd(self):
