@@ -143,6 +143,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="toolTip">
              <string>Double click
 to unlock urgent stop</string>
@@ -242,6 +245,9 @@ to unlock urgent stop</string>
                     <height>17</height>
                    </size>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="toolTip">
                    <string>Link feedrate and spindle speed</string>
                   </property>
@@ -335,6 +341,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="contextMenuPolicy">
                    <enum>Qt::CustomContextMenu</enum>
                   </property>
@@ -387,6 +396,9 @@ to unlock urgent stop</string>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="contextMenuPolicy">
                    <enum>Qt::CustomContextMenu</enum>
@@ -480,6 +492,9 @@ to unlock urgent stop</string>
                     <height>17</height>
                    </size>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="toolTip">
                    <string>Reset feedrate</string>
                   </property>
@@ -535,6 +550,9 @@ to unlock urgent stop</string>
                     <width>24</width>
                     <height>17</height>
                    </size>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="toolTip">
                    <string>Reset spindle speed</string>
@@ -604,6 +622,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string notr="true">25%</string>
                   </property>
@@ -619,6 +640,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string notr="true">50%</string>
                   </property>
@@ -633,6 +657,9 @@ to unlock urgent stop</string>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="text">
                    <string notr="true">100%</string>
@@ -679,6 +706,9 @@ to unlock urgent stop</string>
                  <pointsize>12</pointsize>
                 </font>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="toolTip">
                 <string>Run homing cycle</string>
                </property>
@@ -699,6 +729,9 @@ to unlock urgent stop</string>
                 <font>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
                 <string>Run homing cycle</string>
@@ -730,6 +763,9 @@ to unlock urgent stop</string>
                 <font>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string>Soft Reset (^X)</string>
@@ -831,6 +867,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -874,6 +913,9 @@ to unlock urgent stop</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -919,6 +961,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -962,6 +1007,9 @@ to unlock urgent stop</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -1007,6 +1055,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1047,6 +1098,9 @@ to unlock urgent stop</string>
                  <width>60</width>
                  <height>60</height>
                 </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -1092,6 +1146,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1135,6 +1192,9 @@ to unlock urgent stop</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -1180,6 +1240,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1220,6 +1283,9 @@ to unlock urgent stop</string>
                  <width>60</width>
                  <height>60</height>
                 </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -1265,6 +1331,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1309,6 +1378,9 @@ to unlock urgent stop</string>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1352,6 +1424,9 @@ to unlock urgent stop</string>
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string/>
@@ -1460,6 +1535,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string notr="true">+10.00</string>
                   </property>
@@ -1480,6 +1558,9 @@ to unlock urgent stop</string>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="text">
                    <string notr="true">+ 1.00</string>
@@ -1502,6 +1583,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string notr="true">+ 0.10</string>
                   </property>
@@ -1523,6 +1607,9 @@ to unlock urgent stop</string>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string notr="true">+ 0.05</string>
                   </property>
@@ -1543,6 +1630,9 @@ to unlock urgent stop</string>
                   </property>
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="text">
                    <string notr="true">+ 0.00</string>
@@ -1605,6 +1695,9 @@ to unlock urgent stop</string>
                    <font>
                     <pointsize>12</pointsize>
                    </font>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1756,6 +1849,9 @@ to unlock urgent stop</string>
                  <height>0</height>
                 </size>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
                <property name="toolTip">
                 <string>Select serial port of Grbl.</string>
                </property>
@@ -1777,6 +1873,9 @@ to unlock urgent stop</string>
                  <width>25</width>
                  <height>16777215</height>
                 </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
                 <string>Refresh list</string>
@@ -1933,6 +2032,9 @@ to unlock urgent stop</string>
                  <height>0</height>
                 </size>
                </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
               </widget>
              </item>
             </layout>
@@ -2005,6 +2107,9 @@ to unlock urgent stop</string>
                  <width>110</width>
                  <height>16777215</height>
                 </size>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
                </property>
                <property name="text">
                 <string>(Un)Connect</string>
@@ -2721,6 +2826,9 @@ to unlock urgent stop</string>
           <font>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="currentIndex">
           <number>0</number>
@@ -5090,6 +5198,9 @@ color: rgb(0, 0, 63);
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="toolTip">
                     <string>Make a rapid move from current location to the machine position defined by the last G28.1
 If no positions are stored with G28.1 then all axes will go to the machine origin.</string>
@@ -5141,6 +5252,9 @@ If no positions are stored with G28.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="toolTip">
                     <string>Make a rapid move from current location to the machine position defined by the last G30.1
@@ -5540,6 +5654,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 12;</string>
                    </property>
@@ -5580,6 +5697,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 12;</string>
@@ -5622,6 +5742,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 12;</string>
                    </property>
@@ -5662,6 +5785,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 12;</string>
@@ -5757,6 +5883,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -5792,6 +5921,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -5826,6 +5958,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
@@ -5908,6 +6043,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -5943,6 +6081,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -5977,6 +6118,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
@@ -6065,6 +6209,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -6106,6 +6253,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
                    </property>
@@ -6146,6 +6296,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius: 25;</string>
@@ -6830,6 +6983,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
            </item>
            <item row="0" column="2">
             <widget class="QCheckBox" name="chkInvertProbePinXY">
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
              <property name="toolTip">
               <string>Check/Uncheck to invert the probe pin logic:
 - Unchecked: probe pin normaly open,
@@ -6943,6 +7099,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</normaloff>:/cn5X/images/btnProbeOutX+Y-.svg</iconset>
@@ -6977,6 +7136,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -7013,6 +7175,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</normaloff>:/cn5X/images/btnProbeOutX-Y-.svg</iconset>
@@ -7048,6 +7213,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeOutX+.svg</normaloff>:/cn5X/images/btnProbeOutX+.svg</iconset>
@@ -7082,6 +7250,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
@@ -7121,6 +7292,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeOutX-.svg</normaloff>:/cn5X/images/btnProbeOutX-.svg</iconset>
@@ -7155,6 +7329,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -7191,6 +7368,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
                   <normaloff>:/cn5X/images/btnProbeOutY+.svg</normaloff>:/cn5X/images/btnProbeOutY+.svg</iconset>
@@ -7225,6 +7405,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                 </property>
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset resource="cn5X.qrc">
@@ -7284,6 +7467,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
               </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="btnResetResults">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="text">
                  <string>Reset</string>
                 </property>
@@ -8203,6 +8389,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="text">
                     <string>Home X-</string>
                    </property>
@@ -8221,6 +8410,9 @@ Need to define non nul probe pull-off distance (unit/mn).</string>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="text">
                     <string>Home
@@ -8243,6 +8435,9 @@ center</string>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="text">
                     <string>Home X center</string>
                    </property>
@@ -8261,6 +8456,9 @@ center</string>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="text">
                     <string>Home X+</string>
@@ -8281,6 +8479,9 @@ center</string>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="text">
                     <string>Home Y-</string>
                    </property>
@@ -8300,6 +8501,9 @@ center</string>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="text">
                     <string>Home Y center</string>
                    </property>
@@ -8318,6 +8522,9 @@ center</string>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="text">
                     <string>Home Y+</string>
@@ -8798,6 +9005,9 @@ Need to define non nul probe pull-off distance.</string>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="toolTip">
                     <string>Define the Z origin at the coordinates of the last Z probing result,
 corrected with the Z offset.</string>
@@ -8929,6 +9139,9 @@ origin</string>
                    </property>
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
                    </property>
                    <property name="toolTip">
                     <string>Run probe in Z- direction.</string>
@@ -9304,6 +9517,9 @@ color: rgb(0, 0, 63);</string>
                  </item>
                  <item row="4" column="0">
                   <widget class="QPushButton" name="btnSaveToolChangePosition">
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="toolTip">
                     <string>Save tool change absolute machine position.</string>
                    </property>
@@ -9314,6 +9530,9 @@ color: rgb(0, 0, 63);</string>
                  </item>
                  <item row="4" column="1">
                   <widget class="QPushButton" name="btnGoToSensor">
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
                    <property name="toolTip">
                     <string>Rapid move to Z coordinate (G53G0Z.) to clear the working area,
 then rapid move to XY of tool change position (G53G0X.Y.).
@@ -9499,6 +9718,9 @@ color: rgb(0, 0, 63);</string>
                       <property name="cursor">
                        <cursorShape>PointingHandCursor</cursorShape>
                       </property>
+                      <property name="focusPolicy">
+                       <enum>Qt::NoFocus</enum>
+                      </property>
                       <property name="toolTip">
                        <string>Reset initial result to last Z probe measurement and cancel tool offset (send G49)</string>
                       </property>
@@ -9652,6 +9874,9 @@ color: rgb(0, 0, 63);</string>
                       <property name="cursor">
                        <cursorShape>PointingHandCursor</cursorShape>
                       </property>
+                      <property name="focusPolicy">
+                       <enum>Qt::NoFocus</enum>
+                      </property>
                       <property name="toolTip">
                        <string>Set new tool length offset (G43.1) with the last measure</string>
                       </property>
@@ -9702,6 +9927,9 @@ G43.1</string>
        </item>
        <item>
         <widget class="QTabWidget" name="qtabConsole">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -9743,6 +9971,9 @@ G43.1</string>
               <font>
                <family>Monospace</family>
               </font>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
              </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -9822,6 +10053,9 @@ G43.1</string>
                   <pointsize>12</pointsize>
                  </font>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="text">
                  <string>⇧⌨⇧</string>
                 </property>
@@ -9839,6 +10073,9 @@ G43.1</string>
                  <font>
                   <pointsize>12</pointsize>
                  </font>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
                  <string>Send ⇰</string>
@@ -10049,6 +10286,9 @@ G43.1</string>
               </item>
               <item>
                <widget class="QPushButton" name="btnDebug">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="text">
                  <string>Debug</string>
                 </property>
@@ -10065,6 +10305,9 @@ G43.1</string>
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="text">
                  <string>Pause pooling</string>
                 </property>
@@ -10075,6 +10318,9 @@ G43.1</string>
               </item>
               <item>
                <widget class="QPushButton" name="btnClearDebug">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="text">
                  <string>Clear debug</string>
                 </property>
@@ -10225,7 +10471,26 @@ G43.1</string>
     <property name="title">
      <string>&amp;Display</string>
     </property>
+    <widget class="QMenu" name="menuBlack_screen_saver">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Black screen saver</string>
+     </property>
+     <addaction name="mnuBlackScreen0"/>
+     <addaction name="mnuBlackScreen1"/>
+     <addaction name="mnuBlackScreen5"/>
+     <addaction name="mnuBlackScreen20"/>
+     <addaction name="mnuBlackScreen60"/>
+     <addaction name="mnuBlackScreen120"/>
+     <addaction name="mnuBlackScreen360"/>
+     <addaction name="mnuBlackScreenOff"/>
+    </widget>
     <addaction name="mnuDisplay_full_sceen"/>
+    <addaction name="menuBlack_screen_saver"/>
    </widget>
    <widget class="QMenu" name="menuLangue">
     <property name="enabled">
@@ -10742,6 +11007,72 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+  </action>
+  <action name="mnuBlackScreen0">
+   <property name="text">
+    <string>Now</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="mnuBlackScreen1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1 minute</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreen5">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>5 minutes</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreen20">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>20 minutes</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreen60">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1 hour</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreen120">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2 hours</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreen360">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>6 hours</string>
+   </property>
+  </action>
+  <action name="mnuBlackScreenOff">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Disabled</string>
    </property>
   </action>
  </widget>
