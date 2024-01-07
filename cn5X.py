@@ -29,7 +29,7 @@ import locale
 import argparse
 import serial, serial.tools.list_ports
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings, QFile
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings, QFile, QEvent
 from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette, QFontDatabase
 from PyQt5.QtWidgets import QDialog, QAbstractItemView, QMessageBox
 from cn5X_config import *
@@ -44,6 +44,7 @@ from grblProbe import *
 from cn5X_gcodeFile import gcodeFile
 from qwprogressbox import *
 from qwkeyboard import *
+from qwblackscreen import *
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
 from cn5X_helpProbe import cn5XHelpProbe
@@ -55,9 +56,27 @@ from cn5X_toolChange import dlgToolChange
 
 import mainWindow
 
+
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
     return QValidator.Acceptable, string.upper(), pos
+
+
+class appEventFilter(QObject):
+  def __init__(self, win, parent=None):
+    super().__init__()
+    self.__win = win
+
+  def eventFilter(self, obj: QObject, event: QEvent) -> bool:
+    # mémorise le moment du dernier évennement clavier ou souris
+    if event.type() in [QEvent.KeyPress, QEvent.KeyRelease, QEvent.MouseMove, QEvent.MouseButtonPress, QEvent.MouseButtonRelease]:
+      maintenant = time.time()
+      self.__win.lastActivity = maintenant
+      # Masque l'écran de veille si affiché
+      if self.__win.blackScreen.isVisible():
+        self.__win.blackScreen.blackScreen_hide()
+        return True # Bloque la suite du traitement de l'évennement
+    return super().eventFilter(obj, event)
 
 
 class winMain(QtWidgets.QMainWindow):
@@ -92,10 +111,30 @@ class winMain(QtWidgets.QMainWindow):
     # Initialise la fenêtre princpale
     self.ui = mainWindow.Ui_mainWindow()
     self.ui.setupUi(self)
-    # Affichage plein écran optionel
+    
+    # Affichage plein écran et screen saver
     if self.__args.fullScreen != False:
       self.showFullScreen()
       self.ui.mnuDisplay_full_sceen.setChecked(True)
+      self.ui.mnuDisplay_black_screen.setEnabled(True)
+    else:
+      self.showNormal()
+      self.ui.mnuDisplay_full_sceen.setChecked(False)
+      self.ui.mnuDisplay_black_screen.setEnabled(False)
+
+    # Widget pour mise en veille
+    self.blackScreen = qwBlackScreen(self)
+    self.timerVeille = QtCore.QTimer()
+    self.timerVeille.setInterval(1000) # 1 seconde
+    self.timerVeille.timeout.connect(self.veilleEcran)
+
+    # Parametre de mise en veille
+    # Valeurs possibles : 1, 5, 20, 60, 120, 360, -1 (off)
+    self.__screenSaverTimeout = int(self.__settings.value("screenSaverTimeout", -1))
+    self.updateMnuBlackScreen() # Coche le bon élément du menu de veille
+    # Démarre le timer si veille d'écran active et affiché en plein écran
+    if self.__screenSaverTimeout in [1, 5, 20, 60, 120, 360] and self.ui.mnuDisplay_full_sceen.isChecked():
+      self.timerVeille.start()
 
     # Initialise la boite de progression d'un fichier programme GCode
     self.__pBox = qwProgressBox(self)
@@ -278,6 +317,14 @@ class winMain(QtWidgets.QMainWindow):
 
     # Menu Display
     self.ui.mnuDisplay_full_sceen.triggered.connect(self.on_mnuDisplay_full_sceen)
+    self.ui.mnuBlackScreen0.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(0))
+    self.ui.mnuBlackScreen1.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(1))
+    self.ui.mnuBlackScreen5.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(5))
+    self.ui.mnuBlackScreen20.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(20))
+    self.ui.mnuBlackScreen60.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(60))
+    self.ui.mnuBlackScreen120.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(120))
+    self.ui.mnuBlackScreen360.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(360))
+    self.ui.mnuBlackScreenOff.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(-1))
 
     # Menu d'aide
     self.ui.mnuHelpProbe_single_axis.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_SINGLE_AXIS))
@@ -462,11 +509,25 @@ class winMain(QtWidgets.QMainWindow):
     # Restore le curseur souris sablier en fin d'initialisation
     QtWidgets.QApplication.restoreOverrideCursor()
     
+    # Memorise le moment de la dernière activité sur l'interface
+    # (clavier ou souris)
+    self.lastActivity = time.time()
+    
     ### GBGB tests ###
     ###print(locale.getlocale(locale.LC_TIME))
     ###print(datetime.now().strftime("%A %x %H:%M:%S"))
     ### Pour debug de qwProgressBox 
     ###self.__pBox.start()
+
+
+  @property
+  def lastActivity(self):
+    return self._lastActivity
+
+
+  @lastActivity.setter
+  def lastActivity(self, value):
+    self._lastActivity = value
 
 
   def populatePortList(self):
@@ -771,8 +832,74 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuDisplay_full_sceen(self):
     if self.ui.mnuDisplay_full_sceen.isChecked():
       self.showFullScreen()
+      self.ui.mnuDisplay_black_screen.setEnabled(True)
+      # Démarre le timer si veille d'écran active et affiché en plein écran
+      if self.__screenSaverTimeout in [1, 5, 20, 60, 120, 360]:
+        self.timerVeille.start()
     else:
       self.showNormal()
+      self.ui.mnuDisplay_black_screen.setEnabled(False)
+      # Stop le timer de veille d'écran
+      self.timerVeille.stop()
+
+  @pyqtSlot()
+  def on_mnuDisplayBlackScreen(self, duree):
+    ''' Parametrage veille écran '''
+    if duree == 0:
+      # Black screen immédiat et on sort (pas de changement des paramètres
+      # sur une mise en veille immédiate)
+      self.blackScreen.blackScreen_show()
+      return
+    elif duree != -1:
+      # Démarre le timer
+      self.timerVeille.start()
+    else:
+      # arrete le timer
+      self.timerVeille.stop()
+    # Mémorise la nouvelle durée
+    self.__screenSaverTimeout = duree
+    self.__settings.setValue("screenSaverTimeout", duree)
+    # met à jour les coches du menu
+    self.updateMnuBlackScreen()
+
+
+  @pyqtSlot()
+  def veilleEcran(self):
+    ''' Gestion de la veille écran, appelé par le timeout de self.timerVeille '''
+    if self.blackScreen.isVisible():
+      # Déjà en veille
+      return
+    dureeLimite = self.__screenSaverTimeout * 60 # timeout stocké en minutes
+    dureeInactif = time.time() - self.lastActivity
+    if dureeInactif >= dureeLimite:
+      # Black screen start
+      self.blackScreen.blackScreen_show()
+
+
+  def updateMnuBlackScreen(self):
+    ''' Coche le bon élément du menu de veille '''
+    self.ui.mnuBlackScreen1.setChecked(False)
+    self.ui.mnuBlackScreen5.setChecked(False)
+    self.ui.mnuBlackScreen20.setChecked(False)
+    self.ui.mnuBlackScreen60.setChecked(False)
+    self.ui.mnuBlackScreen120.setChecked(False)
+    self.ui.mnuBlackScreen360.setChecked(False)
+    self.ui.mnuBlackScreenOff.setChecked(False)
+    if self.__screenSaverTimeout == 1:
+      self.ui.mnuBlackScreen1.setChecked(True)
+    elif self.__screenSaverTimeout == 5:
+      self.ui.mnuBlackScreen5.setChecked(True)
+    elif self.__screenSaverTimeout == 20:
+      self.ui.mnuBlackScreen20.setChecked(True)
+    elif self.__screenSaverTimeout == 60:
+      self.ui.mnuBlackScreen60.setChecked(True)
+    elif self.__screenSaverTimeout == 120:
+      self.ui.mnuBlackScreen120.setChecked(True)
+    elif self.__screenSaverTimeout == 360:
+      self.ui.mnuBlackScreen360.setChecked(True)
+    else:
+      # self.__screenSaverTimeout == -1 ou autre valeur non prévue:
+      self.ui.mnuBlackScreenOff.setChecked(True)
 
 
   @pyqtSlot()
@@ -2874,9 +3001,9 @@ if __name__ == '__main__':
   else:
     # unfrozen
     app_path = os.path.dirname(os.path.realpath(__file__))
-  print("{} v{}.{} running from: {}".format(APP_NAME, APP_VERSION_STRING, APP_VERSION_DATE, app_path))
 
   # Bannière sur la console...
+  print("{} v{}.{} running from: {}".format(APP_NAME, APP_VERSION_STRING, APP_VERSION_DATE, app_path))
   print("")
   print("                ####### #     #")
   print("  ####   #    # #        #   #     #       #")
@@ -2887,15 +3014,14 @@ if __name__ == '__main__':
   print("  ####   #    #  #####  #     #")
   print("")
 
-  translator = QTranslator()
-  langue = QLocale(QLocale.French, QLocale.France)
-  ###translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
-  translator.load(langue, ":/i18n/i18n/cn5X", ".")
-  app.installTranslator(translator)
-
   # Chargement police LED Calculator depuis le fichier de ressources
   QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")
 
+  translator = QTranslator()
+  langue = QLocale(QLocale.French, QLocale.France)
+  translator.load(langue, ":/i18n/i18n/cn5X", ".")
+  app.installTranslator(translator)
+  
   # Définition de la locale pour affichage des dates dans la langue du systeme
   try:
     locale.setlocale(locale.LC_TIME, '')
@@ -2903,5 +3029,12 @@ if __name__ == '__main__':
     print("Warning: {}".format(err))
 
   window = winMain()
+
+  # Traque tous les évennements de l'appli pour gestion de la veille en
+  # mode plein écran
+  appEvents = appEventFilter(win=window)
+  app.installEventFilter(appEvents)
+  derniereActivite = time.time()
+  
   window.show()
   sys.exit(app.exec_())

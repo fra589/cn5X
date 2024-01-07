@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
@@ -21,19 +21,48 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+import threading
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent
+from PyQt5.QtGui import QKeyEvent
+from gcodeQLineEdit import gcodeQLineEdit
+from PyQt5.QtTest import QTest
 
-class gcodeQLineEdit(QtWidgets.QLineEdit):
-  ''' QlineEdit avec ajout de l'envoi d'evennement KeyPressed
-  '''
-  keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
 
+class qwBlackScreen(QtWidgets.QWidget):
+  ''' Widget personalise construisant un écran noir
+  cet écran disparait en cas de click ou d'appuis sur une touche '''
 
   def __init__(self, parent=None):
-    super().__init__(parent)
+    super().__init__()
+    
+    self.__txt = None
+
+    # Initialise l'interface utilisateur du clavier
+    self.parent = parent
+    self.blackScreen = QtWidgets.QWidget(parent)
+    self.blackScreen.setStyleSheet("background-color: black")
+    self.blackScreen.setCursor(Qt.BlankCursor)
+    self.blackScreen.move(0, 0)
+    self.blackScreen.resize(parent.width(), parent.height())
+    
+    # Le l'écran noir est masqué au départ
+    self.blackScreen.setVisible(False)
+    
+    # Connections des evennements 
+    # Marche pô -( traité dans le hook global de détection d'activité
 
 
-  def keyPressEvent(self, event):
-    self.keyPressed.emit(event)
-    return super().keyPressEvent(event)
+  def blackScreen_show(self):
+    self.blackScreen.resize(self.parent.width(), self.parent.height())
+    self.blackScreen.setVisible(True)
+
+
+  def blackScreen_hide(self):
+    self.blackScreen.setVisible(False)
+
+
+  def isVisible(self):
+    return self.blackScreen.isVisible()
 

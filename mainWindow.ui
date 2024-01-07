@@ -10471,7 +10471,7 @@ G43.1</string>
     <property name="title">
      <string>&amp;Display</string>
     </property>
-    <widget class="QMenu" name="menuBlack_screen_saver">
+    <widget class="QMenu" name="mnuDisplay_black_screen">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -10490,7 +10490,7 @@ G43.1</string>
      <addaction name="mnuBlackScreenOff"/>
     </widget>
     <addaction name="mnuDisplay_full_sceen"/>
-    <addaction name="menuBlack_screen_saver"/>
+    <addaction name="mnuDisplay_black_screen"/>
    </widget>
    <widget class="QMenu" name="menuLangue">
     <property name="enabled">
@@ -10528,6 +10528,9 @@ G43.1</string>
      <font>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="shortcut">
+     <string>F11</string>
     </property>
    </action>
    <addaction name="mnuApplication"/>
@@ -11070,6 +11073,9 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
   <action name="mnuBlackScreenOff">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Disabled</string>
