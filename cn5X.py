@@ -113,16 +113,33 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.setupUi(self)
     
     # Affichage plein écran et screen saver
+    fullScreenSetting = self.__settings.value("displayFullScreen", False, type=bool)
+
     if self.__args.fullScreen != False:
+      # L'argument de la ligne de commande est prioritaire
+      # sur l'état sauvegardé dans les settings
       self.showFullScreen()
       self.ui.mnuDisplay_full_sceen.setChecked(True)
       self.ui.mnuDisplay_black_screen.setEnabled(True)
     else:
-      self.showNormal()
-      self.ui.mnuDisplay_full_sceen.setChecked(False)
-      self.ui.mnuDisplay_black_screen.setEnabled(False)
+      # Pas d'argument enligne de commande,
+      # on regarde l'état sauvegardé dans les settings
+      if fullScreenSetting:
+        self.showFullScreen()
+        self.ui.mnuDisplay_full_sceen.setChecked(True)
+        self.ui.mnuDisplay_black_screen.setEnabled(True)
+      else:
+        self.showNormal()
+        self.ui.mnuDisplay_full_sceen.setChecked(False)
+        self.ui.mnuDisplay_black_screen.setEnabled(False)
 
     # Widget pour mise en veille
+    self.screenSaverClock = self.__settings.value("screenSaverClock", True, type=bool)
+    if self.screenSaverClock:
+      self.ui.mnuScreenSaverClock.setChecked(True)
+    else:
+      self.ui.mnuScreenSaverClock.setChecked(False)
+
     self.blackScreen = qwBlackScreen(self)
     self.timerVeille = QtCore.QTimer()
     self.timerVeille.setInterval(1000) # 1 seconde
@@ -132,8 +149,10 @@ class winMain(QtWidgets.QMainWindow):
     # Valeurs possibles : 1, 5, 20, 60, 120, 360, -1 (off)
     self.__screenSaverTimeout = int(self.__settings.value("screenSaverTimeout", -1))
     self.updateMnuBlackScreen() # Coche le bon élément du menu de veille
+
     # Démarre le timer si veille d'écran active et affiché en plein écran
-    if self.__screenSaverTimeout in [1, 5, 20, 60, 120, 360] and self.ui.mnuDisplay_full_sceen.isChecked():
+    if self.__screenSaverTimeout in [1, 5, 20, 60, 120, 360] \
+    and self.ui.mnuDisplay_full_sceen.isChecked():
       self.timerVeille.start()
 
     # Initialise la boite de progression d'un fichier programme GCode
@@ -325,6 +344,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuBlackScreen120.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(120))
     self.ui.mnuBlackScreen360.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(360))
     self.ui.mnuBlackScreenOff.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(-1))
+    self.ui.mnuScreenSaverClock.triggered.connect(self.on_mnuScreenSaverClock)
 
     # Menu d'aide
     self.ui.mnuHelpProbe_single_axis.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_SINGLE_AXIS))
@@ -836,11 +856,26 @@ class winMain(QtWidgets.QMainWindow):
       # Démarre le timer si veille d'écran active et affiché en plein écran
       if self.__screenSaverTimeout in [1, 5, 20, 60, 120, 360]:
         self.timerVeille.start()
+      # Mémorise l'état dans les settings
+      self.__settings.setValue("displayFullScreen", True)
     else:
       self.showNormal()
       self.ui.mnuDisplay_black_screen.setEnabled(False)
       # Stop le timer de veille d'écran
       self.timerVeille.stop()
+      # Mémorise l'état dans les settings
+      self.__settings.setValue("displayFullScreen", False)
+
+
+  @pyqtSlot()
+  def on_mnuScreenSaverClock(self):
+    if self.ui.mnuScreenSaverClock.isChecked():
+      self.screenSaverClock = True
+      self.__settings.setValue("screenSaverClock", True)
+    else:
+      self.screenSaverClock = False
+      self.__settings.setValue("screenSaverClock", False)
+
 
   @pyqtSlot()
   def on_mnuDisplayBlackScreen(self, duree):

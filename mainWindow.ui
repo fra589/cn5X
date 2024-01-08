@@ -10488,6 +10488,8 @@ G43.1</string>
      <addaction name="mnuBlackScreen120"/>
      <addaction name="mnuBlackScreen360"/>
      <addaction name="mnuBlackScreenOff"/>
+     <addaction name="separator"/>
+     <addaction name="mnuScreenSaverClock"/>
     </widget>
     <addaction name="mnuDisplay_full_sceen"/>
     <addaction name="mnuDisplay_black_screen"/>
@@ -11079,6 +11081,17 @@ If no positions are stored with G30.1 then all axes will go to the machine origi
    </property>
    <property name="text">
     <string>Disabled</string>
+   </property>
+  </action>
+  <action name="mnuScreenSaverClock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Screen saver clock</string>
    </property>
   </action>
  </widget>

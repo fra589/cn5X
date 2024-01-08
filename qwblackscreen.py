@@ -21,13 +21,97 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import sys
+import sys, time, random
 import threading
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QThread, QEventLoop
 from PyQt5.QtGui import QKeyEvent
 from gcodeQLineEdit import gcodeQLineEdit
 from PyQt5.QtTest import QTest
+
+import qwHorloge
+
+class horlogeUpdater(QObject):
+  ''' Objet pour mise à jour horloge durant la mise en veille '''
+
+  def __init__(self, horloge):
+    QObject.__init__(self)
+    self.horloge = horloge
+    self.horlogeUi = horloge.ui
+    self.deuxPoints = False
+    self.updateTimer = QtCore.QTimer()
+    self.updateTimer.setInterval(500) # 1/2 seconde
+    self.updateTimer.timeout.connect(self.updateHeure)
+    self.moveTimer = QtCore.QTimer()
+    self.moveTimer.setInterval(17) # ~60 fois par seconde
+    self.moveTimer.timeout.connect(self.moveHorloge)
+
+    # Déplacements aléatoires entre minMove et maxMove pixels
+    self.minMove = 2
+    self.maxMove = 5
+    random.seed()
+    self.deplacementX = random.randint(self.minMove, self.maxMove)
+    if random.randint(0, 1) == 0:
+      self.deplacementX = -self.deplacementX
+    self.deplacementY = random.randint(self.minMove, self.maxMove)
+    if random.randint(0, 1) == 0:
+      self.deplacementY = -self.deplacementY
+
+
+  def start(self):
+    self.updateTimer.start()
+    self.moveTimer.start()
+
+
+  def quit(self):
+    self.updateTimer.stop()
+    self.moveTimer.stop()
+
+
+  def updateHeure(self):
+    ''' Mise à l'heure de l'horloge '''
+    H = time.strftime("%H")
+    M = time.strftime("%M")
+    S = time.strftime("%S")
+    # Heures : Minutes avec clignottement des ':' 1 fois sur 2
+    if self.deuxPoints:
+      self.horlogeUi.lblHM.setText("{} {}".format(H, M))
+      self.deuxPoints = False
+    else:
+      self.horlogeUi.lblHM.setText("{}:{}".format(H, M))
+      self.deuxPoints = True
+    # Secondes
+    self.horlogeUi.lblS.setText("{}".format(S))
+
+
+  def moveHorloge(self):
+    ''' Déplacement de l'horloge sur l'écran '''
+    
+    newX = self.horloge.pos().x() + self.deplacementX
+    if self.deplacementX > 0:
+      if newX + self.horloge.width() > self.horloge.parentWidget().width():
+        # On a atteind le bord de l'écran, on repart dans l'autre sens avec une autre vitesse
+        self.deplacementX = -random.randint(self.minMove, self.maxMove)
+        newX = self.horloge.pos().x() + self.deplacementX
+    else: # self.deplacementX < 0
+      if newX < 0:
+        # On a atteind le bord de l'écran, on repart dans l'autre sens avec une autre vitesse
+        self.deplacementX = random.randint(self.minMove, self.maxMove)
+        newX = self.horloge.pos().x() + self.deplacementX
+
+    newY = self.horloge.pos().y() + self.deplacementY
+    if self.deplacementY> 0:
+      if newY + self.horloge.height() > self.horloge.parentWidget().height():
+        # On a atteind le bord de l'écran, on repart dans l'autre sens avec une autre vitesse
+        self.deplacementY = -random.randint(self.minMove, self.maxMove)
+        newY = self.horloge.pos().y() + self.deplacementY
+    else: # self.deplacementY < 0
+      if newY < 0:
+        # On a atteind le bord de l'écran, on repart dans l'autre sens avec une autre vitesse
+        self.deplacementY = random.randint(self.minMove, self.maxMove)
+        newY = self.horloge.pos().y() + self.deplacementY
+
+    self.horloge.move(newX, newY)    
 
 
 class qwBlackScreen(QtWidgets.QWidget):
@@ -39,7 +123,7 @@ class qwBlackScreen(QtWidgets.QWidget):
     
     self.__txt = None
 
-    # Initialise l'interface utilisateur du clavier
+    # Initialise le widget écran noir
     self.parent = parent
     self.blackScreen = QtWidgets.QWidget(parent)
     self.blackScreen.setStyleSheet("background-color: black")
@@ -47,20 +131,39 @@ class qwBlackScreen(QtWidgets.QWidget):
     self.blackScreen.move(0, 0)
     self.blackScreen.resize(parent.width(), parent.height())
     
-    # Le l'écran noir est masqué au départ
-    self.blackScreen.setVisible(False)
+    # widget horloge
+    self.blackScreen.horloge  = QtWidgets.QWidget(self.blackScreen)
+    self.blackScreen.horloge.setStyleSheet("background-color: black")
+    self.blackScreen.horloge.ui = qwHorloge.Ui_qwHorloge()
+    self.blackScreen.horloge.ui.setupUi(self.blackScreen.horloge)
+    self.blackScreen.horloge.setVisible(False)
+    self.updateHorloge = horlogeUpdater(self.blackScreen.horloge)
     
-    # Connections des evennements 
-    # Marche pô -( traité dans le hook global de détection d'activité
+    # L'écran noir est masqué au départ
+    self.blackScreen.setVisible(False)
 
 
   def blackScreen_show(self):
+    # redimentionne le cache noir à la taille de la fenêtre
     self.blackScreen.resize(self.parent.width(), self.parent.height())
+    if self.parent.screenSaverClock:
+      # place l'horloge au millieu
+      self.blackScreen.horloge.move(int((self.blackScreen.width()-self.blackScreen.horloge.width())/2), int((self.blackScreen.height()-self.blackScreen.horloge.height())/2))
+      # rend l'hotrloge visible
+      self.blackScreen.horloge.setVisible(True)
+      # lance la mise à jour de l'horloge
+      self.updateHorloge.start()
+    else:
+      # rend l'hotrloge invisible
+      self.blackScreen.horloge.setVisible(False)
+    # rend le tout visible
     self.blackScreen.setVisible(True)
 
 
   def blackScreen_hide(self):
     self.blackScreen.setVisible(False)
+    if self.parent.screenSaverClock:
+      self.updateHorloge.quit()
 
 
   def isVisible(self):

@@ -4729,6 +4729,10 @@ class Ui_mainWindow(object):
     self.mnuBlackScreenOff.setCheckable(True)
     self.mnuBlackScreenOff.setChecked(False)
     self.mnuBlackScreenOff.setObjectName("mnuBlackScreenOff")
+    self.mnuScreenSaverClock = QtWidgets.QAction(mainWindow)
+    self.mnuScreenSaverClock.setCheckable(True)
+    self.mnuScreenSaverClock.setChecked(True)
+    self.mnuScreenSaverClock.setObjectName("mnuScreenSaverClock")
     self.mnuPreferences.addAction(self.mnuConfirm_Go_to_G28)
     self.mnuPreferences.addAction(self.mnuConfirm_Go_to_G30)
     self.mnuPreferences.addSeparator()
@@ -4792,6 +4796,8 @@ class Ui_mainWindow(object):
     self.mnuDisplay_black_screen.addAction(self.mnuBlackScreen120)
     self.mnuDisplay_black_screen.addAction(self.mnuBlackScreen360)
     self.mnuDisplay_black_screen.addAction(self.mnuBlackScreenOff)
+    self.mnuDisplay_black_screen.addSeparator()
+    self.mnuDisplay_black_screen.addAction(self.mnuScreenSaverClock)
     self.menuDisplay.addAction(self.mnuDisplay_full_sceen)
     self.menuDisplay.addAction(self.mnuDisplay_black_screen.menuAction())
     self.mnuBar.addAction(self.mnuApplication.menuAction())
@@ -5088,6 +5094,7 @@ class Ui_mainWindow(object):
     self.mnuBlackScreen120.setText(_translate("mainWindow", "2 hours"))
     self.mnuBlackScreen360.setText(_translate("mainWindow", "6 hours"))
     self.mnuBlackScreenOff.setText(_translate("mainWindow", "Disabled"))
+    self.mnuScreenSaverClock.setText(_translate("mainWindow", "Screen saver clock"))
 from cnQLabel import cnQLabel
 from cnQPushButton import cnQPushButton
 from cnled import cnLed
