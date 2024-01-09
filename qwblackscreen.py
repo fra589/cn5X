@@ -27,7 +27,8 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QThread, QEventLoop
 from PyQt5.QtGui import QKeyEvent
 from gcodeQLineEdit import gcodeQLineEdit
-from PyQt5.QtTest import QTest
+###from PyQt5.QtTest import QTest
+from cn5X_config import *
 
 import qwHorloge
 
@@ -121,7 +122,7 @@ class qwBlackScreen(QtWidgets.QWidget):
   def __init__(self, parent=None):
     super().__init__()
     
-    self.__txt = None
+    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
 
     # Initialise le widget écran noir
     self.parent = parent
@@ -137,6 +138,16 @@ class qwBlackScreen(QtWidgets.QWidget):
     self.blackScreen.horloge.ui = qwHorloge.Ui_qwHorloge()
     self.blackScreen.horloge.ui.setupUi(self.blackScreen.horloge)
     # redimentionne l'horloge en fonction de la police de caractères
+    fontSize = self.__settings.value("screenSaverClockFontSize", 72, type=int)
+    print(fontSize)
+    fontHM = self.blackScreen.horloge.ui.lblFondHM.font()
+    fontS  = self.blackScreen.horloge.ui.lblFondS.font()
+    fontHM.setPointSize(fontSize)
+    fontS.setPointSize(int(fontSize/2))
+    self.blackScreen.horloge.ui.lblFondHM.setFont(fontHM)
+    self.blackScreen.horloge.ui.lblHM.setFont(fontHM)
+    self.blackScreen.horloge.ui.lblFondS.setFont(fontS)
+    self.blackScreen.horloge.ui.lblS.setFont(fontS)
     self.resizeClock()
     self.blackScreen.horloge.setVisible(False)
     self.updateHorloge = horlogeUpdater(self.blackScreen.horloge)
