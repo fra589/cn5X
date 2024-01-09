@@ -56,7 +56,7 @@ class Ui_qwHorloge(object):
     self.lblS = QtWidgets.QLabel(qwHorloge)
     self.lblS.setGeometry(QtCore.QRect(330, 47, 81, 55))
     font = QtGui.QFont()
-    font.setFamily("DSEG14 Classic")
+    font.setFamily("DSEG14 Classic Mini")
     font.setPointSize(36)
     font.setItalic(True)
     self.lblS.setFont(font)

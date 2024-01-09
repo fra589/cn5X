@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="fonts">
     <file>LEDCalculator.ttf</file>
+    <file>DSEG14Classic.ttf</file>
+    <file>DSEG14ClassicMini.ttf</file>
   </qresource>
 </RCC>

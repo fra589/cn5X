@@ -3229,356 +3229,356 @@ G43.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2123"/>
+        <location filename="../cn5X.py" line="2141"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="514"/>
+        <location filename="../cn5X.py" line="521"/>
         <source>Urgent stop unlocked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="562"/>
+        <location filename="../cn5X.py" line="569"/>
         <source>Warning !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="562"/>
+        <location filename="../cn5X.py" line="569"/>
         <source>No communication port available!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="562"/>
+        <location filename="../cn5X.py" line="569"/>
         <source>{} could not find a serial port allowing to communicate with grbl.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="562"/>
+        <location filename="../cn5X.py" line="569"/>
         <source>
 class serialCom:
 &quot;serial.tools.list_ports.comports()&quot; did not return any port.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="583"/>
+        <location filename="../cn5X.py" line="590"/>
         <source>Run probe in X+, X-, Y+ and Y- direction to find inside center.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="613"/>
+        <location filename="../cn5X.py" line="620"/>
         <source>Run probe in X- and Y+ direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="617"/>
+        <location filename="../cn5X.py" line="624"/>
         <source>Run probe in X+ and Y+ direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="605"/>
+        <location filename="../cn5X.py" line="612"/>
         <source>Run probe in X+ and Y- direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="609"/>
+        <location filename="../cn5X.py" line="616"/>
         <source>Run probe in X- and Y- direction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="603"/>
+        <location filename="../cn5X.py" line="610"/>
         <source>Run probe in X+, X-, Y+ and Y- direction to find outside center.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="661"/>
+        <location filename="../cn5X.py" line="668"/>
         <source>Double click to
 unlock the emergency stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="673"/>
+        <location filename="../cn5X.py" line="680"/>
         <source>Emergency stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="816"/>
+        <location filename="../cn5X.py" line="823"/>
         <source>Closing the application...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="822"/>
+        <location filename="../cn5X.py" line="829"/>
         <source>Closing file canceled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="996"/>
+        <location filename="../cn5X.py" line="1014"/>
         <source>Error !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="996"/>
+        <location filename="../cn5X.py" line="1014"/>
         <source>Saved axis definition is not identical to the current one!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="996"/>
+        <location filename="../cn5X.py" line="1014"/>
         <source>Can&apos;t restore G92 offsets if the current axis definition (axis number and names) is not the same as the saved one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1007"/>
+        <location filename="../cn5X.py" line="1025"/>
         <source>Restore previously saved G92 offsets:
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1019"/>
+        <location filename="../cn5X.py" line="1037"/>
         <source>Restore G92 offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1019"/>
+        <location filename="../cn5X.py" line="1037"/>
         <source>Actuals G92 offsets will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1251"/>
+        <location filename="../cn5X.py" line="1269"/>
         <source>on_btnProbeZ(): The requested axis ({}) is not in the axis list of this machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1256"/>
+        <location filename="../cn5X.py" line="1274"/>
         <source>on_btnProbeZ(): {} no response from probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1261"/>
+        <location filename="../cn5X.py" line="1279"/>
         <source>on_btnProbeZ(): {} Probe error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1266"/>
+        <location filename="../cn5X.py" line="1284"/>
         <source>on_btnProbeZ(): F Speed undefined or less or equal to zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1870"/>
+        <location filename="../cn5X.py" line="1888"/>
         <source>on_btnProbeXY(): The requested axis ({}) is not in the axis list of this machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1875"/>
+        <location filename="../cn5X.py" line="1893"/>
         <source>on_btnProbeXY(): {} no response from probe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1880"/>
+        <location filename="../cn5X.py" line="1898"/>
         <source>on_btnProbeXY(): {} Probe error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="1885"/>
+        <location filename="../cn5X.py" line="1903"/>
         <source>on_btnProbeXY(): F Speed undefined or less or equal to zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2052"/>
+        <location filename="../cn5X.py" line="2070"/>
         <source>Grbl configuration updated: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2069"/>
+        <location filename="../cn5X.py" line="2087"/>
         <source>Unlocking emergency stop.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2074"/>
+        <location filename="../cn5X.py" line="2092"/>
         <source>Emergency stop pressed: STOP !!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2110"/>
+        <location filename="../cn5X.py" line="2128"/>
         <source>Connected to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2111"/>
+        <location filename="../cn5X.py" line="2129"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2122"/>
+        <location filename="../cn5X.py" line="2140"/>
         <source>&lt;Not Connected&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2403"/>
+        <location filename="../cn5X.py" line="2421"/>
         <source>cn5X++ : Grbl initialized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2571"/>
+        <location filename="../cn5X.py" line="2589"/>
         <source>Version {}.{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2611"/>
+        <location filename="../cn5X.py" line="2629"/>
         <source>Attempt to start an empty cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2613"/>
+        <location filename="../cn5X.py" line="2631"/>
         <source>Starting cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2632"/>
+        <location filename="../cn5X.py" line="2650"/>
         <source>Cycle completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2634"/>
+        <location filename="../cn5X.py" line="2652"/>
         <source>GCode finished at: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2649"/>
+        <location filename="../cn5X.py" line="2667"/>
         <source>Holding in progress, can&apos;t restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2651"/>
+        <location filename="../cn5X.py" line="2669"/>
         <source>Resuming cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2658"/>
+        <location filename="../cn5X.py" line="2676"/>
         <source>Holding cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2689"/>
+        <location filename="../cn5X.py" line="2707"/>
         <source>Stopping cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2683"/>
+        <location filename="../cn5X.py" line="2701"/>
         <source>Holding cycle before stopping...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2703"/>
+        <location filename="../cn5X.py" line="2721"/>
         <source>Cycle stopped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2709"/>
+        <location filename="../cn5X.py" line="2727"/>
         <source>Edit line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2712"/>
+        <location filename="../cn5X.py" line="2730"/>
         <source>Insert line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2715"/>
+        <location filename="../cn5X.py" line="2733"/>
         <source>Add line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2718"/>
+        <location filename="../cn5X.py" line="2736"/>
         <source>Suppress line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2722"/>
+        <location filename="../cn5X.py" line="2740"/>
         <source>Run this line<byte value="x9"/>(F7)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2726"/>
+        <location filename="../cn5X.py" line="2744"/>
         <source>Run from this line<byte value="x9"/>(F8)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2786"/>
+        <location filename="../cn5X.py" line="2804"/>
         <source>Reset feedrate to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2794"/>
+        <location filename="../cn5X.py" line="2812"/>
         <source>Reset spindle speed to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2802"/>
+        <location filename="../cn5X.py" line="2820"/>
         <source>Place the {} origin of axis {} here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2805"/>
+        <location filename="../cn5X.py" line="2823"/>
         <source>Place the {} origin of all axis here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2815"/>
+        <location filename="../cn5X.py" line="2833"/>
         <source>Jog axis {} to {} origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2819"/>
+        <location filename="../cn5X.py" line="2837"/>
         <source>Jog all axis to {} origin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2833"/>
+        <location filename="../cn5X.py" line="2851"/>
         <source>Place the workpiece origin {} (G{})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2837"/>
+        <location filename="../cn5X.py" line="2855"/>
         <source>G17 Working plane - XY (Defaut)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2840"/>
+        <location filename="../cn5X.py" line="2858"/>
         <source>G18 Working plane - XZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2843"/>
+        <location filename="../cn5X.py" line="2861"/>
         <source>G19 Working plane - YZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2851"/>
+        <location filename="../cn5X.py" line="2869"/>
         <source>G20 - Work units in inches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2854"/>
+        <location filename="../cn5X.py" line="2872"/>
         <source>G21 - Work units in millimeters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2862"/>
+        <location filename="../cn5X.py" line="2880"/>
         <source>G90 - Absolute coordinates movements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2865"/>
+        <location filename="../cn5X.py" line="2883"/>
         <source>G91 - relative coordinates movements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2972"/>
+        <location filename="../cn5X.py" line="2990"/>
         <source>Use system language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cn5X.py" line="2963"/>
+        <location filename="../cn5X.py" line="2981"/>
         <source>Locale ({}) not usable, using default to english</source>
         <translation type="unfinished"></translation>
     </message>

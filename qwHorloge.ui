@@ -113,7 +113,7 @@ background-color: None;</string>
    </property>
    <property name="font">
     <font>
-     <family>DSEG14 Classic</family>
+     <family>DSEG14 Classic Mini</family>
      <pointsize>36</pointsize>
      <italic>true</italic>
     </font>

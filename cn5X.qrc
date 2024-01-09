@@ -113,6 +113,8 @@
     <file>images/btnUrgenceOff.svg</file>
     <file>images/XYZAB.svg</file>
     <file>fonts/LEDCalculator.ttf</file>
+    <file>fonts/DSEG14Classic.ttf</file>
+    <file>fonts/DSEG14ClassicMini.ttf</file>
   </qresource>
   <qresource prefix="doc">
     <file>doc/probeInsideCenter.svg</file>

@@ -3051,6 +3051,8 @@ if __name__ == '__main__':
 
   # Chargement police LED Calculator depuis le fichier de ressources
   QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")
+  QFontDatabase.addApplicationFont(":/cn5X/fonts/DSEG14Classic.ttf")
+  QFontDatabase.addApplicationFont(":/cn5X/fonts/DSEG14ClassicMini.ttf")
 
   translator = QTranslator()
   langue = QLocale(QLocale.French, QLocale.France)
