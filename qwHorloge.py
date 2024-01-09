@@ -22,7 +22,7 @@ class Ui_qwHorloge(object):
     font.setPointSize(72)
     font.setItalic(True)
     self.lblFondHM.setFont(font)
-    self.lblFondHM.setStyleSheet("color: rgb(16, 32, 16);\n"
+    self.lblFondHM.setStyleSheet("color: rgb(24, 40, 24);\n"
 "background-color: None;")
     self.lblFondHM.setTextFormat(QtCore.Qt.PlainText)
     self.lblFondHM.setAlignment(QtCore.Qt.AlignCenter)
@@ -48,7 +48,7 @@ class Ui_qwHorloge(object):
     font.setPointSize(36)
     font.setItalic(True)
     self.lblFondS.setFont(font)
-    self.lblFondS.setStyleSheet("color: rgb(16, 32, 16);\n"
+    self.lblFondS.setStyleSheet("color: rgb(24, 40, 24);\n"
 "background-color: None;")
     self.lblFondS.setTextFormat(QtCore.Qt.PlainText)
     self.lblFondS.setAlignment(QtCore.Qt.AlignCenter)

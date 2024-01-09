@@ -27,7 +27,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(16, 32, 16);
+    <string notr="true">color: rgb(24, 40, 24);
 background-color: None;</string>
    </property>
    <property name="text">
@@ -89,7 +89,7 @@ background-color: None;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(16, 32, 16);
+    <string notr="true">color: rgb(24, 40, 24);
 background-color: None;</string>
    </property>
    <property name="text">

@@ -133,9 +133,11 @@ class qwBlackScreen(QtWidgets.QWidget):
     
     # widget horloge
     self.blackScreen.horloge  = QtWidgets.QWidget(self.blackScreen)
-    self.blackScreen.horloge.setStyleSheet("background-color: black")
+    self.blackScreen.horloge.setStyleSheet("background-color: None")
     self.blackScreen.horloge.ui = qwHorloge.Ui_qwHorloge()
     self.blackScreen.horloge.ui.setupUi(self.blackScreen.horloge)
+    # redimentionne l'horloge en fonction de la police de caractères
+    self.resizeClock()
     self.blackScreen.horloge.setVisible(False)
     self.updateHorloge = horlogeUpdater(self.blackScreen.horloge)
     
@@ -149,16 +151,27 @@ class qwBlackScreen(QtWidgets.QWidget):
     if self.parent.screenSaverClock:
       # place l'horloge au millieu
       self.blackScreen.horloge.move(int((self.blackScreen.width()-self.blackScreen.horloge.width())/2), int((self.blackScreen.height()-self.blackScreen.horloge.height())/2))
-      # rend l'hotrloge visible
+      # horloge visible
       self.blackScreen.horloge.setVisible(True)
       # lance la mise à jour de l'horloge
       self.updateHorloge.start()
     else:
-      # rend l'hotrloge invisible
+      # horloge invisible
       self.blackScreen.horloge.setVisible(False)
     # rend le tout visible
     self.blackScreen.setVisible(True)
 
+
+  def resizeClock(self):
+    ''' Ajuste la dimention de l'horloge en fonction de la police de caractères '''
+    self.blackScreen.horloge.ui.lblFondHM.adjustSize()
+    self.blackScreen.horloge.ui.lblHM.adjustSize()
+    self.blackScreen.horloge.ui.lblFondS.adjustSize()
+    self.blackScreen.horloge.ui.lblS.adjustSize()
+    self.blackScreen.horloge.ui.lblFondS.move(self.blackScreen.horloge.ui.lblHM.width(), self.blackScreen.horloge.ui.lblHM.height() - self.blackScreen.horloge.ui.lblS.height())
+    self.blackScreen.horloge.ui.lblS.move(self.blackScreen.horloge.ui.lblHM.width(), self.blackScreen.horloge.ui.lblHM.height() - self.blackScreen.horloge.ui.lblS.height())
+    self.blackScreen.horloge.adjustSize()
+    
 
   def blackScreen_hide(self):
     self.blackScreen.setVisible(False)
