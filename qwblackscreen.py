@@ -139,7 +139,6 @@ class qwBlackScreen(QtWidgets.QWidget):
     self.blackScreen.horloge.ui.setupUi(self.blackScreen.horloge)
     # redimentionne l'horloge en fonction de la police de caractères
     fontSize = self.__settings.value("screenSaverClockFontSize", 72, type=int)
-    print(fontSize)
     fontHM = self.blackScreen.horloge.ui.lblFondHM.font()
     fontS  = self.blackScreen.horloge.ui.lblFondS.font()
     fontHM.setPointSize(fontSize)

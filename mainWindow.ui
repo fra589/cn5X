@@ -10492,6 +10492,8 @@ G43.1</string>
      <addaction name="mnuScreenSaverClock"/>
     </widget>
     <addaction name="mnuDisplay_full_sceen"/>
+    <addaction name="mnuDisplay_icon"/>
+    <addaction name="separator"/>
     <addaction name="mnuDisplay_black_screen"/>
    </widget>
    <widget class="QMenu" name="menuLangue">
@@ -10533,6 +10535,16 @@ G43.1</string>
     </property>
     <property name="shortcut">
      <string>F11</string>
+    </property>
+   </action>
+   <action name="mnuDisplay_icon">
+    <property name="text">
+     <string>Reduce to icon</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
    </action>
    <addaction name="mnuApplication"/>

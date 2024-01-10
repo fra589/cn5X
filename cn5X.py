@@ -333,6 +333,7 @@ class winMain(QtWidgets.QMainWindow):
 
     # Menu Display
     self.ui.mnuDisplay_full_sceen.triggered.connect(self.on_mnuDisplay_full_sceen)
+    self.ui.mnuDisplay_icon.triggered.connect(self.on_mnuDisplay_icon)
     self.ui.mnuBlackScreen0.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(0))
     self.ui.mnuBlackScreen1.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(1))
     self.ui.mnuBlackScreen5.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(5))
@@ -828,6 +829,7 @@ class winMain(QtWidgets.QMainWindow):
     else:
       self.__statusText = "Bye-bye..."
       self.ui.statusBar.showMessage(self.__statusText)
+      os._exit(0)
       event.accept() # let the window close
 
 
@@ -860,6 +862,11 @@ class winMain(QtWidgets.QMainWindow):
       self.timerVeille.stop()
       # Mémorise l'état dans les settings
       self.__settings.setValue("displayFullScreen", False)
+
+
+  @pyqtSlot()
+  def on_mnuDisplay_icon(self):
+    self.showMinimized()
 
 
   @pyqtSlot()
