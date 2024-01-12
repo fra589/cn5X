@@ -44,6 +44,7 @@ from grblProbe import *
 from cn5X_gcodeFile import gcodeFile
 from qwprogressbox import *
 from qwkeyboard import *
+from qwkeynum import *
 from qwblackscreen import *
 from grblConfig import grblConfig
 from cn5X_apropos import cn5XAPropos
@@ -77,6 +78,35 @@ class appEventFilter(QObject):
         self.__win.blackScreen.blackScreen_hide()
         return True # Bloque la suite du traitement de l'évennement
     return super().eventFilter(obj, event)
+
+
+class focusEventFilter(QtCore.QObject):
+  
+  def __init__(self, keyNum, parent=None):
+    self.__keyNum = keyNum
+    self.parent = parent
+    super().__init__()
+
+  def eventFilter(self, widget, event):
+    # FocusIn event
+    if event.type() == QtCore.QEvent.FocusIn:
+      if self.__keyNum.parent.showKeynum:
+        if self.__keyNum.parent.qwKeyboard.isVisible():
+          self.__keyNum.parent.qwKeyboard.keyboard_hide()
+          self.__keyNum.parent.ui.btnKeyboard.setText("⇧⌨⇧")
+        # Affiche le pavé numérique
+        self.__keyNum.setLinkedTxt(widget)
+        self.__keyNum.keynum_show()
+
+    # FocusOut event
+    if event.type() == QtCore.QEvent.FocusOut:
+      if self.__keyNum.isVisible():
+        # Masque le pavé numérique
+        self.__keyNum.setLinkedTxt(None)
+        self.__keyNum.keynum_hide()
+
+    # Return False pour l'execution standard de l'event
+    return False
 
 
 class winMain(QtWidgets.QMainWindow):
@@ -156,8 +186,18 @@ class winMain(QtWidgets.QMainWindow):
     self.__pBox = qwProgressBox(self)
     
     # initialise le clavier
-    self.__qwKeyboard = qwKeyboard(self)
-    self.__qwKeyboard.setLinkedTxt(self.ui.txtGCode)
+    self.qwKeyboard = qwKeyboard(self)
+    self.qwKeyboard.setLinkedTxt(self.ui.txtGCode)
+    
+    # Pavé numérique
+    self.showKeynum = self.__settings.value("showKeynum", False, type=bool)
+    self.ui.mnuShowKeynum.setChecked(self.showKeynum)
+    self.__qwKeyNum = qwKeyNum(self)
+    self.__numInputFilter = focusEventFilter(self.__qwKeyNum)
+    
+    ###self.ui.dsbJogSpeed.installEventFilter(self.__numInputFilter)
+    for dbsInput in self.findChildren(QtWidgets.QDoubleSpinBox):
+      dbsInput.installEventFilter(self.__numInputFilter)
     
     self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
     self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
@@ -172,7 +212,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logGrbl.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
     self.logCn5X.document().setMaximumBlockCount(2000)  # Limite la taille des logs a 2000 lignes
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
-    self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)               # Active le tab de la log cn5X++
+    self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)   # Active le tab de la log cn5X++
 
     self.timerDblClic = QtCore.QTimer()
 
@@ -343,6 +383,7 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.mnuBlackScreen360.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(360))
     self.ui.mnuBlackScreenOff.triggered.connect(lambda: self.on_mnuDisplayBlackScreen(-1))
     self.ui.mnuScreenSaverClock.triggered.connect(self.on_mnuScreenSaverClock)
+    self.ui.mnuShowKeynum.triggered.connect(self.on_mnuShowKeynum)
 
     # Menu d'aide
     self.ui.mnuHelpProbe_single_axis.triggered.connect(lambda: self.on_mnuHelpProbe(MENU_SINGLE_AXIS))
@@ -867,6 +908,16 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot()
   def on_mnuDisplay_icon(self):
     self.showMinimized()
+
+
+  @pyqtSlot()
+  def on_mnuShowKeynum(self):
+    if self.ui.mnuShowKeynum.isChecked():
+      self.showKeynum = True
+      self.__settings.setValue("showKeynum", True)
+    else:
+      self.showKeynum = False
+      self.__settings.setValue("showKeynum", False)
 
 
   @pyqtSlot()
@@ -2317,13 +2368,13 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def showKeyboard(self):
-    if not self.__qwKeyboard.isVisible():
-      self.__qwKeyboard.keyboard_show()
+    if not self.qwKeyboard.isVisible():
+      self.qwKeyboard.keyboard_show()
       self.ui.txtGCode.setFocus()
       self.ui.txtGCode.selectAll()
       self.ui.btnKeyboard.setText("⇩⌨⇩")
     else:
-      self.__qwKeyboard.keyboard_hide()
+      self.qwKeyboard.keyboard_hide()
       self.ui.txtGCode.setFocus()
       self.ui.txtGCode.selectAll()
       self.ui.btnKeyboard.setText("⇧⌨⇧")
