@@ -44,7 +44,7 @@ class qwKeyNum(QtWidgets.QWidget):
     self.parent = parent
     self.keynum = QtWidgets.QFrame(parent)
     self.keynum.setStyleSheet(".QFrame{background-color: rgba(192, 192, 192, 192); border: 1px solid #000060; margin: 0px; padding: 0px;}")
-    self.keynum.move(80, 80)
+    self.keynum.move(30, 48)
     self.keynum.ui = qwKeyNum_ui.Ui_keynum()
     self.keynum.ui.setupUi(self.keynum)
     # Le clavier est masqué au départ
@@ -67,8 +67,17 @@ class qwKeyNum(QtWidgets.QWidget):
 
     self.keynum.ui.keybButtonLeft.pressed.connect(lambda: self.keynumMove("Left"))
     self.keynum.ui.keybButtonRight.pressed.connect(lambda: self.keynumMove("Right"))
+    self.keynum.ui.keybButtonHome.pressed.connect(lambda: self.keynumMove("Home"))
+    self.keynum.ui.keybButtonEnd.pressed.connect(lambda: self.keynumMove("End"))
+
 
     self.keynum.ui.keybButtonBackSpace.pressed.connect(lambda: self.keynumDel("Back"))
+    self.keynum.ui.keybButtonClear.pressed.connect(lambda: self.keynumDel("Clear"))
+
+    self.keynum.ui.keybButtonUp.pressed.connect(lambda: self.keynumUpDown(Qt.Key_Up))
+    self.keynum.ui.keybButtonDown.pressed.connect(lambda: self.keynumUpDown(Qt.Key_Down))
+
+    self.keynum.ui.btnClose.pressed.connect(self.keynum_hide)
 
     
   @pyqtSlot(gcodeQLineEdit)
@@ -100,14 +109,14 @@ class qwKeyNum(QtWidgets.QWidget):
   def keynumMove(self, action):
     if self.__txt is not None:
       self.__txt.setFocus()
-      if action == "Home":
-        self.__txt.lineEdit().setCursorPosition(0)
-      elif action == "Left":
+      if action == "Left":
         if self.__txt.lineEdit().cursorPosition() > 0:
           self.__txt.lineEdit().setCursorPosition(self.__txt.lineEdit().cursorPosition()-1)
       elif action == "Right":
         if self.__txt.lineEdit().cursorPosition() < len(self.__txt.lineEdit().text()):
           self.__txt.lineEdit().setCursorPosition(self.__txt.lineEdit().cursorPosition()+1)
+      elif action == "Home":
+        self.__txt.lineEdit().setCursorPosition(0)
       elif action == "End":
         self.__txt.lineEdit().setCursorPosition(len(self.__txt.lineEdit().text()))
 
@@ -122,4 +131,10 @@ class qwKeyNum(QtWidgets.QWidget):
         QCoreApplication.postEvent(self.__txt, keyEvent)
       elif action == "Clear":
         self.__txt.clear()
+
+
+  def keynumUpDown(self, key):
+      keyEvent = QKeyEvent(QEvent.KeyPress, key, Qt.NoModifier)
+      QCoreApplication.postEvent(self.__txt, keyEvent)
+
 
