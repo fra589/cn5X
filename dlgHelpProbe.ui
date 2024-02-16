@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2024 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -35,7 +35,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
+    <normaloff>images/XYZAB.svg</normaloff>images/XYZAB.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -84,9 +84,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="cn5X.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

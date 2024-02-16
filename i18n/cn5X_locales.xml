@@ -28,24 +28,24 @@
     <locale>fr</locale>
     <label>Français</label>
     <qm_file>cn5X.fr.qm</qm_file>
-    <flag_file>:/i18n/i18n/flags/flag_fr.svg</flag_file>
+    <flag_file>i18n/flags/flag_fr.svg</flag_file>
   </translation>
   <translation>
     <locale>en</locale>
     <label>English</label>
     <qm_file>cn5X.en.qm</qm_file>
-    <flag_file>:/i18n/i18n/flags/flag_en.svg</flag_file>
+    <flag_file>i18n/flags/flag_en.svg</flag_file>
   </translation>
   <inactive_translation>
     <locale>es</locale>
     <label>Español</label>
     <qm_file>cn5X.es.qm</qm_file>
-    <flag_file>:/i18n/i18n/flags/flag_es.svg</flag_file>
+    <flag_file>i18n/flags/flag_es.svg</flag_file>
   </inactive_translation>
   <inactive_translation>
     <locale>pt</locale>
     <label>Português</label>
     <qm_file>cn5X.pt.qm</qm_file>
-    <flag_file>:/i18n/i18n/flags/flag_pt.svg</flag_file>
+    <flag_file>i18n/flags/flag_pt.svg</flag_file>
   </inactive_translation>
 </locales>

@@ -22,28 +22,14 @@
 #''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 #-----------------------------------------------------------------------
-# Compile les fichiers .ui de QT Designer vers scripts Python
-# Compile les fichiers de ressources vers scripts Python
+# Compile les fichiers de langue
 #-----------------------------------------------------------------------
 
-PYUIC=pyuic5
-PYUICFLAGS=-di2
-PYRCC=pyrcc5
-PYRCCFLAGS=
 LANG_DIR=i18n
 
-all: *.py lang ressources
+all: lang
 
 lang: $(LANG_DIR)/*.qm $(LANG_DIR)/cn5X_locales.xml
 	@(cd $(LANG_DIR) && $(MAKE))
 
-ressources: lang cn5X_rc.py cn5X.qrc
-
 %.qm: %.ts cn5X.pro
-
-%.py: %.ui
-	$(PYUIC) $(PYUICFLAGS) $< -o $@
-
-%_rc.py: %.qrc
-	$(PYRCC) $(PYRCCFLAGS) $< -o $@
-

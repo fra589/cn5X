@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,34 +21,34 @@
 '                                      cn5X_dlgG92                                   '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QValidator, QPalette
+import os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QValidator, QPalette
 from cn5X_config import *
 from grblCom import grblCom
-from dlgG92 import *
 from msgbox import *
 
-class dlgG92(QObject):
+
+class dlgG92(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue G92 '''
 
   def __init__(self, grbl: grblCom, decoder, axisNumber: int, axisNames: list):
     super().__init__()
-    self.__dlgG92 = QDialog()
-    self.di = Ui_dlgG92()
-    self.di.setupUi(self.__dlgG92)
+    self.di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgG92.ui"), self)
 
     self.__grblCom   = grbl
     self.__decode    = decoder
     self.__nbAxis    = axisNumber
     self.__axisNames = axisNames
 
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
     self.di.chkAutoclose.setChecked(self.__settings.value("G92/autoCloseDialog", False, type=bool))
 
     # Mémorise les couleurs standard des spin boxes
-    self.activeColor   = self.di.dsbG92valeurX.palette().color(QPalette.Active, QPalette.WindowText).name()
-    self.disabledColor = self.di.dsbG92valeurX.palette().color(QPalette.Disabled, QPalette.WindowText).name()
+    self.activeColor   = self.di.dsbG92valeurX.palette().color(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText).name()
+    self.disabledColor = self.di.dsbG92valeurX.palette().color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText).name()
     
     # Mise à jour de l'interface en fonction de la définition des axes:
     self.di.chkDefineX.setText("Assign {} value".format(self.__axisNames[0]))
@@ -96,7 +96,7 @@ class dlgG92(QObject):
     
     # Connection des actions
     self.di.chkAutoclose.toggled.connect(self.on_chkAutoclose_toggled)
-    self.di.buttonBox.button(QDialogButtonBox.Close).clicked.connect(self.__dlgG92.close)
+    self.di.buttonBox.button(QDialogButtonBox.Close).clicked.connect(self.close)
     self.di.btnSetOriginG92.clicked.connect(self.on_btnSetOriginG92)
     self.di.btnSetOriginG92_1.clicked.connect(self.on_btnSetOriginG92_1)
 
@@ -156,13 +156,13 @@ class dlgG92(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlgG92.geometry().width()
-    myHeight = self.__dlgG92.geometry().height()
-    self.__dlgG92.setFixedSize(self.__dlgG92.geometry().width(),self.__dlgG92.geometry().height())
-    self.__dlgG92.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlgG92.setWindowFlags(Qt.Window | Qt.Dialog)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.Dialog)
 
-    RC = self.__dlgG92.exec()
+    RC = self.exec()
     return RC
 
 
@@ -186,7 +186,7 @@ class dlgG92(QObject):
     self.__grblCom.gcodePush(originGcode)
     if self.di.chkAutoclose.isChecked():
       # Fermeture de la dialog
-      self.__dlgG92.close()
+      self.close()
 
 
   def on_btnSetOriginG92_1(self):
@@ -194,7 +194,7 @@ class dlgG92(QObject):
     self.__grblCom.gcodePush("G92.1")
     if self.di.chkAutoclose.isChecked():
       # Fermeture de la dialog
-      self.__dlgG92.close()
+      self.close()
 
 
   def on_chkDefine_toogle(self, axis: str):

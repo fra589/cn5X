@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2024 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -29,16 +29,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>345</width>
-    <height>260</height>
+    <width>457</width>
+    <height>353</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Jog to location</string>
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
+    <normaloff>images/XYZAB.svg</normaloff>images/XYZAB.svg</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <property name="spacing">
@@ -263,10 +268,16 @@
          </item>
          <item row="0" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogX">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -305,14 +316,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -332,7 +343,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogX.svg</normaloff>:/cn5X/images/btnJogX.svg</iconset>
+             <normaloff>images/btnJogX.svg</normaloff>images/btnJogX.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -354,10 +365,16 @@
          </item>
          <item row="1" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogY">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -396,14 +413,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -423,7 +440,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogY.svg</normaloff>:/cn5X/images/btnJogY.svg</iconset>
+             <normaloff>images/btnJogY.svg</normaloff>images/btnJogY.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -445,10 +462,16 @@
          </item>
          <item row="2" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogZ">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -487,14 +510,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -514,7 +537,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogZ.svg</normaloff>:/cn5X/images/btnJogZ.svg</iconset>
+             <normaloff>images/btnJogZ.svg</normaloff>images/btnJogZ.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -536,10 +559,16 @@
          </item>
          <item row="3" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogA">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -578,14 +607,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -605,7 +634,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogA.svg</normaloff>:/cn5X/images/btnJogA.svg</iconset>
+             <normaloff>images/btnJogA.svg</normaloff>images/btnJogA.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -627,10 +656,16 @@
          </item>
          <item row="4" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogB">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -669,14 +704,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -696,7 +731,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogB.svg</normaloff>:/cn5X/images/btnJogB.svg</iconset>
+             <normaloff>images/btnJogB.svg</normaloff>images/btnJogB.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -718,10 +753,16 @@
          </item>
          <item row="5" column="1">
           <widget class="QDoubleSpinBox" name="dsbJogC">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>23</height>
+             <height>32</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -760,14 +801,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>46</width>
-             <height>23</height>
+             <width>64</width>
+             <height>32</height>
             </size>
            </property>
            <property name="baseSize">
@@ -784,7 +825,7 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogC.svg</normaloff>:/cn5X/images/btnJogC.svg</iconset>
+             <normaloff>images/btnJogC.svg</normaloff>images/btnJogC.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -876,12 +917,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
@@ -949,14 +984,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>80</width>
-             <height>80</height>
+             <width>110</width>
+             <height>110</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>80</width>
-             <height>80</height>
+             <width>110</width>
+             <height>110</height>
             </size>
            </property>
            <property name="cursor">
@@ -970,12 +1005,12 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
+             <normaloff>images/XYZAB.svg</normaloff>images/XYZAB.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
-             <width>78</width>
-             <height>78</height>
+             <width>100</width>
+             <height>100</height>
             </size>
            </property>
            <property name="autoDefault">
@@ -996,14 +1031,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>80</width>
-             <height>80</height>
+             <width>110</width>
+             <height>110</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>80</width>
-             <height>80</height>
+             <width>110</width>
+             <height>110</height>
             </size>
            </property>
            <property name="cursor">
@@ -1017,12 +1052,12 @@
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnJogStop.svg</normaloff>:/cn5X/images/btnJogStop.svg</iconset>
+             <normaloff>images/btnJogStop.svg</normaloff>images/btnJogStop.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
-             <width>78</width>
-             <height>78</height>
+             <width>100</width>
+             <height>100</height>
             </size>
            </property>
            <property name="autoDefault">
@@ -1033,7 +1068,7 @@
          <item>
           <widget class="QDialogButtonBox" name="buttonBox">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -1061,8 +1096,6 @@
    <header>cnQPushButton</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="cn5X.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

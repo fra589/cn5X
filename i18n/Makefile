@@ -35,5 +35,5 @@ all: $(QMFILES)
 	lrelease cn5X.pro
 
 %.ts: ../*.py cn5X.pro
-	pylupdate5 cn5X.pro
+	lupdate cn5X.pro
 

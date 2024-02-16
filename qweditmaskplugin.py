@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Python v3 PyQt5
+# Python v3 PyQt6
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -23,7 +23,7 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtGui, QtDesigner
+from PyQt6 import QtGui, QtDesigner
 
 # ===== adapter selon le widget! ==========================================
 # nom (str) du fichier du widget sans extension

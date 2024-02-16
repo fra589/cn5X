@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -22,9 +22,8 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import sys, os
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
-import cn5X_rc
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import pyqtSignal, pyqtSlot, QSize, pyqtProperty
 
 class cnLed(QtWidgets.QLabel):
   ''' QLabel affichant une image de Led eteinte ou allumee '''
@@ -37,12 +36,12 @@ class cnLed(QtWidgets.QLabel):
     self.__couleur = "Rouge" # Rouge ou Verte
     
     # Chemin des images dans le fichier de resources
-    self.__imagePath = ":/cn5X/images/"
+    self.__imagePath = os.path.join(os.path.dirname(__file__), "images/")
     self.iconOff = QtGui.QPixmap(self.__imagePath + "led" + self.__couleur + "Eteinte.svg")
     self.iconOn  = QtGui.QPixmap(self.__imagePath + "led" + self.__couleur + "Alumee.svg")
 
     # Proprietes du label
-    self.setMaximumSize(QtCore.QSize(20, 20))
+    self.setMaximumSize(QSize(20, 20))
     self.setText("")
     self.setPixmap(self.iconOff)
     self.setScaledContents(True)
@@ -86,5 +85,5 @@ class cnLed(QtWidgets.QLabel):
 
 
   # Definie les propriétés pour permettre la configuration par Designer
-  ledStatus = QtCore.pyqtProperty("bool", fget=ledStatus, fset=setLedStatus)
-  Couleur = QtCore.pyqtProperty("QString", fget=Couleur, fset=setCouleur)
+  ledStatus = pyqtProperty("bool", fget=ledStatus, fset=setLedStatus)
+  Couleur = pyqtProperty("QString", fget=Couleur, fset=setCouleur)

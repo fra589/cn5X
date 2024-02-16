@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -23,8 +23,8 @@
 
 import sys, time
 from math import *
-from PyQt5 import QtCore
-from PyQt5.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
+from PyQt6 import QtCore
+from PyQt6.QtCore import QCoreApplication, QObject, QThread, QTimer, QEventLoop, pyqtSignal, pyqtSlot, QIODevice
 from cn5X_config import *
 from grblComSerial import grblComSerial
 
@@ -66,7 +66,7 @@ class grblCom(QObject):
     self.__grblStatus    = ""
     self.__threads = []
     self.__refreshGcodeParameters = False
-    self.timerRefreshGcode = QtCore.QTimer()
+    self.timerRefreshGcode = QTimer()
 
 
   def setDecodeur(self, decodeur):

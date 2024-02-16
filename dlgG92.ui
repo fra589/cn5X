@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2024 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -44,7 +44,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/origine.svg</normaloff>:/cn5X/images/origine.svg</iconset>
+    <normaloff>images/origine.svg</normaloff>images/origine.svg</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -92,7 +92,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="cn5X.qrc">:/cn5X/images/origine.svg</pixmap>
+         <pixmap resource="cn5X.qrc">images/origine.svg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -507,8 +507,6 @@ G92</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="cn5X.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

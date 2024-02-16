@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2024 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -41,7 +41,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
+    <normaloff>images/XYZAB.svg</normaloff>images/XYZAB.svg</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <property name="spacing">
@@ -108,7 +108,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="cn5X.qrc">:/cn5X/images/fraise.svg</pixmap>
+         <pixmap resource="cn5X.qrc">images/fraise.svg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -278,7 +278,7 @@ to continue when ready.</string>
               </property>
               <property name="icon">
                <iconset resource="cn5X.qrc">
-                <normaloff>:/cn5X/images/btnProbeZ-.svg</normaloff>:/cn5X/images/btnProbeZ-.svg</iconset>
+                <normaloff>images/btnProbeZ-.svg</normaloff>images/btnProbeZ-.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -803,7 +803,7 @@ G43.1</string>
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnGo.svg</normaloff>:/cn5X/images/btnGo.svg</iconset>
+             <normaloff>images/btnGo.svg</normaloff>images/btnGo.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -847,7 +847,7 @@ G43.1</string>
            </property>
            <property name="icon">
             <iconset resource="cn5X.qrc">
-             <normaloff>:/cn5X/images/btnStop.svg</normaloff>:/cn5X/images/btnStop.svg</iconset>
+             <normaloff>images/btnStop.svg</normaloff>images/btnStop.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -872,9 +872,6 @@ G43.1</string>
    <header>cnQPushButton</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="cn5X.qrc"/>
-  <include location="cn5X.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

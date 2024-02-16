@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -22,15 +22,17 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import sys, os
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import pyqtSignal
+
 
 class cnQLabel(QtWidgets.QLabel):
   '''
   QLabel avec gestion de click
   '''
 
-  clicked     = QtCore.pyqtSignal(str, QtGui.QMouseEvent)
-  doubleClick = QtCore.pyqtSignal(str, QtGui.QMouseEvent)
+  clicked     = pyqtSignal(str, QtGui.QMouseEvent)
+  doubleClick = pyqtSignal(str, QtGui.QMouseEvent)
 
   def __init__(self, parent=None):
     super(cnQLabel, self).__init__(parent=parent)

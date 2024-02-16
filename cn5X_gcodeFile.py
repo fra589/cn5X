@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X_gcodeFile.py is part of cn5X++                          '
 '                                                                         '
@@ -23,10 +23,10 @@
 
 import os, sys
 from datetime import datetime
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel, QSettings
-from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QListView
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QModelIndex, QItemSelectionModel, QSettings
+from PyQt6.QtGui import QKeySequence, QStandardItemModel, QStandardItem
+from PyQt6.QtWidgets import QListView
 from cn5X_config import *
 from msgbox import *
 from grblCom import grblCom
@@ -51,7 +51,6 @@ class gcodeFile(QObject):
 
   def __init__(self, ui, gcodeFileUi: QListView, dialogToolChange: dlgToolChange):
     super().__init__()
-    self.__fileDialog       = QtWidgets.QFileDialog(None)
     self.__filePath         = ""
     self.__ui               = ui
     self.__gcodeFileUi      = gcodeFileUi
@@ -62,7 +61,7 @@ class gcodeFile(QObject):
     self.__gcodeCharge      = False
     self.__gcodeChanged     = False
 
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
     self.__toolNumber    = 0
     self.__firstToolDone = False
 
@@ -70,11 +69,12 @@ class gcodeFile(QObject):
 
   def showFileOpen(self):
     ''' Affiche la boite de dialogue d'ouverture '''
-    opt = self.__fileDialog.Options()
+    fileDialog = QtWidgets.QFileDialog(None)
+    opt = fileDialog.options()
     lastDir = self.__settings.value("Files/lastGCodeFileDir", "")
     if lastDir != "":
-      self.__fileDialog.setDirectory(lastDir)
-    fName = self.__fileDialog.getOpenFileName(None, self.tr("Open a GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
+      fileDialog.setDirectory(lastDir)
+    fName = fileDialog.getOpenFileName(None, self.tr("Open a GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     if fName[0] != "":
       # Memorise le dernier répertoire utilisé
       lastDir = os.path.dirname(fName[0])
@@ -88,7 +88,6 @@ class gcodeFile(QObject):
         lastFiles.remove(fName[0])
       # On l'insert en première position de la liste
       lastFiles.insert(0, fName[0])
-      print(lastFiles)
       # Sauvegarde la nouvelle liste
       self.saveLastFileList(lastFiles)
 
@@ -165,7 +164,7 @@ class gcodeFile(QObject):
     ''' Selectionne un element de la liste du fichier GCode '''
     idx = self.__gcodeFileUiModel.index(num, 0, QModelIndex())
     self.__gcodeFileUi.selectionModel().clearSelection()
-    self.__gcodeFileUi.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectCurrent)
+    self.__gcodeFileUi.selectionModel().setCurrentIndex(idx, QItemSelectionModel.SelectionFlag.SelectCurrent)
 
 
   def getGCodeSelectedLine(self):
@@ -185,8 +184,9 @@ class gcodeFile(QObject):
 
   def showFileSave(self):
     ''' Affiche la boite de dialogue "Save as" '''
-    opt = QtWidgets.QFileDialog.Options()
-    opt |= QtWidgets.QFileDialog.DontUseNativeDialog
+    fileDialog = QtWidgets.QFileDialog(None)
+    opt = fileDialog.options()
+    opt |= QtWidgets.QFileDialog.Option.DontUseNativeDialog
     fName = QtWidgets.QFileDialog.getSaveFileName(None, self.tr("Save GCode file"), "", self.tr("GCode file (*.gcode *.ngc *.nc *.gc *.cnc)"), options=opt)
     return fName
 
@@ -220,7 +220,7 @@ class gcodeFile(QObject):
     """ Envoi des lignes de startLine a endLine dans la file d'attente du grblCom """
 
     # Force le curseur souris sablier
-    QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+    QtWidgets.QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
     
     if endLine == -1:
       endLine = self.__gcodeFileUiModel.rowCount()

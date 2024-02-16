@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: grblProbe.py, is part of cn5X++                              '
 '                                                                         '
@@ -21,8 +21,8 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import QCoreApplication, QObject, pyqtSignal, pyqtSlot
+from PyQt6 import QtCore
+from PyQt6.QtCore import QCoreApplication, QObject, pyqtSignal, pyqtSlot
 from cn5X_config import *
 from grblCom import grblCom
 

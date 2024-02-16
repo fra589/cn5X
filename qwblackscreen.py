@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,16 +21,13 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import sys, time, random
-import threading
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QThread, QEventLoop
-from PyQt5.QtGui import QKeyEvent
+import os, sys, time, random
+from PyQt6 import QtCore, QtWidgets, uic
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QThread, QEventLoop, QTimer
+from PyQt6.QtGui import QKeyEvent
 from gcodeQLineEdit import gcodeQLineEdit
-###from PyQt5.QtTest import QTest
 from cn5X_config import *
 
-import qwHorloge
 
 class horlogeUpdater(QObject):
   ''' Objet pour mise à jour horloge durant la mise en veille '''
@@ -40,11 +37,11 @@ class horlogeUpdater(QObject):
     self.horloge = horloge
     self.horlogeUi = horloge.ui
     self.deuxPoints = False
-    self.updateTimer = QtCore.QTimer()
+    self.updateTimer = QTimer()
     self.updateTimer.setInterval(500) # 1/2 seconde
     self.updateTimer.timeout.connect(self.updateHeure)
-    self.moveTimer = QtCore.QTimer()
-    self.moveTimer.setInterval(17) # ~60 fois par seconde
+    self.moveTimer = QTimer()
+    self.moveTimer.setInterval(67) # ~15 fois par seconde
     self.moveTimer.timeout.connect(self.moveHorloge)
 
     # Déplacements aléatoires entre minMove et maxMove pixels
@@ -122,21 +119,21 @@ class qwBlackScreen(QtWidgets.QWidget):
   def __init__(self, parent=None):
     super().__init__()
     
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
 
     # Initialise le widget écran noir
     self.parent = parent
     self.blackScreen = QtWidgets.QWidget(parent)
     self.blackScreen.setStyleSheet("background-color: black")
-    self.blackScreen.setCursor(Qt.BlankCursor)
+    self.blackScreen.setCursor(Qt.CursorShape.BlankCursor)
     self.blackScreen.move(0, 0)
     self.blackScreen.resize(parent.width(), parent.height())
     
     # widget horloge
     self.blackScreen.horloge  = QtWidgets.QWidget(self.blackScreen)
     self.blackScreen.horloge.setStyleSheet("background-color: None")
-    self.blackScreen.horloge.ui = qwHorloge.Ui_qwHorloge()
-    self.blackScreen.horloge.ui.setupUi(self.blackScreen.horloge)
+    self.blackScreen.horloge.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "qwHorloge.ui"), self.blackScreen.horloge)
+    
     # redimentionne l'horloge en fonction de la police de caractères
     fontSize = self.__settings.value("screenSaverClockFontSize", 72, type=int)
     fontHM = self.blackScreen.horloge.ui.lblFondHM.font()

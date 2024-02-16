@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,23 +21,24 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QValidator
+import os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QValidator
 from cn5X_config import *
-from dlgHelpProbe import *
 from msgbox import *
 
-class cn5XHelpProbe(QObject):
+
+class cn5XHelpProbe(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue d'aide sur le probing '''
 
   def __init__(self, helpPage: str):
     super().__init__()
-    self.__dlg = QDialog()
-    self.__dlg.setModal(False)
-    self.__di = Ui_dlgHelpProbe()
-    self.__di.setupUi(self.__dlg)
-    
+    self.setModal(False)
+    self.__di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgHelpProbe.ui"), self)
+
+
     # Chargement de la page d'aide
     warning = self.tr('<p style="color: #8b0000; font-weight: bold;">Attention! Measuring operations are very intolerant of incorrect settings. It is strongly recommended to do preliminary tests on loose object that will not damage the probe when unexpected movements. It is recommended to carefully check each setting before measuring the workpiece.</p>')
     if helpPage == MENU_SINGLE_AXIS:
@@ -45,9 +46,9 @@ class cn5XHelpProbe(QObject):
       content += warning
       content += self.tr('<p><i>The trajectory of the probe by the example of measurement of axis X+:</i></p>')
       content += self.tr('<p>If the "Seek rate" option is checked, the probing will be made in 2 times:<br />')
-      content += self.tr('- A first probing with "Length" probing distance at "Seek rate" speed, the retract of "Pull-off dist." distance,<br />')
+      content += self.tr('- A first probing with "Length" probing distance at "Seek rate" speed, then retract of "Pull-off dist." distance,<br />')
       content += self.tr('- A second probing with "Pull-off dist." probing distance at "Feed rate" speed.</p>')
-      content += self.tr('<p align="center"><img src=":/doc/doc/probeSingleAxis.svg"/></p>')
+      content += self.tr('<p align="center"><img src="' + os.path.dirname(__file__) + '/doc/probeSingleAxis.svg"/></p>')
       content += self.tr('<p>If the "Seek rate" option is unchecked, there will be only one probing with "Length" probe distance at "Feed rate" speed</p>')
       content += self.tr('<p>Due to the Grbl\'s acceleration/deceleration planning, when probing, the tool is stopped a small amount after the point. ')
       content += self.tr('When checking the "Move after probe" option, the tool will be moved either exactly on the probed point, or retracted by a "Retract" length from the result of the check.</p>')
@@ -56,23 +57,23 @@ class cn5XHelpProbe(QObject):
       content  = self.tr('<html><head/><body><h1 align="center">Probe detection of inside corner.</h1>')
       content += warning
       content += self.tr('<p><i>The trajectory of the probe by the example of measurement inside corner X+Y+:</i></p>')
-      content += self.tr('<p align="center"><img src=":/doc/doc/probeInsideXY.svg"/></p></body></html>')
+      content += self.tr('<p align="center"><img src="' + os.path.dirname(__file__) + '/doc/probeInsideXY.svg"/></p></body></html>')
     elif helpPage == MENU_OUTSIDE_CORNER:
       content  = self.tr('<html><head/><body><h1 align="center">Probe detection of outside corner.</h1>')
       content += warning
       content += self.tr('<p><i>The trajectory of the probe by the example of measurement outside corner X+Y+:</i></p>')
-      content += self.tr('<p align="center"><img src=":/doc/doc/probeOutsideXY.svg"/></p></body></html>')
+      content += self.tr('<p align="center"><img src="' + os.path.dirname(__file__) + '/doc/probeOutsideXY.svg"/></p></body></html>')
     elif helpPage == MENU_INSIDE_CENTER:
       content  = self.tr('<html><head/><body><h1 align="center">Probe detection of inside center.</h1>')
       content += warning
-      content += self.tr('<p align="center"><img src=":/doc/doc/probeInsideCenter.svg"/></p></body></html>')
+      content += self.tr('<p align="center"><img src="' + os.path.dirname(__file__) + '/doc/probeInsideCenter.svg"/></p></body></html>')
     elif helpPage == MENU_OUTSIDE_CENTER:
       content  = self.tr('<html><head/><body><h1 align="center">Probe detection of outside center.</h1>')
       content += warning
-      content += self.tr('<p align="center"><img src=":/doc/doc/probeOutsideCenter.svg"/></p></body></html>')
+      content += self.tr('<p align="center"><img src="' + os.path.dirname(__file__) + '/doc/probeOutsideCenter.svg"/></p></body></html>')
     self.__di.lblContent.setText(content)
-    self.__di.lblContent.setTextInteractionFlags(Qt.TextSelectableByMouse)
-    self.__dlg.adjustSize()
+    self.__di.lblContent.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+    self.adjustSize()
 
 
   def showDialog(self):
@@ -81,12 +82,12 @@ class cn5XHelpProbe(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlg.geometry().width()
-    myHeight = self.__dlg.geometry().height()
-    self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
-    self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.Tool)
 
-    RC = self.__dlg.show()
+    RC = self.show()
     return RC
 

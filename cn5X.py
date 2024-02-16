@@ -3,7 +3,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X.py is part of cn5X++                                    '
 '                                                                         '
@@ -28,10 +28,14 @@ from xml.dom.minidom import parse, parseString, Node, Element
 import locale
 import argparse
 import serial, serial.tools.list_ports
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, QThread, pyqtSignal, pyqtSlot, QModelIndex,  QItemSelectionModel, QFileInfo, QTranslator, QLocale, QSettings, QFile, QEvent
-from PyQt5.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette, QFontDatabase
-from PyQt5.QtWidgets import QDialog, QAbstractItemView, QMessageBox
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, QThread, \
+                         pyqtSignal, pyqtSlot, QModelIndex, \
+                         QItemSelectionModel, QFileInfo, QTranslator, \
+                         QLocale, QSettings, QFile, QIODevice, QEvent, \
+                         QTimer
+from PyQt6.QtGui import QKeySequence, QStandardItemModel, QStandardItem, QValidator, QPalette, QFontDatabase, QAction, QShortcut
+from PyQt6.QtWidgets import QDialog, QAbstractItemView, QMessageBox
 from cn5X_config import *
 from msgbox import *
 from speedOverrides import *
@@ -39,6 +43,8 @@ from grblCom import grblCom
 from grblDecode import grblDecode
 from gcodeQLineEdit import gcodeQLineEdit
 from cnQPushButton import cnQPushButton
+from cnQLabel import cnQLabel
+from cnled import cnLed
 from grblJog import grblJog
 from grblProbe import *
 from cn5X_gcodeFile import gcodeFile
@@ -54,13 +60,37 @@ from grblG28_30_1 import dlgG28_30_1
 from cn5X_jog import dlgJog
 from cn5X_beep import cn5XBeeper
 from cn5X_toolChange import dlgToolChange
-
-import mainWindow
+###import cn5X_rc
 
 
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
-    return QValidator.Acceptable, string.upper(), pos
+    return QValidator.State.Acceptable, string.upper(), pos
+
+
+class longClickEventFilter(QObject):
+  def __init__(self, win, parent=None):
+    super().__init__()
+    self.__win = win
+    self.__Timer = QTimer()
+
+  def eventFilter(self, obj: QObject, event: QEvent) -> bool:
+    ''' Lance le signal d'appel du menu contextuel après un click gauche de plus de 1.5 secondes '''
+    if event.type() == QEvent.Type.MouseButtonPress and event.button() == Qt.MouseButton.LeftButton:
+      if self.__win.ui.tabMainPage.isEnabled():
+        if not self.__Timer.isActive():
+          try:
+            self.__Timer.timeout.disconnect()
+          except TypeError:
+            pass
+          self.__Timer.timeout.connect(lambda: obj.customContextMenuRequested.emit(event.position().toPoint()))
+          self.__Timer.setSingleShot(True)
+          self.__Timer.start(1500)
+      
+    elif event.type() == QEvent.Type.MouseButtonRelease:
+      self.__Timer.stop()
+
+    return super().eventFilter(obj, event)
 
 
 class appEventFilter(QObject):
@@ -70,7 +100,7 @@ class appEventFilter(QObject):
 
   def eventFilter(self, obj: QObject, event: QEvent) -> bool:
     # mémorise le moment du dernier évennement clavier ou souris
-    if event.type() in [QEvent.KeyPress, QEvent.KeyRelease, QEvent.MouseMove, QEvent.MouseButtonPress, QEvent.MouseButtonRelease]:
+    if event.type() in [QEvent.Type.KeyPress, QEvent.Type.KeyRelease, QEvent.Type.MouseMove, QEvent.Type.MouseButtonPress, QEvent.Type.MouseButtonRelease]:
       maintenant = time.time()
       self.__win.lastActivity = maintenant
       # Masque l'écran de veille si affiché
@@ -80,7 +110,7 @@ class appEventFilter(QObject):
     return super().eventFilter(obj, event)
 
 
-class focusEventFilter(QtCore.QObject):
+class focusEventFilter(QObject):
   
   def __init__(self, keyNum, parent=None):
     self.__keyNum = keyNum
@@ -89,9 +119,9 @@ class focusEventFilter(QtCore.QObject):
 
   def eventFilter(self, widget, event):
     # FocusIn event
-    if event.type() == QtCore.QEvent.FocusIn:
+    if event.type() == QEvent.Type.FocusIn:
       if self.__keyNum.parent.showKeynum:
-        if self.__keyNum.parent.qwKeyboard.isVisible():
+        if self.__keyNum.parent.qwKeyboard.isKeyboardVisible():
           self.__keyNum.parent.qwKeyboard.keyboard_hide()
           self.__keyNum.parent.ui.btnKeyboard.setText("⇧⌨⇧")
         # Affiche le pavé numérique
@@ -99,7 +129,7 @@ class focusEventFilter(QtCore.QObject):
         self.__keyNum.keynum_show()
 
     # FocusOut event
-    if event.type() == QtCore.QEvent.FocusOut:
+    if event.type() == QEvent.Type.FocusOut:
       if self.__keyNum.isVisible():
         # Masque le pavé numérique
         self.__keyNum.setLinkedTxt(None)
@@ -114,7 +144,7 @@ class winMain(QtWidgets.QMainWindow):
   def __init__(self, parent=None):
 
     # Force le curseur souris sablier
-    QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+    QtWidgets.QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     QtWidgets.QMainWindow.__init__(self, parent)
 
@@ -124,7 +154,7 @@ class winMain(QtWidgets.QMainWindow):
     self.__gcode_recall_flag = False
     self.__gcode_current_txt = ""
 
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--connect", action="store_true", help=self.tr("Connect the serial port"))
@@ -139,8 +169,11 @@ class winMain(QtWidgets.QMainWindow):
     self.__licenceFile = "{}/COPYING".format(app_path)
 
     # Initialise la fenêtre princpale
-    self.ui = mainWindow.Ui_mainWindow()
-    self.ui.setupUi(self)
+    saveDir = os.getcwd()
+    os.chdir(os.path.dirname(__file__))
+    ###self.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "mainWindow.ui"), self)
+    self.ui = uic.loadUi("mainWindow.ui", self)
+    os.chdir(saveDir)
     
     # Affichage plein écran et screen saver
     fullScreenSetting = self.__settings.value("displayFullScreen", False, type=bool)
@@ -168,7 +201,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.mnuScreenSaverClock.setChecked(False)
 
     self.blackScreen = qwBlackScreen(self)
-    self.timerVeille = QtCore.QTimer()
+    self.timerVeille = QTimer()
     self.timerVeille.setInterval(1000) # 1 seconde
     self.timerVeille.timeout.connect(self.veilleEcran)
 
@@ -195,12 +228,11 @@ class winMain(QtWidgets.QMainWindow):
     self.__qwKeyNum = qwKeyNum(self)
     self.__numInputFilter = focusEventFilter(self.__qwKeyNum)
     
-    ###self.ui.dsbJogSpeed.installEventFilter(self.__numInputFilter)
     for dbsInput in self.findChildren(QtWidgets.QDoubleSpinBox):
       dbsInput.installEventFilter(self.__numInputFilter)
     
-    self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
-    self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
+    self.btnUrgencePictureLocale    = os.path.join(os.path.dirname(__file__), "images/btnUrgence.svg")
+    self.btnUrgenceOffPictureLocale = os.path.join(os.path.dirname(__file__), "images/btnUrgenceOff.svg")
 
     # création du menu des langues
     self.createLangMenu()
@@ -214,7 +246,7 @@ class winMain(QtWidgets.QMainWindow):
     self.logDebug.document().setMaximumBlockCount(2000) # Limite la taille des logs a 2000 lignes
     self.ui.qtabConsole.setCurrentIndex(CN5X_TAB_LOG)   # Active le tab de la log cn5X++
 
-    self.timerDblClic = QtCore.QTimer()
+    self.timerDblClic = QTimer()
 
     self.__grblCom = grblCom()
     self.__grblCom.sig_log.connect(self.on_sig_log)
@@ -285,7 +317,6 @@ class winMain(QtWidgets.QMainWindow):
 
     self.setTranslator(langue)
 
-    QtGui.QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")  # Police type "LED"
     self.ui.btnConnect.setText(self.tr("Connect"))                            # Label du bouton connect
     self.populatePortList()                                                   # On rempli la liste des ports serie
 
@@ -317,8 +348,8 @@ class winMain(QtWidgets.QMainWindow):
 
     self.iconLinkOn  = QtGui.QIcon()
     self.iconLinkOff = QtGui.QIcon()
-    self.iconLinkOn.addPixmap(QtGui.QPixmap(":/cn5X/images/btnLinkOn.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-    self.iconLinkOff.addPixmap(QtGui.QPixmap(":/cn5X/images/btnLinkOff.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    self.iconLinkOn.addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "images/btnLinkOn.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+    self.iconLinkOff.addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "images/btnLinkOff.svg")), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
 
     '''---------- Connections des evennements de l'interface graphique ----------'''
     
@@ -468,9 +499,10 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.btnStop.clicked.connect(self.stopCycle)
     self.ui.btnG28.clicked.connect(self.on_gotoG28)
     self.ui.btnG30.clicked.connect(self.on_gotoG30)
+    
+    QShortcut(Qt.Key.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
+    QShortcut(Qt.Key.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
     self.ui.gcodeTable.customContextMenuRequested.connect(self.on_gcodeTableContextMenu)
-    QtWidgets.QShortcut(QtCore.Qt.Key_F7, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F7_Pressed)
-    QtWidgets.QShortcut(QtCore.Qt.Key_F8, self.ui.gcodeTable, activated=self.on_GCodeTable_key_F8_Pressed)
     self.ui.dialAvance.customContextMenuRequested.connect(self.on_dialAvanceContextMenu)
     self.ui.dialBroche.customContextMenuRequested.connect(self.on_dialBrocheContextMenu)
     self.ui.lblLblPosX.customContextMenuRequested.connect(lambda: self.on_lblPosContextMenu(0))
@@ -494,6 +526,33 @@ class winMain(QtWidgets.QMainWindow):
     self.ui.lblG57.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(4))
     self.ui.lblG58.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(5))
     self.ui.lblG59.customContextMenuRequested.connect(lambda: self.on_lblGXXContextMenu(6))
+
+    self.longClickEvent = longClickEventFilter(self)
+    
+    self.ui.gcodeTable.installEventFilter(self.longClickEvent)
+    self.ui.dialAvance.installEventFilter(self.longClickEvent)
+    self.ui.dialBroche.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosX.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosY.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosZ.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosA.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosB.installEventFilter(self.longClickEvent)
+    self.ui.lblLblPosC.installEventFilter(self.longClickEvent)
+    self.ui.lblPosX.installEventFilter(self.longClickEvent)
+    self.ui.lblPosY.installEventFilter(self.longClickEvent)
+    self.ui.lblPosZ.installEventFilter(self.longClickEvent)
+    self.ui.lblPosA.installEventFilter(self.longClickEvent)
+    self.ui.lblPosB.installEventFilter(self.longClickEvent)
+    self.ui.lblPosC.installEventFilter(self.longClickEvent)
+    self.ui.lblPlan.installEventFilter(self.longClickEvent)
+    self.ui.lblUnites.installEventFilter(self.longClickEvent)
+    self.ui.lblCoord.installEventFilter(self.longClickEvent)
+    self.ui.lblG54.installEventFilter(self.longClickEvent)
+    self.ui.lblG55.installEventFilter(self.longClickEvent)
+    self.ui.lblG56.installEventFilter(self.longClickEvent)
+    self.ui.lblG57.installEventFilter(self.longClickEvent)
+    self.ui.lblG58.installEventFilter(self.longClickEvent)
+    self.ui.lblG59.installEventFilter(self.longClickEvent)
 
     self.ui.rbtProbeInsideXY.toggled.connect(self.setProbeButtonsToolTip)
     
@@ -625,44 +684,44 @@ class winMain(QtWidgets.QMainWindow):
   def setProbeButtonsToolTip(self):
     '''Change probe XY interface intérieur ou extérieur'''
     if self.ui.rbtProbeInsideXY.isChecked():
-      self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeInCercle.svg")
+      self.ui.btnProbeXY_0.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInCercle.svg"))
       self.ui.btnProbeXY_0.setToolTip(self.tr('Run probe in X+, X-, Y+ and Y- direction to find inside center.'))
-      self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeInX-Y+.svg")
+      self.ui.btnProbeXY_1.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX-Y+.svg"))
       self.ui.btnProbeXY_1.setToolTip(self.tr('Run probe in X- and Y+ direction.'))
-      self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeInY+.svg")
-      self.ui.btnProbeXY_2.setToolTip("Run probe in Y+ direction.")
-      self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeInX+Y+.svg")
+      self.ui.btnProbeXY_2.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInY+.svg"))
+      self.ui.btnProbeXY_2.setToolTip(self.tr("Run probe in Y+ direction."))
+      self.ui.btnProbeXY_3.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX+Y+.svg"))
       self.ui.btnProbeXY_3.setToolTip(self.tr('Run probe in X+ and Y+ direction.'))
-      self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeInX+.svg")
-      self.ui.btnProbeXY_4.setToolTip("Run probe in X+ direction.")
-      self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeInX+Y-.svg")
+      self.ui.btnProbeXY_4.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX+.svg"))
+      self.ui.btnProbeXY_4.setToolTip(self.tr("Run probe in X+ direction."))
+      self.ui.btnProbeXY_5.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX+Y-.svg"))
       self.ui.btnProbeXY_5.setToolTip(self.tr('Run probe in X+ and Y- direction.'))
-      self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeInY-.svg")
-      self.ui.btnProbeXY_6.setToolTip("Run probe in Y- direction.")
-      self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeInX-Y-.svg")
+      self.ui.btnProbeXY_6.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInY-.svg"))
+      self.ui.btnProbeXY_6.setToolTip(self.tr("Run probe in Y- direction."))
+      self.ui.btnProbeXY_7.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX-Y-.svg"))
       self.ui.btnProbeXY_7.setToolTip(self.tr('Run probe in X- and Y- direction.'))
-      self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeInX-.svg")
-      self.ui.btnProbeXY_8.setToolTip("Run probe in X- direction.")
+      self.ui.btnProbeXY_8.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeInX-.svg"))
+      self.ui.btnProbeXY_8.setToolTip(self.tr("Run probe in X- direction."))
     
     else: # self.ui.rbtProbeOutsideXY.isChecked()
-      self.ui.btnProbeXY_0.changeIcon(":/cn5X/images/btnProbeOutCercle.svg")
+      self.ui.btnProbeXY_0.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutCercle.svg"))
       self.ui.btnProbeXY_0.setToolTip(self.tr('Run probe in X+, X-, Y+ and Y- direction to find outside center.'))
-      self.ui.btnProbeXY_1.changeIcon(":/cn5X/images/btnProbeOutX+Y-.svg")
+      self.ui.btnProbeXY_1.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX+Y-.svg"))
       self.ui.btnProbeXY_1.setToolTip(self.tr('Run probe in X+ and Y- direction.'))
-      self.ui.btnProbeXY_2.changeIcon(":/cn5X/images/btnProbeOutY-.svg")
-      self.ui.btnProbeXY_2.setToolTip("Run probe in Y- direction.")
-      self.ui.btnProbeXY_3.changeIcon(":/cn5X/images/btnProbeOutX-Y-.svg")
+      self.ui.btnProbeXY_2.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutY-.svg"))
+      self.ui.btnProbeXY_2.setToolTip(self.tr("Run probe in Y- direction."))
+      self.ui.btnProbeXY_3.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX-Y-.svg"))
       self.ui.btnProbeXY_3.setToolTip(self.tr('Run probe in X- and Y- direction.'))
-      self.ui.btnProbeXY_4.changeIcon(":/cn5X/images/btnProbeOutX-.svg")
-      self.ui.btnProbeXY_4.setToolTip("Run probe in X- direction.")
-      self.ui.btnProbeXY_5.changeIcon(":/cn5X/images/btnProbeOutX-Y+.svg")
+      self.ui.btnProbeXY_4.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX-.svg"))
+      self.ui.btnProbeXY_4.setToolTip(self.tr("Run probe in X- direction."))
+      self.ui.btnProbeXY_5.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX-Y+.svg"))
       self.ui.btnProbeXY_5.setToolTip(self.tr('Run probe in X- and Y+ direction.'))
-      self.ui.btnProbeXY_6.changeIcon(":/cn5X/images/btnProbeOutY+.svg")
-      self.ui.btnProbeXY_6.setToolTip("Run probe in Y+ direction.")
-      self.ui.btnProbeXY_7.changeIcon(":/cn5X/images/btnProbeOutX+Y+.svg")
+      self.ui.btnProbeXY_6.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutY+.svg"))
+      self.ui.btnProbeXY_6.setToolTip(self.tr("Run probe in Y+ direction."))
+      self.ui.btnProbeXY_7.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX+Y+.svg"))
       self.ui.btnProbeXY_7.setToolTip(self.tr('Run probe in X+ and Y+ direction.'))
-      self.ui.btnProbeXY_8.changeIcon(":/cn5X/images/btnProbeOutX+.svg")
-      self.ui.btnProbeXY_8.setToolTip("Run probe in X+ direction.")
+      self.ui.btnProbeXY_8.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnProbeOutX+.svg"))
+      self.ui.btnProbeXY_8.setToolTip(self.tr("Run probe in X+ direction."))
     
 
   def setEnableDisableConnectControls(self):
@@ -778,7 +837,7 @@ class winMain(QtWidgets.QMainWindow):
     if fileName[0] != "":
       # Lecture du fichier
       # Curseur sablier
-      QtWidgets.QApplication.setOverrideCursor(Qt.WaitCursor)
+      QtWidgets.QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
       RC = self.__gcodeFile.readFile(fileName[0])
       if RC:
         # Selectionne l'onglet du fichier sauf en cas de debug
@@ -2186,7 +2245,7 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.lblSerialLock.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")
       self.ui.lblSerialActivity.setStyleSheet(".QLabel{border-radius: 3px; background: green;}")
       # Beep
-      self.__beeper.beep(1760, 0.25, 16000)
+      self.__beeper.beep(0.5) #(1760, 0.25, 16000)
 
     else:
       # Mise a jour de l'interface machine non connectée
@@ -2368,7 +2427,7 @@ class winMain(QtWidgets.QMainWindow):
 
   @pyqtSlot()
   def showKeyboard(self):
-    if not self.qwKeyboard.isVisible():
+    if not self.qwKeyboard.isKeyboardVisible():
       self.qwKeyboard.keyboard_show()
       self.ui.txtGCode.setFocus()
       self.ui.txtGCode.selectAll()
@@ -2418,12 +2477,12 @@ class winMain(QtWidgets.QMainWindow):
   @pyqtSlot(QtGui.QKeyEvent)
   def on_keyPressed(self, e):
     key = e.key()
-    if QKeySequence(key+int(e.modifiers())) == QKeySequence("Ctrl+C"):
+    if (e.modifiers() == Qt.KeyboardModifier.ControlModifier) and (key == Qt.Key.Key_C):
       pass
-    elif QKeySequence(key+int(e.modifiers())) == QKeySequence("Ctrl+X"):
+    elif (e.modifiers() == Qt.KeyboardModifier.ControlModifier) and (key == Qt.Key.Key_X):
       self.logGrbl.append("Ctrl+X")
       self.__grblCom.realTimePush(REAL_TIME_SOFT_RESET) # Envoi Ctrl+X.
-    elif key == Qt.Key_Up:
+    elif key == Qt.Key.Key_Up:
       # Rappel des dernières commandes GCode
       if len(self.__gcodes_stack) > 0:
         if self.__gcode_current_txt == "":
@@ -2435,7 +2494,7 @@ class winMain(QtWidgets.QMainWindow):
           self.ui.txtGCode.setSelection(0,len(self.ui.txtGCode.text()))
         elif self.__gcodes_stack_pos >= len(self.__gcodes_stack):
           self.__gcodes_stack_pos = len(self.__gcodes_stack) - 1
-    elif key == Qt.Key_Down:
+    elif key == Qt.Key.Key_Down:
       # Rappel des dernières commandes GCode
       if len(self.__gcodes_stack) > 0:
         self.__gcodes_stack_pos -= 1
@@ -2639,7 +2698,7 @@ class winMain(QtWidgets.QMainWindow):
   def on_mnuA_propos(self):
     ''' Appel de la boite de dialogue A Propos
     '''
-    dlgApropos = cn5XAPropos(self.tr("Version {}.{}").format(APP_VERSION_STRING, APP_VERSION_DATE), self.__licenceFile)
+    dlgApropos = cn5XAPropos(self.tr("cn5X++ version {}.{}").format(APP_VERSION_STRING, APP_VERSION_DATE), self.__licenceFile)
     dlgApropos.setParent(self)
     dlgApropos.showDialog()
 
@@ -2680,6 +2739,8 @@ class winMain(QtWidgets.QMainWindow):
 
     if self.ui.gcodeTable.model().rowCount()<=0:
       self.log(logSeverity.warning.value, self.tr("Attempt to start an empty cycle..."))
+    elif self.__cycleRun:
+      self.log(logSeverity.warning.value, self.tr("Cycle already running!"))
     else:
       self.log(logSeverity.info.value, self.tr("Starting cycle..."))
 
@@ -2693,10 +2754,10 @@ class winMain(QtWidgets.QMainWindow):
 
       self.__gcodeFile.enQueue(self.__grblCom, startFrom)
 
-      # Attente de la fin du traitement par Grbl
-      tDebut = time.time()
-      while (time.time() - tDebut) * 1000 < 2 * GRBL_QUERY_DELAY:
+      # Attente du début du traitement par Grbl
+      while self.__decode.get_etatMachine() != GRBL_STATUS_RUN:
         QCoreApplication.processEvents()
+      # Attente de la fin du traitement par Grbl
       while self.__decode.get_etatMachine() != GRBL_STATUS_IDLE:
         QCoreApplication.processEvents()
 
@@ -2707,6 +2768,8 @@ class winMain(QtWidgets.QMainWindow):
       self.ui.btnStart.setButtonStatus(False)
       self.ui.btnPause.setButtonStatus(False)
       self.ui.btnStop.setButtonStatus(True)
+      
+      self.__cycleRun = False
 
       if self.__pBox.isVisible():
         if self.__pBox.autoClose():
@@ -2777,24 +2840,24 @@ class winMain(QtWidgets.QMainWindow):
   def on_gcodeTableContextMenu(self, event):
     if self.__gcodeFile.isFileLoaded():
       self.cMenu = QtWidgets.QMenu(self)
-      editAction = QtWidgets.QAction(self.tr("Edit line"), self)
+      editAction = QAction(self.tr("Edit line"), self)
       editAction.triggered.connect(lambda: self.editGCodeSlot(event))
       self.cMenu.addAction(editAction)
-      insertAction = QtWidgets.QAction(self.tr("Insert line"), self)
+      insertAction = QAction(self.tr("Insert line"), self)
       insertAction.triggered.connect(lambda: self.insertGCodeSlot(event))
       self.cMenu.addAction(insertAction)
-      ajoutAction = QtWidgets.QAction(self.tr("Add line"), self)
+      ajoutAction = QAction(self.tr("Add line"), self)
       ajoutAction.triggered.connect(lambda: self.ajoutGCodeSlot(event))
       self.cMenu.addAction(ajoutAction)
-      supprimeAction = QtWidgets.QAction(self.tr("Suppress line"), self)
+      supprimeAction = QAction(self.tr("Suppress line"), self)
       supprimeAction.triggered.connect(lambda: self.supprimeGCodeSlot(event))
       self.cMenu.addAction(supprimeAction)
       self.cMenu.addSeparator()
-      runAction = QtWidgets.QAction(self.tr("Run this line\t(F7)"), self)
+      runAction = QAction(self.tr("Run this line\t(F7)"), self)
       runAction.setShortcut('F7')
       runAction.triggered.connect(lambda: self.runGCodeSlot(event))
       self.cMenu.addAction(runAction)
-      startFromHereAction = QtWidgets.QAction(self.tr("Run from this line\t(F8)"), self)
+      startFromHereAction = QAction(self.tr("Run from this line\t(F8)"), self)
       startFromHereAction.setShortcut('F8')
       startFromHereAction.triggered.connect(lambda: self.startFromGCodeSlotIndex(event))
       self.cMenu.addAction(startFromHereAction)
@@ -2838,7 +2901,7 @@ class winMain(QtWidgets.QMainWindow):
     self.startCycle(idx[0].row())
 
 
-  @pyqtSlot() #QtGui.QKeyEvent)
+  @pyqtSlot()
   def on_GCodeTable_key_F7_Pressed(self):
     if self.ui.gcodeTable.hasFocus() and self.__gcodeFile.isFileLoaded():
       idx = self.ui.gcodeTable.selectionModel().selectedIndexes()
@@ -2854,7 +2917,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_dialAvanceContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    resetAction = QtWidgets.QAction(self.tr("Reset feedrate to 100%"), self)
+    resetAction = QAction(self.tr("Reset feedrate to 100%"), self)
     resetAction.triggered.connect(lambda: self.ui.dialAvance.setValue(100))
     self.cMenu.addAction(resetAction)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -2862,7 +2925,7 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_dialBrocheContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    resetAction = QtWidgets.QAction(self.tr("Reset spindle speed to 100%"), self)
+    resetAction = QAction(self.tr("Reset spindle speed to 100%"), self)
     resetAction.triggered.connect(lambda: self.ui.dialBroche.setValue(100))
     self.cMenu.addAction(resetAction)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -2870,10 +2933,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblPosContextMenu(self, axis: str):
     self.cMenu = QtWidgets.QMenu(self)
-    resetX = QtWidgets.QAction(self.tr("Place the {} origin of axis {} here").format(self.__decode.getG5actif(), self.__axisNames[axis]), self)
+    resetX = QAction(self.tr("Place the {} origin of axis {} here").format(self.__decode.getG5actif(), self.__axisNames[axis]), self)
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush("G10P0L20{}0".format(self.__axisNames[axis])))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Place the {} origin of all axis here").format(self.__decode.getG5actif()), self)
+    resetAll = QAction(self.tr("Place the {} origin of all axis here").format(self.__decode.getG5actif()), self)
     axesTraites = []
     gcodeString = "G10P0L20"
     for a in self.__axisNames:
@@ -2883,11 +2946,11 @@ class winMain(QtWidgets.QMainWindow):
     resetAll.triggered.connect(lambda: self.__grblCom.gcodePush(gcodeString))
     self.cMenu.addAction(resetAll)
     self.cMenu.addSeparator()
-    resetX = QtWidgets.QAction(self.tr("Jog axis {} to {} origin").format(self.__axisNames[axis], self.__decode.getG5actif()), self)
+    resetX = QAction(self.tr("Jog axis {} to {} origin").format(self.__axisNames[axis], self.__decode.getG5actif()), self)
     cmdJog1 = CMD_GRBL_JOG + "G90G21F{}{}0".format(self.ui.dsbJogSpeed.value(), self.__axisNames[axis])
     resetX.triggered.connect(lambda: self.__grblCom.gcodePush(cmdJog1))
     self.cMenu.addAction(resetX)
-    resetAll = QtWidgets.QAction(self.tr("Jog all axis to {} origin").format(self.__decode.getG5actif()), self)
+    resetAll = QAction(self.tr("Jog all axis to {} origin").format(self.__decode.getG5actif()), self)
     axesTraites = []
     cmdJog = CMD_GRBL_JOG + "G90G21F{}".format(self.ui.dsbJogSpeed.value())
     for a in self.__axisNames:
@@ -2901,17 +2964,17 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblGXXContextMenu(self, piece: int):
     self.cMenu = QtWidgets.QMenu(self)
-    setOrigineAll = QtWidgets.QAction(self.tr("Place the workpiece origin {} (G{})").format(str(piece), str(piece + 53)), self)
+    setOrigineAll = QAction(self.tr("Place the workpiece origin {} (G{})").format(str(piece), str(piece + 53)), self)
 
   def on_lblPlanContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    planXY = QtWidgets.QAction(self.tr("G17 Working plane - XY (Defaut)"), self)
+    planXY = QAction(self.tr("G17 Working plane - XY (Defaut)"), self)
     planXY.triggered.connect(lambda: self.__grblCom.gcodePush("G17"))
     self.cMenu.addAction(planXY)
-    planXZ = QtWidgets.QAction(self.tr("G18 Working plane - XZ"), self)
+    planXZ = QAction(self.tr("G18 Working plane - XZ"), self)
     planXZ.triggered.connect(lambda: self.__grblCom.gcodePush("G18"))
     self.cMenu.addAction(planXZ)
-    planYZ = QtWidgets.QAction(self.tr("G19 Working plane - YZ"), self)
+    planYZ = QAction(self.tr("G19 Working plane - YZ"), self)
     planYZ.triggered.connect(lambda: self.__grblCom.gcodePush("G19"))
     self.cMenu.addAction(planYZ)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -2919,10 +2982,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblUnitesContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    unitePouces = QtWidgets.QAction(self.tr("G20 - Work units in inches"), self)
+    unitePouces = QAction(self.tr("G20 - Work units in inches"), self)
     unitePouces.triggered.connect(lambda: self.__grblCom.gcodePush("G20"))
     self.cMenu.addAction(unitePouces)
-    uniteMM = QtWidgets.QAction(self.tr("G21 - Work units in millimeters"), self)
+    uniteMM = QAction(self.tr("G21 - Work units in millimeters"), self)
     uniteMM.triggered.connect(lambda: self.__grblCom.gcodePush("G21"))
     self.cMenu.addAction(uniteMM)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -2930,10 +2993,10 @@ class winMain(QtWidgets.QMainWindow):
 
   def on_lblCoordContextMenu(self):
     self.cMenu = QtWidgets.QMenu(self)
-    unitePouces = QtWidgets.QAction(self.tr("G90 - Absolute coordinates movements"), self)
+    unitePouces = QAction(self.tr("G90 - Absolute coordinates movements"), self)
     unitePouces.triggered.connect(lambda: self.__grblCom.gcodePush("G90"))
     self.cMenu.addAction(unitePouces)
-    uniteMM = QtWidgets.QAction(self.tr("G91 - relative coordinates movements"), self)
+    uniteMM = QAction(self.tr("G91 - relative coordinates movements"), self)
     uniteMM.triggered.connect(lambda: self.__grblCom.gcodePush("G91"))
     self.cMenu.addAction(uniteMM)
     self.cMenu.popup(QtGui.QCursor.pos())
@@ -2942,8 +3005,8 @@ class winMain(QtWidgets.QMainWindow):
   def createLangMenu(self):
     ''' Creation du menu de choix de la langue du programme
     en fonction du contenu du fichier i18n/cn5X_locales.xml '''
-    fichierXML = QFile(":/i18n/i18n/cn5X_locales.xml")
-    if fichierXML.open(QFile.ReadOnly):
+    fichierXML = QFile(os.path.join(os.path.dirname(__file__), "i18n/cn5X_locales.xml"))
+    if fichierXML.open(QIODevice.OpenModeFlag.ReadOnly):
       XMLbuff = str(fichierXML.readAll(), 'utf-8')
     else:
       print("Error reading cn5X_locales.xml from resources !")
@@ -2961,11 +3024,11 @@ class winMain(QtWidgets.QMainWindow):
       self.langues.append(translation.getElementsByTagName("locale")[0].childNodes[0].nodeValue)
       label = translation.getElementsByTagName("label")[0].childNodes[0].nodeValue
       qm_file = translation.getElementsByTagName("qm_file")[0].childNodes[0].nodeValue
-      flag_file = translation.getElementsByTagName("flag_file")[0].childNodes[0].nodeValue
+      flag_file = os.path.join(os.path.dirname(__file__), translation.getElementsByTagName("flag_file")[0].childNodes[0].nodeValue)
 
-      self.ui.actionLang.append(QtWidgets.QAction(self))
+      self.ui.actionLang.append(QAction(self))
       self.ui.iconLang.append(QtGui.QIcon())
-      self.ui.iconLang[l].addPixmap(QtGui.QPixmap(flag_file), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      self.ui.iconLang[l].addPixmap(QtGui.QPixmap(flag_file), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
       self.ui.actionLang[l].setIcon(self.ui.iconLang[l])
       self.ui.actionLang[l].setText(label)
       self.ui.actionLang[l].setCheckable(True)
@@ -2978,7 +3041,7 @@ class winMain(QtWidgets.QMainWindow):
       l += 1
 
     self.ui.menuLangue.addSeparator()
-    self.actionLangSystem = QtWidgets.QAction()
+    self.actionLangSystem = QAction()
     self.actionLangSystem.setCheckable(True)
     font = QtGui.QFont()
     font.setPointSize(12)
@@ -3029,17 +3092,15 @@ class winMain(QtWidgets.QMainWindow):
   def setTranslator(self, langue: QLocale):
     ''' Active la langue de l'interface '''
     global translator # Reutilise le translateur de l'objet app
-    ###if not translator.load(langue, "{}/i18n/cn5X".format(app_path), "."):
-    if not translator.load(langue, ":/i18n/i18n/cn5X", "."):
+    if not translator.load(langue, os.path.join(os.path.dirname(__file__), "i18n/cn5X"), "."):
       self.log(logSeverity.error.value, self.tr("Locale ({}) not usable, using default to english").format(langue.name()))
-      #langue = QLocale(QLocale.French, QLocale.France)
-      langue = QLocale(QLocale.English, QLocale.UnitedKingdom)
-      ###translator.load(langue, "{}/i18n/cn5X".format(app_path), ".")
-      translator.load(langue, ":/i18n/i18n/cn5X", ".")
+      #langue = QLocale(QLocale.Language.French, QLocale.Country.France)
+      langue = QLocale(QLocale.Language.English, QLocale.Country.UnitedKingdom)
+      translator.load(langue, os.path.join(os.path.dirname(__file__), "i18n/cn5X"), ".")
 
     # Install le traducteur et l'exécute sur les éléments déjà chargés
-    QtCore.QCoreApplication.installTranslator(translator)
-    self.ui.retranslateUi(self)
+    QCoreApplication.installTranslator(translator)
+    ######self.ui.retranslateUi(self)
     self.actionLangSystem.setText(self.tr("Use system language"))
 
     # Coche le bon item dans le menu langue
@@ -3062,12 +3123,12 @@ class winMain(QtWidgets.QMainWindow):
           a.setChecked(False)
 
     # Sélectionne l'image du bouton d'urgence
-    if langue.language() == QLocale(QLocale.French, QLocale.France).language():
-      self.btnUrgencePictureLocale = ":/cn5X/images/btnUrgence.svg"
-      self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnUrgenceOff.svg"
+    if langue.language() == QLocale(QLocale.Language.French, QLocale.Country.France).language():
+      self.btnUrgencePictureLocale = os.path.join(os.path.dirname(__file__), "images/btnUrgence.svg")
+      self.btnUrgenceOffPictureLocale = os.path.join(os.path.dirname(__file__), "images/btnUrgenceOff.svg")
     else:
-      self.btnUrgencePictureLocale = ":/cn5X/images/btnEmergency.svg"
-      self.btnUrgenceOffPictureLocale = ":/cn5X/images/btnEmergencyOff.svg"
+      self.btnUrgencePictureLocale = os.path.join(os.path.dirname(__file__), "images/btnEmergency.svg")
+      self.btnUrgenceOffPictureLocale = os.path.join(os.path.dirname(__file__), "images/btnEmergencyOff.svg")
     # et relance l'affichage avec la nouvelle image
     self.setEnableDisableGroupes()
 
@@ -3103,13 +3164,13 @@ if __name__ == '__main__':
   print("")
 
   # Chargement police LED Calculator depuis le fichier de ressources
-  QFontDatabase.addApplicationFont(":/cn5X/fonts/LEDCalculator.ttf")
-  QFontDatabase.addApplicationFont(":/cn5X/fonts/DSEG14Classic.ttf")
-  QFontDatabase.addApplicationFont(":/cn5X/fonts/DSEG14ClassicMini.ttf")
+  QFontDatabase.addApplicationFont(os.path.join(os.path.dirname(__file__), "fonts/LEDCalculator.ttf"))
+  QFontDatabase.addApplicationFont(os.path.join(os.path.dirname(__file__), "fonts/DSEG14Classic.ttf"))
+  QFontDatabase.addApplicationFont(os.path.join(os.path.dirname(__file__), "fonts/DSEG14ClassicMini.ttf"))
 
   translator = QTranslator()
-  langue = QLocale(QLocale.French, QLocale.France)
-  translator.load(langue, ":/i18n/i18n/cn5X", ".")
+  langue = QLocale(QLocale.Language.French, QLocale.Country.France)
+  translator.load(langue, os.path.join(os.path.dirname(__file__), "i18n/cn5X"), ".")
   app.installTranslator(translator)
   
   # Définition de la locale pour affichage des dates dans la langue du systeme
@@ -3127,4 +3188,4 @@ if __name__ == '__main__':
   derniereActivite = time.time()
   
   window.show()
-  sys.exit(app.exec_())
+  sys.exit(app.exec())

@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -22,17 +22,19 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import sys, os
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import Qt, pyqtSignal, QEvent, QResource, QSize
+
 
 class cnQPushButton(QtWidgets.QPushButton):
   '''
   QPushButton avec gestion d'images en fonction de l'etat
   '''
 
-  keyPressed       = QtCore.pyqtSignal(QtGui.QKeyEvent)
-  mousePress       = QtCore.pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
-  mouseRelease     = QtCore.pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
-  mouseDoubleClick = QtCore.pyqtSignal(QtGui.QMouseEvent)
+  keyPressed       = pyqtSignal(QtGui.QKeyEvent)
+  mousePress       = pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
+  mouseRelease     = pyqtSignal(QtWidgets.QPushButton, QtGui.QMouseEvent)
+  mouseDoubleClick = pyqtSignal(QtGui.QMouseEvent)
 
   def __init__(self, parent=None):
     super(cnQPushButton, self).__init__(parent=parent)
@@ -42,7 +44,7 @@ class cnQPushButton(QtWidgets.QPushButton):
     self.__buttonStatus = False
 
     # Chemin des images dans le fichier de resources
-    self.__imagePath = ":/cn5X/images/"
+    self.__imagePath = os.path.join(os.path.dirname(__file__), "images/")
 
     self.icon = QtGui.QIcon()
     self.iconDown = QtGui.QIcon()
@@ -55,23 +57,23 @@ class cnQPushButton(QtWidgets.QPushButton):
     du controle car le nom n'est pas definit lors de l'appel d'__init() et je n'ai pas reussi
     a recuperer le signal objectNameChanged.
     '''
-    if event.type() == QtCore.QEvent.DynamicPropertyChange:
+    if event.type() == QEvent.Type.DynamicPropertyChange:
       self.__myName = object.objectName()
       pictureBaseName = self.__imagePath + self.__myName.split("_")[0]
 
-      if QtCore.QResource(pictureBaseName + ".svg").isValid():
-        self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        if QtCore.QResource(pictureBaseName + "_down.svg").isValid():
-          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + "_down.svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+      if QResource(pictureBaseName + ".svg").isValid():
+        self.icon.addPixmap     (QtGui.QPixmap(pictureBaseName + ".svg"),       QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+        if QResource(pictureBaseName + "_down.svg").isValid():
+          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + "_down.svg"),  QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
         else:
-          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        if QtCore.QResource(pictureBaseName + "_light.svg").isValid():
-          self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+          self.iconDown.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+        if QResource(pictureBaseName + "_light.svg").isValid():
+          self.iconLight.addPixmap(QtGui.QPixmap(pictureBaseName + "_light.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
         else:
-          self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Normal, QtGui.QIcon.Off)
+          self.iconLight.addPixmap (QtGui.QPixmap(pictureBaseName + ".svg"),  QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
         self.__imagesOk = True
 
-    if event.type() == QtCore.QEvent.EnabledChange:
+    if event.type() == QEvent.Type.EnabledChange:
       if self.__imagesOk:
         if self.isEnabled():
           if self.__buttonStatus:
@@ -81,29 +83,28 @@ class cnQPushButton(QtWidgets.QPushButton):
         else:
           self.setIcon(self.icon)
 
-    if event.type() == QtCore.QEvent.Resize:
-      self.setIconSize(QtCore.QSize(self.size().width()-2, self.size().height()-2))
+    if event.type() == QEvent.Type.Resize:
+      self.setIconSize(QSize(self.size().width()-2, self.size().height()-2))
     
     return False
 
 
   def changeIcon(self, icon):
     newIcon = QtGui.QIcon()
-    newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-    ###newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Disabled, QtGui.QIcon.Off)
+    newIcon.addPixmap(QtGui.QPixmap(icon), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
     self.setIcon(newIcon)
 
 
   def mousePressEvent(self, e):
     super(cnQPushButton, self).mousePressEvent(e)
-    if e.button() == QtCore.Qt.LeftButton:
+    if e.button() == Qt.MouseButton.LeftButton:
       self.__mouseIsDown = True
       if self.__imagesOk:
         self.setIcon(self.iconDown)
       self.mousePress.emit(self, e)
 
   def mouseReleaseEvent(self, e):
-    if e.button() == QtCore.Qt.LeftButton:
+    if e.button() == Qt.MouseButton.LeftButton:
       self.__mouseIsDown = False
       if self.isCheckable():
         self.__buttonStatus = True

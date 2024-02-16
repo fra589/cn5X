@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,35 +21,35 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtWidgets import QMessageBox, QCheckBox
+from PyQt6.QtWidgets import QMessageBox, QCheckBox
 
 class msgIconList:
-  NoIcon = QMessageBox.NoIcon           # 0 the message box does not have any icon.
-  Question = QMessageBox.Question       # 4 an icon indicating that the message is asking a question.
-  Information = QMessageBox.Information # 1 an icon indicating that the message is nothing out of the ordinary.
-  Warning = QMessageBox.Warning         # 2 an icon indicating that the message is a warning, but can be dealt with.
-  Critical = QMessageBox.Critical       # 3 an icon indicating that the message represents a critical problem.
+  NoIcon = QMessageBox.Icon.NoIcon           # 0 the message box does not have any icon.
+  Question = QMessageBox.Icon.Question       # 4 an icon indicating that the message is asking a question.
+  Information = QMessageBox.Icon.Information # 1 an icon indicating that the message is nothing out of the ordinary.
+  Warning = QMessageBox.Icon.Warning         # 2 an icon indicating that the message is a warning, but can be dealt with.
+  Critical = QMessageBox.Icon.Critical       # 3 an icon indicating that the message represents a critical problem.
 
 class msgButtonList:
-  Ok = QMessageBox.Ok                           # 0x00000400  An "OK" button defined with the AcceptRole.
-  Open = QMessageBox.Open                       # 0x00002000  An "Open" button defined with the AcceptRole.
-  Save = QMessageBox.Save                       # 0x00000800  A "Save" button defined with the AcceptRole.
-  Cancel = QMessageBox.Cancel                   # 0x00400000  A "Cancel" button defined with the RejectRole.
-  Close = QMessageBox.Close                     # 0x00200000  A "Close" button defined with the RejectRole.
-  Discard = QMessageBox.Discard                 # 0x00800000  A "Discard" or "Don't Save" button, depending on the platform, defined with the DestructiveRole.
-  Apply = QMessageBox.Apply                     # 0x02000000  An "Apply" button defined with the ApplyRole.
-  Reset = QMessageBox.Reset                     # 0x04000000  A "Reset" button defined with the ResetRole.
-  RestoreDefaults = QMessageBox.RestoreDefaults # 0x08000000  A "Restore Defaults" button defined with the ResetRole.
-  Help = QMessageBox.Help                       # 0x01000000  A "Help" button defined with the HelpRole.
-  SaveAll = QMessageBox.SaveAll                 # 0x00001000  A "Save All" button defined with the AcceptRole.
-  Yes = QMessageBox.Yes                         # 0x00004000  A "Yes" button defined with the YesRole.
-  YesToAll = QMessageBox.YesToAll               # 0x00008000  A "Yes to All" button defined with the YesRole.
-  No = QMessageBox.No                           # 0x00010000  A "No" button defined with the NoRole.
-  NoToAll = QMessageBox.NoToAll                 # 0x00020000  A "No to All" button defined with the NoRole.
-  Abort = QMessageBox.Abort                     # 0x00040000  An "Abort" button defined with the RejectRole.
-  Retry = QMessageBox.Retry                     # 0x00080000  A "Retry" button defined with the AcceptRole.
-  Ignore = QMessageBox.Ignore                   # 0x00100000  An "Ignore" button defined with the AcceptRole.
-  NoButton = QMessageBox.NoButton               # 0x00000000  An invalid button.
+  Ok = QMessageBox.StandardButton.Ok                           # 0x00000400  An "OK" button defined with the AcceptRole.
+  Open = QMessageBox.StandardButton.Open                       # 0x00002000  An "Open" button defined with the AcceptRole.
+  Save = QMessageBox.StandardButton.Save                       # 0x00000800  A "Save" button defined with the AcceptRole.
+  Cancel = QMessageBox.StandardButton.Cancel                   # 0x00400000  A "Cancel" button defined with the RejectRole.
+  Close = QMessageBox.StandardButton.Close                     # 0x00200000  A "Close" button defined with the RejectRole.
+  Discard = QMessageBox.StandardButton.Discard                 # 0x00800000  A "Discard" or "Don't Save" button, depending on the platform, defined with the DestructiveRole.
+  Apply = QMessageBox.StandardButton.Apply                     # 0x02000000  An "Apply" button defined with the ApplyRole.
+  Reset = QMessageBox.StandardButton.Reset                     # 0x04000000  A "Reset" button defined with the ResetRole.
+  RestoreDefaults = QMessageBox.StandardButton.RestoreDefaults # 0x08000000  A "Restore Defaults" button defined with the ResetRole.
+  Help = QMessageBox.StandardButton.Help                       # 0x01000000  A "Help" button defined with the HelpRole.
+  SaveAll = QMessageBox.StandardButton.SaveAll                 # 0x00001000  A "Save All" button defined with the AcceptRole.
+  Yes = QMessageBox.StandardButton.Yes                         # 0x00004000  A "Yes" button defined with the YesRole.
+  YesToAll = QMessageBox.StandardButton.YesToAll               # 0x00008000  A "Yes to All" button defined with the YesRole.
+  No = QMessageBox.StandardButton.No                           # 0x00010000  A "No" button defined with the NoRole.
+  NoToAll = QMessageBox.StandardButton.NoToAll                 # 0x00020000  A "No to All" button defined with the NoRole.
+  Abort = QMessageBox.StandardButton.Abort                     # 0x00040000  An "Abort" button defined with the RejectRole.
+  Retry = QMessageBox.StandardButton.Retry                     # 0x00080000  A "Retry" button defined with the AcceptRole.
+  Ignore = QMessageBox.StandardButton.Ignore                   # 0x00100000  An "Ignore" button defined with the AcceptRole.
+  NoButton = QMessageBox.StandardButton.NoButton               # 0x00000000  An invalid button.
 
 class msgBox:
   def __init__(self,
@@ -57,10 +57,10 @@ class msgBox:
          text="",
          info="",
          detail="",
-         icon=QMessageBox.NoIcon,
-         stdButton=QMessageBox.Ok,
-         defButton=QMessageBox.NoButton,
-         escButton=QMessageBox.NoButton,
+         icon=QMessageBox.Icon.NoIcon,
+         stdButton=QMessageBox.StandardButton.Ok,
+         defButton=QMessageBox.StandardButton.NoButton,
+         escButton=QMessageBox.StandardButton.NoButton,
          dontShowAgain=False,
          dontShowChecked=False
         ):
@@ -74,7 +74,7 @@ class msgBox:
     self.chkDontShow.setChecked(dontShowChecked)
     self.chkDontShow.blockSignals(True)
     if dontShowAgain:
-      self.msg.addButton(self.chkDontShow, QMessageBox.ResetRole)
+      self.msg.addButton(self.chkDontShow, QMessageBox.ButtonRole.ResetRole)
     self.msg.setStandardButtons(stdButton)
     self.msg.setDefaultButton(defButton)
     self.msg.setEscapeButton(escButton)

@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,9 +21,9 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtGui
-from PyQt5 import QtWidgets, QtCore #, QtGui,
-from PyQt5.QtCore import QCoreApplication, QObject, QEventLoop, pyqtSignal, pyqtSlot
+from PyQt6 import QtGui
+from PyQt6 import QtWidgets, QtCore #, QtGui,
+from PyQt6.QtCore import QCoreApplication, QObject, QEventLoop, pyqtSignal, pyqtSlot
 
 from grblError import grblError
 from speedOverrides import *
@@ -302,7 +302,7 @@ class grblDecode(QObject):
         # Beep lorsque le probe entre en contact
         if 'P' in triggered:
           if not self.probeStatus:
-            self.beeper.beep(1760, 0.25, 16000)
+            self.beeper.beep(0.5)#1760, 0.25, 16000)
             self.probeStatus = True
         else:
           if self.probeStatus:
@@ -1044,7 +1044,7 @@ class grblDecode(QObject):
     def quitOnAlarm():
       recu = SIG_ALARM
       loop.quit()
-    loop = QtCore.QEventLoop()
+    loop = QEventLoop()
     self.__grblCom.sig_ok.connect(quitOnOk)
     self.__grblCom.sig_error.connect(quitOnError)
     self.__grblCom.sig_alarm.connect(quitOnAlarm)
@@ -1080,7 +1080,7 @@ class grblDecode(QObject):
       self.__probeRecu = [False, [], SIG_ALARM]
       loop.quit()
 
-    loop = QtCore.QEventLoop()
+    loop = QEventLoop()
     self.__grblCom.sig_probe.connect(quitOnProbe)
     self.__grblCom.sig_error.connect(quitOnError)
     self.__grblCom.sig_alarm.connect(quitOnAlarm)

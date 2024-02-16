@@ -3,7 +3,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -45,9 +45,9 @@ setup(name='cn5X++',
   description = '5/6 axis Grbl control panel for grbl-Mega-5X',
   author = 'Gauthier Brière',
   install_requires = [
-    'pyqt5',
+    'pyqt6',
     'pyserial',
-    'pyqt5.qtmultimedia',
+    'pyqt6.qtmultimedia',
     ],
   options = dict(build_exe = buildOptions),
   executables = executables

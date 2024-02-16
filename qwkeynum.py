@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,32 +21,31 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import sys
+import os, sys
 import threading
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QLocale
-from PyQt5.QtGui import QKeyEvent
+from PyQt6 import QtCore, QtWidgets, uic
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent, QLocale
+from PyQt6.QtGui import QKeyEvent
 from gcodeQLineEdit import gcodeQLineEdit
-from PyQt5.QtTest import QTest
-
-import qwKeyNum_ui
+from PyQt6.QtTest import QTest
 
 class qwKeyNum(QtWidgets.QWidget):
   ''' Widget personalise construisant le pavé numérique touch screen
   '''
 
   def __init__(self, parent=None):
-    super().__init__()
-    
-    self.__txt = None
 
-    # Initialise l'interface utilisateur du clavier
+    super().__init__()
     self.parent = parent
+    
+    # Initialise l'interface utilisateur du clavier
     self.keynum = QtWidgets.QFrame(parent)
     self.keynum.setStyleSheet(".QFrame{background-color: rgba(192, 192, 192, 192); border: 1px solid #000060; margin: 0px; padding: 0px;}")
     self.keynum.move(30, 48)
-    self.keynum.ui = qwKeyNum_ui.Ui_keynum()
-    self.keynum.ui.setupUi(self.keynum)
+    self.keynum.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "qwKeyNum_ui.ui"), self.keynum)
+
+    self.__txt = None
+
     # Le clavier est masqué au départ
     self.keynum.setVisible(False)
 
@@ -74,8 +73,8 @@ class qwKeyNum(QtWidgets.QWidget):
     self.keynum.ui.keybButtonBackSpace.pressed.connect(lambda: self.keynumDel("Back"))
     self.keynum.ui.keybButtonClear.pressed.connect(lambda: self.keynumDel("Clear"))
 
-    self.keynum.ui.keybButtonUp.pressed.connect(lambda: self.keynumUpDown(Qt.Key_Up))
-    self.keynum.ui.keybButtonDown.pressed.connect(lambda: self.keynumUpDown(Qt.Key_Down))
+    self.keynum.ui.keybButtonUp.pressed.connect(lambda: self.keynumUpDown(Qt.Key.Key_Up))
+    self.keynum.ui.keybButtonDown.pressed.connect(lambda: self.keynumUpDown(Qt.Key.Key_Down))
 
     self.keynum.ui.btnClose.pressed.connect(self.keynum_hide)
 
@@ -102,7 +101,7 @@ class qwKeyNum(QtWidgets.QWidget):
   def keynumKey(self, key):
     if self.__txt is not None:
       self.__txt.setFocus()
-      keyEvent = QKeyEvent(QEvent.KeyPress, ord(key), Qt.NoModifier, key)
+      keyEvent = QKeyEvent(QEvent.Type.KeyPress, ord(key), Qt.KeyboardModifier.NoModifier, key)
       QCoreApplication.postEvent(self.__txt, keyEvent)
 
 
@@ -127,14 +126,14 @@ class qwKeyNum(QtWidgets.QWidget):
       if action == "Back":
         # backspace n'existe pas pour les QDoubleSpinBox 
         #self.__txt.backspace()
-        keyEvent = QKeyEvent(QEvent.KeyPress, QtCore.Qt.Key_Backspace, Qt.NoModifier)
+        keyEvent = QKeyEvent(QEvent.Type.KeyPress, Qt.Key.Key_Backspace, Qt.KeyboardModifier.NoModifier)
         QCoreApplication.postEvent(self.__txt, keyEvent)
       elif action == "Clear":
         self.__txt.clear()
 
 
   def keynumUpDown(self, key):
-      keyEvent = QKeyEvent(QEvent.KeyPress, key, Qt.NoModifier)
+      keyEvent = QKeyEvent(QEvent.Type.KeyPress, key, Qt.KeyboardModifier.NoModifier)
       QCoreApplication.postEvent(self.__txt, keyEvent)
 
 

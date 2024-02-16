@@ -2,7 +2,7 @@
 <ui version="4.0">
  <comment>
 
- Copyright 2018-2022 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
+ Copyright 2018-2024 Gauthier Brière (gauthier.briere &quot;at&quot; gmail.com)
 
  This file is part of cn5X
 
@@ -38,7 +38,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="cn5X.qrc">
-    <normaloff>:/cn5X/images/XYZAB.svg</normaloff>:/cn5X/images/XYZAB.svg</iconset>
+    <normaloff>images/XYZAB.svg</normaloff>images/XYZAB.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
@@ -171,10 +171,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -265,10 +265,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -359,10 +359,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -453,10 +453,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -547,10 +547,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -641,10 +641,10 @@ QCheckBox::indicator{
 	height: 24px;
 }
 QCheckBox::indicator:unchecked {
-    image: url(:/cn5X/images/chkBoxUnChecked.svg);
+    image: url(images/chkBoxUnChecked.svg);
 }
 QCheckBox::indicator:checked {
-    image: url(:/cn5X/images/chkBoxChecked.svg);
+    image: url(images/chkBoxChecked.svg);
 }</string>
         </property>
         <property name="text">
@@ -680,7 +680,7 @@ QCheckBox::indicator:checked {
      </property>
      <property name="icon">
       <iconset resource="cn5X.qrc">
-       <normaloff>:/cn5X/images/questionG28.svg</normaloff>:/cn5X/images/questionG28.svg</iconset>
+       <normaloff>images/questionG28.svg</normaloff>images/questionG28.svg</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -725,8 +725,6 @@ QCheckBox::indicator:checked {
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="cn5X.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

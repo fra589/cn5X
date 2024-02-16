@@ -25,39 +25,39 @@
 ## pylupdate5 cn5X.pro
 # Pour mettre à jour les sources de traduction.
 
-SOURCES += ../cn5X.py \
-	../cn5X_apropos.py \
-	../cn5X_config.py \
-	../cn5X_gcodeFile.py \
-	../cn5X_helpProbe.py \
-	../cn5X_rc.py \
-	../cnled.py \
-	../cnQLabel.py \
-	../cnQPushButton.py \
-	../compilOptions.py \
-	../dlgAPropos.py \
-	../dlgConfig.py \
-	../dlgG28_30_1.py \
-	../dlgG92.py \
-  ../dlgHelpProbe.py \
-  ../dlgJog.py \
-	../gcodeQLineEdit.py \
-	../grblCom.py \
-	../grblComSerial.py \
-	../grblComStack.py \
-	../grblConfig.py \
-	../grblDecode.py \
-	../grblError.py \
-	../grblG28_30_1.py \
-	../grblG92.py \
-	../grblJog.py \
-  ../grblProbe.py \
-	../mainWindow.py \
-	../msgbox.py \
-	../qweditmask.py \
-  ../qwprogressbox.py \
-	../speedOverrides.py
-TRANSLATIONS += cn5X.fr.ts \
-                cn5X.en.ts
+SOURCES = ../cn5X.py \
+          ../cn5X_apropos.py \
+          ../cn5X_config.py \
+          ../cn5X_gcodeFile.py \
+          ../cn5X_gcodeParser.py \
+          ../cn5X_helpProbe.py \
+          ../cn5X_jog.py \
+          ../cn5X_toolChange.py \
+          ../grblCom.py \
+          ../grblComSerial.py \
+          ../grblConfig.py \
+          ../grblDecode.py \
+          ../grblG28_30_1.py \
+          ../grblG92.py \
+          ../grblProbe.py \
+          ../msgbox.py \
+          ../qweditmask.py \
+          ../qwprogressbox.py \
+          ../speedOverrides.py
+
+FORMS   = ../mainWindow.ui
+          ../dlgAPropos.ui \
+          ../dlgConfig.ui \
+          ../dlgG28_30_1.ui \
+          ../dlgG92.ui \
+          ../dlgHelpProbe.ui \
+          ../dlgJog.ui \
+          ../dlgToolChange.ui \
+          ../qwHorloge.ui \
+          ../qwKeyboard_ui.ui \
+          ../qwKeyNum_ui.ui \
+
+TRANSLATIONS = cn5X.fr.ts \
+               cn5X.en.ts
 
 

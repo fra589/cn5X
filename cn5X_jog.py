@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X_probe.py, is part of cn5X++                             '
 '                                                                         '
@@ -21,26 +21,26 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QPalette
+import os
+from PyQt6 import QtCore, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QPalette
 from cn5X_config import *
 from grblCom import grblCom
-from dlgJog import *
+from cnQPushButton import cnQPushButton
 
-class dlgJog(QObject):
+
+class dlgJog(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue Jogging '''
 
   sig_close = pyqtSignal()         # Emis a la fermeture de la boite de dialogue
 
   def __init__(self, grbl: grblCom, decoder, axisNumber: int, axisNames: list):
     super().__init__()
-    self.__dlg = QDialog()
-    self.di = Ui_dlgJog()
-    self.di.setupUi(self.__dlg)
+    self.di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgJog.ui"), self)
 
-    self.__dlg.finished.connect(self.sig_close.emit)
+    self.finished.connect(self.sig_close.emit)
     
     self.__grblCom   = grbl
     self.__decode    = decoder
@@ -48,44 +48,44 @@ class dlgJog(QObject):
     self.__axisNames = axisNames
     
     # Mémorise les couleurs standard des spin boxes
-    self.activeColor   = self.di.dsbJogX.palette().color(QPalette.Active, QPalette.WindowText).name()
-    self.disabledColor = self.di.dsbJogX.palette().color(QPalette.Disabled, QPalette.WindowText).name()
+    self.activeColor   = self.di.dsbJogX.palette().color(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText).name()
+    self.disabledColor = self.di.dsbJogX.palette().color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText).name()
 
     # Mise à jour de l'interface en fonction de la définition des axes:
     self.di.chkJogX.setText(self.tr("Jog {} axis".format(self.__axisNames[0])))
-    self.di.btnJogX.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[0]))
+    self.di.btnJogX.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[0])))
     self.di.chkJogY.setText(self.tr("Jog {} axis".format(self.__axisNames[1])))
-    self.di.btnJogY.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[1]))
+    self.di.btnJogY.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[1])))
     self.di.chkJogZ.setText(self.tr("Jog {} axis".format(self.__axisNames[2])))
-    self.di.btnJogZ.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[2]))
+    self.di.btnJogZ.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[2])))
     if self.__nbAxis > 3:
       self.di.chkJogA.setText(self.tr("Jog {} axis".format(self.__axisNames[3])))
-      self.di.btnJogA.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[3]))
+      self.di.btnJogA.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[3])))
       self.di.chkJogA.setEnabled(True)
       self.di.dsbJogA.setEnabled(True)
     else:
       self.di.chkJogA.setText(self.tr("Jog - axis"))
-      self.di.btnJogA.changeIcon(":/cn5X/images/btnJogNone.svg")
+      self.di.btnJogA.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJogNone.svg"))
       self.di.chkJogA.setEnabled(False)
       self.di.dsbJogA.setEnabled(False)
     if self.__nbAxis > 4:
       self.di.chkJogB.setText(self.tr("Jog {} axis".format(self.__axisNames[4])))
-      self.di.btnJogB.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[4]))
+      self.di.btnJogB.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[4])))
       self.di.chkJogB.setEnabled(True)
       self.di.dsbJogB.setEnabled(True)
     else:
       self.di.chkJogB.setText(self.tr("Jog - axis"))
-      self.di.btnJogB.changeIcon(":/cn5X/images/btnJogNone.svg")
+      self.di.btnJogB.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJogNone.svg"))
       self.di.chkJogB.setEnabled(False)
       self.di.dsbJogB.setEnabled(False)
     if self.__nbAxis > 5:
       self.di.chkJogC.setText(self.tr("Jog {} axis".format(self.__axisNames[5])))
-      self.di.btnJogC.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[5]))
+      self.di.btnJogC.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[5])))
       self.di.chkJogC.setEnabled(True)
       self.di.dsbJogC.setEnabled(True)
     else:
       self.di.chkJogC.setText(self.tr("Jog - axis"))
-      self.di.btnJogC.changeIcon(":/cn5X/images/btnJogNone.svg")
+      self.di.btnJogC.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJogNone.svg"))
       self.di.chkJogC.setEnabled(False)
       self.di.dsbJogC.setEnabled(False)
 
@@ -103,7 +103,7 @@ class dlgJog(QObject):
     self.di.btnJogC.clicked.connect(lambda: self.on_btnJog(5, self.di.dsbJogC))
     
     self.di.btnJogStop.clicked.connect(self.jogCancel)
-    self.di.buttonBox.button(QDialogButtonBox.Close).clicked.connect(self.__dlg.close)
+    self.di.buttonBox.button(QDialogButtonBox.StandardButton.Close).clicked.connect(self.close)
 
     self.di.rbtMPos.toggled.connect(self.on_rbtMPos)
     self.di.rbtG90.toggled.connect(self.on_rbtG90)
@@ -129,7 +129,7 @@ class dlgJog(QObject):
     self.di.dsbJogB.valueChanged.connect(lambda: self.on_dsbJog_changed(self.di.dsbJogB, self.di.chkJogB, 4))
     self.di.dsbJogC.valueChanged.connect(lambda: self.on_dsbJog_changed(self.di.dsbJogC, self.di.chkJogC, 5))
 
-    self.__dlg.installEventFilter(self)
+    self.installEventFilter(self)
 
 
   def showDialog(self):
@@ -138,26 +138,26 @@ class dlgJog(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlg.geometry().width()
-    myHeight = self.__dlg.geometry().height()
-    self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
-    self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.Tool)
     
     # Mise à jour de la vitesse de déplacement:
     self.di.dsbJogSpeed.setValue(self.parent().ui.dsbJogSpeed.value())
 
-    ###RC = self.__dlg.open()
-    RC = self.__dlg.exec() # Use exec to make the dialog application modal.
+    # Use exec in place of self.open() to make the dialog application modal.
+    RC = self.exec()
     return RC
 
 
   def eventFilter(self, obj, event):
-    if event.type() == QtCore.QEvent.KeyPress:
-      if event.key() == QtCore.Qt.Key_Escape:
+    if event.type() == QEvent.Type.KeyPress:
+      if event.key() == Qt.Key.Key_Escape:
         self.jogCancel()
         return True
-    return super(QDialog, self.__dlg).eventFilter(obj, event)
+    return super(QDialog, self).eventFilter(obj, event)
 
 
   def setInitialCheckState(self):
@@ -260,42 +260,42 @@ class dlgJog(QObject):
     ''' Change la couleur des spinBoxes dynamiquement et traite l'activation ou la désactivation du bouton d'envoi '''
     if axis == 'X':
       self.di.btnJogX.setEnabled(self.di.chkJogX.isChecked())
-      self.di.btnJogX.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[0]))
+      self.di.btnJogX.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[0])))
       if self.di.chkJogX.isChecked():
         self.di.dsbJogX.setStyleSheet("color: {};".format(self.activeColor))
       else:
         self.di.dsbJogX.setStyleSheet("color: {};".format(self.disabledColor))
     if axis == 'Y':
       self.di.btnJogY.setEnabled(self.di.chkJogY.isChecked())
-      self.di.btnJogY.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[1]))
+      self.di.btnJogY.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[1])))
       if self.di.chkJogY.isChecked():
         self.di.dsbJogY.setStyleSheet("color: {};".format(self.activeColor))
       else:
         self.di.dsbJogY.setStyleSheet("color: {};".format(self.disabledColor))
     if axis == 'Z':
       self.di.btnJogZ.setEnabled(self.di.chkJogZ.isChecked())
-      self.di.btnJogZ.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[2]))
+      self.di.btnJogZ.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[2])))
       if self.di.chkJogZ.isChecked():
         self.di.dsbJogZ.setStyleSheet("color: {};".format(self.activeColor))
       else:
         self.di.dsbJogZ.setStyleSheet("color: {};".format(self.disabledColor))
     if axis == 'A':
       self.di.btnJogA.setEnabled(self.di.chkJogA.isChecked())
-      self.di.btnJogA.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[3]))
+      self.di.btnJogA.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[3])))
       if self.di.chkJogA.isChecked():
         self.di.dsbJogA.setStyleSheet("color: {};".format(self.activeColor))
       else:
         self.di.dsbJogA.setStyleSheet("color: {};".format(self.disabledColor))
     if axis == 'B':
       self.di.btnJogB.setEnabled(self.di.chkJogB.isChecked())
-      self.di.btnJogB.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[4]))
+      self.di.btnJogB.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[4])))
       if self.di.chkJogB.isChecked():
         self.di.dsbJogB.setStyleSheet("color: {};".format(self.activeColor))
       else:
         self.di.dsbJogB.setStyleSheet("color: {};".format(self.disabledColor))
     if axis == 'C':
       self.di.btnJogC.setEnabled(self.di.chkJogC.isChecked())
-      self.di.btnJogC.changeIcon(":/cn5X/images/btnJog{}.svg".format(self.__axisNames[5]))
+      self.di.btnJogC.changeIcon(os.path.join(os.path.dirname(__file__), "images/btnJog{}.svg".format(self.__axisNames[5])))
       if self.di.chkJogC.isChecked():
         self.di.dsbJogC.setStyleSheet("color: {};".format(self.activeColor))
       else:

@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file: cn5X_toolChange.py, is part of cn5X++                        '
 '                                                                         '
@@ -21,20 +21,21 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import time
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit, QApplication
-from PyQt5.QtGui import QPalette
+import time, os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit, QApplication
+from PyQt6.QtGui import QPalette
 from cn5X_config import *
 #from mainWindow import Ui_mainWindow
 from msgbox import *
-from dlgToolChange import *
 from grblCom import grblCom
 from grblDecode import grblDecode
 from grblProbe import *
+from cnQPushButton import cnQPushButton
 
-class dlgToolChange(QObject):
+
+class dlgToolChange(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue changement d'outils '''
 
   sig_close = pyqtSignal()         # Emis a la fermeture de la boite de dialogue
@@ -42,9 +43,7 @@ class dlgToolChange(QObject):
 
   def __init__(self, mainWin: QtWidgets.QMainWindow, grbl: grblCom, decoder: grblDecode, axisNumber: int, axisNames: list):
     super().__init__()
-    self.__dlg = QDialog()
-    self.di = Ui_dlgToolChange()
-    self.di.setupUi(self.__dlg)
+    self.di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgToolChange.ui"), self)
 
     self.__mainWin = mainWin
     self.__mainUi  = mainWin.ui
@@ -52,7 +51,7 @@ class dlgToolChange(QObject):
     self.__isVisible = False
 
     # Paramètres de cn5X++
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
 
     self.__grblCom   = grbl
     self.__decode    = decoder
@@ -70,7 +69,7 @@ class dlgToolChange(QObject):
     self.__initialToolLenght = False
 
     # Connexion des signaux de l'interface
-    self.__dlg.finished.connect(self.sig_close.emit)
+    self.finished.connect(self.sig_close.emit)
     self.di.btnGo.clicked.connect(self.on_btnGo)
     self.di.btnStop.clicked.connect(self.on_btnStop)
     self.di.btnProbeZ.clicked.connect(self.on_btnProbeZ)
@@ -139,7 +138,7 @@ class dlgToolChange(QObject):
       return QDialog.Rejected
 
     # Affiche le curseur de souris sablier
-    QApplication.setOverrideCursor(Qt.WaitCursor)
+    QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     # Met à jour la case à cocher InvertProbePin
     if self.__decode.getGrblSetting(6) is not None:
@@ -150,11 +149,11 @@ class dlgToolChange(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlg.geometry().width()
-    myHeight = self.__dlg.geometry().height()
-    self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
-    self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlg.setWindowFlags(Qt.Dialog | Qt.Tool)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.Tool)
 
     # Attente de la fin du (des) mouvement(s) eventuellement en cours
     tDebut = time.time()
@@ -191,7 +190,7 @@ class dlgToolChange(QObject):
     # Affiche la boite de dialogue
     self.__isVisible = True
     # Using exec() insteed to open() to make the dialog application modal
-    RC = self.__dlg.exec()
+    RC = self.exec()
     self.__isVisible = False
     return RC
 
@@ -225,14 +224,14 @@ class dlgToolChange(QObject):
     self.__grblCom.gcodePush(deplacementGCodeZ)
 
     # ferme la boite de dialogue en envoyant QDialog.Accepted
-    self.__dlg.accept()
+    self.accept()
 
 
   def on_btnStop(self):
     # ANNULATION !
     # ferme la boite de dialogue en envoyant QDialog.Rejected,
     # sans restaurer l'état de la machine ni la position d'outil.
-    self.__dlg.reject()
+    self.reject()
 
 
   def on_chkInvertProbePin(self):

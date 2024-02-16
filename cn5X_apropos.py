@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,23 +21,24 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QValidator
+import os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QValidator
 from cn5X_config import *
 from grblCom import grblCom
-from dlgAPropos import *
 from msgbox import *
 
-class cn5XAPropos(QObject):
+
+class cn5XAPropos(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue A Propos '''
 
   def __init__(self, versionString: str, licenceFile: str):
     super().__init__()
-    self.__dlgApropos = QDialog()
-    self.__di = Ui_dlgApropos()
-    self.__di.setupUi(self.__dlgApropos)
-    self.__di.lblVersion.setText(versionString)
+    self.__di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgAPropos.ui"), self)
+    
+    self.__di.lblVersion.setText(versionString + '\t' + "(Qt version " + QtCore.PYQT_VERSION_STR + ")")
 
     text=open(licenceFile).read()
     self.__di.qptLicence.setPlainText(text)
@@ -48,12 +49,12 @@ class cn5XAPropos(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlgApropos.geometry().width()
-    myHeight = self.__dlgApropos.geometry().height()
-    self.__dlgApropos.setFixedSize(self.__dlgApropos.geometry().width(),self.__dlgApropos.geometry().height())
-    self.__dlgApropos.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlgApropos.setWindowFlags(Qt.Window | Qt.Dialog)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.Dialog)
 
-    RC = self.__dlgApropos.exec()
+    RC = self.exec()
     return RC
 

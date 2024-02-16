@@ -21,23 +21,24 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QValidator
+import os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QValidator
 from cn5X_config import *
 from grblCom import grblCom
-from dlgConfig import *
 from msgbox import *
 from compilOptions import grblCompilOptions
+from qweditmask import qwEditMask
+
 
 class upperCaseValidator(QValidator):
   def validate(self, string, pos):
-    return QValidator.Acceptable, string.upper(), pos
-    # for old code still using QString, use this instead
-    # string.replace(0, string.count(), string.toUpper())
-    # return QtGui.QValidator.Acceptable, pos
+    return QValidator.State.Acceptable, string.upper(), pos
 
-class grblConfig(QObject):
+
+class grblConfig(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue de configuration de Grbl '''
 
   # Liste des controles editables (49 controles)
@@ -55,9 +56,8 @@ class grblConfig(QObject):
 
   def __init__(self, grbl: grblCom, nbAxis: int, axisNames: list):
     super().__init__()
-    self.__dlgConfig = QDialog()
-    self.__di = Ui_dlgConfig()
-    self.__di.setupUi(self.__dlgConfig)
+    self.__di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgConfig.ui"), self)
+    
     self.__configChanged = False
     self.__changedParams = []
     self.__nbAxis = nbAxis
@@ -67,15 +67,15 @@ class grblConfig(QObject):
     self.ucase = upperCaseValidator(self)
 
     # Barre de boutons de la boite de dialogue
-    self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.Apply)
+    self.__buttonApply   = self.__di.buttonBox.addButton(QDialogButtonBox.StandardButton.Apply)
     self.__buttonApply.setToolTip(self.tr("Apply the changes."))
     self.__buttonApply.setEnabled(False)
-    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.Close)
+    self.__buttonDiscard = self.__di.buttonBox.addButton(QDialogButtonBox.StandardButton.Close)
     self.__buttonDiscard.setToolTip(self.tr("Close the dialog box without validating modifications."))
-    self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.Reset)
+    self.__buttonReset   = self.__di.buttonBox.addButton(QDialogButtonBox.StandardButton.Reset)
     self.__buttonReset.setEnabled(False)
     self.__buttonReset.setToolTip(self.tr("Reloads all parameters from their current values in Grbl."))
-    self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ActionRole)
+    self.__buttonFactory = self.__di.buttonBox.addButton("Reset factory", QDialogButtonBox.ButtonRole.ActionRole)
     self.__buttonFactory.setToolTip(self.tr("Reset all parameters to their original values\ndefined when compiling Grbl."))
 
     self.__buttonApply.pressed.connect(self.on_Apply)
@@ -152,14 +152,14 @@ class grblConfig(QObject):
     ParentY = self.parent().geometry().y()
     ParentWidth = self.parent().geometry().width()
     ParentHeight = self.parent().geometry().height()
-    myWidth = self.__dlgConfig.geometry().width()
-    myHeight = self.__dlgConfig.geometry().height()
-    self.__dlgConfig.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlgConfig.setFixedSize(self.__dlgConfig.geometry().width(),self.__dlgConfig.geometry().height())
-    self.__dlgConfig.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-    self.__dlgConfig.setWindowFlags(Qt.Window | Qt.Dialog)
+    myWidth = self.geometry().width()
+    myHeight = self.geometry().height()
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setFixedSize(self.geometry().width(),self.geometry().height())
+    self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+    self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.Dialog)
     self.__getGrblParams()
-    RC = self.__dlgConfig.exec()
+    RC = self.exec()
     return RC
 
 
@@ -189,24 +189,24 @@ class grblConfig(QObject):
         self.__di.emDirectionPortInvert.setValue(int(data.split("=")[1]))
       elif data[:3] == '$4=':
         if data.split("=")[1] == '0':
-          self.__di.chkStepEnableInvert.setCheckState(Qt.Unchecked)
+          self.__di.chkStepEnableInvert.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkStepEnableInvert.setText("False")
         else:
-          self.__di.chkStepEnableInvert.setCheckState(Qt.Checked)
+          self.__di.chkStepEnableInvert.setCheckState(Qt.CheckState.Checked)
           self.__di.chkStepEnableInvert.setText("True")
       elif data[:3] == '$5=':
         if data.split("=")[1] == '0':
-          self.__di.chkLimitPinsInvert.setCheckState(Qt.Unchecked)
+          self.__di.chkLimitPinsInvert.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkLimitPinsInvert.setText("False")
         else:
-          self.__di.chkLimitPinsInvert.setCheckState(Qt.Checked)
+          self.__di.chkLimitPinsInvert.setCheckState(Qt.CheckState.Checked)
           self.__di.chkLimitPinsInvert.setText("True")
       elif data[:3] == '$6=':
         if data.split("=")[1] == '0':
-          self.__di.chkProbePinInvert.setCheckState(Qt.Unchecked)
+          self.__di.chkProbePinInvert.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkProbePinInvert.setText("False")
         else:
-          self.__di.chkProbePinInvert.setCheckState(Qt.Checked)
+          self.__di.chkProbePinInvert.setCheckState(Qt.CheckState.Checked)
           self.__di.chkProbePinInvert.setText("True")
       # Onglet Unites
       elif data[:4] == '$10=':
@@ -217,32 +217,32 @@ class grblConfig(QObject):
         self.__di.dsbArcTolerance.setValue(float(data.split("=")[1]))
       elif data[:4] == '$13=':
         if data.split("=")[1] == '0':
-          self.__di.chkReportInches.setCheckState(Qt.Unchecked)
+          self.__di.chkReportInches.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkReportInches.setText("False")
         else:
-          self.__di.chkReportInches.setCheckState(Qt.Checked)
+          self.__di.chkReportInches.setCheckState(Qt.CheckState.Checked)
           self.__di.chkReportInches.setText("True")
       # Onglet Limites
       elif data[:4] == '$20=':
         if data.split("=")[1] == '0':
-          self.__di.chkSoftLimits.setCheckState(Qt.Unchecked)
+          self.__di.chkSoftLimits.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkSoftLimits.setText("False")
         else:
-          self.__di.chkSoftLimits.setCheckState(Qt.Checked)
+          self.__di.chkSoftLimits.setCheckState(Qt.CheckState.Checked)
           self.__di.chkSoftLimits.setText("True")
       elif data[:4] == '$21=':
         if data.split("=")[1] == '0':
-          self.__di.chkHardLimits.setCheckState(Qt.Unchecked)
+          self.__di.chkHardLimits.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkHardLimits.setText("False")
         else:
-          self.__di.chkHardLimits.setCheckState(Qt.Checked)
+          self.__di.chkHardLimits.setCheckState(Qt.CheckState.Checked)
           self.__di.chkHardLimits.setText("True")
       elif data[:4] == '$22=':
         if data.split("=")[1] == '0':
-          self.__di.chkHomingCycle.setCheckState(Qt.Unchecked)
+          self.__di.chkHomingCycle.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkHomingCycle.setText("False")
         else:
-          self.__di.chkHomingCycle.setCheckState(Qt.Checked)
+          self.__di.chkHomingCycle.setCheckState(Qt.CheckState.Checked)
           self.__di.chkHomingCycle.setText("True")
       elif data[:4] == '$23=':
         self.__di.emHomeDirInvert.setValue(int(data.split("=")[1]))
@@ -261,10 +261,10 @@ class grblConfig(QObject):
         self.__di.spinMinSpindle.setValue(int(data.split("=")[1]))
       elif data[:4] == '$32=':
         if data.split("=")[1] == '0':
-          self.__di.chkLaserMode.setCheckState(Qt.Unchecked)
+          self.__di.chkLaserMode.setCheckState(Qt.CheckState.Unchecked)
           self.__di.chkLaserMode.setText("False")
         else:
-          self.__di.chkLaserMode.setCheckState(Qt.Checked)
+          self.__di.chkLaserMode.setCheckState(Qt.CheckState.Checked)
           self.__di.chkLaserMode.setText("True")
       # Onglet Courses
       elif data[:5] == '$100=':
@@ -673,7 +673,7 @@ class grblConfig(QObject):
 
   @pyqtSlot()
   def on_Discard(self):
-    self.__dlgConfig.reject()
+    self.reject()
 
 
   @pyqtSlot()
@@ -703,7 +703,7 @@ class grblConfig(QObject):
 
   @pyqtSlot(QCheckBox)
   def chkStateChange(self, chk: QCheckBox):
-    if chk.checkState() == Qt.Checked:
+    if chk.checkState() == Qt.CheckState.Checked:
       chk.setText("True")
     else:
       chk.setText("False")

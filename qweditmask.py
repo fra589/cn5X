@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -22,9 +22,9 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import sys
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
-from PyQt5.QtGui import QIntValidator
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt, pyqtSignal, pyqtSlot, QSize, pyqtProperty
+from PyQt6.QtGui import QIntValidator
 
 class qwEditMask(QtWidgets.QWidget):
   ''' Widget personalise construisant un masque binaire (pour 6 axes) avec 6 cases a cocher
@@ -40,8 +40,8 @@ class qwEditMask(QtWidgets.QWidget):
 
     # Creation cadre exterieur
     self.frame = QtWidgets.QFrame()
-    self.frame.setMinimumSize(QtCore.QSize(127, 19))
-    self.frame.setMaximumSize(QtCore.QSize(127, 19))
+    self.frame.setMinimumSize(QSize(127, 19))
+    self.frame.setMaximumSize(QSize(127, 19))
     self.frame.setObjectName("frame")
     self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame)
     self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -52,7 +52,7 @@ class qwEditMask(QtWidgets.QWidget):
     self.chk = []
     for i in range(6):
       self.chk.append(QtWidgets.QCheckBox(self.frame))
-      self.chk[i].setLayoutDirection(QtCore.Qt.RightToLeft)
+      self.chk[i].setLayoutDirection(Qt.LayoutDirection.RightToLeft)
       self.chk[i].setText("")
       self.chk[i].setObjectName("chk{}".format(i))
       self.horizontalLayout.addWidget(self.chk[i])
@@ -60,9 +60,9 @@ class qwEditMask(QtWidgets.QWidget):
 
     # Creation zone de texte
     self.lneMask = QtWidgets.QLineEdit(self.frame)
-    self.lneMask.setMinimumSize(QtCore.QSize(31, 19))
-    self.lneMask.setMaximumSize(QtCore.QSize(31, 19))
-    self.lneMask.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+    self.lneMask.setMinimumSize(QSize(31, 19))
+    self.lneMask.setMaximumSize(QSize(31, 19))
+    self.lneMask.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
     self.lneMask.setObjectName("lneMask")
     self.lneMask.setText("0")
     validator = QIntValidator(0, 63, self)
@@ -97,9 +97,9 @@ class qwEditMask(QtWidgets.QWidget):
         newVal = 0
       for i in range(6):
         if newVal & 2**i:
-          self.chk[i].setCheckState(Qt.Checked)
+          self.chk[i].setCheckState(Qt.CheckState.Checked)
         else:
-          self.chk[i].setCheckState(Qt.Unchecked)
+          self.chk[i].setCheckState(Qt.CheckState.Unchecked)
       self.valueChanged.emit(newVal)
       self.__changeEnCours = False
 
@@ -117,7 +117,7 @@ class qwEditMask(QtWidgets.QWidget):
 
 
   # Definie la propriete pour permettre la configuration par Designer
-  value = QtCore.pyqtProperty(int, fget=getValue, fset=setValue)
+  value = pyqtProperty(int, fget=getValue, fset=setValue)
 
 
   @pyqtSlot()
@@ -140,7 +140,7 @@ class qwEditMask(QtWidgets.QWidget):
 
 
   # Definie la propriete pour permettre la configuration par Designer
-  nbAxes = QtCore.pyqtProperty(int, fget=getNbAxes, fset=setNbAxes)
+  nbAxes = pyqtProperty(int, fget=getNbAxes, fset=setNbAxes)
 
 
 

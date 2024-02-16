@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,22 +21,21 @@
 '                                      cn5X_dlgG92                                   '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings
-from PyQt5.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QValidator, QPalette
+import os
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot, QSettings
+from PyQt6.QtWidgets import QDialog, QAbstractButton, QDialogButtonBox, QCheckBox, QSpinBox, QDoubleSpinBox, QLineEdit
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QValidator, QPalette
 from cn5X_config import *
 from grblCom import grblCom
-from dlgG28_30_1 import *
 from msgbox import *
 
-class dlgG28_30_1(QObject):
+class dlgG28_30_1(QDialog):
   ''' Classe assurant la gestion de la boite de dialogue G92 '''
 
   def __init__(self, Gpos, grbl: grblCom, decoder, axisNumber: int, axisNames: list):
     super().__init__()
-    self.__dlg = QDialog()
-    self.di = Ui_dlgG28_30_1()
-    self.di.setupUi(self.__dlg)
+    self.di = uic.loadUi(os.path.join(os.path.dirname(__file__), "dlgG28_30_1.ui"), self)
 
     self.__Gpos      = Gpos # Doit être G28, G28.1, G30 ou G30.1
     self.__grblCom   = grbl
@@ -44,12 +43,12 @@ class dlgG28_30_1(QObject):
     self.__nbAxis    = axisNumber
     self.__axisNames = axisNames
 
-    self.__settings = QSettings(QSettings.NativeFormat, QSettings.UserScope, ORG_NAME, APP_NAME)
+    self.__settings = QSettings(QSettings.Format.NativeFormat, QSettings.Scope.UserScope, ORG_NAME, APP_NAME)
     
 
     # G28, G28.1, G30 ou G30.1
     if self.__Gpos[-2:] == ".1":
-      self.__dlg.setWindowTitle(self.tr("Define {} absolute position?").format(self.__Gpos))
+      self.setWindowTitle(self.tr("Define {} absolute position?").format(self.__Gpos))
       self.di.lblPosition.setText(self.tr("Current machine position (MPos)"))
       self.di.lblMessage.setText(self.tr("Save the current machine position (MPos) in the {} Grbl's location?").format(self.__Gpos))
       self.enableDisableCheckBoxes(False)
@@ -58,7 +57,7 @@ class dlgG28_30_1(QObject):
       self.di.chkDontShow.setChecked(self.__dontConfirm)
       self.di.chkDontShow.setVisible(True)
     else:
-      self.__dlg.setWindowTitle(self.tr("Go to {} stored location?").format(self.__Gpos))
+      self.setWindowTitle(self.tr("Go to {} stored location?").format(self.__Gpos))
       self.di.lblPosition.setText(self.tr("Current {} defined position").format(self.__Gpos))
       text  = self.tr("Make a rapid move from current location to the position defined by the last {}?\n".format(self.__Gpos))
       text += self.tr("If no positions are stored with {} then all axes will go to the machine origin.".format(self.__Gpos))
@@ -70,7 +69,7 @@ class dlgG28_30_1(QObject):
       self.di.chkDontShow.setVisible(False)
     
     # Image G28, G28.1, G30 ou G30.1
-    self.di.imageDeco.setIcon(QtGui.QIcon(":/cn5X/images/question{}.svg".format(self.__Gpos)))
+    self.di.imageDeco.setIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__), "images/question{}.svg".format(self.__Gpos))))
 
     # Mise à jour de l'interface en fonction de la définition des axes:
     self.di.lblLblPosX.setText(self.tr("{}").format(self.__axisNames[0]))
@@ -149,8 +148,8 @@ class dlgG28_30_1(QObject):
           self.di.lblPosC.setText("-")
 
     # Connection des actions
-    self.di.buttonBox.button(QDialogButtonBox.Yes).clicked.connect(self.on_btnYes)
-    self.di.buttonBox.button(QDialogButtonBox.Cancel).clicked.connect(self.__dlg.close)
+    self.di.buttonBox.button(QDialogButtonBox.StandardButton.Yes).clicked.connect(self.on_btnYes)
+    self.di.buttonBox.button(QDialogButtonBox.StandardButton.Cancel).clicked.connect(self.close)
     self.di.chkPosX.stateChanged.connect(lambda: self.on_chkPos_changed(self.di.chkPosX, 0))
     self.di.chkPosY.stateChanged.connect(lambda: self.on_chkPos_changed(self.di.chkPosY, 1))
     self.di.chkPosZ.stateChanged.connect(lambda: self.on_chkPos_changed(self.di.chkPosZ, 2))
@@ -166,13 +165,13 @@ class dlgG28_30_1(QObject):
       ParentY = self.parent().geometry().y()
       ParentWidth = self.parent().geometry().width()
       ParentHeight = self.parent().geometry().height()
-      myWidth = self.__dlg.geometry().width()
-      myHeight = self.__dlg.geometry().height()
-      self.__dlg.setFixedSize(self.__dlg.geometry().width(),self.__dlg.geometry().height())
-      self.__dlg.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
-      self.__dlg.setWindowFlags(Qt.Window | Qt.Dialog)
+      myWidth = self.geometry().width()
+      myHeight = self.geometry().height()
+      self.setFixedSize(self.geometry().width(),self.geometry().height())
+      self.move(ParentX + int((ParentWidth - myWidth) / 2),ParentY + int((ParentHeight - myHeight) / 2),)
+      self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.Dialog)
 
-      RC = self.__dlg.exec()
+      RC = self.exec()
       return RC
 
     else:
@@ -213,7 +212,7 @@ class dlgG28_30_1(QObject):
     # Enregistre l'état de chkDontShow
     self.__settings.setValue("dontConfirm{}".format(self.__Gpos), self.di.chkDontShow.isChecked())
     # Fermeture de la dialog
-    self.__dlg.close()
+    self.close()
 
 
   def enableDisableCheckBoxes(self, enabling: bool):
@@ -231,8 +230,8 @@ class dlgG28_30_1(QObject):
 
   def enableDisableAxis(self, axis: str, enabling: bool):
 
-    activeColor   = self.di.lblLblPosX.palette().color(QPalette.Active, QPalette.WindowText).name()   # #000000
-    disabledColor = self.di.lblLblPosX.palette().color(QPalette.Disabled, QPalette.WindowText).name() # #bebebe
+    activeColor   = self.di.lblLblPosX.palette().color(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText).name()   # #000000
+    disabledColor = self.di.lblLblPosX.palette().color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText).name() # #bebebe
     
     lblLblPos = self.di.frmMPos.findChild(QtWidgets.QLabel, "lblLblPos{}".format(axis))
     if lblLblPos is not None:
@@ -256,12 +255,12 @@ class dlgG28_30_1(QObject):
 
     enabledStyle   = "QCheckBox{margin-left: 6px;}"
     enabledStyle  += "QCheckBox::indicator{width: 24px;	height: 24px;}"
-    enabledStyle  += "QCheckBox::indicator:unchecked {image: url(:/cn5X/images/chkBoxUnChecked.svg);}"
-    enabledStyle  += "QCheckBox::indicator:checked {image: url(:/cn5X/images/chkBoxChecked.svg);}"
+    enabledStyle  += "QCheckBox::indicator:unchecked {image: url(" + os.path.join(os.path.dirname(__file__), "images/chkBoxUnChecked.svg") + ");}"
+    enabledStyle  += "QCheckBox::indicator:checked {image: url(" + os.path.join(os.path.dirname(__file__), "images/chkBoxChecked.svg") + ");}"
     disabledStyle  = "QCheckBox{margin-left: 6px;}"
     disabledStyle += "QCheckBox::indicator{width: 24px;	height: 24px;}"
-    disabledStyle += "QCheckBox::indicator:unchecked {image: url(:/cn5X/images/chkBoxDisabledUnChecked.svg);}"
-    disabledStyle += "QCheckBox::indicator:checked {image: url(:/cn5X/images/chkBoxDisabledChecked.svg);}"
+    disabledStyle += "QCheckBox::indicator:unchecked {image: url(" + os.path.join(os.path.dirname(__file__), "images/chkBoxDisabledUnChecked.svg") + ");}"
+    disabledStyle += "QCheckBox::indicator:checked {image: url(" + os.path.join(os.path.dirname(__file__), "images/chkBoxDisabledChecked.svg") + ");}"
     
     toolTipEnabled  = self.tr("Uncheck to keep this axis at its current position")
     toolTipDisabled = ""

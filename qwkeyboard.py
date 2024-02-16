@@ -2,7 +2,7 @@
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '                                                                         '
-' Copyright 2018-2022 Gauthier Brière (gauthier.briere "at" gmail.com)    '
+' Copyright 2018-2024 Gauthier Brière (gauthier.briere "at" gmail.com)    '
 '                                                                         '
 ' This file is part of cn5X++                                             '
 '                                                                         '
@@ -21,32 +21,32 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import sys
+import sys, os
 import threading
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent
-from PyQt5.QtGui import QKeyEvent
+from PyQt6 import QtCore, QtWidgets, uic
+from PyQt6.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, pyqtSlot, QSettings, QEvent
+from PyQt6.QtGui import QKeyEvent
 from gcodeQLineEdit import gcodeQLineEdit
-from PyQt5.QtTest import QTest
+from PyQt6.QtTest import QTest
 
-import qwKeyboard_ui
 
 class qwKeyboard(QtWidgets.QWidget):
   ''' Widget personalise construisant le clavier touch screen
   '''
 
   def __init__(self, parent=None):
+
     super().__init__()
-    
-    self.__txt = None
+    self.parent = parent
 
     # Initialise l'interface utilisateur du clavier
-    self.parent = parent
     self.keyboard = QtWidgets.QFrame(parent)
     self.keyboard.setStyleSheet(".QFrame{background-color: rgba(192, 192, 192, 192); border: 1px solid #000060; margin: 0px; padding: 0px;}")
     self.keyboard.move(5, 265)
-    self.keyboard.ui = qwKeyboard_ui.Ui_keyboard()
-    self.keyboard.ui.setupUi(self.keyboard)
+    self.keyboard.ui = uic.loadUi(os.path.join(os.path.dirname(__file__), "qwKeyboard_ui.ui"), self.keyboard)
+
+    self.__txt = None
+
     # Le clavier est masqué au départ
     self.keyboard.setVisible(False)
 
@@ -109,8 +109,9 @@ class qwKeyboard(QtWidgets.QWidget):
     self.keyboard.ui.keybButtonBackSpace.pressed.connect(lambda: self.keyboardDel("Back"))
     self.keyboard.ui.keybButtonClear.pressed.connect(lambda: self.keyboardDel("Clear"))
 
-    self.keyboard.ui.keybButtonUp.pressed.connect(lambda: self.keyboardUpDown(Qt.Key_Up))
-    self.keyboard.ui.keybButtonDown.pressed.connect(lambda: self.keyboardUpDown(Qt.Key_Down))
+    self.keyboard.ui.keybButtonUp.pressed.connect(lambda: self.keyboardUpDown(Qt.Key.Key_Up))
+    self.keyboard.ui.keybButtonDown.pressed.connect(lambda: self.keyboardUpDown(Qt.Key.Key_Down))
+
 
   @pyqtSlot(gcodeQLineEdit)
   def setLinkedTxt(self, txt):
@@ -123,16 +124,17 @@ class qwKeyboard(QtWidgets.QWidget):
 
   def keyboard_hide(self):
     self.keyboard.setVisible(False)
+    self.parent.ui.btnKeyboard.setText("⇧⌨⇧")
 
 
-  def isVisible(self):
+  def isKeyboardVisible(self):
     return self.keyboard.isVisible()
 
 
   def keyboardKey(self, key):
     if self.__txt is not None:
       self.__txt.setFocus()
-      keyEvent = QKeyEvent(QEvent.KeyPress, ord(key), Qt.NoModifier, key)
+      keyEvent = QKeyEvent(QEvent.Type.KeyPress, ord(key), Qt.KeyboardModifier.NoModifier, key)
       QCoreApplication.postEvent(self.__txt, keyEvent)
 
 
@@ -163,7 +165,7 @@ class qwKeyboard(QtWidgets.QWidget):
   def keyboardUpDown(self, QtKey):
     if self.__txt is not None:
       self.__txt.setFocus()
-      keyEvent = QKeyEvent(QEvent.KeyPress, QtKey, Qt.NoModifier)
+      keyEvent = QKeyEvent(QEvent.Type.KeyPress, QtKey, Qt.KeyboardModifier.NoModifier)
       QCoreApplication.postEvent(self.__txt, keyEvent)
     
     
