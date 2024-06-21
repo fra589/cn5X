@@ -22,6 +22,7 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import os
+from platform import system
 from playsound import playsound
 
 class cn5XBeeper():
@@ -38,4 +39,8 @@ class cn5XBeeper():
     '''
     Emission d'un beep sonore depuis le fichier beep.wav
     '''
-    playsound(self.__beepFile, False)
+    if system() == 'Windows':
+      playsound(self.__beepFile, True)
+    else:
+      playsound(self.__beepFile, False)
+
