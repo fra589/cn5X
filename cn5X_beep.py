@@ -22,10 +22,7 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import os
-from PyQt6.QtCore import QUrl #, QBuffer, QByteArray, QIODevice,
-from PyQt6.QtMultimedia import QSoundEffect, QAudio, QAudioOutput, QAudioFormat
-#from math import pi, sin
-#import struct
+from playsound import playsound
 
 class cn5XBeeper():
   '''
@@ -34,22 +31,11 @@ class cn5XBeeper():
   def __init__(self):
     super().__init__()
 
-    beepFile = os.path.join(os.path.dirname(__file__), "son/beep.wav")
-    self.__beep = QSoundEffect()
-    self.__beep.setSource(QUrl.fromLocalFile(beepFile))
-    self.__beep.setLoopCount(1)
+    self.__beepFile = os.path.join(os.path.dirname(__file__), "son/beep.wav")
 
 
   def beep(self, volume: float):
     '''
     Emission d'un beep sonore depuis le fichier beep.wav
     '''
-    # Arrêt si déjà actif
-    if self.__beep.isPlaying():
-      self.__beep.stop()
-
-    # On ajuste le volume demandé
-    self.__beep.setVolume(volume)
-
-    # On joue le son
-    self.__beep.play()
+    playsound(self.__beepFile, False)

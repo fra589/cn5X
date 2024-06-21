@@ -103,3 +103,7 @@ ENV/
 
 # Geany project file
 cn5X.geany
+
+# old files
+*.old
+
