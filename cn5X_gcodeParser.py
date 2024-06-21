@@ -21,7 +21,6 @@
 '                                                                         '
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import re
 from PyQt6.QtCore import Qt, QObject, pyqtSignal, pyqtSlot
 from cn5X_config import *
 
@@ -73,25 +72,6 @@ class gcodeParser(QObject):
         else:
           # Ajout du caractère à la ligne
           line += c.upper();
-    return line
-
-
-  @pyqtSlot(str)
-  def getMessage(self, gcodeLine: str):
-    '''
-    (MSG,) - Un commentaire contient un message si MSG apparaît après
-    la parenthèse ouvrante et avant tout autre caractère. Les variantes
-    de MSG qui incluent un espace blanc et des minuscules sont permises.
-    Le reste du texte avant la parenthèse fermante est considéré comme
-    un message.
-    Les messages sont affichés sur la visu de l’interface utilisateur.
-    '''
-    try:
-      # Expression régulière pour extraire le message
-      line = re.split("\( *[Mm][Ss][Gg], *", gcodeLine, 1)[1].split(")")[0].strip()
-    except:
-      # En cas d'erreur de l'expression régilière, on ne renvoi rien
-      line = ""
     return line
 
 
