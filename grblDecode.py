@@ -38,6 +38,9 @@ class grblDecode(QObject):
   - Met a jour l'interface graphique.
   - Stocke des valeurs des parametres decodes.
   '''
+
+  sig_log     = pyqtSignal(int, str) # Message de fonctionnement du composant
+
   def __init__(self, ui, log, grbl: grblCom, beeper: cn5XBeeper, arretUrgence):
     super().__init__()
     self.ui = ui
@@ -194,78 +197,89 @@ class grblDecode(QObject):
       elif D[:5] == "MPos:":
         # Mémorise la dernière position machine reçue
         tblPos = D[5:].split(",")
-        for I in range(len(tblPos)):
-          self.__mpos[I] = float(tblPos[I])
-          self.__wpos[I] = float(tblPos[I]) - self.__wco[I]
-        # Met à jour l'interface
-        if not self.ui.mnu_MPos.isChecked():
-          self.ui.mnu_MPos.setChecked(True)
-        if self.ui.mnu_WPos.isChecked():
-          self.ui.mnu_WPos.setChecked(False)
-        tblPos = D[5:].split(",")
-        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Machine Position (MPos)."))
-        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Machine Position (MPos)."))
-        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Machine Position (MPos)."))
-        if self.__nbAxis > 3:
-          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Machine Position (MPos)."))
+        try:
+          for I in range(len(tblPos)):
+            self.__mpos[I] = float(tblPos[I])
+            self.__wpos[I] = float(tblPos[I]) - self.__wco[I]
+        except  ValueError as e:
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblDecode.decodeGrblStatus(MPos): ValueError: {}, grblOutput = {}".format(str(e), grblOutput)))
         else:
-          self.ui.lblPosA.setText("-")
-        if self.__nbAxis > 4:
-          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
-        else:
-          self.ui.lblPosB.setText("-")
-        if self.__nbAxis > 5:
-          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
-        else:
-          self.ui.lblPosC.setText("-")
+          if not self.ui.mnu_MPos.isChecked():
+            self.ui.mnu_MPos.setChecked(True)
+          if self.ui.mnu_WPos.isChecked():
+            self.ui.mnu_WPos.setChecked(False)
+          tblPos = D[5:].split(",")
+          self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Machine Position (MPos)."))
+          self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Machine Position (MPos)."))
+          self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Machine Position (MPos)."))
+          if self.__nbAxis > 3:
+            self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Machine Position (MPos)."))
+          else:
+            self.ui.lblPosA.setText("-")
+          if self.__nbAxis > 4:
+            self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
+          else:
+            self.ui.lblPosB.setText("-")
+          if self.__nbAxis > 5:
+            self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Machine Position (MPos)."))
+          else:
+            self.ui.lblPosC.setText("-")
 
       elif D[:5] == "WPos:":
         # Mémorise la dernière position de travail reçue
         tblPos = D[5:].split(",")
-        for I in range(len(tblPos)):
-          self.__wpos[I] = float(tblPos[I])
-          self.__mpos[I] = float(tblPos[I]) + self.__wco[I]
+        try:
+          for I in range(len(tblPos)):
+            self.__wpos[I] = float(tblPos[I])
+            self.__mpos[I] = float(tblPos[I]) + self.__wco[I]
+        except  ValueError as e:
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblDecode.decodeGrblStatus(WPos): ValueError: {}, grblOutput = {}".format(str(e), grblOutput)))
+        else:
         # Met à jour l'interface
-        if not self.ui.mnu_WPos.isChecked():
-          self.ui.mnu_WPos.setChecked(True)
-        if self.ui.mnu_MPos.isChecked():
-          self.ui.mnu_MPos.setChecked(False)
-        tblPos = D[5:].split(",")
-        self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Working Position (WPos)."))
-        self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Working Position (WPos)."))
-        self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Working Position (WPos)."))
-        if self.__nbAxis > 3:
-          self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Working Position (WPos)."))
-        else:
-          self.ui.lblPosA.setText("-")
-        if self.__nbAxis > 4:
-          self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
-        else:
-          self.ui.lblPosB.setText("-")
-        if self.__nbAxis > 5:
-          self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
-        else:
-          self.ui.lblPosC.setText("-")
+          if not self.ui.mnu_WPos.isChecked():
+            self.ui.mnu_WPos.setChecked(True)
+          if self.ui.mnu_MPos.isChecked():
+            self.ui.mnu_MPos.setChecked(False)
+          tblPos = D[5:].split(",")
+          self.ui.lblPosX.setText('{:+0.3f}'.format(float(tblPos[0]))); self.ui.lblPosX.setToolTip(self.tr("Working Position (WPos)."))
+          self.ui.lblPosY.setText('{:+0.3f}'.format(float(tblPos[1]))); self.ui.lblPosY.setToolTip(self.tr("Working Position (WPos)."))
+          self.ui.lblPosZ.setText('{:+0.3f}'.format(float(tblPos[2]))); self.ui.lblPosZ.setToolTip(self.tr("Working Position (WPos)."))
+          if self.__nbAxis > 3:
+            self.ui.lblPosA.setText('{:+0.3f}'.format(float(tblPos[3]))); self.ui.lblPosA.setToolTip(self.tr("Working Position (WPos)."))
+          else:
+            self.ui.lblPosA.setText("-")
+          if self.__nbAxis > 4:
+            self.ui.lblPosB.setText('{:+0.3f}'.format(float(tblPos[4]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
+          else:
+            self.ui.lblPosB.setText("-")
+          if self.__nbAxis > 5:
+            self.ui.lblPosC.setText('{:+0.3f}'.format(float(tblPos[5]))); self.ui.lblPosB.setToolTip(self.tr("Working Position (WPos)."))
+          else:
+            self.ui.lblPosC.setText("-")
 
       elif D[:4] == "WCO:": # Work Coordinate Offset
         tblPos = D[4:].split(",")
-        for I in range(len(tblPos)):
-          self.__wco[I] = float(tblPos[I])
-        self.ui.lblWcoX.setText('{:+0.3f}'.format(self.__wco[0]))
-        self.ui.lblWcoY.setText('{:+0.3f}'.format(self.__wco[1]))
-        self.ui.lblWcoZ.setText('{:+0.3f}'.format(self.__wco[2]))
-        if self.__nbAxis > 3:
-          self.ui.lblWcoA.setText('{:+0.3f}'.format(self.__wco[3]))
+        try:
+          for I in range(len(tblPos)):
+            self.__wco[I] = float(tblPos[I])
+        except  ValueError as e:
+          self.sig_log.emit(logSeverity.error.value, self.tr("grblDecode.decodeGrblStatus(WCO): ValueError: {}, grblOutput = {}".format(str(e), grblOutput)))
         else:
-          self.ui.lblWcoA.setText("-")
-        if self.__nbAxis > 4:
-          self.ui.lblWcoB.setText('{:+0.3f}'.format(self.__wco[4]))
-        else:
-          self.ui.lblWcoB.setText("-")
-        if self.__nbAxis > 5:
-          self.ui.lblWcoC.setText('{:+0.3f}'.format(self.__wco[5]))
-        else:
-          self.ui.lblWcoC.setText("-")
+          self.ui.lblWcoX.setText('{:+0.3f}'.format(self.__wco[0]))
+          self.ui.lblWcoY.setText('{:+0.3f}'.format(self.__wco[1]))
+          self.ui.lblWcoZ.setText('{:+0.3f}'.format(self.__wco[2]))
+          if self.__nbAxis > 3:
+            self.ui.lblWcoA.setText('{:+0.3f}'.format(self.__wco[3]))
+          else:
+            self.ui.lblWcoA.setText("-")
+          if self.__nbAxis > 4:
+            self.ui.lblWcoB.setText('{:+0.3f}'.format(self.__wco[4]))
+          else:
+            self.ui.lblWcoB.setText("-")
+          if self.__nbAxis > 5:
+            self.ui.lblWcoC.setText('{:+0.3f}'.format(self.__wco[5]))
+          else:
+            self.ui.lblWcoC.setText("-")
 
       elif D[:3] == "Bf:": # Buffer State (Bf:15,128)
         tblValue = D[3:].split(",")

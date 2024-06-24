@@ -271,6 +271,7 @@ class winMain(QtWidgets.QMainWindow):
       return self.__arretUrgence
 
     self.__decode = grblDecode(self.ui, self.log, self.__grblCom, self.__beeper, arretUrgence)
+    self.__decode.sig_log.connect(self.on_sig_log)
     self.__pBox.setDecoder(self.__decode)    
     self.__grblCom.setDecodeur(self.__decode)
 
