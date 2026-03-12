@@ -17,7 +17,7 @@ Panneau de contrôle Grbl 5/6 axes avec pour but d'implémenter toutes les fonct
 cn5X++ est basé sur Python3, python-serial, PyQt6 et Qt6-SVG.  
 Pour installer les prérequis sur un système Linux type Debian :  
 ```
-sudo apt install python3-pyqt6 libqt6svg6 pyqt6-dev-tools
+sudo apt install python3-serial python3-pyqt6 libqt6svg6 qt6-svg-plugins pyqt6-dev-tools
 ```
 En utilisation sous Linux, l'utilisateur doit faire partie du groupe Unix dialout pour pouvoir utiliser les ports série :  
 ```
@@ -30,7 +30,7 @@ Après avoir installé les prérequis, copiez l'ensemble du dépôt cn5X++ (avec
 *cn5X ++ is based on Python3, python-serial, PyQt6 and Qt6-SVG.*  
 *To install the prerequisites on a Linux system such as Debian:*  
 ```
-sudo apt install python3-pyqt6 libqt6svg6 pyqt6-dev-tools
+sudo apt install python3-serial python3-pyqt6 libqt6svg6 qt6-svg-plugins pyqt6-dev-tools
 ```
 *When using under Linux, the user must be part of the Unix dialout group to be able to use the serial ports:*  
 ```
